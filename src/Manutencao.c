@@ -63,36 +63,43 @@ int excluiManutencao(char *placa)
 	int flag;
 
 	arq = fopen(ARQUIVO_DADOS_MANUTENCAO,"rb");
-	if(arq!=NULL){
-		arqSemExcluido = fopen("database/XXXX.dat","wb");
-		if(arqSemExcluido!=NULL){
-			while(!feof(arq)){
-                if(fread(&m,sizeof(Manutencao),1,arq)==1){
-                    if(stricmp(placa,m.placa)!=0){
-                        if(fwrite(&m,sizeof(Manutencao),1,arqSemExcluido)==1){
-                             flag = MANUT_EXCLUIR_SUCESSO;
-                        }else{
-                             flag = MANUT_EXCLUIR_ERRO;
-                        }
-                    }else{
-                        flag = MANUT_EXCLUIR_SUCESSO;
-                    }
-                }
-            }
-			fclose(arqSemExcluido);
-		}else{
-            flag = ERRO_ABRIR_ARQUIVO;
-		}
-		fclose(arq);
-	}else{
+	arqSemExcluido = fopen("database/dbManutAux.dat","wb");
+	if(arq==NULL){
+		printf(" Erro ao abrir o arquivo de manutencao.\n");
         flag = ERRO_ABRIR_ARQUIVO;
+		return flag;
 	}
-
-	if(flag == MANUT_EXCLUIR_SUCESSO){
-        remove(ARQUIVO_DADOS_MANUTENCAO);
-        rename("database/XXXX.dat", ARQUIVO_DADOS_MANUTENCAO);
+	if(arqSemExcluido==NULL){
+		printf(" Erro ao abrir o arquivo auxiliar de manutencao.\n");
+		fclose(arq);
+        flag = ERRO_ABRIR_ARQUIVO;
+		return flag;
+	}
+	
+	while(!feof(arq)){
+        if(fread(&m,sizeof(Manutencao),1,arq)==1){
+            if(stricmp(placa,m.placa)!=0){
+                if(fwrite(&m,sizeof(Manutencao),1,arqSemExcluido)==1){
+                    flag = MANUT_EXCLUIR_SUCESSO;
+                }else{
+                    flag = MANUT_EXCLUIR_ERRO;
+                    return flag;
+                }
+            }else{
+                flag = MANUT_EXCLUIR_SUCESSO;
+            }
+        }
+    }
+	fclose(arqSemExcluido);
+	fclose(arq);
+    if(remove(ARQUIVO_DADOS_MANUTENCAO)==0){
+    	if(rename("database/dbManutAux.dat", ARQUIVO_DADOS_MANUTENCAO)==0){
+    		flag = MANUT_EXCLUIR_ERRO;
+		}else{
+			flag = MANUT_EXCLUIR_ERRO;
+		}
 	}else{
-        remove("database/XXXX.dat");
+		flag = MANUT_EXCLUIR_ERRO;
 	}
 
 	return flag;
