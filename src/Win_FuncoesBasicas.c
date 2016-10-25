@@ -50,3 +50,21 @@ HWND *guardaPegaHandle(HWND *handle, int tipo){
 
     return hwnd;
 }
+
+/********************************************//**
+ * \brief fecha e verifica o fechamento de uma stream de arquivo
+ *
+ * \param arq - Ponteiro do tipo FILE
+ * 
+ * \return FECHA_ARQUIVO_SUCESSO - Sucesso ao fechar arquivo
+ * \return FECHA_ARQUIVO_ERRO - Erro ao fechar arquivo
+ *
+ ***********************************************/
+int fechaArquivo(FILE *arq){
+	int flag = FECHA_ARQUIVO_ERRO;
+
+    if(fclose(arq) != EOF) flag = FECHA_ARQUIVO_SUCESSO;
+
+    return flag;
+}
+

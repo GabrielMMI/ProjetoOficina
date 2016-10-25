@@ -79,6 +79,8 @@
 #define ERRO_ARQUIVO_GRAVAR_MANUT   60010
 #define ARQ_VEIC_ATUALIZADO         60011
 #define ARQ_PROP_ATUALIZADO         60012
+#define FECHA_ARQUIVO_SUCESSO		60013
+#define FECHA_ARQUIVO_ERRO			60014
 
 int win_trataErros(HWND hwnd, int erro);
 
