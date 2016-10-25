@@ -1,6 +1,6 @@
-# Projeto Final - Oficina Mananger #
 
-![Material Icons_e869(0)_128.png](https://bitbucket.org/repo/np4y89/images/663893651-Material%20Icons_e869(0)_128.png)
+![icone.png](https://bitbucket.org/repo/np4y89/images/319630410-icone.png) 
+# Projeto Final - Oficina Mananger #
 
 Bem vindo ao projeto oficina mananger!
 
