@@ -140,27 +140,35 @@ int alteraProprietario(Proprietario novoP, char *cpf)
 int atualizaArqProp(){
     FILE *arqEntrada, *arqSaida;
     Proprietario aux;
+    int flag = ARQ_PROP_ATUALIZADO;
 
     arqEntrada = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
     arqSaida = fopen("XXXX.txt", "wb");
 
-    if(arqEntrada != NULL && arqSaida != NULL){
-        while(fread(&aux, sizeof(Proprietario), 1, arqEntrada) == 1){
-            if(aux.nome[0] != '\0'){
-                if(fwrite(&aux, sizeof(Proprietario), 1, arqSaida) != 1) return ERRO_ARQUIVO_GRAVAR_PROP;
-            }
-        }
-
-        fclose(arqEntrada);
-        fclose(arqSaida);
+    if(arqEntrada != NULL){
+    	if(arqSaida != NULL){
+	        while(fread(&aux, sizeof(Proprietario), 1, arqEntrada) == 1){
+	            if(aux.nome[0] != '\0'){
+	                if(fwrite(&aux, sizeof(Proprietario), 1, arqSaida) != 1){
+	                	flag = ERRO_ARQUIVO_GRAVAR_PROP;
+	                	breaK;
+					}
+	            }
+	        }
+        	fclose(arqSaida);
+		}else{
+			flag = return ERRO_ABRIR_ARQUIVO;
+		}
+		
+    	fclose(arqEntrada);       
     }else{
-        return ERRO_ABRIR_ARQUIVO;
+        flag =  ERRO_ABRIR_ARQUIVO;
     }
 
     remove(ARQUIVO_DADOS_PROPRIETARIO);
     rename("XXXX.txt", ARQUIVO_DADOS_PROPRIETARIO);
 
-    return ARQ_VEIC_ATUALIZADO;
+    return flag;
 }
 
 /********************************************//**
