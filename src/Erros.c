@@ -17,7 +17,7 @@
  * \param erro - O número do erro que aconteceu
  * \return 0 - Caso não haja erros
  *         1 - Caso aconteça algum erro
- *
+ * 
  ***********************************************/
 int win_trataErros(HWND hwnd, int erro)
 {
