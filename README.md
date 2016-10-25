@@ -1,29 +1,28 @@
-# README #
+# Projeto Final - Oficina Mananger #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Bem vindo ao projeto oficina mananger!
 
-### What is this repository for? ###
+### Versão Projeto ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Versão 1.0
 
-### How do I get set up? ###
+### Autores ###
+* Matheus Bispo
+* Gabriel Messias
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+### Requisitos para implementação ###
 
-### Contribution guidelines ###
+* Windows XP ou Superior
+* Conhecimento GIT
 
-* Writing tests
-* Code review
-* Other guidelines
+### Comandos GIT mais utilizados ###
 
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* git init
+* git clone
+* git status
+* git commit -m "Comentário"
+* git push
+* git pull
+* git merge
+* git checkout -b NomeDaBranch
+* git checkout NomeDaBranch
