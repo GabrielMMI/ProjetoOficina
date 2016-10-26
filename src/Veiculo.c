@@ -19,7 +19,7 @@ int incluiVeiculo(Veiculo v)
                         flag = VEIC_INSERIR_ERRO;
                     }
 
-                    fclose(arq);
+                    flag = fechaArquivo(arq);
                 }else{
                     flag = ERRO_ABRIR_ARQUIVO;
                 }
@@ -54,7 +54,7 @@ int buscaVeiculo(char *placa, int *pos)
 			posicao++;
 		}
         flag = VEIC_BUSCA_SUCESSO;
-		fclose(arq);
+		flag = fechaArquivo(arq);
 	}else{
         flag = ERRO_ABRIR_ARQUIVO;
 	}
@@ -83,7 +83,7 @@ int alteraVeiculo(Veiculo vNovo, char *placa)
                         flag = VEIC_ALTERAR_ERRO;
                     }
                 }
-                fclose(arq);
+                flag = fechaArquivo(arq);
             }
         }
 	}
@@ -94,7 +94,7 @@ int alteraVeiculo(Veiculo vNovo, char *placa)
 /********************************************//**
  * \brief Atualiza o arquivo de veiculos
  *
- * \return PROP_INSERIR_ERRO - Erro na reinser��o dos dados
+ * \return PROP_INSERIR_ERRO - Erro na reinser��o dos dados
  * \return ERRO_ABRIR_ARQUIVO - Erro ao abrir o arquivo
  ***********************************************/
 int atualizaArqVeic(){
@@ -121,8 +121,8 @@ int atualizaArqVeic(){
 	    }
 	}
 	
-	fclose(arqEntrada);
-	fclose(arqSaida);
+	flag = fechaArquivo(arqEntrada);
+	flag = fechaArquivo(arqSaida);
 
     if(remove(ARQUIVO_DADOS_VEICULO)==0){
     	if(rename("database/dbVeicAux.dat", ARQUIVO_DADOS_VEICULO)==0){
@@ -137,7 +137,7 @@ int atualizaArqVeic(){
 
 
 //Objetivo: Ler e excluir um veiculo no arquivo de veiculos
-//Parametros: Endere�o da placa que ser� excluida
+//Parametros: Endere�o da placa que ser� excluida
 //Retorno: -------------
 int excluiVeiculo(char *placa)
 {
@@ -159,7 +159,7 @@ int excluiVeiculo(char *placa)
 				break;
 			}
 		}
-		fclose(arq);
+		flag = fechaArquivo(arq);
 	}else{
         flag = ERRO_ABRIR_ARQUIVO;
         return flag;
@@ -187,7 +187,7 @@ int excluiVeiculo(char *placa)
 }
 
 //Objetivo: Validar uma placa no formato AAA1234
-//Parametros: Endere�o da placa
+//Parametros: Endere�o da placa
 //Retorno: 0(placa valida) ou 1(placa invalida)
 int validaPlaca(char *placa)
 {
@@ -249,7 +249,7 @@ int pegaVeiculo(char *placa,Veiculo *v)
                         flag = ERRO_ARQUIVO_LER_VEIC;
                     }
                 }
-                fclose(arqVeic);
+                flag = fechaArquivo(arqVeic);
             }else{
                 flag = ERRO_ABRIR_ARQUIVO;
             }

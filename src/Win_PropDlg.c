@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_PropDlg.c
- * @brief Contem as funções de controle da tabPage Proprietario.
+ * @brief Contem as funÃ§Ãµes de controle da tabPage Proprietario.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -10,7 +10,7 @@
 #include "../include/Win_Functions.h"
 
 /********************************************//**
- * \brief Atualiza uma lista de proprietários de
+ * \brief Atualiza uma lista de proprietarios de
  *        acordo com um determinado filtro
  * \param hwndList HWND
  * \param filtro char*
@@ -52,9 +52,9 @@ void atualizaListaProp(HWND hwndList, char *filtro){
                         cont++;
                     }
                 }
-                fclose(arq);
+ Â  Â  Â  Â  Â  Â  Â   if(win_trataErros(hwndList,fechaArquivo(arq)) != 0) return;
             }else{
-            win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO);
+ Â  Â  Â  Â  Â   if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) != 0) return;
             }
         }
     }
@@ -62,7 +62,7 @@ void atualizaListaProp(HWND hwndList, char *filtro){
 
 /********************************************//**
  * \brief Le os dados do formulario e retorna um
- *        ponteiro do tipo Proprietário
+ *        ponteiro do tipo Proprietario
  * \param hwnd HWND
  * \return Proprietario*
  *
@@ -82,15 +82,15 @@ Proprietario *leDadosPropForm(HWND hwnd){
 }
 
 /********************************************//**
- * \brief Função de controle do janela "Adicionar Proprietario"
+ * \brief FunÃ§Ã£o de controle do janela "Adicionar Proprietario"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -128,8 +128,8 @@ BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                 EnableWindow(GetDlgItem(hwnd, ID_BOTAO_ACAO_PROP), FALSE);
             }
 
-            if(validaCPF(cpf) != CPF_VALIDO && strlen(cpf) == TAM_CPF-1) SetDlgItemText(hwnd, ID_PROP_ADD_LOG, "O CPF inserido é inválido!");
-            if(validaTelefone(tel) != TEL_VALIDO && strlen(tel) == TAM_TEL-1) SetDlgItemText(hwnd, ID_PROP_ADD_LOG, "O telefone inserido é inválido!");
+            if(validaCPF(cpf) != CPF_VALIDO && strlen(cpf) == TAM_CPF-1) SetDlgItemText(hwnd, ID_PROP_ADD_LOG, "O CPF inserido ï¿½ invï¿½lido!");
+            if(validaTelefone(tel) != TEL_VALIDO && strlen(tel) == TAM_TEL-1) SetDlgItemText(hwnd, ID_PROP_ADD_LOG, "O telefone inserido ï¿½ invï¿½lido!");
 
 
             switch(wp){
@@ -148,15 +148,15 @@ BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Alterar Proprietario"
+ * \brief FunÃ§Ã£o de controle do Dialogo "Alterar Proprietario"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -228,15 +228,15 @@ BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Excluir Proprietario"
+ * \brief FunÃ§Ã£o de controle do Dialogo "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -287,7 +287,7 @@ BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Nomeia as colunas da lista de proprietários
+ * \brief Nomeia as colunas da lista de proprietï¿½rios
  *
  * \param hwndList HWND
  * \return void
@@ -316,15 +316,15 @@ void inicializaListProp(HWND hwndList){
 }
 
 /********************************************//**
- * \brief Função de controle da janela "Alterar Proprietario"
+ * \brief FunÃ§Ã£o de controle da janela "Alterar Proprietario"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -387,15 +387,15 @@ BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle da janela "Excluir Proprietario"
+ * \brief FunÃ§Ã£o de controle da janela "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formExcluirProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -458,15 +458,15 @@ BOOL CALLBACK formExcluirProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Apresentar todos os Proprietarios"
+ * \brief FunÃ§Ã£o de controle do Dialogo "Apresentar todos os Proprietarios"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK apresentarProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -497,7 +497,7 @@ BOOL CALLBACK apresentarProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
         lvCol.mask=LVCF_TEXT|LVCF_WIDTH|LVCF_SUBITEM;
         lvCol.cx=28;
-        lvCol.pszText="Descrição";
+        lvCol.pszText="Descriï¿½ï¿½o";
         lvCol.cx=120;
         SendMessage(hwndList ,LVM_INSERTCOLUMN, 5, (LPARAM)&lvCol);
 
@@ -542,9 +542,9 @@ BOOL CALLBACK apresentarProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                     cont++;
 
                 }
-                fclose(arq);
+ Â  Â  Â  Â  Â  Â  Â   if (win_trataErros(hwndList, fechaArquivo(arq)) == 1) return FALSE;
             }else{
-            win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO);
+ Â  Â  Â  Â  Â   if (win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) == 1) return FALSE;
             }
         }
 
@@ -556,15 +556,15 @@ BOOL CALLBACK apresentarProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Função de controle da tabPage "Proprietário"
+ * \brief FunÃ§Ã£o de controle da tabPage "Proprietario"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK tabPropPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -601,4 +601,3 @@ BOOL CALLBACK tabPropPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     }
     return FALSE;
 }
-

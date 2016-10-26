@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_DlgMain.c
- * @brief Contem a função de controle da janela Principal.
+ * @brief Contem a funï¿½ï¿½o de controle da janela Principal.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -10,15 +10,15 @@
 #include "../include/Win_Functions.h"
 
 /********************************************//**
- * \brief Função de controle da janela "Créditos"
+ * \brief Funï¿½ï¿½o de controle da janela "Crï¿½ditos"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK creditosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -47,15 +47,15 @@ BOOL CALLBACK creditosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Função de controle da janela Principal
+ * \brief Funï¿½ï¿½o de controle da janela Principal
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -95,21 +95,21 @@ LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
                     fgets(ofic.nome, TAM_NOME, oficinaInfo);
                     fgets(ofic.endereco, TAM_NOME, oficinaInfo);
 
-                    fclose(oficinaInfo);
+ Â  Â  Â  Â  Â  Â  Â  Â  Â   if (win_trataErros(hwnd, fechaArquivo(oficinaInfo)) != 0) return FALSE;
 
-                    remove(ARQUIVO_DADOS_OFICINA);
+                    if(remove(ARQUIVO_DADOS_OFICINA) == EOF) return FALSE;
 
                     SetDlgItemText(hwnd, OFICIAL_NOME, ofic.nome);
                     SetDlgItemText(hwnd, OFICIAL_ENDERECO, ofic.endereco);
                 }else{
-                    win_trataErros(hwnd, ERRO_ABRIR_ARQUIVO);
+                    if(win_trataErros(hwnd, ERRO_ABRIR_ARQUIVO) != 0) return FALSE;
                 }
             }
 
             hTab = GetDlgItem(hwnd, HTAB);
 
             itemProp.mask = TCIF_TEXT;
-            itemProp.pszText = "Proprietários";
+            itemProp.pszText = "Proprietï¿½rios";
 
             count = SendMessage(hTab, TCM_GETITEMCOUNT, 0, 0);
             SendMessage(hTab, TCM_INSERTITEM, count,
@@ -123,7 +123,7 @@ LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
                 (LPARAM) (LPTCITEM) &itemVeic);
 
             itemManu.mask = TCIF_TEXT;
-            itemManu.pszText = "Manutenção";
+            itemManu.pszText = "Manutenï¿½ï¿½o";
 
             count = SendMessage(hTab, TCM_GETITEMCOUNT, 0, 0);
             SendMessage(hTab, TCM_INSERTITEM, count,
@@ -163,5 +163,3 @@ LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 	return FALSE;
 }
-
-

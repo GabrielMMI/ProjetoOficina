@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_VeicDlg.c
- * @brief Contem as funções de controle da tabPage Veiculo.
+ * @brief Contem as funÃ§Ãµes de controle da tabPage Veiculo.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -52,24 +52,24 @@ void atualizaListaVeic(HWND hwndList, char *filtro){
                         cont++;
                     }
                 }
-                fclose(arq);
+ Â  Â  Â  Â  Â  Â  Â   if(win_trataErros(hwndList, fechaArquivo(arq)) == 1) return;
             }else{
-            win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO);
+            if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) == 1) return;
             }
         }
     }
 }
 
 /********************************************//**
- * \brief Função de controle do janela "Adicionar Veiculo"
+ * \brief FunÃ§Ã£o de controle do janela "Adicionar Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formAddVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -104,8 +104,8 @@ BOOL CALLBACK formAddVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                 EnableWindow(GetDlgItem(hwnd, ID_BOTAO_ACAO_VEIC), FALSE);
             }
 
-            if(validaPlaca(placa) == PLACA_INVALIDA && strlen(placa) == TAM_PLACA-1) SetDlgItemText(hwnd, ID_VEIC_ADD_LOG, "A placa inserida é inválida!");
-            if(GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_CHASSI_VEIC)) < TAM_CHASSI-1 && GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_CHASSI_VEIC)) > 0) SetDlgItemText(hwnd, ID_VEIC_ADD_LOG, "O chassi inserido é inválido!");
+            if(validaPlaca(placa) == PLACA_INVALIDA && strlen(placa) == TAM_PLACA-1) SetDlgItemText(hwnd, ID_VEIC_ADD_LOG, "A placa inserida ï¿½ invï¿½lida!");
+            if(GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_CHASSI_VEIC)) < TAM_CHASSI-1 && GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_CHASSI_VEIC)) > 0) SetDlgItemText(hwnd, ID_VEIC_ADD_LOG, "O chassi inserido ï¿½ invï¿½lido!");
 
             switch(wp){
             case ID_BOTAO_ACAO_VEIC:
@@ -131,7 +131,7 @@ BOOL CALLBACK formAddVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Nomeia as colunas da lista de Veículos
+ * \brief Nomeia as colunas da lista de VeÃ­culos
  *
  * \param hwndList HWND
  * \return void
@@ -159,15 +159,15 @@ void inicializaListVeic(HWND hwndList){
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Alterar Proprietario"
+ * \brief FunÃ§Ã£o de controle do Dialogo "Alterar Proprietario"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuÃ¡rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -214,15 +214,15 @@ BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Função de controle do janela "Alterar Veiculo"
+ * \brief FunÃ§Ã£o de controle do janela "Alterar Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuÃ¡rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -289,15 +289,15 @@ BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Excluir Proprietario"
+ * \brief FunÃ§Ã£o de controle do Dialogo "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuÃ¡rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formExcluirVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -345,15 +345,15 @@ BOOL CALLBACK formExcluirVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Função de controle do janela "Excluir Veiculo"
+ * \brief FunÃ§Ã£o de controle do janela "Excluir Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuÃ¡rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nÃ£o
+ * \return PadrÃ£o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -419,15 +419,15 @@ BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle da tabPage "Veículo"
+ * \brief FunÃ§Ã£o de controle da tabPage "VeÃ­culo"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuÃ¡rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 
@@ -464,5 +464,3 @@ BOOL CALLBACK tabVeicPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
     return FALSE;
 }
-
-
