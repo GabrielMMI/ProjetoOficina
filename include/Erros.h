@@ -81,6 +81,8 @@
 #define ARQ_PROP_ATUALIZADO         60012
 #define FECHA_ARQUIVO_SUCESSO		60013
 #define FECHA_ARQUIVO_ERRO			60014
+#define ERRO_REMOVER_ARQUIVO		60015
+#define ERRO_RENOMEAR_ARQUIVO		60016
 
 int win_trataErros(HWND hwnd, int erro);
 
