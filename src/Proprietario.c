@@ -165,8 +165,8 @@ int atualizaArqProp(){
         flag =  ERRO_ABRIR_ARQUIVO;
     }
 
-    remove(ARQUIVO_DADOS_PROPRIETARIO);
-    rename("XXXX.txt", ARQUIVO_DADOS_PROPRIETARIO);
+    if(remove(ARQUIVO_DADOS_PROPRIETARIO) == EOF) flag = ERRO_REMOVER_ARQUIVO;
+    if(rename("XXXX.txt", ARQUIVO_DADOS_PROPRIETARIO))flag = ERRO_RENOMEAR_ARQUIVO;
 
     return flag;
 }
