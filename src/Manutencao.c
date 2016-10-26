@@ -162,6 +162,34 @@ int buscaManutencao(char *placa, char *cpf, Data data, int *pos)
 
 }
 
+int buscaManutencaoCPF(char *cpf, int *pos){
+    FILE *dbManut;
+	Manutencao mAux;
+	int ind = -1, flag;
+
+	*pos = ind;
+
+	if(!existeArquivo(ARQUIVO_DADOS_MANUTENCAO)) return ERRO_ARQUIVO_INEXISTENTE;
+
+	dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+    if(dbManut != NULL){
+        while(fread(&mAux, sizeof(Manutencao), 1, dbManut) == 1){
+            ind++;
+            if(stricmp(mAux.cpf, cpf) == 0){
+                *pos = ind;
+                break;
+            }
+        }
+        flag = MANUT_BUSCA_SUCESSO;
+        flag = fechaArquivo(dbManut);
+    }else{
+        flag = ERRO_ABRIR_ARQUIVO;
+    }
+
+	return flag;
+
+}
+
 //Objetivo: Pegar Data atual
 //Parametros: ---------
 //Retorno: ----------
