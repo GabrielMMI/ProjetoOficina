@@ -72,7 +72,6 @@ int excluiManutencao(char *placa)
 	if(arqSemExcluido==NULL){
 		printf(" Erro ao abrir o arquivo auxiliar de manutencao.\n");
 		flag = fechaArquivo(arq);
-        flag = ERRO_ABRIR_ARQUIVO;
 		return flag;
 	}
 	
