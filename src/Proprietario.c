@@ -11,6 +11,7 @@
 
 #include "../include/Proprietario.h"
 #include "../include/Erros.h"
+#include "../include/Manutencao.h"
 
 /********************************************//**
  * \brief Inclui um proprietario em um arquivo de dados de um proprietario
@@ -188,24 +189,30 @@ int excluiProprietario(char *cpf)
 	FILE *dbProp;
 
 	flag = buscaProprietario(cpf, &pos);
+
 	if(flag == PROP_BUSCA_SUCESSO){
         if(pos == -1){
             flag = PROP_BUSCA_INEXISTENTE;
         }else{
-            dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "r+b");
-            if(dbProp != NULL){
-                pAux.nome[0] = '\0';
+            flag = buscaManutencaoCPF(cpf, &pos);
+            if(pos == -1){
+                dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "r+b");
+                if(dbProp != NULL){
+                    pAux.nome[0] = '\0';
 
-                flag = alteraProprietario(pAux, cpf);
-                if(flag == PROP_ALTERAR_SUCESSO){
-                    flag = PROP_EXCLUIR_SUCESSO;
+                    flag = alteraProprietario(pAux, cpf);
+                    if(flag == PROP_ALTERAR_SUCESSO){
+                        flag = PROP_EXCLUIR_SUCESSO;
+                    }else{
+                        flag = PROP_EXCLUIR_ERRO;
+                    }
+
+                    flag = fechaArquivo(dbProp);
                 }else{
-                    flag = PROP_EXCLUIR_ERRO;
+                    flag = ERRO_ABRIR_ARQUIVO;
                 }
-
-                flag = fechaArquivo(dbProp);
             }else{
-                flag = ERRO_ABRIR_ARQUIVO;
+                flag = PROP_EXCLUIR_ERRO_MANUT_EXISTENTE;
             }
         }
 	}
