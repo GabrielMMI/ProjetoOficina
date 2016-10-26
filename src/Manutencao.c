@@ -1,6 +1,6 @@
 #include "../include/Manutencao.h"
 
-//Objetivo: Ler e incluir uma manutenção no arquivo de manutençao
+//Objetivo: Ler e incluir uma manutenï¿½ï¿½o no arquivo de manutenï¿½ao
 //Parametros: ---------
 //Retorno: ----------
 int incluiManutencao(Manutencao m)
@@ -26,7 +26,7 @@ int incluiManutencao(Manutencao m)
 				break;
 			}
 		}
-		fclose(arq);
+		flag = fechaArquivo(arq);
 	}else{
         flag = ERRO_ABRIR_ARQUIVO;
 	}
@@ -44,7 +44,7 @@ int incluiManutencao(Manutencao m)
                 }else{
                     flag = MANUT_INSERIR_ERRO;
                 }
-			fclose(arq);
+			flag = fechaArquivo(arq);
 		}else{
             flag = ERRO_ABRIR_ARQUIVO;
 		}
@@ -53,7 +53,7 @@ int incluiManutencao(Manutencao m)
 	return flag;
 }
 
-//Objetivo: Ler e excluir uma manutenção no arquivo de manutençao
+//Objetivo: Ler e excluir uma manutenï¿½ï¿½o no arquivo de manutenï¿½ao
 //Parametros: ---------
 //Retorno: ----------
 int excluiManutencao(char *placa)
@@ -71,7 +71,7 @@ int excluiManutencao(char *placa)
 	}
 	if(arqSemExcluido==NULL){
 		printf(" Erro ao abrir o arquivo auxiliar de manutencao.\n");
-		fclose(arq);
+		flag = fechaArquivo(arq);
         flag = ERRO_ABRIR_ARQUIVO;
 		return flag;
 	}
@@ -90,8 +90,8 @@ int excluiManutencao(char *placa)
             }
         }
     }
-	fclose(arqSemExcluido);
-	fclose(arq);
+	flag = fechaArquivo(arqSemExcluido);
+	flag = fechaArquivo(arq);
     if(remove(ARQUIVO_DADOS_MANUTENCAO)==0){
     	if(rename("database/dbManutAux.dat", ARQUIVO_DADOS_MANUTENCAO)==0){
     		flag = MANUT_EXCLUIR_ERRO;
@@ -125,7 +125,7 @@ int pegaManutencao(char *placa, char *cpf, Data data, Manutencao *manut){
                         flag = MANUT_PEGAMANUT_SUCESSO;
                     }
                 }
-                fclose(arqManut);
+ Â  Â  Â  Â  Â  Â  Â   flag = fechaArquivo(arqManut);
             }else{
                 flag = ERRO_ABRIR_ARQUIVO;
             }
@@ -154,7 +154,7 @@ int buscaManutencao(char *placa, char *cpf, Data data, int *pos)
             }
         }
         flag = MANUT_BUSCA_SUCESSO;
-        fclose(dbManut);
+ Â  Â  Â   flag = fechaArquivo(dbManut);
     }else{
         flag = ERRO_ABRIR_ARQUIVO;
     }
@@ -208,5 +208,3 @@ Data convertTime(SYSTEMTIME st){
 
 	return data;
 }
-
-
