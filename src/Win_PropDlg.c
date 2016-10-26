@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_PropDlg.c
- * @brief Contem as fun��es de controle da tabPage Proprietario.
+ * @brief Contem as funções de controle da tabPage Proprietario.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -10,7 +10,7 @@
 #include "../include/Win_Functions.h"
 
 /********************************************//**
- * \brief Atualiza uma lista de propriet�rios de
+ * \brief Atualiza uma lista de proprietarios de
  *        acordo com um determinado filtro
  * \param hwndList HWND
  * \param filtro char*
@@ -62,7 +62,7 @@ void atualizaListaProp(HWND hwndList, char *filtro){
 
 /********************************************//**
  * \brief Le os dados do formulario e retorna um
- *        ponteiro do tipo Propriet�rio
+ *        ponteiro do tipo Proprietario
  * \param hwnd HWND
  * \return Proprietario*
  *
@@ -82,7 +82,7 @@ Proprietario *leDadosPropForm(HWND hwnd){
 }
 
 /********************************************//**
- * \brief Fun��o de controle do janela "Adicionar Proprietario"
+ * \brief Função de controle do janela "Adicionar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usu�rio
@@ -148,7 +148,7 @@ BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do Dialogo "Alterar Proprietario"
+ * \brief Função de controle do Dialogo "Alterar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usu�rio
@@ -228,7 +228,7 @@ BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do Dialogo "Excluir Proprietario"
+ * \brief Função de controle do Dialogo "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usu�rio
@@ -316,7 +316,7 @@ void inicializaListProp(HWND hwndList){
 }
 
 /********************************************//**
- * \brief Fun��o de controle da janela "Alterar Proprietario"
+ * \brief Função de controle da janela "Alterar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usu�rio
@@ -387,7 +387,7 @@ BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle da janela "Excluir Proprietario"
+ * \brief Função de controle da janela "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usu�rio
@@ -458,7 +458,7 @@ BOOL CALLBACK formExcluirProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do Dialogo "Apresentar todos os Proprietarios"
+ * \brief Função de controle do Dialogo "Apresentar todos os Proprietarios"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usu�rio
@@ -556,10 +556,10 @@ BOOL CALLBACK apresentarProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Fun��o de controle da tabPage "Propriet�rio"
+ * \brief Função de controle da tabPage "Proprietario"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou

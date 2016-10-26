@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_VeicDlg.c
- * @brief Contem as fun��es de controle da tabPage Veiculo.
+ * @brief Contem as funções de controle da tabPage Veiculo.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -61,7 +61,7 @@ void atualizaListaVeic(HWND hwndList, char *filtro){
 }
 
 /********************************************//**
- * \brief Fun��o de controle do janela "Adicionar Veiculo"
+ * \brief Função de controle do janela "Adicionar Veiculo"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usu�rio
@@ -131,7 +131,7 @@ BOOL CALLBACK formAddVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Nomeia as colunas da lista de Ve�culos
+ * \brief Nomeia as colunas da lista de Veículos
  *
  * \param hwndList HWND
  * \return void
@@ -159,10 +159,10 @@ void inicializaListVeic(HWND hwndList){
 }
 
 /********************************************//**
- * \brief Fun��o de controle do Dialogo "Alterar Proprietario"
+ * \brief Função de controle do Dialogo "Alterar Proprietario"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuário
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
@@ -214,10 +214,10 @@ BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Fun��o de controle do janela "Alterar Veiculo"
+ * \brief Função de controle do janela "Alterar Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuário
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
@@ -289,10 +289,10 @@ BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do Dialogo "Excluir Proprietario"
+ * \brief Função de controle do Dialogo "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuário
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
@@ -345,15 +345,15 @@ BOOL CALLBACK formExcluirVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Fun��o de controle do janela "Excluir Veiculo"
+ * \brief Função de controle do janela "Excluir Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuário
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informa��es adicionais sobre o comando ou n�o
- * \return Padr�o Windows para janelas
+ * \param lParam Pode carregar informa��es adicionais sobre o comando ou não
+ * \return Padrão Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -419,10 +419,10 @@ BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle da tabPage "Ve�culo"
+ * \brief Função de controle da tabPage "Veículo"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuário
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou

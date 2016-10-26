@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file main.c
- * @brief Inicializa a janela inicial e cria os diret�rios necess�rios.
+ * @brief Inicializa a janela inicial e cria os diretórios necessórios.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -17,7 +17,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     InitCommonControls();
     FILE *dbprop, *dbveic, *dbmanut;
     int flag = 0;
-  
+
     mkdir("database");
     dbprop = fopen(ARQUIVO_DADOS_PROPRIETARIO, "ab");
     dbveic = fopen(ARQUIVO_DADOS_VEICULO, "ab");
