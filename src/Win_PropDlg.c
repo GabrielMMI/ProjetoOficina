@@ -135,7 +135,6 @@ BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
             switch(wp){
             case ID_BOTAO_ACAO_PROP:
                 aux = leDadosPropForm(hwnd);
-
                 erro = incluiProprietario(*aux);
                 free(aux);
                 if(win_trataErros(hwnd, erro) == 0) EndDialog(hwnd, 0);

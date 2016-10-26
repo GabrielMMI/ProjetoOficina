@@ -17,7 +17,7 @@
  * \param erro - O número do erro que aconteceu
  * \return 0 - Caso não haja erros
  *         1 - Caso aconteça algum erro
- * 
+ *
  ***********************************************/
 int win_trataErros(HWND hwnd, int erro)
 {
@@ -54,7 +54,7 @@ int win_trataErros(HWND hwnd, int erro)
             break;
 
         case PROP_BUSCA_SUCESSO:
-            MessageBox(hwnd, "Busca realizada com sucesso!", "", MB_OK | MB_ICONINFORMATION);
+            //MessageBox(hwnd, "Busca realizada com sucesso!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case PROP_BUSCA_EXISTENTE:
@@ -68,7 +68,7 @@ int win_trataErros(HWND hwnd, int erro)
             break;
 
         case PROP_PEGAPROP_SUCESSO:
-             MessageBox(hwnd, "Proprietário recuperado com sucesso!", "", MB_OK | MB_ICONINFORMATION);
+            // MessageBox(hwnd, "Proprietário recuperado com sucesso!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case PROP_PEGAPROP_ERRO:
@@ -77,7 +77,7 @@ int win_trataErros(HWND hwnd, int erro)
             break;
 
         case CPF_VALIDO:
-            MessageBox(hwnd, "Cpf válido!", "", MB_OK | MB_ICONINFORMATION);
+            //MessageBox(hwnd, "Cpf válido!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case CPF_INVALIDO:
@@ -86,7 +86,7 @@ int win_trataErros(HWND hwnd, int erro)
             break;
 
         case TEL_VALIDO:
-            MessageBox(hwnd, "Telefone válido!", "", MB_OK | MB_ICONINFORMATION);
+            //MessageBox(hwnd, "Telefone válido!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case TEL_INVALIDO:
@@ -137,11 +137,11 @@ int win_trataErros(HWND hwnd, int erro)
             break;
 
         case VEIC_BUSCA_SUCESSO:
-            MessageBox(hwnd, "Busca efetuada com Sucesso!", "", MB_OK | MB_ICONINFORMATION);
+            //MessageBox(hwnd, "Busca efetuada com Sucesso!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case VEIC_PEGAVEIC_SUCESSO:
-            MessageBox(hwnd, "Veiculo recuperado com sucesso!", "", MB_OK | MB_ICONINFORMATION);
+            //MessageBox(hwnd, "Veiculo recuperado com sucesso!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case VEIC_PEGAVEIC_ERRO:
@@ -150,7 +150,7 @@ int win_trataErros(HWND hwnd, int erro)
             break;
 
         case PLACA_VALIDA:
-            MessageBox(hwnd, "Placa válida!", "", MB_OK | MB_ICONINFORMATION);
+            //MessageBox(hwnd, "Placa válida!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case PLACA_INVALIDA:
@@ -159,7 +159,7 @@ int win_trataErros(HWND hwnd, int erro)
             break;
 
         case CHASSI_VALIDO:
-            MessageBox(hwnd, "Chassi válido!", "", MB_OK | MB_ICONINFORMATION);
+            //MessageBox(hwnd, "Chassi válido!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case CHASSI_REPETIDO:
@@ -196,7 +196,7 @@ int win_trataErros(HWND hwnd, int erro)
             break;
 
         case MANUT_BUSCA_SUCESSO:
-            MessageBox(hwnd, "Manutenção encontrada com sucesso!", "", MB_OK | MB_ICONINFORMATION);
+            //MessageBox(hwnd, "Manutenção encontrada com sucesso!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case DATA_ATUAL_ERRO:
@@ -205,7 +205,7 @@ int win_trataErros(HWND hwnd, int erro)
             break;
 
         case DATA_ATUAL_SUCESSO:
-            MessageBox(hwnd, "Data atual recuperada com sucesso!", "", MB_OK | MB_ICONINFORMATION);
+            //MessageBox(hwnd, "Data atual recuperada com sucesso!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case DATA_INVALIDA:
@@ -224,7 +224,7 @@ int win_trataErros(HWND hwnd, int erro)
             break;
 
         case CONVERTE_DATA_SUCESSO:
-            MessageBox(hwnd, "Sucesso ao converter a data!", "", MB_OK | MB_ICONINFORMATION);
+            //MessageBox(hwnd, "Sucesso ao converter a data!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case CONVERTE_DATA_ERRO:
@@ -235,17 +235,17 @@ int win_trataErros(HWND hwnd, int erro)
 
 //---------- ARQUIVO
         case ARQUIVO_EXISTENTE:
-            MessageBox(hwnd, "Arquivo existente!", "", MB_OK | MB_ICONINFORMATION);
+            //MessageBox(hwnd, "Arquivo existente!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case ABRIR_ARQUIVO_SUCESSO:
-            MessageBox(hwnd, "Arquivo criado/aberto com sucesso!", "", MB_OK | MB_ICONINFORMATION);
+            //MessageBox(hwnd, "Arquivo criado/aberto com sucesso!", "", MB_OK | MB_ICONINFORMATION);
             break;
-        
+
         case FECHA_ARQUIVO_SUCESSO:
-            MessageBox(hwnd, "Arquivo criado/aberto com sucesso!", "", MB_OK | MB_ICONINFORMATION);
+            //MessageBox(hwnd, "Arquivo criado/aberto com sucesso!", "", MB_OK | MB_ICONINFORMATION);
             break;
-        
+
         case FECHA_ARQUIVO_ERRO:
             MessageBox(hwnd, "Arquivo criado/aberto com sucesso!", "", MB_OK | MB_ICONERROR);
             qtErros++;

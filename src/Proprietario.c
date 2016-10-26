@@ -28,21 +28,24 @@ int incluiProprietario(Proprietario prop)
 	FILE *dbProp;
 	int flag, pos;
 
-    dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "ab");
-    if(dbProp != NULL){
-        flag = buscaProprietario(prop.cpf, &pos);
-        if(pos == -1 && flag == PROP_BUSCA_SUCESSO){
+    flag = buscaProprietario(prop.cpf, &pos);
+    if(pos == -1 && flag == PROP_BUSCA_SUCESSO){
+        dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "ab");
+        if(dbProp != NULL){
             if(fwrite(&prop, sizeof(Proprietario), 1, dbProp) == 1){
                 flag = PROP_INSERIR_SUCESSO;
             }else{
                 flag = PROP_INSERIR_ERRO;
             }
-        }else if(flag == PROP_BUSCA_SUCESSO){
-            flag =  PROP_BUSCA_EXISTENTE;
+
+            if(fechaArquivo(dbProp) == FECHA_ARQUIVO_ERRO){
+                flag = FECHA_ARQUIVO_ERRO;
+            }
+        }else{
+            flag = ERRO_ABRIR_ARQUIVO;
         }
-        flag = fechaArquivo(dbProp);
-    }else{
-        flag = ERRO_ABRIR_ARQUIVO;
+    }else if(flag == PROP_BUSCA_SUCESSO){
+        flag =  PROP_BUSCA_EXISTENTE;
     }
 
 	return flag;
@@ -82,8 +85,10 @@ int buscaProprietario(char *cpf, int *pos)
                 break;
             }
         }
-        flag = PROP_BUSCA_SUCESSO;
         flag = fechaArquivo(dbProp);
+        if(flag != FECHA_ARQUIVO_ERRO){
+            flag = PROP_BUSCA_SUCESSO;
+        }
     }else{
         flag = ERRO_ABRIR_ARQUIVO;
     }
@@ -212,7 +217,7 @@ int excluiProprietario(char *cpf)
                     flag = ERRO_ABRIR_ARQUIVO;
                 }
             }else{
-                flag = PROP_EXCLUIR_ERRO_MANUT_EXISTENTE;
+                //flag = PROP_EXCLUIR_ERRO_MANUT_EXISTENTE;
             }
         }
 	}
