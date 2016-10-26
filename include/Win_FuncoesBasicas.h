@@ -23,6 +23,7 @@
 int abreArquivo(char *nomeArq, char *tipoAbertura, FILE* arq);
 int existeArquivo(char *nomeArq);
 HWND *guardaPegaHandle(HWND *handle, int tipo);
+int fechaArquivo(FILE *arq);
 //----------------------------------------------------------------------//
 
 #endif

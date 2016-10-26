@@ -235,11 +235,20 @@ int win_trataErros(HWND hwnd, int erro)
 
 //---------- ARQUIVO
         case ARQUIVO_EXISTENTE:
-            MessageBox(hwnd, "Arquivo existente!", "", MB_OK | MB_ICONERROR);
+            MessageBox(hwnd, "Arquivo existente!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case ABRIR_ARQUIVO_SUCESSO:
+            MessageBox(hwnd, "Arquivo criado/aberto com sucesso!", "", MB_OK | MB_ICONINFORMATION);
+            break;
+        
+        case FECHA_ARQUIVO_SUCESSO:
+            MessageBox(hwnd, "Arquivo criado/aberto com sucesso!", "", MB_OK | MB_ICONINFORMATION);
+            break;
+        
+        case FECHA_ARQUIVO_ERRO:
             MessageBox(hwnd, "Arquivo criado/aberto com sucesso!", "", MB_OK | MB_ICONERROR);
+            qtErros++;
             break;
 
     }
