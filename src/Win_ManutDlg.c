@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_ManutDlg.c
- * @brief Contem as funções de controle da tabPage Manutenção.
+ * @brief Contem as funï¿½ï¿½es de controle da tabPage Manutenï¿½ï¿½o.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -10,7 +10,7 @@
 #include<time.h>
 
 /********************************************//**
- * \brief Le os dados do formulario de manutenção
+ * \brief Le os dados do formulario de manutenï¿½ï¿½o
  *
  * \param hwnd HWND
  * \return Manutencao*
@@ -40,7 +40,7 @@ Manutencao *leDadosManutForm(HWND hwnd){
 }
 
 /********************************************//**
- * \brief Atualiza a lista de manutenções de acordo
+ * \brief Atualiza a lista de manutenï¿½ï¿½es de acordo
  *        com a data inicial e a data final
  * \param hwndList HWND
  * \param timeI time_t
@@ -85,16 +85,16 @@ void atualizaListaManut(HWND hwndList, Data dataI, Data dataF){
                     cont++;
                 }
             }
-            fclose(arq);
+ Â  Â  Â  Â  Â   if(win_trataErros(hwndList,fechaArquivo(arq)) != 0) return;
         }else{
-        win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO);
+ Â  Â  Â   if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) != 0) return;
         }
     }
 
 }
 
 /********************************************//**
- * \brief Nomeia as colunas da lista de Manutenções
+ * \brief Nomeia as colunas da lista de Manutenï¿½ï¿½es
  *
  * \param hwndList HWND
  * \return void
@@ -123,15 +123,15 @@ void inicializaListManut(HWND hwndList){
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Excluir Proprietario"
+ * \brief Funï¿½ï¿½o de controle do Dialogo "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formExcluirManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -183,15 +183,15 @@ BOOL CALLBACK formExcluirManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Função de controle da janela "Excluir Manutenção"
+ * \brief Funï¿½ï¿½o de controle da janela "Excluir Manutenï¿½ï¿½o"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -284,15 +284,15 @@ BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle do janela "Adicionar Manutenção"
+ * \brief Funï¿½ï¿½o de controle do janela "Adicionar Manutenï¿½ï¿½o"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formAddManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -327,8 +327,8 @@ BOOL CALLBACK formAddManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                 EnableWindow(GetDlgItem(hwnd, ID_BOTAO_ACAO_MANUT), FALSE);
             }
 
-            if(validaCPF(cpf) != CPF_VALIDO && strlen(cpf) == TAM_CPF-1) SetDlgItemText(hwnd, ID_MANUT_ADD_LOG, "O CPF inserido é inválido!");
-            if(validaPlaca(placa) != PLACA_VALIDA && strlen(placa) == TAM_PLACA-1) SetDlgItemText(hwnd, ID_MANUT_ADD_LOG, "A placa inserida é inválida!");
+            if(validaCPF(cpf) != CPF_VALIDO && strlen(cpf) == TAM_CPF-1) SetDlgItemText(hwnd, ID_MANUT_ADD_LOG, "O CPF inserido ï¿½ invï¿½lido!");
+            if(validaPlaca(placa) != PLACA_VALIDA && strlen(placa) == TAM_PLACA-1) SetDlgItemText(hwnd, ID_MANUT_ADD_LOG, "A placa inserida ï¿½ invï¿½lida!");
 
             switch(wp){
             case ID_BOTAO_ACAO_MANUT:
@@ -350,15 +350,15 @@ BOOL CALLBACK formAddManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle da tabPage "Manutenção"
+ * \brief Funï¿½ï¿½o de controle da tabPage "Manutenï¿½ï¿½o"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 

@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_DlgInicial.c
- * @brief Contem a função de controle da caixa de dialogo inicial.
+ * @brief Contem a funï¿½ï¿½o de controle da caixa de dialogo inicial.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -10,15 +10,15 @@
 #include "../include/Win_Functions.h"
 
 /********************************************//**
- * \brief Função de controle da caixa de dialogo inicial
+ * \brief Funï¿½ï¿½o de controle da caixa de dialogo inicial
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informaï¿½ï¿½es adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 LRESULT CALLBACK DlgIniProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -60,8 +60,7 @@ LRESULT CALLBACK DlgIniProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPar
                 fprintf(oficinaInfo, "%s\n",ofic.nome);
                 fprintf(oficinaInfo, "%s\n",ofic.endereco);
 
-                fclose(oficinaInfo);
-                EndDialog(hwnd, 0);
+ Â  Â  Â  Â  Â  Â  Â   if(win_trataErros(hwnd, fechaArquivo(oficinaInfo)) == 0) EndDialog(hwnd, 0);
             }else{
                 win_trataErros(hwnd, ERRO_ABRIR_ARQUIVO);
             }
