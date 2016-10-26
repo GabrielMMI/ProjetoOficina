@@ -102,30 +102,42 @@ int atualizaArqVeic(){
     Veiculo aux;
 
     arqEntrada = fopen(ARQUIVO_DADOS_VEICULO, "rb");
-    arqSaida = fopen("XXXX.txt", "wb");
+    arqSaida = fopen("database/dbVeicAux.dat", "wb");
 
-    if(arqEntrada != NULL && arqSaida != NULL){
-        while(fread(&aux, sizeof(Veiculo), 1, arqEntrada) == 1){
-            if(aux.placa[0] != '\0'){
-                if(fwrite(&aux, sizeof(Veiculo), 1, arqSaida) != 1) return ERRO_ARQUIVO_GRAVAR_VEIC;
-            }
-        }
+	if(arqEntrada==NULL){
+		return ERRO_ABRIR_ARQUIVO;
+	}
 
-        fclose(arqEntrada);
-        fclose(arqSaida);
-    }else{
-        return ERRO_ABRIR_ARQUIVO;
-    }
+	if(arqSaida==NULL){
+		fclose(arqEntrada);
+		return ERRO_ABRIR_ARQUIVO;
+	}
+	
+	while(fread(&aux, sizeof(Veiculo), 1, arqEntrada) == 1){
+	    if(aux.placa[0] != '\0'){
+	        if(fwrite(&aux, sizeof(Veiculo), 1, arqSaida) != 1){
+	        	return ERRO_ARQUIVO_GRAVAR_VEIC;
+			}
+	    }
+	}
+	
+	fclose(arqEntrada);
+	fclose(arqSaida);
 
-    remove(ARQUIVO_DADOS_VEICULO);
-    rename("XXXX.txt", ARQUIVO_DADOS_VEICULO);
-
-    return ARQ_PROP_ATUALIZADO;
+    if(remove(ARQUIVO_DADOS_VEICULO)==0){
+    	if(rename("database/dbVeicAux.dat", ARQUIVO_DADOS_VEICULO)==0){
+    		return ARQ_PROP_ATUALIZADO;
+		}else{
+			return ERRO_ARQUIVO_GRAVAR_VEIC;
+		}
+	}else{
+		return ERRO_ARQUIVO_GRAVAR_VEIC;
+	}
 }
 
 
 //Objetivo: Ler e excluir um veiculo no arquivo de veiculos
-//Parametros: -------------
+//Parametros: Endereço da placa que será excluida
 //Retorno: -------------
 int excluiVeiculo(char *placa)
 {
@@ -150,26 +162,27 @@ int excluiVeiculo(char *placa)
 		fclose(arq);
 	}else{
         flag = ERRO_ABRIR_ARQUIVO;
+        return flag;
 	}
 
 	if(flag != VEIC_EXCLUIR_ERRO_MANUT){
 
         flag = buscaVeiculo(placa, &pos);
-            if(flag == VEIC_BUSCA_SUCESSO){
-                if(pos == -1){
-                    flag = VEIC_BUSCA_INEXISTENTE;
+        if(flag == VEIC_BUSCA_SUCESSO){
+            if(pos == -1){
+                flag = VEIC_BUSCA_INEXISTENTE;
+                return flag;
+            }else{
+                v.placa[0] = '\0';
+                if(alteraVeiculo(v, placa) == VEIC_ALTERAR_SUCESSO){
+                    flag=atualizaArqVeic();
                 }else{
-                    v.placa[0] = '\0';
-                    if(alteraVeiculo(v, placa) == VEIC_ALTERAR_SUCESSO){
-                        flag = VEIC_EXCLUIR_SUCESSO;
-                    }else{
-                        flag = VEIC_EXCLUIR_ERRO;
-                    }
+                    flag = VEIC_EXCLUIR_ERRO;
                 }
-            };
+            }
+        }
 	}
 
-	atualizaArqVeic();
     return flag;
 }
 
