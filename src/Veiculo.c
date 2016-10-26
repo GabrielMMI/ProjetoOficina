@@ -72,8 +72,10 @@ int alteraVeiculo(Veiculo vNovo, char *placa)
 {
 	FILE *arq;
 	int flag=0, posicao;
+	char teste[20];
 
 	flag = buscaVeiculo(placa, &posicao);
+	itoa(posicao, teste, 20);
 	if(flag == VEIC_BUSCA_SUCESSO){
         if(posicao == -1){
             flag = VEIC_BUSCA_INEXISTENTE;
@@ -161,7 +163,7 @@ int excluiVeiculo(char *placa)
 	FILE *arq;
 	Manutencao m;
 	Veiculo v;
-	int pos, flag = VEIC_EXCLUIR_ERRO;
+	int pos, flag, erro;
 
 	arq = fopen(ARQUIVO_DADOS_MANUTENCAO,"rb");
 	if(arq != NULL){
@@ -194,14 +196,15 @@ int excluiVeiculo(char *placa)
             }else{
                 v.placa[0] = '\0';
                 if(alteraVeiculo(v, placa) == VEIC_ALTERAR_SUCESSO){
-                    flag=atualizaArqVeic();
+                    flag = VEIC_EXCLUIR_SUCESSO;
                 }else{
                     flag = VEIC_EXCLUIR_ERRO;
                 }
             }
         }
 	}
-
+    erro = atualizaArqVeic();
+    if(erro != 0) flag = erro;
     return flag;
 }
 

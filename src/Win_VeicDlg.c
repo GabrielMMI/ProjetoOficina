@@ -10,6 +10,27 @@
 #include "../include/Win_Functions.h"
 
 /********************************************//**
+ * \brief Le os dados do formulario e retorna um
+ *        ponteiro do tipo Veiculo
+ * \param hwnd HWND
+ * \return Veiculo*
+ *
+ ***********************************************/
+Veiculo *leDadosVeicForm(HWND hwnd){
+    Veiculo *aux;
+    aux = (Veiculo *)malloc(sizeof(Veiculo));
+
+    GetDlgItemText(hwnd, ID_EDIT_MODELO_VEIC, aux->modelo, TAM_MODELO);
+    GetDlgItemText(hwnd, ID_EDIT_FAB_VEIC, aux->fabricante, TAM_FABRICANTE);
+    GetDlgItemText(hwnd, ID_EDIT_CHASSI_VEIC, aux->chassi, TAM_CHASSI);
+    GetDlgItemText(hwnd, ID_EDIT_ANO_VEIC, aux->ano, TAM_ANO);
+    GetDlgItemText(hwnd, ID_EDIT_PLACA_VEIC, aux->placa, TAM_PLACA);
+
+    return aux;
+}
+
+
+/********************************************//**
  * \brief Atualiza uma lista de veiculos de
  *        acordo com um determinado filtro
  * \param hwndList HWND
@@ -76,7 +97,7 @@ BOOL CALLBACK formAddVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 {
     char placa[TAM_PLACA];
     int erro;
-    Veiculo veic;
+    static Veiculo *veic;
 
     switch(msg) {
         case WM_INITDIALOG:
@@ -109,13 +130,9 @@ BOOL CALLBACK formAddVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
             switch(wp){
             case ID_BOTAO_ACAO_VEIC:
-                    GetDlgItemText(hwnd, ID_EDIT_PLACA_VEIC, veic.placa, TAM_PLACA);
-                    GetDlgItemText(hwnd, ID_EDIT_MODELO_VEIC, veic.modelo, TAM_MODELO);
-                    GetDlgItemText(hwnd, ID_EDIT_FAB_VEIC, veic.fabricante, TAM_FABRICANTE);
-                    GetDlgItemText(hwnd, ID_EDIT_CHASSI_VEIC, veic.chassi, TAM_CHASSI);
-                    GetDlgItemText(hwnd, ID_EDIT_ANO_VEIC, veic.ano, TAM_ANO);
+                    veic = leDadosVeicForm(hwnd);
 
-                    erro = incluiVeiculo(veic);
+                    erro = incluiVeiculo(*veic);
 
                     win_trataErros(hwnd, erro);
 
@@ -177,6 +194,13 @@ BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     PCOPYDATASTRUCT pcds;
 
     switch(msg) {
+        case WM_INITDIALOG:
+            SendMessage(GetDlgItem(hwnd, ID_EDIT_PLACA_VEIC), EM_LIMITTEXT, TAM_PLACA-1, 0);
+            SendMessage(GetDlgItem(hwnd, ID_EDIT_MODELO_VEIC), EM_LIMITTEXT, TAM_MODELO-1, 0);
+            SendMessage(GetDlgItem(hwnd, ID_EDIT_FAB_VEIC), EM_LIMITTEXT, TAM_FABRICANTE-1, 0);
+            SendMessage(GetDlgItem(hwnd, ID_EDIT_CHASSI_VEIC), EM_LIMITTEXT, TAM_CHASSI-1, 0);
+            SendMessage(GetDlgItem(hwnd, ID_EDIT_ANO_VEIC), EM_LIMITTEXT, TAM_ANO-1, 0);
+        break;
 
         case WM_COPYDATA:
 			pcds = (PCOPYDATASTRUCT)lp;
@@ -195,6 +219,7 @@ BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
             switch(wp){
             case ID_BOTAO_ACAO_VEIC:
+                    auxAntigo = leDadosVeicForm(hwnd);
                     erro = alteraVeiculo(*auxAntigo, auxAntigo->placa);
                     free(auxAntigo);
                     win_trataErros(hwnd, erro);
@@ -232,7 +257,7 @@ BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     int iSelect;
     static HINSTANCE g_inst;
     HWND formAlterar;
-    Veiculo *auxEnvio;
+    static Veiculo *auxEnvio;
     COPYDATASTRUCT CDS;
 
     switch(msg) {

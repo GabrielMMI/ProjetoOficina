@@ -134,7 +134,7 @@ void inicializaListManut(HWND hwndList){
  * \return Padrão Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formExcluirManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formDadosManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 {
     static Manutencao *auxAntigo;
     int erro;
@@ -162,15 +162,7 @@ BOOL CALLBACK formExcluirManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         case WM_COMMAND:
 
             switch(wp){
-            case ID_BOTAO_ACAO_MANUT:
-                    erro = excluiManutencao(auxAntigo->placa);
-                    free(auxAntigo);
-                    win_trataErros(hwnd, erro);
-                    SendMessage(guardaPegaHandle(NULL, 1), WM_COMMAND, 3, NULL);
-                    EndDialog(hwnd, 0);
-            break;
-
-            case ID_BOTAO_CANCELAR_MANUT:
+            case ID_BOTAO_SAIR_MANUT:
                 EndDialog(hwnd, 0);
             break;
             }
@@ -194,7 +186,7 @@ BOOL CALLBACK formExcluirManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \return Padrão Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 {
     int iSelect;
     static Data dataI, dataF;
@@ -250,13 +242,12 @@ BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                 case 3:
                     atualizaListaManut(hwndList, dataI, dataF);
                 break;
-                case ID_MANUT_BOTAO_EXCLUIR:
-                    guardaPegaHandle(hwnd, 0);
+                case ID_MANUT_BOTAO_VER_DADOS:
                     if(iSelect == -1){
                         MessageBox(hwnd,"Nenhum proprietario selecionado!",
                         "Erro!",MB_OK|MB_ICONINFORMATION);
                     }else{
-                        formExcluir = CreateDialog(NULL, MAKEINTRESOURCE(IDD_MANUT_EXCLUIR_FORM), hwnd, formExcluirManutBox);
+                        formExcluir = CreateDialog(NULL, MAKEINTRESOURCE(IDD_MANUT_DADOS_FORM), hwnd, formDadosManutBox);
 
                         ListView_GetItemText(GetDlgItem(hwnd, ID_MANUT_LIST), iSelect, 0, auxEnvio.placa, TAM_PLACA);
 
@@ -379,8 +370,8 @@ BOOL CALLBACK tabManutPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
             formManutDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_MANUT_ADD_FORM), GetParent(hwnd), formAddManut);
             break;
 
-        case ID_BOTAO_EXCLUIR_MANUT:
-            formManutDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_MANUT_EXCLUIR), GetParent(hwnd), formExcluirManut);
+        case ID_BOTAO_PESQUISAR_MANUT:
+            formManutDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_MANUT_DADOS), GetParent(hwnd), formPesquisarManut);
             break;
         }
 
