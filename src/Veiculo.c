@@ -19,7 +19,7 @@ int incluiVeiculo(Veiculo v)
                         flag = VEIC_INSERIR_ERRO;
                     }
 
-                    flag = fechaArquivo(arq);
+                    flag = fechaArquivo(arq);
                 }else{
                     flag = ERRO_ABRIR_ARQUIVO;
                 }
@@ -83,7 +83,7 @@ int alteraVeiculo(Veiculo vNovo, char *placa)
                         flag = VEIC_ALTERAR_ERRO;
                     }
                 }
-                flag = fechaArquivo(arq);
+                flag = fechaArquivo(arq);
             }
         }
 	}
@@ -94,12 +94,13 @@ int alteraVeiculo(Veiculo vNovo, char *placa)
 /********************************************//**
  * \brief Atualiza o arquivo de veiculos
  *
- * \return PROP_INSERIR_ERRO - Erro na reinser��o dos dados
+ * \return PROP_INSERIR_ERRO - Erro na reinsercao dos dados
  * \return ERRO_ABRIR_ARQUIVO - Erro ao abrir o arquivo
  ***********************************************/
 int atualizaArqVeic(){
     FILE *arqEntrada, *arqSaida;
     Veiculo aux;
+    int flag = 0;
 
     arqEntrada = fopen(ARQUIVO_DADOS_VEICULO, "rb");
     arqSaida = fopen("database/dbVeicAux.dat", "wb");
@@ -112,7 +113,7 @@ int atualizaArqVeic(){
 		fclose(arqEntrada);
 		return ERRO_ABRIR_ARQUIVO;
 	}
-	
+
 	while(fread(&aux, sizeof(Veiculo), 1, arqEntrada) == 1){
 	    if(aux.placa[0] != '\0'){
 	        if(fwrite(&aux, sizeof(Veiculo), 1, arqSaida) != 1){
@@ -120,9 +121,10 @@ int atualizaArqVeic(){
 			}
 	    }
 	}
-	
-	flag = fechaArquivo(arqEntrada);
+
+    flag = fechaArquivo(arqEntrada);
 	flag = fechaArquivo(arqSaida);
+	if(flag != 0) return flag;
 
     if(remove(ARQUIVO_DADOS_VEICULO)==0){
     	if(rename("database/dbVeicAux.dat", ARQUIVO_DADOS_VEICULO)==0){
@@ -137,7 +139,7 @@ int atualizaArqVeic(){
 
 
 //Objetivo: Ler e excluir um veiculo no arquivo de veiculos
-//Parametros: Endere�o da placa que ser� excluida
+//Parametros: Endereco da placa que sera excluida
 //Retorno: -------------
 int excluiVeiculo(char *placa)
 {
@@ -187,7 +189,7 @@ int excluiVeiculo(char *placa)
 }
 
 //Objetivo: Validar uma placa no formato AAA1234
-//Parametros: Endere�o da placa
+//Parametros: Endereco da placa
 //Retorno: 0(placa valida) ou 1(placa invalida)
 int validaPlaca(char *placa)
 {
@@ -249,7 +251,7 @@ int pegaVeiculo(char *placa,Veiculo *v)
                         flag = ERRO_ARQUIVO_LER_VEIC;
                     }
                 }
-                flag = fechaArquivo(arqVeic);
+                flag = fechaArquivo(arqVeic);
             }else{
                 flag = ERRO_ABRIR_ARQUIVO;
             }

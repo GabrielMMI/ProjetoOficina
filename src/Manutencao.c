@@ -1,6 +1,6 @@
 #include "../include/Manutencao.h"
 
-//Objetivo: Ler e incluir uma manuten��o no arquivo de manuten�ao
+//Objetivo: Ler e incluir uma manutenção no arquivo de manutenção
 //Parametros: ---------
 //Retorno: ----------
 int incluiManutencao(Manutencao m)
@@ -53,7 +53,7 @@ int incluiManutencao(Manutencao m)
 	return flag;
 }
 
-//Objetivo: Ler e excluir uma manuten��o no arquivo de manuten�ao
+//Objetivo: Ler e excluir uma manutenção no arquivo de manutenção
 //Parametros: ---------
 //Retorno: ----------
 int excluiManutencao(char *placa)
@@ -74,7 +74,7 @@ int excluiManutencao(char *placa)
 		flag = fechaArquivo(arq);
 		return flag;
 	}
-	
+
 	while(!feof(arq)){
         if(fread(&m,sizeof(Manutencao),1,arq)==1){
             if(stricmp(placa,m.placa)!=0){
@@ -124,7 +124,7 @@ int pegaManutencao(char *placa, char *cpf, Data data, Manutencao *manut){
                         flag = MANUT_PEGAMANUT_SUCESSO;
                     }
                 }
-                flag = fechaArquivo(arqManut);
+                flag = fechaArquivo(arqManut);
             }else{
                 flag = ERRO_ABRIR_ARQUIVO;
             }
@@ -153,7 +153,7 @@ int buscaManutencao(char *placa, char *cpf, Data data, int *pos)
             }
         }
         flag = MANUT_BUSCA_SUCESSO;
-        flag = fechaArquivo(dbManut);
+        flag = fechaArquivo(dbManut);
     }else{
         flag = ERRO_ABRIR_ARQUIVO;
     }

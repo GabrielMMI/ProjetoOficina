@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Proprietario.c
- * @brief Cont�m todas as fun��es de opera��es que envolvem
+ * @brief Contém todas as funções de operacoes que envolvem
  *        Proprietario.
  *
  *
@@ -13,13 +13,13 @@
 #include "../include/Erros.h"
 
 /********************************************//**
- * \brief Inclui um propriet�rio em um arquivo de dados de um proprietario
+ * \brief Inclui um proprietario em um arquivo de dados de um proprietario
  *
  * \param prop - Uma estrutura do tipo Proprietario
  *
  * \return PROP_INSERIR_SUCESSO - Proprietario inserido com Sucesso
  * \return PROP_INSERIR_ERRO    - Erro ao inserir proprietario
- * \return BUSCA_PROP_EXISTENTE - Proprietario j� existente
+ * \return BUSCA_PROP_EXISTENTE - Proprietario ja existente
  * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir\criar arquivo
  ***********************************************/
 int incluiProprietario(Proprietario prop)
@@ -39,7 +39,7 @@ int incluiProprietario(Proprietario prop)
         }else if(flag == PROP_BUSCA_SUCESSO){
             flag =  PROP_BUSCA_EXISTENTE;
         }
-        flag = fechaArquivo(dbProp);
+        flag = fechaArquivo(dbProp);
     }else{
         flag = ERRO_ABRIR_ARQUIVO;
     }
@@ -49,13 +49,13 @@ int incluiProprietario(Proprietario prop)
 
 
 /********************************************//**
- * \brief Busca a posi��o de uma estrutura do tipo
- *        Propriet�rio no arquivo de dados de proprietario
+ * \brief Busca a posicao de uma estrutura do tipo
+ *        Proprietario no arquivo de dados de proprietario
  *
- * \param cpf - o endere�o de memoria de um string contendo o CPF do propriet�rio desejado
- * \param pos - Um ponteiro contendo o endere�o de mem�ria
+ * \param cpf - o endereco de memoria de um string contendo o CPF do proprietario desejado
+ * \param pos - Um ponteiro contendo o endereco de memoria
  *              de uma variavel do tipo inteiro, onde sera inserida
- *              a posicao encontrada, no caso de -1 o proprietario n�o
+ *              a posicao encontrada, no caso de -1 o proprietario nao
  *              foi encontrado.
  *
  * \return PROP_BUSCA_SUCESSO - A busca foi realizada com sucesso
@@ -82,7 +82,7 @@ int buscaProprietario(char *cpf, int *pos)
             }
         }
         flag = PROP_BUSCA_SUCESSO;
-        flag = fechaArquivo(dbProp);
+        flag = fechaArquivo(dbProp);
     }else{
         flag = ERRO_ABRIR_ARQUIVO;
     }
@@ -92,10 +92,10 @@ int buscaProprietario(char *cpf, int *pos)
 }
 
 /********************************************//**
- * \brief Altera um propriet�rio em um arquivo de dados de um proprietario
+ * \brief Altera um proprietario em um arquivo de dados de um proprietario
  *
  * \param novoP - Uma estrutura do tipo Proprietario
- * \param cpf - o endere�o de memoria de um string contendo o CPF do propriet�rio desejado
+ * \param cpf - o endereco de memoria de um string contendo o CPF do proprietario desejado
  *
  * \return PROP_ALTERAR_SUCESSO - Proprietario alterado com Sucesso
  * \return PROP_ALTERAR_ERRO    - Erro ao alterar proprietario
@@ -122,7 +122,7 @@ int alteraProprietario(Proprietario novoP, char *cpf)
                     }
                 }
 
-                flag = fechaArquivo(dbProp);
+                flag = fechaArquivo(dbProp);
             }else{
                 flag = ERRO_ABRIR_ARQUIVO;
             }
@@ -134,7 +134,7 @@ int alteraProprietario(Proprietario novoP, char *cpf)
 /********************************************//**
  * \brief Atualiza o arquivo de proprietarios
  *
- * \return PROP_INSERIR_ERRO - Erro na reinser��o dos dados
+ * \return PROP_INSERIR_ERRO - Erro na reinsercao dos dados
  * \return ERRO_ABRIR_ARQUIVO - Erro ao abrir o arquivo
  ***********************************************/
 int atualizaArqProp(){
@@ -151,16 +151,16 @@ int atualizaArqProp(){
 	            if(aux.nome[0] != '\0'){
 	                if(fwrite(&aux, sizeof(Proprietario), 1, arqSaida) != 1){
 	                	flag = ERRO_ARQUIVO_GRAVAR_PROP;
-	                	breaK;
+	                	break;
 					}
 	            }
 	        }
-        	flag = fechaArquivo(arqSaida);
+            flag = fechaArquivo(arqSaida);
 		}else{
-			flag = return ERRO_ABRIR_ARQUIVO;
+            flag = ERRO_ABRIR_ARQUIVO;
 		}
-		
-    	fclose(arqEntrada);       
+
+    	fclose(arqEntrada);
     }else{
         flag =  ERRO_ABRIR_ARQUIVO;
     }
@@ -172,9 +172,9 @@ int atualizaArqProp(){
 }
 
 /********************************************//**
- * \brief Exclui um propriet�rio em um arquivo de dados de um proprietario
+ * \brief Exclui um proprietario em um arquivo de dados de um proprietario
  *
- * \param cpf - o endere�o de memoria de um string contendo o CPF do propriet�rio desejado
+ * \param cpf - o endereco de memoria de um string contendo o CPF do proprietario desejado
  *
  * \return PROP_EXCLUIR_SUCESSO - Proprietario alterado com Sucesso
  * \return PROP_EXCLUIR_ERRO    - Erro ao alterar proprietario
@@ -203,7 +203,7 @@ int excluiProprietario(char *cpf)
                     flag = PROP_EXCLUIR_ERRO;
                 }
 
-                flag = fechaArquivo(dbProp);
+                flag = fechaArquivo(dbProp);
             }else{
                 flag = ERRO_ABRIR_ARQUIVO;
             }
@@ -215,10 +215,10 @@ int excluiProprietario(char *cpf)
 }
 
 /********************************************//**
- * \brief Busca um propriet�rio em um arquivo de dados de proprietarios
+ * \brief Busca um proprietario em um arquivo de dados de proprietarios
  *
- * \param pos - A posi��o do proprietario desejado dentro do arquivo de dados
- * \param pAux - O endere�o de mem�ria de uma estrutura do tipo Proprietario
+ * \param pos - A posicao do proprietario desejado dentro do arquivo de dados
+ * \param pAux - O endereco de memoria de uma estrutura do tipo Proprietario
  *
  * \return PROP_PEGAPROP_SUCESSO - Proprietario recuperado com Sucesso
  * \return PROP_PEGAPROP_ERRO    - Erro ao recuperar proprietario
@@ -244,7 +244,7 @@ int pegaProprietario(char *cpf, Proprietario *pAux){
                     flag = PROP_PEGAPROP_ERRO;
                 }
 
-                flag = fechaArquivo(dbProp);
+                flag = fechaArquivo(dbProp);
             }else{
                 flag = ERRO_ABRIR_ARQUIVO;
             }
@@ -256,14 +256,14 @@ int pegaProprietario(char *cpf, Proprietario *pAux){
 /********************************************//**
  * \brief Valida um CPF
  *
- * \param cpf - O endere�o de mem�ria de um string contendo um cpf
+ * \param cpf - O endereco de memoria de um string contendo um cpf
  *
- * \return CPF_VALIDO - CPF v�lido
- * \return CPF_INVALIDO - CPF inv�lido
+ * \return CPF_VALIDO - CPF valido
+ * \return CPF_INVALIDO - CPF invalido
  ***********************************************/
 int validaCPF(char *cpf)
 {
-	 // cpfs inv�lidos
+	 // cpfs invalidos
        char *cpfInval[] = {"00000000000","11111111111",
                          "22222222222",
                          "33333333333",
@@ -293,7 +293,7 @@ int validaCPF(char *cpf)
          if(retorno == CPF_INVALIDO)
             return retorno;
 
-         // transforma os caracteres do cpf em n�meros
+         // transforma os caracteres do cpf em numeros
          for(cont=0;cont<strlen(cpf);cont++)
          {
                 dig[cont] = cpf[cont] - '0';
@@ -330,10 +330,10 @@ int validaCPF(char *cpf)
 /********************************************//**
  * \brief Valida um telefone
  *
- * \param tel - O endere�o de mem�ria de um string contendo um telefone
+ * \param tel - O endereco de memoria de um string contendo um telefone
  *
- * \return TEL_VALIDO - CPF v�lido
- * \return TEL_INVALIDO - CPF inv�lido
+ * \return TEL_VALIDO - CPF valido
+ * \return TEL_INVALIDO - CPF invalido
  ***********************************************/
 int validaTelefone(char *tel)
 {

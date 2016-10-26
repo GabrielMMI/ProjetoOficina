@@ -22,10 +22,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     dbprop = fopen(ARQUIVO_DADOS_PROPRIETARIO, "ab");
     dbveic = fopen(ARQUIVO_DADOS_VEICULO, "ab");
     dbmanut = fopen(ARQUIVO_DADOS_MANUTENCAO, "ab");
-    if( dbprop != NULL) flag = fechaArquivo(dbprop);
-    if (dbveic != NULL) flag = fechaArquivo(dbveic);
-    if (dbmanut != NULL) flag = fechaArquivo(dbmanut);
-    if (flag == 0){
+    if(dbprop != NULL) flag = fechaArquivo(dbprop);
+    if(dbveic != NULL) flag = fechaArquivo(dbveic);
+    if(dbmanut != NULL) flag = fechaArquivo(dbmanut);
+    if(flag == FECHA_ARQUIVO_SUCESSO){
         DialogBox(hInstance, MAKEINTRESOURCE(IDD_DIALOG1), NULL, (DLGPROC)DlgIniProc);
         return DialogBox(hInstance, MAKEINTRESOURCE(IDD_DIALOG2), NULL, (DLGPROC)DlgMainProc);
     }else{

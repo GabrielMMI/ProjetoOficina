@@ -52,9 +52,9 @@ void atualizaListaVeic(HWND hwndList, char *filtro){
                         cont++;
                     }
                 }
-                if(win_trataErros(hwndList, fechaArquivo(arq)) == 1) return;
+                if(win_trataErros(hwndList, fechaArquivo(arq)) == 1) return;
             }else{
-            if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) == 1) return;
+                if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) == 1) return;
             }
         }
     }
@@ -64,12 +64,12 @@ void atualizaListaVeic(HWND hwndList, char *filtro){
  * \brief Função de controle do janela "Adicionar Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informa��es adicionais sobre o comando ou n�o
- * \return Padr�o Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
+ * \return Padrao Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formAddVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -104,8 +104,8 @@ BOOL CALLBACK formAddVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                 EnableWindow(GetDlgItem(hwnd, ID_BOTAO_ACAO_VEIC), FALSE);
             }
 
-            if(validaPlaca(placa) == PLACA_INVALIDA && strlen(placa) == TAM_PLACA-1) SetDlgItemText(hwnd, ID_VEIC_ADD_LOG, "A placa inserida � inv�lida!");
-            if(GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_CHASSI_VEIC)) < TAM_CHASSI-1 && GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_CHASSI_VEIC)) > 0) SetDlgItemText(hwnd, ID_VEIC_ADD_LOG, "O chassi inserido � inv�lido!");
+            if(validaPlaca(placa) == PLACA_INVALIDA && strlen(placa) == TAM_PLACA-1) SetDlgItemText(hwnd, ID_VEIC_ADD_LOG, "A placa inserida a invalida!");
+            if(GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_CHASSI_VEIC)) < TAM_CHASSI-1 && GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_CHASSI_VEIC)) > 0) SetDlgItemText(hwnd, ID_VEIC_ADD_LOG, "O chassi inserido e invalido!");
 
             switch(wp){
             case ID_BOTAO_ACAO_VEIC:
@@ -166,8 +166,8 @@ void inicializaListVeic(HWND hwndList){
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informa��es adicionais sobre o comando ou n�o
- * \return Padr�o Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
+ * \return Padrao Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -221,8 +221,8 @@ BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informa��es adicionais sobre o comando ou n�o
- * \return Padr�o Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
+ * \return Padrao Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -296,8 +296,8 @@ BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informa��es adicionais sobre o comando ou n�o
- * \return Padr�o Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
+ * \return Padrao Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formExcluirVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -352,8 +352,8 @@ BOOL CALLBACK formExcluirVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informa��es adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
+ * \return Padrao Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -426,8 +426,8 @@ BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informa��es adicionais sobre o comando ou n�o
- * \return Padr�o Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
+ * \return Padrao Windows para janelas
  *
  ***********************************************/
 
