@@ -247,7 +247,7 @@ int win_trataErros(HWND hwnd, int erro)
             break;
 
         case FECHA_ARQUIVO_ERRO:
-            MessageBox(hwnd, "Arquivo criado/aberto com sucesso!", "", MB_OK | MB_ICONERROR);
+            MessageBox(hwnd, "Erro ao fechar arquivo!", "", MB_OK | MB_ICONERROR);
             qtErros++;
             break;
 

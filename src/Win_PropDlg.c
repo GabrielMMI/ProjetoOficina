@@ -240,7 +240,7 @@ BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  ***********************************************/
 BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 {
-    Proprietario *auxAntigo;
+    static Proprietario *auxAntigo;
     int erro;
     PCOPYDATASTRUCT pcds;
 
@@ -268,6 +268,7 @@ BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         case WM_COMMAND:
             switch(wp){
             case ID_BOTAO_ACAO_PROP:
+
                     erro = excluiProprietario(auxAntigo->cpf);
                     free(auxAntigo);
                     win_trataErros(hwnd, erro);
@@ -496,7 +497,7 @@ BOOL CALLBACK apresentarProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
         lvCol.mask=LVCF_TEXT|LVCF_WIDTH|LVCF_SUBITEM;
         lvCol.cx=28;
-        lvCol.pszText="Descrição";
+        lvCol.pszText="Descricao";
         lvCol.cx=120;
         SendMessage(hwndList ,LVM_INSERTCOLUMN, 5, (LPARAM)&lvCol);
 

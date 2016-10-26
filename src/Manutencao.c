@@ -26,7 +26,9 @@ int incluiManutencao(Manutencao m)
 				break;
 			}
 		}
-		flag = fechaArquivo(arq);
+        if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
 	}else{
         flag = ERRO_ABRIR_ARQUIVO;
 	}
@@ -44,7 +46,9 @@ int incluiManutencao(Manutencao m)
                 }else{
                     flag = MANUT_INSERIR_ERRO;
                 }
-			flag = fechaArquivo(arq);
+            if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
+                flag = FECHA_ARQUIVO_ERRO;
+            }
 		}else{
             flag = ERRO_ABRIR_ARQUIVO;
 		}
@@ -71,7 +75,9 @@ int excluiManutencao(char *placa)
 	}
 	if(arqSemExcluido==NULL){
 		printf(" Erro ao abrir o arquivo auxiliar de manutencao.\n");
-		flag = fechaArquivo(arq);
+        if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
 		return flag;
 	}
 
@@ -89,8 +95,15 @@ int excluiManutencao(char *placa)
             }
         }
     }
-	flag = fechaArquivo(arqSemExcluido);
-	flag = fechaArquivo(arq);
+
+    if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO){
+        flag = FECHA_ARQUIVO_ERRO;
+    }
+
+    if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
+        flag = FECHA_ARQUIVO_ERRO;
+    }
+
     if(remove(ARQUIVO_DADOS_MANUTENCAO)==0){
     	if(rename("database/dbManutAux.dat", ARQUIVO_DADOS_MANUTENCAO)==0){
     		flag = MANUT_EXCLUIR_ERRO;
@@ -124,7 +137,9 @@ int pegaManutencao(char *placa, char *cpf, Data data, Manutencao *manut){
                         flag = MANUT_PEGAMANUT_SUCESSO;
                     }
                 }
-                flag = fechaArquivo(arqManut);
+                if(fechaArquivo(arqManut) == FECHA_ARQUIVO_ERRO){
+                    flag = FECHA_ARQUIVO_ERRO;
+                }
             }else{
                 flag = ERRO_ABRIR_ARQUIVO;
             }
@@ -153,7 +168,9 @@ int buscaManutencao(char *placa, char *cpf, Data data, int *pos)
             }
         }
         flag = MANUT_BUSCA_SUCESSO;
-        flag = fechaArquivo(dbManut);
+        if(fechaArquivo(dbManut) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
     }else{
         flag = ERRO_ABRIR_ARQUIVO;
     }
@@ -181,7 +198,10 @@ int buscaManutencaoCPF(char *cpf, int *pos){
             }
         }
         flag = MANUT_BUSCA_SUCESSO;
-        flag = fechaArquivo(dbManut);
+
+        if(fechaArquivo(dbManut) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
     }else{
         flag = ERRO_ABRIR_ARQUIVO;
     }

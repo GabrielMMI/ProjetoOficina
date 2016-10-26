@@ -19,7 +19,9 @@ int incluiVeiculo(Veiculo v)
                         flag = VEIC_INSERIR_ERRO;
                     }
 
-                    flag = fechaArquivo(arq);
+                    if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
+                        flag = FECHA_ARQUIVO_ERRO;
+                    }
                 }else{
                     flag = ERRO_ABRIR_ARQUIVO;
                 }
@@ -54,7 +56,9 @@ int buscaVeiculo(char *placa, int *pos)
 			posicao++;
 		}
         flag = VEIC_BUSCA_SUCESSO;
-		flag = fechaArquivo(arq);
+        if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
 	}else{
         flag = ERRO_ABRIR_ARQUIVO;
 	}
@@ -83,7 +87,9 @@ int alteraVeiculo(Veiculo vNovo, char *placa)
                         flag = VEIC_ALTERAR_ERRO;
                     }
                 }
-                flag = fechaArquivo(arq);
+                if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
+                    flag = FECHA_ARQUIVO_ERRO;
+                }
             }
         }
 	}
@@ -110,8 +116,11 @@ int atualizaArqVeic(){
 	}
 
 	if(arqSaida==NULL){
-		fclose(arqEntrada);
-		return ERRO_ABRIR_ARQUIVO;
+        flag = ERRO_ABRIR_ARQUIVO;
+        if(fechaArquivo(arqEntrada) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
+		return flag;
 	}
 
 	while(fread(&aux, sizeof(Veiculo), 1, arqEntrada) == 1){
@@ -122,8 +131,14 @@ int atualizaArqVeic(){
 	    }
 	}
 
-    flag = fechaArquivo(arqEntrada);
-	flag = fechaArquivo(arqSaida);
+    if(fechaArquivo(arqEntrada) == FECHA_ARQUIVO_ERRO){
+        flag = FECHA_ARQUIVO_ERRO;
+    }
+
+    if(fechaArquivo(arqSaida) == FECHA_ARQUIVO_ERRO){
+        flag = FECHA_ARQUIVO_ERRO;
+    }
+
 	if(flag != 0) return flag;
 
     if(remove(ARQUIVO_DADOS_VEICULO)==0){
@@ -161,7 +176,9 @@ int excluiVeiculo(char *placa)
 				break;
 			}
 		}
-		flag = fechaArquivo(arq);
+        if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
 	}else{
         flag = ERRO_ABRIR_ARQUIVO;
         return flag;
@@ -222,7 +239,9 @@ int verificaChassiRepetido(char *chassi)
 				break;
 			}
 		}
-		fclose(arq);
+        if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
 	}else{
         flag = ERRO_ARQUIVO_INEXISTENTE;
 	}
@@ -251,7 +270,9 @@ int pegaVeiculo(char *placa,Veiculo *v)
                         flag = ERRO_ARQUIVO_LER_VEIC;
                     }
                 }
-                flag = fechaArquivo(arqVeic);
+                if(fechaArquivo(arqVeic) == FECHA_ARQUIVO_ERRO){
+                    flag = FECHA_ARQUIVO_ERRO;
+                }
             }else{
                 flag = ERRO_ABRIR_ARQUIVO;
             }

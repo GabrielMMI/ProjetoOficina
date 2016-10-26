@@ -80,14 +80,15 @@ int buscaProprietario(char *cpf, int *pos)
     if(dbProp != NULL){
         while(fread(&pAux, sizeof(Proprietario), 1, dbProp) == 1){
             ind++;
-            if(strcmp(pAux.cpf, cpf) == 0){
+
+            if(stricmp(pAux.cpf, cpf) == 0){
                 *pos = ind;
                 break;
             }
         }
-        flag = fechaArquivo(dbProp);
-        if(flag != FECHA_ARQUIVO_ERRO){
-            flag = PROP_BUSCA_SUCESSO;
+        flag = PROP_BUSCA_SUCESSO;
+        if(fechaArquivo(dbProp) == FECHA_ARQUIVO_ERRO){
+                flag = FECHA_ARQUIVO_ERRO;
         }
     }else{
         flag = ERRO_ABRIR_ARQUIVO;
@@ -128,7 +129,9 @@ int alteraProprietario(Proprietario novoP, char *cpf)
                     }
                 }
 
-                flag = fechaArquivo(dbProp);
+                if(fechaArquivo(dbProp) == FECHA_ARQUIVO_ERRO){
+                    flag = FECHA_ARQUIVO_ERRO;
+                }
             }else{
                 flag = ERRO_ABRIR_ARQUIVO;
             }
@@ -161,12 +164,16 @@ int atualizaArqProp(){
 					}
 	            }
 	        }
-            flag = fechaArquivo(arqSaida);
+            if(fechaArquivo(arqSaida) == FECHA_ARQUIVO_ERRO){
+                flag = FECHA_ARQUIVO_ERRO;
+            }
 		}else{
             flag = ERRO_ABRIR_ARQUIVO;
 		}
 
-    	fclose(arqEntrada);
+        if(fechaArquivo(arqEntrada) == FECHA_ARQUIVO_ERRO){
+                flag = FECHA_ARQUIVO_ERRO;
+        }
     }else{
         flag =  ERRO_ABRIR_ARQUIVO;
     }
@@ -189,18 +196,17 @@ int atualizaArqProp(){
  ***********************************************/
 int excluiProprietario(char *cpf)
 {
-	int pos, flag;
+	int pos = -1, flag = 0;
 	Proprietario pAux;
 	FILE *dbProp;
 
 	flag = buscaProprietario(cpf, &pos);
-
 	if(flag == PROP_BUSCA_SUCESSO){
         if(pos == -1){
             flag = PROP_BUSCA_INEXISTENTE;
         }else{
             flag = buscaManutencaoCPF(cpf, &pos);
-            if(pos == -1){
+            if(pos == -1 && flag == MANUT_BUSCA_SUCESSO){
                 dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "r+b");
                 if(dbProp != NULL){
                     pAux.nome[0] = '\0';
@@ -212,7 +218,9 @@ int excluiProprietario(char *cpf)
                         flag = PROP_EXCLUIR_ERRO;
                     }
 
-                    flag = fechaArquivo(dbProp);
+                    if(fechaArquivo(dbProp) == FECHA_ARQUIVO_ERRO){
+                        flag = FECHA_ARQUIVO_ERRO;
+                    }
                 }else{
                     flag = ERRO_ABRIR_ARQUIVO;
                 }
@@ -256,7 +264,9 @@ int pegaProprietario(char *cpf, Proprietario *pAux){
                     flag = PROP_PEGAPROP_ERRO;
                 }
 
-                flag = fechaArquivo(dbProp);
+                if(fechaArquivo(dbProp) == FECHA_ARQUIVO_ERRO){
+                    flag = FECHA_ARQUIVO_ERRO;
+                }
             }else{
                 flag = ERRO_ABRIR_ARQUIVO;
             }

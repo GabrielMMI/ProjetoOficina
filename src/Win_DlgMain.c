@@ -109,7 +109,7 @@ LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
             hTab = GetDlgItem(hwnd, HTAB);
 
             itemProp.mask = TCIF_TEXT;
-            itemProp.pszText = "Proprietários";
+            itemProp.pszText = "Proprietarios";
 
             count = SendMessage(hTab, TCM_GETITEMCOUNT, 0, 0);
             SendMessage(hTab, TCM_INSERTITEM, count,
@@ -123,7 +123,7 @@ LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
                 (LPARAM) (LPTCITEM) &itemVeic);
 
             itemManu.mask = TCIF_TEXT;
-            itemManu.pszText = "Manutenção";
+            itemManu.pszText = "Manutencao";
 
             count = SendMessage(hTab, TCM_GETITEMCOUNT, 0, 0);
             SendMessage(hTab, TCM_INSERTITEM, count,
