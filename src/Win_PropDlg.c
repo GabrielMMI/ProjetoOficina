@@ -362,7 +362,7 @@ BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                         MessageBox(hwnd,"Nenhum proprietario selecionado!",
                         "Erro!",MB_OK|MB_ICONINFORMATION);
                     }else{
-                        formAlterar = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_ALTERAR_FORM), hwnd, formAlterarPropBox);
+                        formAlterar = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_ALTERAR_FORM), hwnd, (DLGPROC)formAlterarPropBox);
 
                         ListView_GetItemText(hwndList, iSelect, 1, cpf, TAM_CPF);
                         pegaProprietario(cpf, &auxEnvio);
@@ -432,7 +432,7 @@ BOOL CALLBACK formExcluirProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                         MessageBox(hwnd,"Nenhum proprietario selecionado!",
                         "Erro!",MB_OK|MB_ICONINFORMATION);
                     }else{
-                        formExcluir = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_EXCLUIR_FORM), hwnd, formExcluirPropBox);
+                        formExcluir = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_EXCLUIR_FORM), hwnd, (DLGPROC)formExcluirPropBox);
 
                         ListView_GetItemText(hwndList, iSelect, 1, cpf, TAM_CPF);
 
@@ -580,19 +580,19 @@ BOOL CALLBACK tabPropPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
         switch (wp) {
         case ID_BOTAO_ADD_PROP:
-            formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_ADD_FORM), GetParent(hwnd), formAddProc);
+            formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_ADD_FORM), GetParent(hwnd), (DLGPROC)formAddProc);
             break;
 
         case ID_BOTAO_ALTERAR_PROP:
-            formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_ALTERAR), GetParent(hwnd), formAlterarProc);
+            formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_ALTERAR), GetParent(hwnd), (DLGPROC)formAlterarProc);
             break;
 
         case ID_BOTAO_EXCLUIR_PROP:
-            formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_EXCLUIR), GetParent(hwnd), formExcluirProc);
+            formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_EXCLUIR), GetParent(hwnd), (DLGPROC)formExcluirProc);
             break;
 
         case ID_BOTAO_APRESENTAR_PROP:
-            formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_APRESENTAR), GetParent(hwnd), apresentarProp);
+            formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_APRESENTAR), GetParent(hwnd), (DLGPROC)apresentarProp);
             break;
         }
 

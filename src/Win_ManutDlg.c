@@ -247,7 +247,7 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                         MessageBox(hwnd,"Nenhum proprietario selecionado!",
                         "Erro!",MB_OK|MB_ICONINFORMATION);
                     }else{
-                        formExcluir = CreateDialog(NULL, MAKEINTRESOURCE(IDD_MANUT_DADOS_FORM), hwnd, formDadosManutBox);
+                        formExcluir = CreateDialog(NULL, MAKEINTRESOURCE(IDD_MANUT_DADOS_FORM), hwnd, (DLGPROC)formDadosManutBox);
 
                         ListView_GetItemText(GetDlgItem(hwnd, ID_MANUT_LIST), iSelect, 0, auxEnvio.placa, TAM_PLACA);
 
@@ -367,11 +367,11 @@ BOOL CALLBACK tabManutPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
         switch (wp) {
         case ID_BOTAO_ADD_MANUT:
-            formManutDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_MANUT_ADD_FORM), GetParent(hwnd), formAddManut);
+            formManutDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_MANUT_ADD_FORM), GetParent(hwnd), (DLGPROC)formAddManut);
             break;
 
         case ID_BOTAO_PESQUISAR_MANUT:
-            formManutDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_MANUT_DADOS), GetParent(hwnd), formPesquisarManut);
+            formManutDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_MANUT_DADOS), GetParent(hwnd), (DLGPROC)formPesquisarManut);
             break;
         }
 

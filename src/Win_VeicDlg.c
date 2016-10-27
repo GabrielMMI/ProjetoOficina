@@ -284,7 +284,7 @@ BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                             MessageBox(hwnd,"Nenhum veiculo selecionado!",
                             "Erro!",MB_OK|MB_ICONERROR);
                         }else{
-                            formAlterar = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_VEIC_ALTERAR_FORM), hwnd, formAlterarVeicBox);
+                            formAlterar = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_VEIC_ALTERAR_FORM), hwnd, (DLGPROC)formAlterarVeicBox);
 
                             ListView_GetItemText(hwndList, iSelect, 1, placa, TAM_PLACA);
 
@@ -414,7 +414,7 @@ BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                             MessageBox(hwnd,"Nenhum veiculo selecionado!",
                             "Erro!",MB_OK|MB_ICONERROR);
                         }else{
-                            formAlterar = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_VEIC_EXCLUIR_FORM), hwnd, formExcluirVeicBox);
+                            formAlterar = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_VEIC_EXCLUIR_FORM), hwnd, (DLGPROC)formExcluirVeicBox);
 
                             ListView_GetItemText(hwndList, iSelect, 1, placa, TAM_PLACA);
 
@@ -470,15 +470,15 @@ BOOL CALLBACK tabVeicPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
         switch (wp) {
         case ID_BOTAO_ADD_VEIC:
-            formVeicDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_VEIC_ADD_FORM), GetParent(hwnd), formAddVeic);
+            formVeicDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_VEIC_ADD_FORM), GetParent(hwnd), (DLGPROC)formAddVeic);
             break;
 
         case ID_BOTAO_ALTERAR_VEIC:
-            formVeicDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_VEIC_ALTERAR), GetParent(hwnd), formAlterarVeic);
+            formVeicDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_VEIC_ALTERAR), GetParent(hwnd), (DLGPROC)formAlterarVeic);
             break;
 
         case ID_BOTAO_EXCLUIR_VEIC:
-            formVeicDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_VEIC_EXCLUIR), GetParent(hwnd), formExcluirVeic);
+            formVeicDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_VEIC_EXCLUIR), GetParent(hwnd), (DLGPROC)formExcluirVeic);
             break;
         }
 

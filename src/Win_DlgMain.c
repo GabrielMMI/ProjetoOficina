@@ -73,9 +73,9 @@ LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
         case WM_INITDIALOG:
 
-            tabProp = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TABPROP), hwnd, tabPropPage);
-            tabManut = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TABMANUN), hwnd, tabManutPage);
-            tabVeic = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TABVEIC), hwnd, tabVeicPage);
+            tabProp = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TABPROP), hwnd, (DLGPROC)tabPropPage);
+            tabManut = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TABMANUN), hwnd, (DLGPROC)tabManutPage);
+            tabVeic = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TABVEIC), hwnd, (DLGPROC)tabVeicPage);
 
             ShowWindow(tabProp, (sel == 0) ? SW_SHOW : SW_HIDE);
             ShowWindow(tabVeic, (sel == 1) ? SW_SHOW : SW_HIDE);
@@ -136,7 +136,7 @@ LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
             switch(LOWORD(wParam)){
                 case ID_CREDITOS_BOTAO:
-                    DialogBox(g_inst, MAKEINTRESOURCE(IDD_CREDITOS), hwnd, creditosProc);
+                    DialogBox(g_inst, MAKEINTRESOURCE(IDD_CREDITOS), hwnd, (DLGPROC)creditosProc);
                 break;
 
             }
