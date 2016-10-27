@@ -108,7 +108,7 @@ int alteraVeiculo(Veiculo vNovo, char *placa)
 int atualizaArqVeic(){
     FILE *arqEntrada, *arqSaida;
     Veiculo aux;
-    int flag = 0;
+    int flag = ARQ_VEIC_ATUALIZADO;
 
     arqEntrada = fopen(ARQUIVO_DADOS_VEICULO, "rb");
     arqSaida = fopen("database/dbVeicAux.dat", "wb");
@@ -145,7 +145,7 @@ int atualizaArqVeic(){
 
     if(remove(ARQUIVO_DADOS_VEICULO)==0){
     	if(rename("database/dbVeicAux.dat", ARQUIVO_DADOS_VEICULO)==0){
-    		return ARQ_PROP_ATUALIZADO;
+    		return ARQ_VEIC_ATUALIZADO;
 		}else{
 			return ERRO_ARQUIVO_GRAVAR_VEIC;
 		}
@@ -163,7 +163,7 @@ int excluiVeiculo(char *placa)
 	FILE *arq;
 	Manutencao m;
 	Veiculo v;
-	int pos, flag, erro;
+	int pos, flag = VEIC_EXCLUIR_SUCESSO, erro;
 
 	arq = fopen(ARQUIVO_DADOS_MANUTENCAO,"rb");
 	if(arq != NULL){
@@ -204,7 +204,7 @@ int excluiVeiculo(char *placa)
         }
 	}
     erro = atualizaArqVeic();
-    if(erro != 0) flag = erro;
+    if(erro != ARQ_VEIC_ATUALIZADO) flag = erro;
     return flag;
 }
 

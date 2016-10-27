@@ -196,7 +196,7 @@ int atualizaArqProp(){
  ***********************************************/
 int excluiProprietario(char *cpf)
 {
-	int pos = -1, flag = 0;
+	int pos = -1, flag = 0, erro;
 	Proprietario pAux;
 	FILE *dbProp;
 
@@ -225,12 +225,13 @@ int excluiProprietario(char *cpf)
                     flag = ERRO_ABRIR_ARQUIVO;
                 }
             }else{
-                //flag = PROP_EXCLUIR_ERRO_MANUT_EXISTENTE;
+                flag = PROP_EXCLUIR_ERRO_MANUT_EXISTENTE;
             }
         }
 	}
 
-	atualizaArqProp();
+    erro = atualizaArqVeic();
+    if(erro != ARQ_PROP_ATUALIZADO) flag = erro;
 	return flag;
 }
 

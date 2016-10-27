@@ -34,38 +34,39 @@ LRESULT CALLBACK DlgIniProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPar
 
 			SendMessage(editNome, EM_SETLIMITTEXT, TAM_NOME, 0);
 			SendMessage(editEnder, EM_SETLIMITTEXT, TAM_NOME, 0);
-		return TRUE;
+			return TRUE;
         break;
         case WM_COMMAND:
 
-        if(GetWindowTextLength(editNome) != 0 && GetWindowTextLength(editEnder) != 0){
-            EnableWindow(GetDlgItem(hwnd,ID_Entrar),TRUE);
-        }
-
-		switch(wParam){
-
-		case ID_Sair:
-		    PostQuitMessage(0);
-			break;
-
-		case ID_Entrar:
-
-			GetWindowText(editNome, ofic.nome, TAM_NOME);
-
-			GetWindowText(editEnder, ofic.endereco, TAM_NOME);
-
-             oficinaInfo = fopen(ARQUIVO_DADOS_OFICINA, "w");
-
-            if(oficinaInfo != NULL){
-                fprintf(oficinaInfo, "%s\n",ofic.nome);
-                fprintf(oficinaInfo, "%s\n",ofic.endereco);
-
-                if(win_trataErros(hwnd, fechaArquivo(oficinaInfo)) == 0) EndDialog(hwnd, 0);
-            }else{
-                win_trataErros(hwnd, ERRO_ABRIR_ARQUIVO);
-            }
+	        if(GetWindowTextLength(editNome) != 0 && GetWindowTextLength(editEnder) != 0){
+	            EnableWindow(GetDlgItem(hwnd,ID_Entrar),TRUE);
+	        }
+	
+			switch(wParam){
+	
+				case ID_Sair:
+				    PostQuitMessage(0);
+					break;
+		
+				case ID_Entrar:
+		
+					GetWindowText(editNome, ofic.nome, TAM_NOME);
+		
+					GetWindowText(editEnder, ofic.endereco, TAM_NOME);
+		
+		            oficinaInfo = fopen(ARQUIVO_DADOS_OFICINA, "w");
+		
+		            if(oficinaInfo != NULL){
+		                fprintf(oficinaInfo, "%s\n",ofic.nome);
+		                fprintf(oficinaInfo, "%s\n",ofic.endereco);
+		
+		                if(win_trataErros(hwnd, fechaArquivo(oficinaInfo)) == 0) EndDialog(hwnd, 0);
+		            }else{
+		                win_trataErros(hwnd, ERRO_ABRIR_ARQUIVO);
+		            }
+			}
+			
 			return TRUE;
-		}
 		break;
 	}
 

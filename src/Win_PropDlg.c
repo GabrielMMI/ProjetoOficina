@@ -245,10 +245,6 @@ BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     PCOPYDATASTRUCT pcds;
 
     switch(msg) {
-        case WM_INITDIALOG:
-        return TRUE;
-        break;
-
         case WM_COPYDATA:
 			pcds = (PCOPYDATASTRUCT)lp;
 			auxAntigo = (Proprietario *)(pcds->lpData);
@@ -268,7 +264,6 @@ BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         case WM_COMMAND:
             switch(wp){
             case ID_BOTAO_ACAO_PROP:
-
                     erro = excluiProprietario(auxAntigo->cpf);
                     free(auxAntigo);
                     win_trataErros(hwnd, erro);

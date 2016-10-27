@@ -23,6 +23,7 @@
 #define PROP_BUSCA_SUCESSO          90009
 #define PROP_PEGAPROP_SUCESSO       90010
 #define PROP_PEGAPROP_ERRO          90011
+#define PROP_EXCLUIR_ERRO_MANUT_EXISTENTE 90016
 
 #define CPF_VALIDO                  90012
 #define CPF_INVALIDO                90013

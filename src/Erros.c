@@ -76,6 +76,11 @@ int win_trataErros(HWND hwnd, int erro)
             qtErros++;
             break;
 
+        case PROP_EXCLUIR_ERRO_MANUT_EXISTENTE:
+            MessageBox(hwnd, "Erro ao excluir proprietário, o mesmo possui manutenção cadastrada!", "", MB_OK | MB_ICONERROR);
+            qtErros++;
+            break;
+
         case CPF_VALIDO:
             //MessageBox(hwnd, "Cpf válido!", "", MB_OK | MB_ICONINFORMATION);
             break;

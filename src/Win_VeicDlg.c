@@ -332,8 +332,6 @@ BOOL CALLBACK formExcluirVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     PCOPYDATASTRUCT pcds;
 
     switch(msg) {
-        break;
-
         case WM_COPYDATA:
 			pcds = (PCOPYDATASTRUCT)lp;
 			if(pcds->dwData == 0){

@@ -140,24 +140,25 @@ LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
                 break;
 
             }
-
+            return TRUE;
 		break;
 
 		case WM_NOTIFY: {
             switch (((LPNMHDR)lParam)->code) {
-            case TCN_SELCHANGE:
-                sel = TabCtrl_GetCurSel(hTab);
-                ShowWindow(tabProp, (sel == 0) ? SW_SHOW : SW_HIDE);
-                ShowWindow(tabVeic, (sel == 1) ? SW_SHOW : SW_HIDE);
-                ShowWindow(tabManut, (sel == 2) ? SW_SHOW : SW_HIDE);
-                break;
+	            case TCN_SELCHANGE:
+	                sel = TabCtrl_GetCurSel(hTab);
+	                ShowWindow(tabProp, (sel == 0) ? SW_SHOW : SW_HIDE);
+	                ShowWindow(tabVeic, (sel == 1) ? SW_SHOW : SW_HIDE);
+	                ShowWindow(tabManut, (sel == 2) ? SW_SHOW : SW_HIDE);
+	                break;
             }
-        return TRUE;
+        	return TRUE;
             break;
         }
 
         case WM_CLOSE:
             PostQuitMessage(0);
+            return TRUE;
         break;
     }
 

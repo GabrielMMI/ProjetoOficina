@@ -17,7 +17,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     InitCommonControls();
     FILE *dbprop, *dbveic, *dbmanut;
     int flag = 0;
-
+	
     mkdir("database");
     dbprop = fopen(ARQUIVO_DADOS_PROPRIETARIO, "ab");
     dbveic = fopen(ARQUIVO_DADOS_VEICULO, "ab");
