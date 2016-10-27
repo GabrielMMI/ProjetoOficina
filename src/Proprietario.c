@@ -178,8 +178,8 @@ int atualizaArqProp(){
         flag =  ERRO_ABRIR_ARQUIVO;
     }
 
-    if(remove(ARQUIVO_DADOS_PROPRIETARIO) == EOF) flag = ERRO_REMOVER_ARQUIVO;
-    if(rename("XXXX.txt", ARQUIVO_DADOS_PROPRIETARIO))flag = ERRO_RENOMEAR_ARQUIVO;
+    if(remove(ARQUIVO_DADOS_PROPRIETARIO) != 0) flag = ERRO_REMOVER_ARQUIVO;
+    if(rename("XXXX.txt", ARQUIVO_DADOS_PROPRIETARIO) != 0)flag = ERRO_RENOMEAR_ARQUIVO;
 
     return flag;
 }
@@ -230,7 +230,7 @@ int excluiProprietario(char *cpf)
         }
 	}
 
-    erro = atualizaArqVeic();
+    erro = atualizaArqProp();
     if(erro != ARQ_PROP_ATUALIZADO) flag = erro;
 	return flag;
 }
