@@ -147,7 +147,7 @@ BOOL CALLBACK formDadosManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         case WM_COPYDATA:
 			pcds = (PCOPYDATASTRUCT)lp;
 			if(pcds->dwData == 0){
-				    auxAntigo = (Veiculo *)(pcds->lpData);
+				    auxAntigo = (Manutencao *)(pcds->lpData);
                     SetDlgItemText(hwnd, ID_EDIT_PLACA_MANUT, auxAntigo->placa);
                     SetDlgItemText(hwnd, ID_EDIT_CPF_MANUT, auxAntigo->cpf);
                     sprintf(valor, "%.2f", auxAntigo->valorPecas);

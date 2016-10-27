@@ -589,6 +589,10 @@ BOOL CALLBACK tabPropPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         case ID_BOTAO_APRESENTAR_PROP:
             formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_APRESENTAR), GetParent(hwnd), (DLGPROC)apresentarProp);
             break;
+            
+        case ID_BOTAO_APRESENTAR_VEIC_PROP:
+        	formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_MOSTRA_VEIC), GetParent(hwnd), (DLGPROC)NULL);
+        	break;
         }
 
         guardaPegaHandle(&formPropDlg, 0);

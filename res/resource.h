@@ -25,6 +25,7 @@
 #define IDD_MANUT_EXCLUIR_FORM                  170
 #define IDD_MANUT_DADOS_FORM                    172
 #define IDD_MANUT_DADOS                         173
+#define IDD_PROP_MOSTRA_VEIC                    175
 #define ID_BOTAO_ACAO_VEIC                      40000
 #define ID_BOTAO_APRESENTAR_PROP                40000
 #define ID_BOTAO_EXCLUIR_MANUT                  40000
@@ -34,6 +35,7 @@
 #define ID_NUVEM_BOTAO                          40000
 #define ID_PEGACPF_CANCEL                       40000
 #define ID_PROP_LIST                            40000
+#define ID_PROP_MOSTRA_BUSCA_EDIT               40000
 #define ID_VEIC_ALTERAR_BUSCA_EDIT              40000
 #define ID_BOTAO_ADD_MANUT                      40001
 #define ID_BOTAO_ALTERAR_VEIC                   40001
@@ -41,6 +43,7 @@
 #define ID_EDIT_CPF_MANUT                       40001
 #define ID_MANUT_DATA_FIM                       40001
 #define ID_PEGACPF_CAMPO                        40001
+#define ID_PROP_MOSTRA_VEIC_LIST                40001
 #define ID_VEIC_ADD_LOG                         40001
 #define ID_VEIC_ALTERAR_LIST                    40001
 #define ID_VEIC_EXCLUIR_BUSCA_EDIT              40001
@@ -49,11 +52,13 @@
 #define ID_EDIT_PECAS_MANUT                     40002
 #define ID_MANUT_LIST                           40002
 #define ID_PEGACPF_LOG                          40002
+#define ID_PROP_VER_DADOS_BOTAO                 40002
 #define ID_VEIC_ALTERAR_BOTAO                   40002
 #define ID_VEIC_EXCLUIR_ATUALIZAR_BOTAO         40002
 #define ID_EDIT_MODELO_VEIC                     40003
 #define ID_EDIT_OBRA_MANUT                      40003
 #define ID_PEGACPF_OK                           40003
+#define ID_PROP_MOSTRAR_ATUALIZAR_BOTAO         40003
 #define ID_VEIC_ALTERAR_ATUALIZAR_BOTAO         40003
 #define ID_VEIC_EXCLUIR_LIST                    40003
 #define ID_EDIT_DESCRICAO_MANUT                 40004
