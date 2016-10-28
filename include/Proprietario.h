@@ -43,6 +43,8 @@ int alteraProprietario(Proprietario novoP, char *cpf);
 int excluiProprietario(char *cpf);
 Proprietario *pesquisaProprietario(char *nome);
 int pegaProprietario(char *cpf, Proprietario *pAux);
+Proprietario *carregaProprietarios();
+int obtemQuantPropArquivo();
 int validaCPF(char *cpf);
 int validaTelefone(char *tel);
 

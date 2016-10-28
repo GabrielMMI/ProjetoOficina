@@ -21,17 +21,20 @@
 #define IDD_VEIC_EXCLUIR_FORM                   155
 #define IDD_MANUT_ADD_FORM                      157
 #define IDD_PROP_APRESENTAR                     161
-#define ICON_PROJETO                            162
 #define IDD_MANUT_EXCLUIR_FORM                  170
 #define IDD_MANUT_DADOS_FORM                    172
 #define IDD_MANUT_DADOS                         173
 #define IDD_PROP_MOSTRA_VEIC                    175
+#define IDD_MOSTRA_TODOS_DADOS                  177
+#define IDB_TESTE                               179
+#define IDI_ICON_PROJETO                        181
 #define ID_BOTAO_ACAO_VEIC                      40000
 #define ID_BOTAO_APRESENTAR_PROP                40000
 #define ID_BOTAO_EXCLUIR_MANUT                  40000
 #define ID_BOTAO_PROP_MANUT_VEIC                40000
 #define ID_EDIT_PLACA_MANUT                     40000
 #define ID_MANUT_DATA_INICIO                    40000
+#define ID_MOSTRA_DADOS_TREE_VIEW               40000
 #define ID_NUVEM_BOTAO                          40000
 #define ID_PEGACPF_CANCEL                       40000
 #define ID_PROP_LIST                            40000
@@ -39,6 +42,7 @@
 #define ID_VEIC_ALTERAR_BUSCA_EDIT              40000
 #define ID_BOTAO_ADD_MANUT                      40001
 #define ID_BOTAO_ALTERAR_VEIC                   40001
+#define ID_BOTAO_APRESENTAR_TUDO                40001
 #define ID_BOTAO_APRESENTAR_VEIC_PROP           40001
 #define ID_EDIT_CPF_MANUT                       40001
 #define ID_MANUT_DATA_FIM                       40001
@@ -83,7 +87,6 @@
 #define ID_BOTAO_EXCLUIR_VEIC                   40014
 #define ID_EDIT_CIDADE_PROP                     40015
 #define ID_PROP_ALTERAR_BOTAO                   40017
-#define ID_APRESENTAR_TUDO_BOTAO                40018
 #define ID_EDIT_ESTADO_PROP                     40019
 #define ID_EDIT_PLACA_VEIC                      40020
 #define ID_PROP_ALTERAR_ATUALIZAR_BOTAO         40021

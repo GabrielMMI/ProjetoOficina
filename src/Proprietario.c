@@ -277,6 +277,52 @@ int pegaProprietario(char *cpf, Proprietario *pAux){
 }
 
 /********************************************//**
+ * \brief Busca um proprietario em um arquivo de dados de proprietarios
+ *
+ * \param pos - A posicao do proprietario desejado dentro do arquivo de dados
+ * \param pAux - O endereco de memoria de uma estrutura do tipo Proprietario
+ *
+ * \return PROP_PEGAPROP_SUCESSO - Proprietario recuperado com Sucesso
+ * \return PROP_PEGAPROP_ERRO    - Erro ao recuperar proprietario
+ * \return BUSCA_PROP_INEXISTENTE - Proprietario inexistente
+ * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir arquivo
+ ***********************************************/
+Proprietario *carregaProprietarios(){
+	FILE *dbProp;
+	int qtProp;
+	Proprietario *proprietario = NULL;
+	
+	qtProp = obtemQuantPropArquivo();
+	proprietario = (Proprietario *)malloc(qtProp * sizeof(Proprietario));
+	if(proprietario != NULL){
+		dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
+		if(dbProp != NULL){
+			if(fread(proprietario, sizeof(Proprietario), qtProp, dbProp) != qtProp){
+				free(proprietario);
+				proprietario = NULL;
+			}
+			fechaArquivo(dbProp);
+		}
+	}
+	
+	return proprietario;
+}
+
+int obtemQuantPropArquivo(){
+	FILE *arqProp;
+	int qtProp = -1;
+	
+	arqProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
+	if(arqProp != NULL){
+		if(fseek(arqProp, 0, SEEK_END) == 0){
+			qtProp = ftell(arqProp)/sizeof(Proprietario);
+		}
+		fechaArquivo(arqProp);
+	}
+	return qtProp;
+}
+
+/********************************************//**
  * \brief Valida um CPF
  *
  * \param cpf - O endereco de memoria de um string contendo um cpf
