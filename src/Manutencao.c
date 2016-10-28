@@ -1,6 +1,6 @@
 #include "../include/Manutencao.h"
 
-//Objetivo: Ler e incluir uma manutenÃ§Ã£o no arquivo de manutenÃ§Ã£o
+//Objetivo: Ler e incluir uma manutenção no arquivo de manutenção
 //Parametros: ---------
 //Retorno: ----------
 int incluiManutencao(Manutencao m)
@@ -57,7 +57,7 @@ int incluiManutencao(Manutencao m)
 	return flag;
 }
 
-//Objetivo: Ler e excluir uma manutenÃ§Ã£o no arquivo de manutenÃ§Ã£o
+//Objetivo: Ler e excluir uma manutenção no arquivo de manutenção
 //Parametros: ---------
 //Retorno: ----------
 int excluiManutencao(char *placa)

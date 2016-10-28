@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_PropDlg.c
- * @brief Contem as funÃ§Ãµes de controle da tabPage Proprietario.
+ * @brief Contem as funções de controle da tabPage Proprietario.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -82,7 +82,7 @@ Proprietario *leDadosPropForm(HWND hwnd){
 }
 
 /********************************************//**
- * \brief FunÃ§Ã£o de controle do janela "Adicionar Proprietario"
+ * \brief Função de controle do janela "Adicionar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -147,7 +147,7 @@ BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief FunÃ§Ã£o de controle do Dialogo "Alterar Proprietario"
+ * \brief Função de controle do Dialogo "Alterar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -227,7 +227,7 @@ BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief FunÃ§Ã£o de controle do Dialogo "Excluir Proprietario"
+ * \brief Função de controle do Dialogo "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -310,7 +310,7 @@ void inicializaListProp(HWND hwndList){
 }
 
 /********************************************//**
- * \brief FunÃ§Ã£o de controle da janela "Alterar Proprietario"
+ * \brief Função de controle da janela "Alterar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -381,7 +381,7 @@ BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief FunÃ§Ã£o de controle da janela "Excluir Proprietario"
+ * \brief Função de controle da janela "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -452,7 +452,7 @@ BOOL CALLBACK formExcluirProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief FunÃ§Ã£o de controle do Dialogo "Apresentar todos os Proprietarios"
+ * \brief Função de controle do Dialogo "Apresentar todos os Proprietarios"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -550,7 +550,7 @@ BOOL CALLBACK apresentarProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief FunÃ§Ã£o de controle da tabPage "Proprietario"
+ * \brief Função de controle da tabPage "Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario

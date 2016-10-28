@@ -23,6 +23,15 @@ typedef struct endereco{
 	char estado[TAM_ESTADO];/**< O estado do endereço */
 }Endereco;
 
+/********************************************//**
+ * \brief Guarda um endereço
+ ***********************************************/
+typedef struct telefone{
+	char ddd[TAM_DDD];/**< A descrição do endereço*/
+	char telefone[TAM_TEL];/**< A cidade do endereço */
+}Telefone;
+
+
 
 /********************************************//**
  * \brief Guarda as informações de
@@ -32,7 +41,7 @@ typedef struct proprietario{
 	char nome[TAM_NOME];/**< Nome do proprietario */
 	char cpf[TAM_CPF];/**< CPF do proprietario */
 	Endereco endereco;/**< Endereço do proprietario */
-	char telefone[TAM_TEL];/**< Telefone do proprietario */
+	Telefone telefone;/**< Telefone do proprietario */
 }Proprietario;
 
 //----------------------------------------------------------------------//

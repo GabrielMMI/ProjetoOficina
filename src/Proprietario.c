@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Proprietario.c
- * @brief ContÃ©m todas as funÃ§Ãµes de operacoes que envolvem
+ * @brief Contém todas as funções de operacoes que envolvem
  *        Proprietario.
  *
  *
@@ -404,7 +404,7 @@ int validaCPF(char *cpf)
  * \return TEL_VALIDO - CPF valido
  * \return TEL_INVALIDO - CPF invalido
  ***********************************************/
-int validaTelefone(char *tel)
+int validaTelefone(char *tel, int estado)
 {
 	if(strlen(tel) != 10)
 		return TEL_INVALIDO;

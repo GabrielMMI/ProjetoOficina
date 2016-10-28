@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_ManutDlg.c
- * @brief Contem as fun√ß√µes de controle da tabPage Manuten√ß√£o.
+ * @brief Contem as funÁıes de controle da tabPage ManutenÁ„o.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -10,7 +10,7 @@
 #include<time.h>
 
 /********************************************//**
- * \brief Le os dados do formulario de manuten√ß√£o
+ * \brief Le os dados do formulario de manutenÁ„o
  *
  * \param hwnd HWND
  * \return Manutencao*
@@ -40,7 +40,7 @@ Manutencao *leDadosManutForm(HWND hwnd){
 }
 
 /********************************************//**
- * \brief Atualiza a lista de manuten√ß√µes de acordo
+ * \brief Atualiza a lista de manutenÁıes de acordo
  *        com a data inicial e a data final
  * \param hwndList HWND
  * \param timeI time_t
@@ -94,7 +94,7 @@ void atualizaListaManut(HWND hwndList, Data dataI, Data dataF){
 }
 
 /********************************************//**
- * \brief Nomeia as colunas da lista de Manuten√ß√µes
+ * \brief Nomeia as colunas da lista de ManutenÁıes
  *
  * \param hwndList HWND
  * \return void
@@ -123,15 +123,15 @@ void inicializaListManut(HWND hwndList){
 }
 
 /********************************************//**
- * \brief Fun√ß√£o de controle do Dialogo "Excluir Proprietario"
+ * \brief FunÁ„o de controle do Dialogo "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu√°rio
+ * \param message Indica qual comando foi acionado pelo usu·rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou n√£o
- * \return Padr√£o Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou n„o
+ * \return Padr„o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formDadosManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -175,15 +175,15 @@ BOOL CALLBACK formDadosManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Fun√ß√£o de controle da janela "Excluir Manuten√ß√£o"
+ * \brief FunÁ„o de controle da janela "Excluir ManutenÁ„o"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu√°rio
+ * \param message Indica qual comando foi acionado pelo usu·rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou n√£o
- * \return Padr√£o Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou n„o
+ * \return Padr„o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -275,15 +275,15 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun√ß√£o de controle do janela "Adicionar Manuten√ß√£o"
+ * \brief FunÁ„o de controle do janela "Adicionar ManutenÁ„o"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou n√£o
- * \return Padr√£o Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou n„o
+ * \return Padr„o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formAddManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -341,7 +341,7 @@ BOOL CALLBACK formAddManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun√ß√£o de controle da tabPage "Manuten√ß√£o"
+ * \brief FunÁ„o de controle da tabPage "ManutenÁ„o"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -349,7 +349,7 @@ BOOL CALLBACK formAddManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
  * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
- * \return Padr√£o Windows para janelas
+ * \return Padr„o Windows para janelas
  *
  ***********************************************/
 

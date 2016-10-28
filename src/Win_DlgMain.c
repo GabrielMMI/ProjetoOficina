@@ -10,14 +10,14 @@
 #include "../include/Win_Functions.h"
 
 /********************************************//**
- * \brief Fun√ß√£o de controle da janela "Cr√©ditos"
+ * \brief FunÁ„o de controle da janela "CrÈditos"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu√°rio
+ * \param message Indica qual comando foi acionado pelo usu·rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informa√ß√µes adicionais sobre o comando ou n√£o
+ * \param lParam Pode carregar informaÁıes adicionais sobre o comando ou n„o
  * \return Padrao Windows para janelas
  *
  ***********************************************/
@@ -46,14 +46,14 @@ BOOL CALLBACK creditosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun√ß√£o de controle da janela "Cr√©ditos"
+ * \brief FunÁ„o de controle da janela "CrÈditos"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu√°rio
+ * \param message Indica qual comando foi acionado pelo usu·rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informa√ß√µes adicionais sobre o comando ou n√£o
+ * \param lParam Pode carregar informaÁıes adicionais sobre o comando ou n„o
  * \return Padrao Windows para janelas
  *
  ***********************************************/
@@ -161,14 +161,14 @@ BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Fun√ß√£o de controle da janela Principal
+ * \brief FunÁ„o de controle da janela Principal
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu√°rio
+ * \param message Indica qual comando foi acionado pelo usu·rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou n√£o
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou n„o
  * \return Padrao Windows para janelas
  *
  ***********************************************/
