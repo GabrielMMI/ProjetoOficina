@@ -265,7 +265,6 @@ BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
             switch(wp){
             case ID_BOTAO_ACAO_PROP:
                     erro = excluiProprietario(auxAntigo->cpf);
-                    free(auxAntigo);
                     win_trataErros(hwnd, erro);
                     EndDialog(hwnd, 0);
             break;
