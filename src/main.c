@@ -10,14 +10,15 @@
 #include "../include/Proprietario.h"
 #include "../include/Manutencao.h"
 #include "../include/Veiculo.h"
-#include "../include/Win_Functions.h"
+#include "../include/Win_Dlg_Main.h"
+#include "../include/Win_Dlg_Inicial.h"
 #include <dirent.h>
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd){
     InitCommonControls();
     FILE *dbprop, *dbveic, *dbmanut;
     int flag = 0;
-	
+
     mkdir("database");
     dbprop = fopen(ARQUIVO_DADOS_PROPRIETARIO, "ab");
     dbveic = fopen(ARQUIVO_DADOS_VEICULO, "ab");

@@ -9,7 +9,8 @@
 #ifndef VEICULO_H_SECURE
 #define VEICULO_H_SECURE
 
-#include "Win_FuncoesBasicas.h"
+#include "Win_Funcoes_Basicas.h"
+#include "Defines.h"
 #include "Erros.h"
 #include "Manutencao.h"
 #include <ctype.h>
