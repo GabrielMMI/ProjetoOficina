@@ -19,7 +19,7 @@
 #define TAM_CIDADE 30
 #define TAM_ESTADO 3
 
-#define TAM_PLACA 8
+#define TAM_PLACA 9
 #define TAM_CHASSI 12
 
 #define TAM_DATA 11

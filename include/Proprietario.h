@@ -10,7 +10,8 @@
 #ifndef PROPRIETARIO_H_SECURE
 #define PROPRIETARIO_H_SECURE
 
-#include "Win_FuncoesBasicas.h"
+#include "Win_Funcoes_Basicas.h"
+#include "Defines.h"
 #include <stdio.h>
 #include <stdlib.h>
 

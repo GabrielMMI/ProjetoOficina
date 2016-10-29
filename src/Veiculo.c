@@ -214,8 +214,12 @@ int excluiVeiculo(char *placa)
 int validaPlaca(char *placa)
 {
 	int flag = PLACA_VALIDA;
-	if(isalpha(placa[0])==0 || isalpha(placa[1])==0 || isalpha(placa[2])==0 || isalpha(placa[3])!=0 || isalpha(placa[4])!=0 || isalpha(placa[5])!=0 || isalpha(placa[6])!=0){
+	if(isalpha(placa[0])==0 || isalpha(placa[1])==0 || isalpha(placa[2])==0 || isalpha(placa[4])!=0 || isalpha(placa[5])!=0 || isalpha(placa[6])!=0 || isalpha(placa[7])!=0){
 		flag = PLACA_INVALIDA;
+	}
+
+	if(strlen(placa) != TAM_PLACA-1){
+        flag = PLACA_INVALIDA;
 	}
 	return flag;
 }
