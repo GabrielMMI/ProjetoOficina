@@ -1,6 +1,6 @@
 #include "../include/Manutencao.h"
 
-//Objetivo: Ler e incluir uma manutenção no arquivo de manutenção
+//Objetivo: Ler e incluir uma manutenÃ§Ã£o no arquivo de manutenÃ§Ã£o
 //Parametros: ---------
 //Retorno: ----------
 int incluiManutencao(Manutencao m)
@@ -57,7 +57,7 @@ int incluiManutencao(Manutencao m)
 	return flag;
 }
 
-//Objetivo: Ler e excluir uma manutenção no arquivo de manutenção
+//Objetivo: Ler e excluir uma manutenÃ§Ã£o no arquivo de manutenÃ§Ã£o
 //Parametros: ---------
 //Retorno: ----------
 int excluiManutencao(char *placa)
@@ -208,59 +208,6 @@ int buscaManutencaoCPF(char *cpf, int *pos){
 
 	return flag;
 
-}
-
-/********************************************//**
- * \brief Busca um proprietario em um arquivo de dados de proprietarios
- *
- * \param pos - A posicao do proprietario desejado dentro do arquivo de dados
- * \param pAux - O endereco de memoria de uma estrutura do tipo Proprietario
- *
- * \return PROP_PEGAPROP_SUCESSO - Proprietario recuperado com Sucesso
- * \return PROP_PEGAPROP_ERRO    - Erro ao recuperar proprietario
- * \return BUSCA_PROP_INEXISTENTE - Proprietario inexistente
- * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir arquivo
- ***********************************************/
-Manutencao *carregaManutencoes(){
-	FILE *dbManut;
-	int qtManut;
-	Manutencao *manutencoes = NULL;
-	
-	qtManut = obtemQuantManutArquivo();
-	manutencoes = (Manutencao *)malloc(qtManut * sizeof(Manutencao));
-	if(manutencoes != NULL){
-		dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
-		if(dbManut != NULL){
-			if(fread(manutencoes, sizeof(Manutencao), qtManut, dbManut) != qtManut){
-				free(manutencoes);
-				manutencoes = NULL;
-			}
-			fechaArquivo(dbManut);
-		}
-	}
-	
-	return manutencoes;
-}
-
-int obtemQuantManutArquivo(){
-	FILE *arqManut;
-	int qtManut = -1;
-	
-	arqManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
-	if(arqManut != NULL){
-		if(fseek(arqManut, 0, SEEK_END) == 0){
-			qtManut = ftell(arqManut)/sizeof(Manutencao);
-		}
-		fechaArquivo(arqManut);
-	}
-	return qtManut;
-}
-
-int converteDataString(char* stringData, Data data){
-	int flag = 0;
-	sprintf(stringData, "%d/%d/%d", data.dia, data.mes, data.ano);
-	
-	return flag;
 }
 
 //Objetivo: Pegar Data atual

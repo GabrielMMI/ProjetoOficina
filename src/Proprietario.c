@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Proprietario.c
- * @brief Contém todas as funções de operacoes que envolvem
+ * @brief ContÃ©m todas as funÃ§Ãµes de operacoes que envolvem
  *        Proprietario.
  *
  *
@@ -277,52 +277,6 @@ int pegaProprietario(char *cpf, Proprietario *pAux){
 }
 
 /********************************************//**
- * \brief Busca um proprietario em um arquivo de dados de proprietarios
- *
- * \param pos - A posicao do proprietario desejado dentro do arquivo de dados
- * \param pAux - O endereco de memoria de uma estrutura do tipo Proprietario
- *
- * \return PROP_PEGAPROP_SUCESSO - Proprietario recuperado com Sucesso
- * \return PROP_PEGAPROP_ERRO    - Erro ao recuperar proprietario
- * \return BUSCA_PROP_INEXISTENTE - Proprietario inexistente
- * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir arquivo
- ***********************************************/
-Proprietario *carregaProprietarios(){
-	FILE *dbProp;
-	int qtProp;
-	Proprietario *proprietario = NULL;
-	
-	qtProp = obtemQuantPropArquivo();
-	proprietario = (Proprietario *)malloc(qtProp * sizeof(Proprietario));
-	if(proprietario != NULL){
-		dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
-		if(dbProp != NULL){
-			if(fread(proprietario, sizeof(Proprietario), qtProp, dbProp) != qtProp){
-				free(proprietario);
-				proprietario = NULL;
-			}
-			fechaArquivo(dbProp);
-		}
-	}
-	
-	return proprietario;
-}
-
-int obtemQuantPropArquivo(){
-	FILE *arqProp;
-	int qtProp = -1;
-	
-	arqProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
-	if(arqProp != NULL){
-		if(fseek(arqProp, 0, SEEK_END) == 0){
-			qtProp = ftell(arqProp)/sizeof(Proprietario);
-		}
-		fechaArquivo(arqProp);
-	}
-	return qtProp;
-}
-
-/********************************************//**
  * \brief Valida um CPF
  *
  * \param cpf - O endereco de memoria de um string contendo um cpf
@@ -333,24 +287,24 @@ int obtemQuantPropArquivo(){
 int validaCPF(char *cpf)
 {
 	 // cpfs invalidos
-       char *cpfInval[] = {"00000000000","11111111111",
-                         "22222222222",
-                         "33333333333",
-                         "44444444444",
-                         "55555555555",
-                         "66666666666",
-                         "77777777777",
-                         "88888888888",
-                         "99999999999"};
+       char *cpfInval[] = {"000.000.000-00","111.111.111-11",
+                         "222.222.222-22",
+                         "333.333.333-33",
+                         "444.444.444-44",
+                         "555.555.555-55",
+                         "666.666.666-66",
+                         "777.777.777-77",
+                         "888.888.888-88",
+                         "999.999.999-99"};
 
-		int cont,retorno = CPF_VALIDO,aux2,dig[11],soma=0,digVeri[2];
+		int cont,retorno = CPF_VALIDO,aux2,dig[11],soma=0,digVeri[2], contAux = 0;
 
-		if(strlen(cpf) != 11)
+		if(strlen(cpf) != TAM_CPF-1)
 			return CPF_INVALIDO;
 
 
          // verifica se cpf so contem nros iguais
-	     for(cont=0;cont<9;cont++)
+	     for(cont=0;cont<10;cont++)
          {
                if(strcmp(cpfInval[cont],cpf)==0)
                {
@@ -365,7 +319,10 @@ int validaCPF(char *cpf)
          // transforma os caracteres do cpf em numeros
          for(cont=0;cont<strlen(cpf);cont++)
          {
-                dig[cont] = cpf[cont] - '0';
+                if(cont != 3 && cont != 7 && cont != 11){
+                    dig[contAux] = cpf[cont] - '0';
+                    contAux++;
+                }
          }
 
          // obtem o primeiro digito verificador
@@ -404,10 +361,37 @@ int validaCPF(char *cpf)
  * \return TEL_VALIDO - CPF valido
  * \return TEL_INVALIDO - CPF invalido
  ***********************************************/
-int validaTelefone(char *tel, int estado)
+int validaTelefone(char *tel)
 {
-	if(strlen(tel) != 10)
-		return TEL_INVALIDO;
+    int aux, tamTel = strlen(tel);
+
+	if( tamTel != TAM_TEL-1 && tamTel != TAM_TEL - 2)return TEL_INVALIDO;
+
+    aux = tel[0] - '0';
+    if(aux < 2 || aux > 9){
+        return TEL_INVALIDO;
+    }
+
+    if(aux > 1 && aux < 5){
+        if(tamTel == TAM_TEL - 1){
+            return TEL_INVALIDO;
+        }
+    }
 
 	return TEL_VALIDO;
+}
+
+int validaDDD(char *ddd){
+    int i, valido = DDD_VALIDO;
+    i = ddd[0] - '0';
+    if(i > 9 || i < 1){
+        valido = DDD_INVALIDO;
+    }
+
+    i = ddd[1] - '0';
+    if(i > 9 || i < 1){
+        valido = DDD_INVALIDO;
+    }
+
+    return valido;
 }

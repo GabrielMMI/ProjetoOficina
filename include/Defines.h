@@ -11,9 +11,8 @@
 #define DEFINES_H_SECURE
 
 #define TAM_NOME 50
-#define TAM_CPF 12
-#define TAM_TEL 12
-#define QT_VEICULOS 300
+#define TAM_CPF 15
+#define TAM_TEL 11
 #define TAM_DDD 3
 
 #define TAM_DESCRICAO 501
@@ -22,7 +21,6 @@
 
 #define TAM_PLACA 8
 #define TAM_CHASSI 12
-#define MAX_PROP 30
 
 #define TAM_DATA 11
 #define TAM_MODELO 50

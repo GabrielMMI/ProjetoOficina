@@ -29,11 +29,13 @@
 #define CPF_INVALIDO                90013
 #define TEL_VALIDO                  90014
 #define TEL_INVALIDO                90015
+#define DDD_VALIDO                  90017
+#define DDD_INVALIDO                90018
 
 #define VEIC_INSERIR_SUCESSO        80001
 #define VEIC_INSERIR_ERRO           80002
 #define VEIC_BUSCA_SUCESSO          80003
-#define VEIC_BUSCA_EXISTENTE      80040
+#define VEIC_BUSCA_EXISTENTE        80040
 #define VEIC_BUSCA_INEXISTENTE      80004
 #define VEIC_ALTERAR_SUCESSO        80005
 #define VEIC_ALTERAR_ERRO           80006

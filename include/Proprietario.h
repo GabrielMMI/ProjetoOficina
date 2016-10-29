@@ -31,8 +31,6 @@ typedef struct telefone{
 	char telefone[TAM_TEL];/**< A cidade do endereço */
 }Telefone;
 
-
-
 /********************************************//**
  * \brief Guarda as informações de
  *        um proprietário
@@ -52,8 +50,6 @@ int alteraProprietario(Proprietario novoP, char *cpf);
 int excluiProprietario(char *cpf);
 Proprietario *pesquisaProprietario(char *nome);
 int pegaProprietario(char *cpf, Proprietario *pAux);
-Proprietario *carregaProprietarios();
-int obtemQuantPropArquivo();
 int validaCPF(char *cpf);
 int validaTelefone(char *tel);
 

@@ -141,7 +141,7 @@ int atualizaArqVeic(){
         flag = FECHA_ARQUIVO_ERRO;
     }
 
-	if(flag != ARQ_VEIC_ATUALIZADO) return flag;
+	if(flag != 0) return flag;
 
     if(remove(ARQUIVO_DADOS_VEICULO)==0){
     	if(rename("database/dbVeicAux.dat", ARQUIVO_DADOS_VEICULO)==0){
@@ -283,50 +283,3 @@ int pegaVeiculo(char *placa,Veiculo *v)
 	}
 	return flag;
 }
-
-/********************************************//**
- * \brief Busca um proprietario em um arquivo de dados de proprietarios
- *
- * \param pos - A posicao do proprietario desejado dentro do arquivo de dados
- * \param pAux - O endereco de memoria de uma estrutura do tipo Proprietario
- *
- * \return PROP_PEGAPROP_SUCESSO - Proprietario recuperado com Sucesso
- * \return PROP_PEGAPROP_ERRO    - Erro ao recuperar proprietario
- * \return BUSCA_PROP_INEXISTENTE - Proprietario inexistente
- * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir arquivo
- ***********************************************/
-Veiculo *carregaVeiculos(){
-	FILE *dbVeic;
-	int qtVeic;
-	Veiculo *veiculos = NULL;
-	
-	qtVeic = obtemQuantVeicArquivo();
-	veiculos = (Veiculo *)malloc(qtVeic * sizeof(Veiculo));
-	if(veiculos != NULL){
-		dbVeic = fopen(ARQUIVO_DADOS_VEICULO, "rb");
-		if(dbVeic != NULL){
-			if(fread(veiculos, sizeof(Veiculo), qtVeic, dbVeic) != qtVeic){
-				free(veiculos);
-				veiculos = NULL;
-			}
-			fechaArquivo(dbVeic);
-		}
-	}
-	
-	return veiculos;
-}
-
-int obtemQuantVeicArquivo(){
-	FILE *arqVeic;
-	int qtVeic = -1;
-	
-	arqVeic = fopen(ARQUIVO_DADOS_VEICULO, "rb");
-	if(arqVeic != NULL){
-		if(fseek(arqVeic, 0, SEEK_END) == 0){
-			qtVeic = ftell(arqVeic)/sizeof(Veiculo);
-		}
-		fechaArquivo(arqVeic);
-	}
-	return qtVeic;
-}
-

@@ -37,10 +37,7 @@ typedef struct manutencao{
 int incluiManutencao(Manutencao m);
 int excluiManutencao(char *placa);
 int buscaManutencao(char *placa, char *cpf, Data data, int *pos);
-Manutencao *carregaManutencoes();
-int obtemQuantManutArquivo();
 void obtemDataAtual(Data *data);
-int converteDataString(char* stringData, Data data);
 int comparaData(Data data1, Data data2);
 Data convertTime(SYSTEMTIME st);
 //----------------------------------------------------------------------//

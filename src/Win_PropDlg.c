@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_PropDlg.c
- * @brief Contem as funções de controle da tabPage Proprietario.
+ * @brief Contem as funÃ§Ãµes de controle da tabPage Proprietario.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -37,7 +37,7 @@ void atualizaListaProp(HWND hwndList, char *filtro){
                         lvItem.iSubItem=0;       // Put in first coluom
                         lvItem.pszText=aux.nome; // Text to display (can be from a char variable) (Items)
 
-                        SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                        ListView_InsertItem(hwndList, &lvItem);
 
                         lvItem.iSubItem = 1;       // Put in first coluom
                         lvItem.pszText = aux.cpf; // Text to display (can be from a char variable) (Items)
@@ -45,7 +45,7 @@ void atualizaListaProp(HWND hwndList, char *filtro){
                         SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
 
                         lvItem.iSubItem = 2;       // Put in first coluom
-                        lvItem.pszText = aux.telefone; // Text to display (can be from a char variable) (Items)
+                        lvItem.pszText = aux.telefone.telefone; // Text to display (can be from a char variable) (Items)
 
                         SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
 
@@ -76,13 +76,131 @@ Proprietario *leDadosPropForm(HWND hwnd){
     GetDlgItemText(hwnd, ID_EDIT_CIDADE_PROP, aux->endereco.cidade, TAM_CIDADE);
     GetDlgItemText(hwnd, ID_EDIT_ESTADO_PROP, aux->endereco.estado, TAM_ESTADO);
     GetDlgItemText(hwnd, ID_EDIT_DESCRICAO_PROP, aux->endereco.descricao, TAM_DESCRICAO);
-    GetDlgItemText(hwnd, ID_EDIT_TELEFONE_PROP, aux->telefone, TAM_TEL);
+    GetDlgItemText(hwnd, ID_EDIT_DDD_PROP, aux->telefone.ddd, TAM_DDD);
+    GetDlgItemText(hwnd, ID_EDIT_TELEFONE_PROP, aux->telefone.telefone, TAM_TEL);
 
     return aux;
 }
 
+void inicializaFormProp(HWND hwnd){
+        HWND hwndCombo = GetDlgItem(hwnd, ID_EDIT_ESTADO_PROP);
+
+        Edit_LimitText(GetDlgItem(hwnd, ID_EDIT_NOME_PROP), TAM_NOME-1);
+        Edit_LimitText(GetDlgItem(hwnd, ID_EDIT_CPF_PROP), TAM_CPF-1);
+        Edit_LimitText(GetDlgItem(hwnd, ID_EDIT_CIDADE_PROP), TAM_CIDADE-1);
+        Edit_LimitText(GetDlgItem(hwnd, ID_EDIT_DESCRICAO_PROP), TAM_DESCRICAO-1);
+        Edit_LimitText(GetDlgItem(hwnd, ID_EDIT_TELEFONE_PROP), TAM_TEL-1);
+        Edit_LimitText(GetDlgItem(hwnd, ID_EDIT_DDD_PROP), TAM_DDD-1);
+
+        ComboBox_AddString(hwndCombo, "AC"); ComboBox_AddString(hwndCombo, "AL"); ComboBox_AddString(hwndCombo, "AP");
+        ComboBox_AddString(hwndCombo, "AM"); ComboBox_AddString(hwndCombo, "BA"); ComboBox_AddString(hwndCombo, "CE");
+        ComboBox_AddString(hwndCombo, "DF"); ComboBox_AddString(hwndCombo, "ES"); ComboBox_AddString(hwndCombo, "GO");
+        ComboBox_AddString(hwndCombo, "MA"); ComboBox_AddString(hwndCombo, "MT"); ComboBox_AddString(hwndCombo, "MS");
+        ComboBox_AddString(hwndCombo, "MG"); ComboBox_AddString(hwndCombo, "PA"); ComboBox_AddString(hwndCombo, "PB");
+        ComboBox_AddString(hwndCombo, "PR"); ComboBox_AddString(hwndCombo, "PE"); ComboBox_AddString(hwndCombo, "PI");
+        ComboBox_AddString(hwndCombo, "RJ"); ComboBox_AddString(hwndCombo, "RN"); ComboBox_AddString(hwndCombo, "RS");
+        ComboBox_AddString(hwndCombo, "RO"); ComboBox_AddString(hwndCombo, "RR"); ComboBox_AddString(hwndCombo, "SC");
+        ComboBox_AddString(hwndCombo, "SP"); ComboBox_AddString(hwndCombo, "SE"); ComboBox_AddString(hwndCombo, "TO");
+
+        ComboBox_SetCurSel(hwndCombo, 0);
+
+}
+
+void formataCPF(HWND hwndEdit){
+    int tam = Edit_GetTextLength(hwndEdit);
+    static int cont;
+
+    if(tam == 0){
+        cont = 0;
+    }
+
+    if(tam == 3){
+        Edit_SetSel(hwndEdit, 3, 3);
+        if(cont < 1){
+            Edit_ReplaceSel(hwndEdit, ".");
+            cont++;
+        }else{
+            cont--;
+        }
+    }
+
+    if(tam == 7){
+        Edit_SetSel(hwndEdit, 7, 7);
+        if(cont < 2){
+            Edit_ReplaceSel(hwndEdit, ".");
+            cont++;
+        }else{
+            cont--;
+        }
+    }
+
+    if(tam == 11){
+        Edit_SetSel(hwndEdit, 11, 11);
+        if(cont < 3){
+            Edit_ReplaceSel(hwndEdit, "-");
+            cont++;
+        }else{
+            cont--;
+        }
+    }
+}
+
+void validaLiberaFormProp(HWND hwnd){
+        char cpf[TAM_CPF], tel[TAM_TEL], ddd[TAM_DDD];
+        int aux;
+
+        HWND editCPF = GetDlgItem(hwnd, ID_EDIT_CPF_PROP);
+        HWND editTel = GetDlgItem(hwnd, ID_EDIT_TELEFONE_PROP);
+
+        GetDlgItemText(hwnd, ID_EDIT_CPF_PROP, cpf, TAM_CPF);
+        GetDlgItemText(hwnd, ID_EDIT_TELEFONE_PROP, tel, TAM_TEL);
+        GetDlgItemText(hwnd, ID_EDIT_DDD_PROP, ddd, TAM_DDD);
+
+        aux = tel[0] - '0';
+        if(aux > 5 && aux < 10){
+            Edit_LimitText(editTel, TAM_TEL-1);
+        }
+
+        if( Edit_GetTextLength(GetDlgItem(hwnd, ID_EDIT_NOME_PROP)) > 0 &&
+            validaCPF(cpf) == CPF_VALIDO && validaTelefone(tel) == TEL_VALIDO && validaDDD(ddd) == DDD_VALIDO&&
+            Edit_GetTextLength(GetDlgItem(hwnd, ID_EDIT_CIDADE_PROP)) > 0 &&
+            Edit_GetTextLength(GetDlgItem(hwnd, ID_EDIT_DESCRICAO_PROP)) > 0){
+            Button_Enable(GetDlgItem(hwnd, ID_BOTAO_ACAO_PROP), TRUE);
+        }else{
+            SetDlgItemText(hwnd, ID_PROP_ADD_LOG, "");
+            Button_Enable(GetDlgItem(hwnd, ID_BOTAO_ACAO_PROP), FALSE);
+        }
+
+        formataCPF(editCPF);
+        formataTel(editTel);
+
+        if(validaCPF(cpf) != CPF_VALIDO && strlen(cpf) > 0) SetDlgItemText(hwnd, ID_PROP_ADD_LOG, "O CPF inserido eh invalido!");
+        if(validaTelefone(tel) != TEL_VALIDO && strlen(tel) > 0) SetDlgItemText(hwnd, ID_PROP_ADD_LOG, "O telefone inserido eh invalido!");
+        if(validaDDD(ddd) != DDD_VALIDO && strlen(ddd) > 0) SetDlgItemText(hwnd, ID_PROP_ADD_LOG, "O DDD inserido eh invalido!");
+
+}
+
+void formataTel(HWND hwndEdit){
+    int tam = Edit_GetTextLength(hwndEdit);
+    static int cont;
+
+    if(tam == 0){
+        cont = 0;
+    }
+
+    if(tam == 4){
+        Edit_SetSel(hwndEdit, 4, 4);
+        if(cont < 1){
+            Edit_ReplaceSel(hwndEdit, "-");
+            cont++;
+        }else{
+            cont--;
+        }
+    }
+}
+
 /********************************************//**
- * \brief Função de controle do janela "Adicionar Proprietario"
+ * \brief FunÃ§Ã£o de controle do janela "Adicionar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -97,40 +215,17 @@ BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 {
     Proprietario *aux;
     int erro;
-    char cpf[TAM_CPF], tel[TAM_TEL];
 
     switch(msg) {
         case WM_INITDIALOG:
-
-        SendMessage(GetDlgItem(hwnd, ID_EDIT_NOME_PROP), EM_LIMITTEXT, TAM_NOME-1, 0);
-        SendMessage(GetDlgItem(hwnd, ID_EDIT_CPF_PROP), EM_LIMITTEXT, TAM_CPF-1, 0);
-        SendMessage(GetDlgItem(hwnd, ID_EDIT_ESTADO_PROP), EM_LIMITTEXT, TAM_ESTADO-1, 0);
-        SendMessage(GetDlgItem(hwnd, ID_EDIT_CIDADE_PROP), EM_LIMITTEXT, TAM_CIDADE-1, 0);
-        SendMessage(GetDlgItem(hwnd, ID_EDIT_DESCRICAO_PROP), EM_LIMITTEXT, TAM_DESCRICAO-1, 0);
-        SendMessage(GetDlgItem(hwnd, ID_EDIT_TELEFONE_PROP), EM_LIMITTEXT, TAM_TEL-1, 0);
+        inicializaFormProp(hwnd);
 
         EnableWindow(GetDlgItem(hwnd, ID_BOTAO_ACAO_PROP), FALSE);
         break;
 
         case WM_COMMAND:
-
-            GetDlgItemText(hwnd, ID_EDIT_CPF_PROP, cpf, TAM_CPF);
-            GetDlgItemText(hwnd, ID_EDIT_TELEFONE_PROP, tel, TAM_TEL);
-
-            if( GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_NOME_PROP)) > 0 &&
-                validaCPF(cpf) == CPF_VALIDO && validaTelefone(tel) == TEL_VALIDO &&
-                GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_CIDADE_PROP)) > 0 &&
-                GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_ESTADO_PROP)) > 0 &&
-                GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_DESCRICAO_PROP)) > 0){
-                EnableWindow(GetDlgItem(hwnd, ID_BOTAO_ACAO_PROP), TRUE);
-            }else{
-                SetDlgItemText(hwnd, ID_PROP_ADD_LOG, "");
-                EnableWindow(GetDlgItem(hwnd, ID_BOTAO_ACAO_PROP), FALSE);
-            }
-
-            if(validaCPF(cpf) != CPF_VALIDO && strlen(cpf) == TAM_CPF-1) SetDlgItemText(hwnd, ID_PROP_ADD_LOG, "O CPF inserido e invalido!");
-            if(validaTelefone(tel) != TEL_VALIDO && strlen(tel) == TAM_TEL-1) SetDlgItemText(hwnd, ID_PROP_ADD_LOG, "O telefone inserido a invalido!");
-
+            if(HIWORD(wp) == EN_CHANGE)
+            validaLiberaFormProp(hwnd);
 
             switch(wp){
             case ID_BOTAO_ACAO_PROP:
@@ -147,7 +242,7 @@ BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Alterar Proprietario"
+ * \brief FunÃ§Ã£o de controle do Dialogo "Alterar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -183,7 +278,7 @@ BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                     SetDlgItemText(hwnd, ID_EDIT_CIDADE_PROP, auxAntigo->endereco.cidade);
                     SetDlgItemText(hwnd, ID_EDIT_ESTADO_PROP, auxAntigo->endereco.estado);
                     SetDlgItemText(hwnd, ID_EDIT_DESCRICAO_PROP, auxAntigo->endereco.descricao);
-                    SetDlgItemText(hwnd, ID_EDIT_TELEFONE_PROP, auxAntigo->telefone);
+                    SetDlgItemText(hwnd, ID_EDIT_TELEFONE_PROP, auxAntigo->telefone.telefone);
                 break;
 			}
         return TRUE;
@@ -227,7 +322,7 @@ BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Excluir Proprietario"
+ * \brief FunÃ§Ã£o de controle do Dialogo "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -255,7 +350,7 @@ BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                     SetDlgItemText(hwnd, ID_EDIT_CIDADE_PROP, auxAntigo->endereco.cidade);
                     SetDlgItemText(hwnd, ID_EDIT_ESTADO_PROP, auxAntigo->endereco.estado);
                     SetDlgItemText(hwnd, ID_EDIT_DESCRICAO_PROP, auxAntigo->endereco.descricao);
-                    SetDlgItemText(hwnd, ID_EDIT_TELEFONE_PROP, auxAntigo->telefone);
+                    SetDlgItemText(hwnd, ID_EDIT_TELEFONE_PROP, auxAntigo->telefone.telefone);
                 break;
 			}
         return TRUE;
@@ -310,7 +405,7 @@ void inicializaListProp(HWND hwndList){
 }
 
 /********************************************//**
- * \brief Função de controle da janela "Alterar Proprietario"
+ * \brief FunÃ§Ã£o de controle da janela "Alterar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -381,7 +476,7 @@ BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle da janela "Excluir Proprietario"
+ * \brief FunÃ§Ã£o de controle da janela "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -452,7 +547,7 @@ BOOL CALLBACK formExcluirProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Apresentar todos os Proprietarios"
+ * \brief FunÃ§Ã£o de controle do Dialogo "Apresentar todos os Proprietarios"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -514,7 +609,7 @@ BOOL CALLBACK apresentarProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                     SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
                     lvItem.iSubItem = 2;
-                    lvItem.pszText = aux.telefone;
+                    lvItem.pszText = aux.telefone.telefone;
 
                     SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
@@ -550,7 +645,7 @@ BOOL CALLBACK apresentarProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Função de controle da tabPage "Proprietario"
+ * \brief FunÃ§Ã£o de controle da tabPage "Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -588,7 +683,7 @@ BOOL CALLBACK tabPropPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         case ID_BOTAO_APRESENTAR_PROP:
             formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_APRESENTAR), GetParent(hwnd), (DLGPROC)apresentarProp);
             break;
-            
+
         case ID_BOTAO_APRESENTAR_VEIC_PROP:
         	formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_MOSTRA_VEIC), GetParent(hwnd), (DLGPROC)NULL);
         	break;

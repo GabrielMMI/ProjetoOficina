@@ -10,14 +10,14 @@
 #include "../include/Win_Functions.h"
 
 /********************************************//**
- * \brief Função de controle da janela "Créditos"
+ * \brief FunÃ§Ã£o de controle da janela "CrÃ©ditos"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuÃ¡rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
+ * \param lParam Pode carregar informaÃ§Ãµes adicionais sobre o comando ou nÃ£o
  * \return Padrao Windows para janelas
  *
  ***********************************************/
@@ -45,130 +45,16 @@ BOOL CALLBACK creditosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     return FALSE;
 }
 
+
 /********************************************//**
- * \brief Função de controle da janela "Créditos"
+ * \brief FunÃ§Ã£o de controle da janela Principal
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuÃ¡rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informações adicionais sobre o comando ou não
- * \return Padrao Windows para janelas
- *
- ***********************************************/
-BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
-{
-	static HWND hwndTree;
-	TV_INSERTSTRUCT tvinsert;
-	int qtProp, aux, auxV;
-	HTREEITEM noProp;           
-	HTREEITEM noVeic;           
-	HTREEITEM noManut;
-	HTREEITEM noVeicManut;
-	FILE *arqProp;
-	Proprietario *proprietarios;
-	Manutencao *manutencoes;
-	Veiculo *veiculos;
-	char data[TAM_DATA];
-	
-    switch(msg) {
-        case WM_INITDIALOG:
-        	
-			tvinsert.hParent=NULL;
-			tvinsert.hInsertAfter=TVI_ROOT;
-			tvinsert.item.mask=TVIF_TEXT|TVIF_IMAGE|TVIF_SELECTEDIMAGE;	
-			
-			tvinsert.item.pszText="Proprietários";			
-			noProp=(HTREEITEM)SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
-			
-			tvinsert.item.pszText="Veiculos";			
-			noVeic=(HTREEITEM)SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
-			
-			tvinsert.item.pszText="Manutenções";	
-			noManut=(HTREEITEM)SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
-			
-			proprietarios = carregaProprietarios();
-			
-			if(proprietarios != NULL){
-				for(aux = 0; aux < obtemQuantPropArquivo(); aux++){
-					tvinsert.hParent=noProp;
-					tvinsert.hInsertAfter=TVI_ROOT;
-					
-					tvinsert.item.pszText=proprietarios[aux].nome;			
-					SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
-				}
-				free(proprietarios);
-			}
-			
-			veiculos = carregaVeiculos();
-			
-			if(veiculos != NULL){
-				for(aux = 0; aux < obtemQuantVeicArquivo(); aux++){
-					tvinsert.hParent=noVeic;
-					tvinsert.hInsertAfter=TVI_ROOT;
-					
-					tvinsert.item.pszText=veiculos[aux].placa;			
-					SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
-				}
-				free(veiculos);
-			}
-			
-			manutencoes = carregaManutencoes();
-			
-			if(manutencoes != NULL){
-				for(aux = 0; aux < obtemQuantManutArquivo(); aux++){
-					tvinsert.hParent=noManut;
-					tvinsert.hInsertAfter=TVI_ROOT;
-				
-					converteDataString(data, manutencoes[aux].data);
-					
-					tvinsert.item.pszText = data;
-					
-					noVeicManut = (HTREEITEM)SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
-					
-					veiculos = carregaVeiculos();
-					
-					if(veiculos != NULL){
-						
-						for(auxV = 0; auxV < obtemQuantVeicArquivo(); auxV++){
-							tvinsert.hParent=noVeicManut;
-							tvinsert.hInsertAfter=TVI_ROOT;
-							
-							tvinsert.item.pszText=veiculos[auxV].placa;			
-							SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
-						}
-						free(veiculos);
-					}
-				}
-				
-				free(manutencoes);
-			}
-			
-            return TRUE;
-        break;
-
-        case WM_COMMAND:
-        return TRUE;
-        break;
-
-        case WM_CLOSE:
-            EndDialog(hwnd, 0);
-        break;
-    }
-    return FALSE;
-}
-
-
-/********************************************//**
- * \brief Função de controle da janela Principal
- *
- * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
- * \param wParam Uma WORD que se divide em duas partes:
- *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
- *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou não
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nÃ£o
  * \return Padrao Windows para janelas
  *
  ***********************************************/
@@ -199,9 +85,9 @@ LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
             SendDlgItemMessage(hwnd, OFICIAL_NOME, WM_SETFONT, (WPARAM) (hFont), TRUE);
 
-            SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)LoadIcon(NULL, MAKEINTRESOURCE(IDI_ICON_PROJETO)));
+            SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)LoadIcon(NULL, MAKEINTRESOURCE(ICON_PROJETO)));
 
-            SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)LoadIcon(NULL, MAKEINTRESOURCE(IDI_ICON_PROJETO)));
+            SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)LoadIcon(NULL, MAKEINTRESOURCE(ICON_PROJETO)));
 
             if(existeArquivo(ARQUIVO_DADOS_OFICINA)){
                 oficinaInfo = fopen(ARQUIVO_DADOS_OFICINA, "r");
@@ -253,9 +139,6 @@ LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
                     DialogBox(g_inst, MAKEINTRESOURCE(IDD_CREDITOS), hwnd, (DLGPROC)creditosProc);
                 break;
 
-				case ID_BOTAO_APRESENTAR_TUDO:
-					DialogBox(g_inst, MAKEINTRESOURCE(IDD_MOSTRA_TODOS_DADOS), hwnd, (DLGPROC)apresentaTodosDadosProc);
-				break;
             }
             return TRUE;
 		break;
