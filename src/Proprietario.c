@@ -20,7 +20,7 @@
  *
  * \return PROP_INSERIR_SUCESSO - Proprietario inserido com Sucesso
  * \return PROP_INSERIR_ERRO    - Erro ao inserir proprietario
- * \return BUSCA_PROP_EXISTENTE - Proprietario ja existente
+ * \return PROP_BUSCA_EXISTENTE - Proprietario ja existente
  * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir\criar arquivo
  ***********************************************/
 int incluiProprietario(Proprietario prop)
@@ -64,24 +64,33 @@ int incluiProprietario(Proprietario prop)
  *
  * \return PROP_BUSCA_SUCESSO - A busca foi realizada com sucesso
  * \return ERRO_ABRIR_ARQUIVO - Erro ao abrir arquivo
+ * \return ALOC_ERRO - Erro ao alocar memoria
  * \return ERRO_ARQUIVO_INEXISTENTE - Arquivo Inexistente
+ * \return FECHA_ARQUIVO_ERRO - Erro ao fechar arquivo
  ***********************************************/
 int buscaProprietario(char *cpf, int *pos)
 {
 	FILE *dbProp;
-	Proprietario pAux;
+	Proprietario *pAux=NULL;
 	int ind = -1, flag;
 
+	pAux=(Proprietario *)malloc(sizeof(Proprietario));
+	if(pAux==NULL){
+		return ALOC_ERRO;
+	}else{
+		flag=ALOC_SUCESSO;
+	}
+	
 	*pos = ind;
 
 	if(!existeArquivo(ARQUIVO_DADOS_PROPRIETARIO)) return ERRO_ARQUIVO_INEXISTENTE;
 
 	dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
     if(dbProp != NULL){
-        while(fread(&pAux, sizeof(Proprietario), 1, dbProp) == 1){
+        while(fread(pAux, sizeof(Proprietario), 1, dbProp) == 1){
             ind++;
 
-            if(stricmp(pAux.cpf, cpf) == 0){
+            if(stricmp(pAux->cpf, cpf) == 0){
                 *pos = ind;
                 break;
             }
@@ -107,6 +116,7 @@ int buscaProprietario(char *cpf, int *pos)
  * \return PROP_ALTERAR_SUCESSO - Proprietario alterado com Sucesso
  * \return PROP_ALTERAR_ERRO    - Erro ao alterar proprietario
  * \return BUSCA_PROP_INEXISTENTE - Proprietario inexistente
+ * \nreturn FECHA_ARQUIVO_ERRO - Erro ao fechar o arquivo
  * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir arquivo
  ***********************************************/
 int alteraProprietario(Proprietario novoP, char *cpf)
@@ -143,22 +153,34 @@ int alteraProprietario(Proprietario novoP, char *cpf)
 /********************************************//**
  * \brief Atualiza o arquivo de proprietarios
  *
+ * \param void
+ *
  * \return PROP_INSERIR_ERRO - Erro na reinsercao dos dados
  * \return ERRO_ABRIR_ARQUIVO - Erro ao abrir o arquivo
+ * \return FECHA_ARQUIVO_ERRO - Erro ao fechar o arquivo
+ * \return ERRO_ARQUIVO_GRAVAR_PROP - Erro ao gravar um proprietario no arquivo
+ * \return ERRO_REMOVER_ARQUIVO - Erro ao remover o arquivo
+ * \return ERRO_RENOMEAR_ARQUIVO - Erro ao renomer o arquivo
  ***********************************************/
 int atualizaArqProp(){
     FILE *arqEntrada, *arqSaida;
-    Proprietario aux;
+    Proprietario *aux==NULL;
     int flag = ARQ_PROP_ATUALIZADO;
-
+	
+	if(aux==NULL){
+		return ALOC_ERRO;
+	}else{
+		flag=ALOC_SUCESSO;
+	}
+	
     arqEntrada = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
     arqSaida = fopen("XXXX.txt", "wb");
 
     if(arqEntrada != NULL){
     	if(arqSaida != NULL){
-	        while(fread(&aux, sizeof(Proprietario), 1, arqEntrada) == 1){
-	            if(aux.nome[0] != '\0'){
-	                if(fwrite(&aux, sizeof(Proprietario), 1, arqSaida) != 1){
+	        while(fread(aux, sizeof(Proprietario), 1, arqEntrada) == 1){
+	            if(aux->nome[0] != '\0'){
+	                if(fwrite(aux, sizeof(Proprietario), 1, arqSaida) != 1){
 	                	flag = ERRO_ARQUIVO_GRAVAR_PROP;
 	                	break;
 					}
@@ -193,12 +215,21 @@ int atualizaArqProp(){
  * \return PROP_EXCLUIR_ERRO    - Erro ao alterar proprietario
  * \return BUSCA_PROP_INEXISTENTE - Proprietario inexistente
  * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir arquivo
+ * \return PROP_EXCLUIR_ERRO_MANUT_EXISTENTE - Erro ao excluir um proprietario pois ele esta com uma manutenção cadastrada
+ * \return FECHA_ARQUIVO_ERRO - Erro ao fechar arquivo
+ * \return ALOC_ERRO - Erro ao alocar memoria
  ***********************************************/
 int excluiProprietario(char *cpf)
 {
 	int pos = -1, flag = 0, erro;
-	Proprietario pAux;
+	Proprietario *pAux==NULL;
 	FILE *dbProp;
+
+	if(pAux==NULL){
+		return ALOC_ERRO;
+	}else{
+		flag=ALOC_SUCESSO;
+	}
 
 	flag = buscaProprietario(cpf, &pos);
 	if(flag == PROP_BUSCA_SUCESSO){
@@ -209,9 +240,9 @@ int excluiProprietario(char *cpf)
             if(pos == -1 && flag == MANUT_BUSCA_SUCESSO){
                 dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "r+b");
                 if(dbProp != NULL){
-                    pAux.nome[0] = '\0';
+                    pAux->nome[0] = '\0';
 
-                    flag = alteraProprietario(pAux, cpf);
+                    flag = alteraProprietario(*pAux, cpf);
                     if(flag == PROP_ALTERAR_SUCESSO){
                         flag = PROP_EXCLUIR_SUCESSO;
                     }else{
@@ -238,7 +269,7 @@ int excluiProprietario(char *cpf)
 /********************************************//**
  * \brief Busca um proprietario em um arquivo de dados de proprietarios
  *
- * \param pos - A posicao do proprietario desejado dentro do arquivo de dados
+ * \param cpf - O endereco de memoria de um string contendo o CPF do proprietario desejado
  * \param pAux - O endereco de memoria de uma estrutura do tipo Proprietario
  *
  * \return PROP_PEGAPROP_SUCESSO - Proprietario recuperado com Sucesso
@@ -399,13 +430,9 @@ int validaDDD(char *ddd){
 /********************************************//**
  * \brief Busca um proprietario em um arquivo de dados de proprietarios
  *
- * \param pos - A posicao do proprietario desejado dentro do arquivo de dados
- * \param pAux - O endereco de memoria de uma estrutura do tipo Proprietario
+ * \param void
  *
- * \return PROP_PEGAPROP_SUCESSO - Proprietario recuperado com Sucesso
- * \return PROP_PEGAPROP_ERRO    - Erro ao recuperar proprietario
- * \return BUSCA_PROP_INEXISTENTE - Proprietario inexistente
- * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir arquivo
+ * \return Endereço de um ponteiro do tipo Proprietario
  ***********************************************/
 Proprietario *carregaProprietarios()
 {
@@ -428,6 +455,14 @@ Proprietario *carregaProprietarios()
 
 	return proprietario;
 }
+
+/********************************************//**
+ * \brief Obtem a quantidade de proprietarios no arquivo de proprietarios
+ *
+ * \param void
+ *
+ * \return A quantidade de proprietarios
+ ***********************************************/
 
 int obtemQuantPropArquivo()
 {

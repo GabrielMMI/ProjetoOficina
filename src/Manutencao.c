@@ -3,6 +3,19 @@
 //Objetivo: Ler e incluir uma manutenÃ§Ã£o no arquivo de manutenÃ§Ã£o
 //Parametros: ---------
 //Retorno: ----------
+/********************************************//**
+ * \brief Inclui uma manutenção no arquivo de manutenções
+ *
+ * \param manutencao - Struct do tipo Manutencao
+ *
+ * \return MANUT_INSERIR_ERRO_DIA
+ * \return FECHA_ARQUIVO_ERRO
+ * \return ERRO_ABRIR_ARQUIVO
+ * \return 
+ * \return 
+ * \return 
+ ***********************************************/
+
 int incluiManutencao(Manutencao m)
 {
 	FILE *arq;
@@ -144,6 +157,77 @@ int pegaManutencao(char *placa, char *cpf, Data data, Manutencao *manut){
         }
 	}
 	return flag;
+}
+
+int pegaManutencaoPlacDat(char *placa, Data data, Manutencao *manut){
+    int flag;
+	FILE *arqManut;
+	Manutencao *mAux==NULL;
+	int posicaoManut;
+
+	mAux=(Manutencao*)malloc(sizeof(Manutencao));
+	if(mAux==NULL){
+		return ALOC_ERRO;
+	}
+
+    flag = buscaManutencao(placa, data, &posicaoManut);
+	if(flag == MANUT_BUSCA_SUCESSO){
+        if(posicaoManut == -1){
+            flag = MANUT_PEGAMANUT_ERRO;
+        }else{
+            arqManut=fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+            if(arqManut!=NULL){
+                if(fseek(arqManut,posicaoManut*sizeof(Manutencao),SEEK_SET)==0){
+                    if(fread(mAux,sizeof(Manutencao),1,arqManut)==1){
+                        manut = mAux;
+                        flag = MANUT_PEGAMANUT_SUCESSO;
+                    }
+                }
+                if(fechaArquivo(arqManut) == FECHA_ARQUIVO_ERRO){
+                    flag = FECHA_ARQUIVO_ERRO;
+                }
+            }else{
+                flag = ERRO_ABRIR_ARQUIVO;
+            }
+        }
+	}
+	return flag;
+}
+
+int buscaManutencaoPlacDat(char *placa,Data data, int *pos)
+{
+	FILE *dbManut;
+	Manutencao *mAux=NULL;
+	int ind = -1, flag;
+
+	mAux=(Manutencao*)malloc(sizeof(Manutencao));
+	if(mAux==NULL){
+		return ALOC_ERRO;
+	}
+
+	*pos = ind;
+
+	if(!existeArquivo(ARQUIVO_DADOS_MANUTENCAO)) return ERRO_ARQUIVO_INEXISTENTE;
+
+	dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+    if(dbManut != NULL){
+        while(fread(mAux, sizeof(Manutencao), 1, dbManut) == 1){
+            ind++;
+            if(stricmp(mAux->placa, placa) == 0 && comparaData(mAux->data, data) == 0){
+                *pos = ind;
+                break;
+            }
+        }
+        flag = MANUT_BUSCA_SUCESSO;
+        if(fechaArquivo(dbManut) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
+    }else{
+        flag = ERRO_ABRIR_ARQUIVO;
+    }
+
+	return flag;
+
 }
 
 int buscaManutencao(char *placa, char *cpf, Data data, int *pos)
@@ -344,6 +428,14 @@ int converteDataString(char* stringData, Data data)
 {
 	int flag = 0;
 	sprintf(stringData, "%d/%d/%d", data.dia, data.mes, data.ano);
+
+	return flag;
+}
+
+int converteStringData(char *stringData, Data *data)
+{
+	int flag = 0;
+	sscanf(stringData,"%d/%d/%d",&data->dia,&data->mes,&data->ano);
 
 	return flag;
 }

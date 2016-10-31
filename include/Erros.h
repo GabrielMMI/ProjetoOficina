@@ -87,6 +87,10 @@
 #define ERRO_REMOVER_ARQUIVO		60015
 #define ERRO_RENOMEAR_ARQUIVO		60016
 
+//Alocação dinamica
+#define ALOC_ERRO					50000
+#define ALOC_SUCESSO				50001
+
 int win_trataErros(HWND hwnd, int erro);
 
 #endif // ERROS_H_SECURE

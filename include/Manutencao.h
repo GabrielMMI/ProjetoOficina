@@ -47,5 +47,8 @@ Data convertTime(SYSTEMTIME st);
 Manutencao *carregaManutencoes();
 int obtemQuantManutArquivo();
 int converteDataString(char* stringData, Data data);
+int pegaManutencaoPlacDat(char *placa, Data data, Manutencao *manut);
+int buscaManutencaoPlacDat(char *placa,Data data, int *pos);
+int converteStringData(char *stringData, Data *data);
 //----------------------------------------------------------------------//
 #endif
