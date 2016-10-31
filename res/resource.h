@@ -28,6 +28,9 @@
 #define IDD_VEIC_MOSTRA_DADOS_FORM              178
 #define IDD_MOSTRA_TODOS                        180
 #define IDD_MANUT_EXCLUIR                       182
+#define IDD_TODOS_DADOS_MANUT                   184
+#define IDD_TODOS_DADOS_PROP                    186
+#define IDD_TODOS_DADOS_VEIC                    188
 #define ID_BOTAO_ACAO_VEIC                      40000
 #define ID_BOTAO_APRESENTAR_PROP                40000
 #define ID_BOTAO_EXCLUIR_MANUT                  40000

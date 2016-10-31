@@ -8,6 +8,7 @@
  ***********************************************/
 
 #include "../include/Win_Dlg_Main.h"
+#include "../include/Win_Dlg_Prop.h"
 
 /********************************************//**
  * \brief Função de controle da janela "Créditos"
@@ -57,25 +58,82 @@ BOOL CALLBACK creditosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \return Padrao Windows para janelas
  *
  ***********************************************/
+BOOL CALLBACK mostraDadosProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp){
+	static Proprietario *auxAntigo;
+    int erro;
+    PCOPYDATASTRUCT pcds;
+
+    switch(msg) {
+        case WM_COPYDATA:
+			pcds = (PCOPYDATASTRUCT)lp;
+			auxAntigo = (Proprietario *)(pcds->lpData);
+			switch(pcds->dwData){
+				case 0:
+				    inicializaFormProp(hwnd);
+                    preencheFormProp(hwnd, auxAntigo);
+                break;
+			}
+        return TRUE;
+        break;
+    }
+    return FALSE;
+}
+
+BOOL CALLBACK mostraDadosVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp){
+	static Veiculo *auxAntigo;
+    int erro;
+    PCOPYDATASTRUCT pcds;
+
+    switch(msg) {
+        case WM_COPYDATA:
+			pcds = (PCOPYDATASTRUCT)lp;
+			if(pcds->dwData == 0){
+				auxAntigo = (Veiculo *)(pcds->lpData);
+                preencheFormVeic(hwnd, auxAntigo);
+            }
+        return TRUE;
+        break;
+
+    }
+    return FALSE;
+}
+
+/********************************************//**
+ * \brief Função de controle da janela "Créditos"
+ *
+ * \param hwnd Manipulador da janela
+ * \param message Indica qual comando foi acionado pelo usuário
+ * \param wParam Uma WORD que se divide em duas partes:
+ *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
+ *               (LOWORD) - 16 bits, informa o id do controle que o acionou
+ * \param lParam Pode carregar informações adicionais sobre o comando ou não
+ * \return Padrao Windows para janelas
+ *
+ ***********************************************/
 BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 {
-	static HWND hwndTree;
+	static HWND hwndTree, telaAux, *hwndAux;
+	HWND editControl;
+	static Proprietario auxProp;
+	static Veiculo auxVeic;
+	static Manutencao auxManut;
 	TV_INSERTSTRUCT tvinsert;
-	int qtProp, aux, auxV;
-	HTREEITEM noProp;
-	HTREEITEM noVeic;
-	HTREEITEM noManut;
-	HTREEITEM noVeicManut;
+	TVITEM tvitem;
+	int qtProp, aux, auxV, iSelect;
+	static HTREEITEM noProp, noVeic, noManut, noVeicManut, noSelected, noAux;
+    static HINSTANCE g_inst;
 	FILE *arqProp;
 	Proprietario *proprietarios;
 	Manutencao *manutencoes;
 	Veiculo *veiculos;
-	char data[TAM_DATA];
+	char data[TAM_DATA], cpf[TAM_CPF], placa[TAM_PLACA];
 	Data dataAux;
+	COPYDATASTRUCT CDS;
 
     switch(msg) {
         case WM_INITDIALOG:
-
+			hwndTree = GetDlgItem(hwnd, ID_MOSTRA_DADOS_TREE_VIEW);
+			
 			tvinsert.hParent=NULL;
 			tvinsert.hInsertAfter=TVI_ROOT;
 			tvinsert.item.mask=TVIF_TEXT|TVIF_IMAGE|TVIF_SELECTEDIMAGE;
@@ -96,7 +154,7 @@ BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 					tvinsert.hParent=noProp;
 					tvinsert.hInsertAfter=TVI_ROOT;
 
-					tvinsert.item.pszText=proprietarios[aux].nome;
+					tvinsert.item.pszText=proprietarios[aux].cpf;
 					SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
 				}
 				free(proprietarios);
@@ -122,23 +180,23 @@ BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 					if(comparaData(dataAux,  manutencoes[aux].data) != 0){
 						tvinsert.hParent=noManut;
 						tvinsert.hInsertAfter=TVI_ROOT;
-	
+
 						dataAux =  manutencoes[aux].data;
 						converteDataString(data, dataAux);
-						
+
 						tvinsert.item.pszText = data;
-	
+
 						noVeicManut = (HTREEITEM)SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
-	
+
 						for(auxV = 0; auxV < obtemQuantManutArquivo(); auxV++){
 							if(comparaData(dataAux,  manutencoes[auxV].data) == 0){
-						
+
 								tvinsert.hParent=noVeicManut;
 								tvinsert.hInsertAfter=TVI_ROOT;
-	
+
 								tvinsert.item.pszText=manutencoes[auxV].placa;
 								SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
-							
+
 							}
 						}
 					}
@@ -146,13 +204,99 @@ BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 				free(manutencoes);
 			}
-
+			
             return TRUE;
         break;
 
         case WM_COMMAND:
-        return TRUE;
+        	
+        	return TRUE;
         break;
+
+		case WM_NOTIFY:
+		      switch(LOWORD(wp))
+		      {
+		        case ID_MOSTRA_DADOS_TREE_VIEW:
+		          if(((LPNMHDR)lp)->code == NM_DBLCLK)
+		          {
+		          	
+				   	noSelected = TreeView_GetNextItem(hwndTree, noSelected, TVGN_CARET);
+				   	
+		        	if(noSelected != NULL){
+						
+						hwndAux = guardaPegaHandle(NULL, 1);
+	        			if(hwndAux != NULL) EndDialog(*hwndAux, 0);
+						
+						if(TreeView_GetParent(hwndTree, noSelected) == noProp){
+							telaAux = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TODOS_DADOS_PROP), hwnd, (DLGPROC)mostraDadosProp);
+							
+							tvitem.hItem = noSelected;
+							tvitem.mask = TVIF_TEXT;
+							tvitem.pszText = cpf;
+							tvitem.cchTextMax = TAM_CPF;
+							
+							TreeView_GetItem(hwndTree, &tvitem);
+							
+							pegaProprietario(cpf, &auxProp);
+
+	                        CDS.dwData = 0;
+	                        CDS.cbData = sizeof(Proprietario);
+	                        CDS.lpData = &auxProp;
+	
+	                        SendMessage(telaAux, WM_COPYDATA , (WPARAM)(HWND)hwnd, (LPARAM) (LPVOID) &CDS);
+						}
+						
+						if(TreeView_GetParent(hwndTree, noSelected) == noVeic){
+							telaAux = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TODOS_DADOS_VEIC), hwnd, (DLGPROC)mostraDadosVeic);
+							
+							tvitem.hItem = noSelected;
+							tvitem.mask = TVIF_TEXT;
+							tvitem.pszText = placa;
+							tvitem.cchTextMax = TAM_PLACA;
+							
+							TreeView_GetItem(hwndTree, &tvitem);
+							
+							pegaVeiculo(placa, &auxVeic);
+
+	                        CDS.dwData = 0;
+	                        CDS.cbData = sizeof(Veiculo);
+	                        CDS.lpData = &auxVeic;
+	
+	                        SendMessage(telaAux, WM_COPYDATA , (WPARAM)(HWND)hwnd, (LPARAM) (LPVOID) &CDS);
+						}
+						
+						if(TreeView_GetParent(hwndTree, TreeView_GetParent(hwndTree, noSelected)) == noManut){
+							telaAux = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TODOS_DADOS_MANUT), hwnd, (DLGPROC)mostraDadosProp);
+							
+							tvitem.hItem = noSelected;
+							tvitem.mask = TVIF_TEXT;
+							tvitem.pszText = data;
+							tvitem.cchTextMax = TAM_DATA;
+							
+							TreeView_GetItem(hwndTree, &tvitem);
+							
+							tvitem.hItem = noSelected;
+							tvitem.mask = TVIF_TEXT;
+							tvitem.pszText = placa;
+							tvitem.cchTextMax = TAM_PLACA;
+							
+							TreeView_GetItem(hwndTree, &tvitem);
+							
+							//pegaManut ----------
+
+	                        CDS.dwData = 0;
+	                        CDS.cbData = sizeof(Manutencao);
+	                        CDS.lpData = &auxManut;
+	
+	                        SendMessage(telaAux, WM_COPYDATA , (WPARAM)(HWND)hwnd, (LPARAM) (LPVOID) &CDS);
+						}
+						
+						guardaPegaHandle(&telaAux, 0);
+						
+		            }
+		          }
+		      }
+		break;
 
         case WM_CLOSE:
             EndDialog(hwnd, 0);

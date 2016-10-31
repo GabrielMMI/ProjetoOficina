@@ -33,7 +33,7 @@ void atualizaListaProp(HWND hwndList, char *cpf, char *nome)
             arq = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
             if(arq != NULL){
                 while(fread(&aux, sizeof(Proprietario), 1, arq) == 1){
-                    if(strncmp(aux.cpf, cpf, strlen(cpf)) == 0 && strnicmp(aux.nome, nome, strlen(nome)) == 0){
+                    if(strncmp(aux.cpf, cpf, strlen(cpf)) == 0 && (strnicmp(aux.nome, nome, strlen(nome)) == 0 || strstr(aux.nome, nome) != NULL)){
                         lvItem.mask=LVIF_TEXT;   // Text Style
                         lvItem.cchTextMax = TAM_NOME;
                         lvItem.iItem=cont;          // choose item
