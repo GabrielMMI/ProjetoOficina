@@ -45,6 +45,121 @@ BOOL CALLBACK creditosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     return FALSE;
 }
 
+/********************************************//**
+ * \brief Função de controle da janela "Créditos"
+ *
+ * \param hwnd Manipulador da janela
+ * \param message Indica qual comando foi acionado pelo usuário
+ * \param wParam Uma WORD que se divide em duas partes:
+ *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
+ *               (LOWORD) - 16 bits, informa o id do controle que o acionou
+ * \param lParam Pode carregar informações adicionais sobre o comando ou não
+ * \return Padrao Windows para janelas
+ *
+ ***********************************************/
+BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+{
+	static HWND hwndTree;
+	TV_INSERTSTRUCT tvinsert;
+	int qtProp, aux, auxV;
+	HTREEITEM noProp;
+	HTREEITEM noVeic;
+	HTREEITEM noManut;
+	HTREEITEM noVeicManut;
+	FILE *arqProp;
+	Proprietario *proprietarios;
+	Manutencao *manutencoes;
+	Veiculo *veiculos;
+	char data[TAM_DATA];
+	Data dataAux;
+
+    switch(msg) {
+        case WM_INITDIALOG:
+
+			tvinsert.hParent=NULL;
+			tvinsert.hInsertAfter=TVI_ROOT;
+			tvinsert.item.mask=TVIF_TEXT|TVIF_IMAGE|TVIF_SELECTEDIMAGE;
+
+			tvinsert.item.pszText="Propriet�rios";
+			noProp=(HTREEITEM)SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
+
+			tvinsert.item.pszText="Veiculos";
+			noVeic=(HTREEITEM)SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
+
+			tvinsert.item.pszText="Manuten��es";
+			noManut=(HTREEITEM)SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
+
+			proprietarios = carregaProprietarios();
+
+			if(proprietarios != NULL){
+				for(aux = 0; aux < obtemQuantPropArquivo(); aux++){
+					tvinsert.hParent=noProp;
+					tvinsert.hInsertAfter=TVI_ROOT;
+
+					tvinsert.item.pszText=proprietarios[aux].nome;
+					SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
+				}
+				free(proprietarios);
+			}
+
+			veiculos = carregaVeiculos();
+
+			if(veiculos != NULL){
+				for(aux = 0; aux < obtemQuantVeicArquivo(); aux++){
+					tvinsert.hParent=noVeic;
+					tvinsert.hInsertAfter=TVI_ROOT;
+
+					tvinsert.item.pszText=veiculos[aux].placa;
+					SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
+				}
+				free(veiculos);
+			}
+
+			manutencoes = carregaManutencoes();
+
+			if(manutencoes != NULL){
+				for(aux = 0; aux < obtemQuantManutArquivo(); aux++){
+					if(comparaData(dataAux,  manutencoes[aux].data) != 0){
+						tvinsert.hParent=noManut;
+						tvinsert.hInsertAfter=TVI_ROOT;
+	
+						dataAux =  manutencoes[aux].data;
+						converteDataString(data, dataAux);
+						
+						tvinsert.item.pszText = data;
+	
+						noVeicManut = (HTREEITEM)SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
+	
+						for(auxV = 0; auxV < obtemQuantManutArquivo(); auxV++){
+							if(comparaData(dataAux,  manutencoes[auxV].data) == 0){
+						
+								tvinsert.hParent=noVeicManut;
+								tvinsert.hInsertAfter=TVI_ROOT;
+	
+								tvinsert.item.pszText=manutencoes[auxV].placa;
+								SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
+							
+							}
+						}
+					}
+				}
+
+				free(manutencoes);
+			}
+
+            return TRUE;
+        break;
+
+        case WM_COMMAND:
+        return TRUE;
+        break;
+
+        case WM_CLOSE:
+            EndDialog(hwnd, 0);
+        break;
+    }
+    return FALSE;
+}
 
 /********************************************//**
  * \brief Função de controle da janela Principal
@@ -135,6 +250,10 @@ LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
         case WM_COMMAND:
 
             switch(LOWORD(wParam)){
+                case ID_APRESENTAR_TUDO_BOTAO:
+                    DialogBox(g_inst, MAKEINTRESOURCE(IDD_MOSTRA_TODOS), hwnd, (DLGPROC)apresentaTodosDadosProc);
+                break;
+
                 case ID_CREDITOS_BOTAO:
                     DialogBox(g_inst, MAKEINTRESOURCE(IDD_CREDITOS), hwnd, (DLGPROC)creditosProc);
                 break;

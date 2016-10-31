@@ -73,7 +73,7 @@ int fechaArquivo(FILE *arq)
 void formataCPF(HWND hwndEdit)
 {
     int tam = Edit_GetTextLength(hwndEdit);
-    static int cont;
+    static int cont = 0;
     switch(tam){
         case 0:
             cont = 0;
@@ -185,7 +185,6 @@ void editTextFloat(HWND hDlg, int ctrlID)
     HWND hEdit    = GetDlgItem(hDlg, ctrlID);
     int len    = GetWindowTextLength(hEdit)+1;
     char str[len];
-    float f;
 
     Edit_GetText(hEdit, str, len);
 

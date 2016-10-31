@@ -12,6 +12,7 @@ void inicializaFormVeic(HWND hwnd);
 void validaLiberaFormVeic(HWND hwnd);
 void preencheFormVeic(HWND hwndForm, Veiculo *veic);
 
+BOOL CALLBACK formDadosVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 BOOL CALLBACK formAddVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);

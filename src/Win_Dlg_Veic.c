@@ -44,9 +44,9 @@ void atualizaListaVeic(HWND hwndList, char *filtro)
 
     LVITEM lvItem;
     int cont = 0;
-    SendMessage(hwndList,LVM_DELETEALLITEMS,0,0);
     Veiculo aux;
     FILE *arq;
+    SendMessage(hwndList,LVM_DELETEALLITEMS,0,0);
 
     if(strlen(filtro) != 0){
         if(existeArquivo(ARQUIVO_DADOS_VEICULO)){
@@ -123,6 +123,30 @@ void preencheFormVeic(HWND hwnd, Veiculo *veic){
     SetDlgItemText(hwnd, ID_EDIT_FAB_VEIC, veic->fabricante);
     SetDlgItemText(hwnd, ID_EDIT_CHASSI_VEIC, veic->chassi);
     SetDlgItemText(hwnd, ID_EDIT_ANO_VEIC, veic->ano);
+}
+
+BOOL CALLBACK formDadosVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp){
+    static Veiculo *auxAntigo;
+    int erro;
+    PCOPYDATASTRUCT pcds;
+
+    switch(msg) {
+        case WM_COPYDATA:
+			pcds = (PCOPYDATASTRUCT)lp;
+			if(pcds->dwData == 0){
+				auxAntigo = (Veiculo *)(pcds->lpData);
+                preencheFormVeic(hwnd, auxAntigo);
+            }
+        return TRUE;
+        break;
+
+        case WM_CLOSE:
+            EndDialog(hwnd, 0);
+            return TRUE;
+        break;
+    }
+
+    return FALSE;
 }
 
 /********************************************//**
@@ -288,6 +312,8 @@ BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         break;
 
         case WM_COMMAND:
+                formataPlaca(GetDlgItem(hwnd, ID_VEIC_EDIT_BUSCA_PLACA));
+
                 iSelect = ListView_GetNextItem(hwndList, -1,LVNI_SELECTED | LVNI_FOCUSED);
 
                 if(HIWORD(wp) == EN_CHANGE){
@@ -407,7 +433,10 @@ BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         break;
 
         case WM_COMMAND:
+                formataPlaca(GetDlgItem(hwnd, ID_VEIC_EDIT_BUSCA_PLACA));
+
                 iSelect = ListView_GetNextItem(hwndList, -1,LVNI_SELECTED | LVNI_FOCUSED);
+
                 if(HIWORD(wp) == EN_CHANGE){
 
                     GetDlgItemText(hwnd, ID_VEIC_EDIT_BUSCA_PLACA, placa, TAM_PLACA);

@@ -36,10 +36,16 @@ typedef struct manutencao{
 //----------------------------------------------------------------------//
 //Manutencao
 int incluiManutencao(Manutencao m);
-int excluiManutencao(char *placa);
+int excluiManutencao(char *placa,char *cpf, Data data);
 int buscaManutencao(char *placa, char *cpf, Data data, int *pos);
+int pegaManutencao(char *placa, char *cpf, Data data, Manutencao *manut);
+int buscaManutencaoCPF(char *cpf, int *pos);
+Manutencao *carregaManutencoesCPF(char *cpf, int *qtManutCPF);
 void obtemDataAtual(Data *data);
 int comparaData(Data data1, Data data2);
 Data convertTime(SYSTEMTIME st);
+Manutencao *carregaManutencoes();
+int obtemQuantManutArquivo();
+int converteDataString(char* stringData, Data data);
 //----------------------------------------------------------------------//
 #endif

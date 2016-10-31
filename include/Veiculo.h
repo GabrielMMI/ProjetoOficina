@@ -35,5 +35,7 @@ int excluiVeiculo(char *placa);
 int validaPlaca(char *placa);
 int verificaChassiRepetido(char *chassi);
 int pegaVeiculo(char *placa,Veiculo *v);
+Veiculo *carregaVeiculos();
+int obtemQuantVeicArquivo();
 //----------------------------------------------------------------------//
 #endif

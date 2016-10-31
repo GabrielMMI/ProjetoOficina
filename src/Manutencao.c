@@ -57,10 +57,10 @@ int incluiManutencao(Manutencao m)
 	return flag;
 }
 
-//Objetivo: Ler e excluir uma manutenÃ§Ã£o no arquivo de manutenÃ§Ã£o
+//Objetivo: Ler e excluir uma manutenção no arquivo de manutenção
 //Parametros: ---------
 //Retorno: ----------
-int excluiManutencao(char *placa)
+int excluiManutencao(char *placa,char *cpf, Data data)
 {
 	FILE *arq,*arqSemExcluido;
 	Manutencao m;
@@ -83,15 +83,13 @@ int excluiManutencao(char *placa)
 
 	while(!feof(arq)){
         if(fread(&m,sizeof(Manutencao),1,arq)==1){
-            if(stricmp(placa,m.placa)!=0){
+            if(stricmp(m.cpf,cpf) != 0 || stricmp(m.placa,placa) != 0 || comparaData(data, m.data) != 0){
                 if(fwrite(&m,sizeof(Manutencao),1,arqSemExcluido)==1){
                     flag = MANUT_EXCLUIR_SUCESSO;
                 }else{
                     flag = MANUT_EXCLUIR_ERRO;
                     return flag;
                 }
-            }else{
-                flag = MANUT_EXCLUIR_SUCESSO;
             }
         }
     }
@@ -106,7 +104,7 @@ int excluiManutencao(char *placa)
 
     if(remove(ARQUIVO_DADOS_MANUTENCAO)==0){
     	if(rename("database/dbManutAux.dat", ARQUIVO_DADOS_MANUTENCAO)==0){
-    		flag = MANUT_EXCLUIR_ERRO;
+    		flag = MANUT_EXCLUIR_SUCESSO;
 		}else{
 			flag = MANUT_EXCLUIR_ERRO;
 		}
@@ -210,6 +208,44 @@ int buscaManutencaoCPF(char *cpf, int *pos){
 
 }
 
+Manutencao *carregaManutencoesCPF(char *cpf, int *qtManutCPF){
+    int flag, cont;
+	FILE *arqManut;
+	Manutencao *manuts = NULL, mAux;
+	int posicaoManut;
+	cont = 0;
+
+	manuts = (Manutencao *)malloc(sizeof(Manutencao));
+	if(manuts != NULL){
+	    arqManut=fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+	    if(arqManut!=NULL){
+	    	while(arqManut != EOF){
+		        if(fread(&mAux,sizeof(Manutencao),1,arqManut)==1){
+		        	if(strcmp(mAux.cpf, cpf) == 0){
+			            manuts[cont] = mAux;
+			            flag = MANUT_PEGAMANUT_SUCESSO;
+			            cont++;
+			            manuts = (Manutencao *)realloc(manuts, (cont+1)*sizeof(Manutencao));
+		        	}
+		        }
+			}
+			
+			*qtManutCPF = cont;
+			
+	        if(fechaArquivo(arqManut) == FECHA_ARQUIVO_ERRO){
+	            flag = FECHA_ARQUIVO_ERRO;
+	        }
+	        
+	    }else{
+	        flag = ERRO_ABRIR_ARQUIVO;
+	    }
+	}else{
+		flag = ERRO_ABRIR_ARQUIVO;
+	}
+	
+	return flag;
+}
+
 //Objetivo: Pegar Data atual
 //Parametros: ---------
 //Retorno: ----------
@@ -254,4 +290,60 @@ Data convertTime(SYSTEMTIME st){
 	data.ano = (int)st.wYear;
 
 	return data;
+}
+
+/********************************************//**
+ * \brief Busca um proprietario em um arquivo de dados de proprietarios
+ *
+ * \param pos - A posicao do proprietario desejado dentro do arquivo de dados
+ * \param pAux - O endereco de memoria de uma estrutura do tipo Proprietario
+ *
+ * \return PROP_PEGAPROP_SUCESSO - Proprietario recuperado com Sucesso
+ * \return PROP_PEGAPROP_ERRO    - Erro ao recuperar proprietario
+ * \return BUSCA_PROP_INEXISTENTE - Proprietario inexistente
+ * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir arquivo
+ ***********************************************/
+Manutencao *carregaManutencoes()
+{
+	FILE *dbManut;
+	int qtManut;
+	Manutencao *manutencoes = NULL;
+
+	qtManut = obtemQuantManutArquivo();
+	manutencoes = (Manutencao *)malloc(qtManut * sizeof(Manutencao));
+	if(manutencoes != NULL){
+		dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+		if(dbManut != NULL){
+			if(fread(manutencoes, sizeof(Manutencao), qtManut, dbManut) != qtManut){
+				free(manutencoes);
+				manutencoes = NULL;
+			}
+			fechaArquivo(dbManut);
+		}
+	}
+
+	return manutencoes;
+}
+
+int obtemQuantManutArquivo()
+{
+	FILE *arqManut;
+	int qtManut = -1;
+
+	arqManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+	if(arqManut != NULL){
+		if(fseek(arqManut, 0, SEEK_END) == 0){
+			qtManut = ftell(arqManut)/sizeof(Manutencao);
+		}
+		fechaArquivo(arqManut);
+	}
+	return qtManut;
+}
+
+int converteDataString(char* stringData, Data data)
+{
+	int flag = 0;
+	sprintf(stringData, "%d/%d/%d", data.dia, data.mes, data.ano);
+
+	return flag;
 }

@@ -53,6 +53,7 @@ Proprietario *pesquisaProprietario(char *nome);
 int pegaProprietario(char *cpf, Proprietario *pAux);
 int validaCPF(char *cpf);
 int validaTelefone(char *tel);
-
+Proprietario *carregaProprietarios();
+int obtemQuantPropArquivo();
 //----------------------------------------------------------------------//
 #endif

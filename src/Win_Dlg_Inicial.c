@@ -69,6 +69,11 @@ LRESULT CALLBACK DlgIniProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPar
 
 			return TRUE;
 		break;
+
+        case WM_CLOSE:
+            PostQuitMessage(0);
+            return TRUE;
+        break;
 	}
 
 	return FALSE;

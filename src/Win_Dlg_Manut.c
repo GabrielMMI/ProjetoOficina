@@ -94,6 +94,58 @@ void atualizaListaManut(HWND hwndList, Data dataI, Data dataF){
 }
 
 /********************************************//**
+ * \brief Atualiza a lista de manutenÁıes de acordo
+ *        com a data inicial e a data final
+ * \param hwndList HWND
+ * \param timeI time_t
+ * \param timeF time_t
+ * \return void
+ *
+ ***********************************************/
+void atualizaListaManutExcluir(HWND hwndList, char *cpf,char *placa,Data dataI){
+
+    LVITEM lvItem;
+    int cont = 0;
+    Manutencao aux;
+    char data[TAM_DATA];
+    FILE *arq;
+
+    SendMessage(hwndList,LVM_DELETEALLITEMS,0,0);
+    if(existeArquivo(ARQUIVO_DADOS_MANUTENCAO)){
+        arq = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+        if(arq != NULL){
+            while(fread(&aux, sizeof(Manutencao), 1, arq) == 1){
+                if(comparaData(aux.data, dataI) == 0 && strnicmp(aux.cpf,cpf,strlen(cpf))==0 && strnicmp(aux.placa,placa,strlen(placa))==0){
+                    lvItem.mask=LVIF_TEXT;   // Text Style
+                    lvItem.cchTextMax = TAM_NOME;
+                    lvItem.iItem=cont;          // choose item
+                    lvItem.iSubItem=0;       // Put in first coluom
+                    lvItem.pszText=aux.placa; // Text to display (can be from a char variable) (Items)
+
+                    SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+
+                    lvItem.iSubItem = 1;       // Put in first coluom
+                    lvItem.pszText = aux.cpf; // Text to display (can be from a char variable) (Items)
+
+                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+
+                    lvItem.iSubItem = 2;       // Put in first coluom
+                    sprintf(data, "%d/%d/%d", aux.data.dia, aux.data.mes, aux.data.ano);
+                    lvItem.pszText = data; // Text to display (can be from a char variable) (Items)
+
+                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+
+                    cont++;
+                }
+            }
+            if(win_trataErros(hwndList,fechaArquivo(arq)) != 0) return;
+        }else{
+            if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) != 0) return;
+        }
+    }
+}
+
+/********************************************//**
  * \brief Nomeia as colunas da lista de Manuten√ß√µes
  *
  * \param hwndList HWND
@@ -204,8 +256,6 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
             inicializaListManut(hwndList);
 
             GetLocalTime(&dateT);
-            DateTime_SetRange(GetDlgItem(hwnd, ID_MANUT_DATA_INICIO), GDTR_MAX, &dateT);
-            DateTime_SetRange(GetDlgItem(hwnd, ID_MANUT_DATA_FIM), GDTR_MIN, &dateT);
 
             DateTime_GetSystemtime(GetDlgItem(hwnd, ID_MANUT_DATA_INICIO), &dateT);
             dataI = convertTime(dateT);
@@ -358,6 +408,174 @@ BOOL CALLBACK formAddManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
+ * \brief FunÁ„o de controle do Dialogo "Excluir Manutencao"
+ *
+ * \param hwnd Manipulador da janela
+ * \param message Indica qual comando foi acionado pelo usuario
+ * \param wParam Uma WORD que se divide em duas partes:
+ *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
+ *               (LOWORD) - 16 bits, informa o id do controle que o acionou
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
+ * \return Padrao Windows para janelas
+ *
+ ***********************************************/
+BOOL CALLBACK formExcluirManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+{
+    static Manutencao *auxAntigo;
+    int erro;
+    PCOPYDATASTRUCT pcds;
+    HWND hwndList, *hwndAux;
+    char valor[10];
+
+    switch(msg) {
+        case WM_COPYDATA:
+			pcds = (PCOPYDATASTRUCT)lp;
+			auxAntigo = (Manutencao *)(pcds->lpData);
+			if(pcds->dwData == 0){
+				    auxAntigo = (Manutencao *)(pcds->lpData);
+                    SetDlgItemText(hwnd, ID_EDIT_PLACA_MANUT, auxAntigo->placa);
+                    SetDlgItemText(hwnd, ID_EDIT_CPF_MANUT, auxAntigo->cpf);
+                    sprintf(valor, "%.2f", auxAntigo->valorPecas);
+                    SetDlgItemText(hwnd, ID_EDIT_PECAS_MANUT, valor);
+                    sprintf(valor, "%.2f", auxAntigo->valorObra);
+                    SetDlgItemText(hwnd, ID_EDIT_OBRA_MANUT, valor);
+                    SetDlgItemText(hwnd, ID_EDIT_DESCRICAO_MANUT, auxAntigo->descricao);
+			}
+        return TRUE;
+        break;
+
+        case WM_COMMAND:
+            switch(wp){
+            case ID_BOTAO_ACAO_MANUT:
+                    erro = excluiManutencao(auxAntigo->placa,auxAntigo->cpf, auxAntigo->data);
+                    
+                    if(win_trataErros(hwnd, erro)==0){
+                    	hwndAux = guardaPegaHandle(NULL, 1);
+                    	hwndList = GetDlgItem(*hwndAux, ID_MANUT_EXCLUIR_LIST);
+                    	ListView_DeleteAllItems(hwndList);
+					}
+                    EndDialog(hwnd, 0);
+            break;
+
+            case ID_BOTAO_CANCELAR_MANUT:
+                EndDialog(hwnd, 0);
+            break;
+            }
+        return TRUE;
+        break;
+    }
+    return FALSE;
+}
+
+
+/********************************************//**
+ * \brief Fun??o de controle do janela "Exclui Manuten??oo"
+ *
+ * \param hwnd Manipulador da janela
+ * \param message Indica qual comando foi acionado pelo usuario
+ * \param wParam Uma WORD que se divide em duas partes:
+ *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
+ *               (LOWORD) - 16 bits, informa o id do controle que o acionou
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou n„o
+ * \return Padr„o Windows para janelas
+ *
+ ***********************************************/
+BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+{
+    Manutencao *auxEnvio=NULL;
+    int erro;
+    static char cpf[TAM_CPF], placa[TAM_PLACA];
+    static HWND hwndList,hwndProprio;
+    Data dataI;
+    int iSelect;
+    static HINSTANCE g_inst;
+    static HWND fromExclui;
+    SYSTEMTIME dateT;
+    COPYDATASTRUCT CDS;
+
+    switch(msg) {
+    	case WM_INITDIALOG:
+    		hwndList = GetDlgItem(hwnd, ID_MANUT_EXCLUIR_LIST);
+    		SendMessage(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_CPF), EM_LIMITTEXT, TAM_CPF-1, 0);
+    		SendMessage(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_PLACA), EM_LIMITTEXT, TAM_PLACA-1, 0);
+    		
+    		GetLocalTime(&dateT);
+		    DateTime_GetSystemtime(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_DATA), &dateT);
+		    dataI = convertTime(dateT);
+    		
+    		inicializaListManut(hwndList);
+    		
+    		GetDlgItemText(hwnd, ID_MANUT_EXCLUIR_BUSCA_PLACA, placa, TAM_PLACA);
+            GetDlgItemText(hwnd, ID_MANUT_EXCLUIR_BUSCA_CPF, cpf, TAM_CPF);
+    		
+    		atualizaListaManutExcluir(hwndList,cpf,placa,dataI);
+    		
+    		return TRUE;
+    		break;
+    	case WM_COMMAND:
+            iSelect = ListView_GetNextItem(hwndList, -1,LVNI_SELECTED | LVNI_FOCUSED);
+            
+			DateTime_GetSystemtime(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_DATA), &dateT);
+		    dataI = convertTime(dateT);
+		    
+            if(HIWORD(wp) == EN_CHANGE){
+
+					formataCPF(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_CPF));
+		    		formataPlaca(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_PLACA));
+
+                    GetDlgItemText(hwnd, ID_MANUT_EXCLUIR_BUSCA_PLACA, placa, TAM_PLACA);
+                    GetDlgItemText(hwnd, ID_MANUT_EXCLUIR_BUSCA_CPF, cpf, TAM_CPF);
+		            
+           			atualizaListaManutExcluir(hwndList,cpf,placa,dataI);
+            }
+            switch(LOWORD (wp)){
+            	case ID_MANUT_EXCLUIR_BOTAO:
+            		if(iSelect == -1){
+                            MessageBox(hwnd,"Nenhum veiculo selecionado!",
+                            "Erro!",MB_OK|MB_ICONERROR);
+                            return FALSE;
+                        }else{
+                            fromExclui = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_MANUT_EXCLUIR_FORM), hwnd, (DLGPROC)formExcluirManutBox);
+
+                            ListView_GetItemText(hwndList, iSelect, 0, placa, TAM_PLACA);
+                            ListView_GetItemText(hwndList, iSelect, 1, cpf, TAM_CPF);
+
+                            auxEnvio = (Manutencao *)malloc(sizeof(Manutencao));
+                            pegaManutencao(placa,cpf,dataI,auxEnvio);
+
+                            CDS.dwData = 0;
+                            CDS.cbData = sizeof(Manutencao);
+                            CDS.lpData = auxEnvio;
+
+                            SendMessage(fromExclui, WM_COPYDATA , (WPARAM)(HWND)hwnd, (LPARAM) (LPVOID) &CDS);
+                            SetDlgItemText(hwnd, ID_MANUT_EXCLUIR_BUSCA_CPF, "");
+                            SetDlgItemText(hwnd, ID_MANUT_EXCLUIR_BUSCA_PLACA, "");
+                            
+                            return TRUE;
+                        }
+            		break;
+            	case ID_MANUT_EXCLUIR_ATUALIZAR_BOTAO:
+                    SetDlgItemText(hwnd, ID_MANUT_EXCLUIR_BUSCA_CPF, "");
+                    SetDlgItemText(hwnd, ID_MANUT_EXCLUIR_BUSCA_PLACA, "");
+                    return TRUE;
+                break;
+			}
+			return TRUE;
+			break;
+		case WM_NOTIFY:
+			switch (((LPNMHDR)lp)->code){
+				case DTN_DATETIMECHANGE:
+					DateTime_GetSystemtime(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_DATA), &dateT);
+		  			dataI = convertTime(dateT);
+		  			atualizaListaManutExcluir(hwndList,cpf,placa,dataI);
+		  			break;
+			}
+			break;
+    }
+    return FALSE;
+}
+
+/********************************************//**
  * \brief Fun√ß√£o de controle da tabPage "Manuten√ß√£o"
  *
  * \param hwnd Manipulador da janela
@@ -390,6 +608,10 @@ BOOL CALLBACK tabManutPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         case ID_BOTAO_PESQUISAR_MANUT:
             formManutDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_MANUT_DADOS), GetParent(hwnd), (DLGPROC)formPesquisarManut);
             break;
+            
+        case ID_BOTAO_EXCLUIR_MANUT:
+        	formManutDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_MANUT_EXCLUIR), GetParent(hwnd), (DLGPROC)formExcluirManut);
+        	break;
         }
 
         guardaPegaHandle(&formManutDlg, 0);

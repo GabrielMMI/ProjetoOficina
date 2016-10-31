@@ -8,6 +8,7 @@
  ***********************************************/
 
 #include "../include/Win_Dlg_Prop.h"
+#include "../include/Win_Dlg_Veic.h"
 
 /********************************************//**
  * \brief Atualiza uma lista de proprietarios de
@@ -32,7 +33,7 @@ void atualizaListaProp(HWND hwndList, char *cpf, char *nome)
             arq = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
             if(arq != NULL){
                 while(fread(&aux, sizeof(Proprietario), 1, arq) == 1){
-                    if(strncmp(aux.cpf, cpf, strlen(cpf)) == 0 && strncmp(aux.nome, nome, strlen(nome)) == 0){
+                    if(strncmp(aux.cpf, cpf, strlen(cpf)) == 0 && strnicmp(aux.nome, nome, strlen(nome)) == 0){
                         lvItem.mask=LVIF_TEXT;   // Text Style
                         lvItem.cchTextMax = TAM_NOME;
                         lvItem.iItem=cont;          // choose item
@@ -186,8 +187,10 @@ BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         break;
 
         case WM_COMMAND:
-            if(HIWORD(wp) == EN_CHANGE)
-            validaLiberaFormProp(hwnd);
+
+            formataCPF(GetDlgItem(hwnd, ID_EDIT_CPF_PROP));
+
+            if(HIWORD(wp) == EN_CHANGE) validaLiberaFormProp(hwnd);
 
             switch(wp){
             case ID_BOTAO_ACAO_PROP:
@@ -244,18 +247,8 @@ BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
         case WM_COMMAND:
 
-            GetDlgItemText(hwnd, ID_EDIT_CPF_PROP, cpf, TAM_CPF);
-            GetDlgItemText(hwnd, ID_EDIT_TELEFONE_PROP, tel, TAM_TEL);
 
-            if( GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_NOME_PROP)) > 0 &&
-                validaTelefone(tel) == TEL_VALIDO &&
-                GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_CIDADE_PROP)) > 0 &&
-                GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_ESTADO_PROP)) > 0 &&
-                GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_DESCRICAO_PROP)) > 0)
-                EnableWindow(GetDlgItem(hwnd, ID_BOTAO_ACAO_PROP), TRUE);
-            else{
-                EnableWindow(GetDlgItem(hwnd, ID_BOTAO_ACAO_PROP), FALSE);
-            }
+            validaLiberaFormProp(hwnd);
 
             switch(wp){
             case ID_BOTAO_ACAO_PROP:
@@ -338,25 +331,25 @@ BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  ***********************************************/
 void inicializaListProp(HWND hwndList)
 {
+
     LVCOLUMN lvCol;
 
     lvCol.mask=LVCF_TEXT|LVCF_WIDTH|LVCF_SUBITEM;
     lvCol.cx=28;
+
     lvCol.pszText="Nome";
     lvCol.cx=120;
-    SendMessage(hwndList ,LVM_INSERTCOLUMN, 0, (LPARAM)&lvCol);
+    ListView_InsertColumn(hwndList, 0, &lvCol);
 
-    lvCol.mask=LVCF_TEXT|LVCF_WIDTH|LVCF_SUBITEM;
-    lvCol.cx=28;
+
     lvCol.pszText="CPF";
     lvCol.cx=120;
-    SendMessage(hwndList ,LVM_INSERTCOLUMN, 1, (LPARAM)&lvCol);
+    ListView_InsertColumn(hwndList, 1, &lvCol);
 
-    lvCol.mask=LVCF_TEXT|LVCF_WIDTH|LVCF_SUBITEM;
-    lvCol.cx=28;
+
     lvCol.pszText="Telefone";
     lvCol.cx=103;
-    SendMessage(hwndList ,LVM_INSERTCOLUMN, 2, (LPARAM)&lvCol);
+    ListView_InsertColumn(hwndList, 2, &lvCol);
 }
 
 /********************************************//**
@@ -387,6 +380,8 @@ BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
             hwndList = GetDlgItem(hwnd, ID_PROP_LIST);
             inicializaListProp(GetDlgItem(hwnd, ID_PROP_LIST));
 
+            Edit_LimitText(GetDlgItem(hwnd, ID_PROP_BUSCA_CPF), TAM_CPF-1);
+            Edit_LimitText(GetDlgItem(hwnd, ID_PROP_BUSCA_NOME), TAM_NOME-1);
             return TRUE;
         break;
 
@@ -394,11 +389,13 @@ BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
             iSelect = ListView_GetNextItem(hwndList, -1,LVNI_SELECTED | LVNI_FOCUSED);
 
+            formataCPF(GetDlgItem(hwnd, ID_PROP_BUSCA_CPF));
+
             if(HIWORD(wp) == EN_CHANGE){
 
                 GetDlgItemText(hwnd, ID_PROP_BUSCA_CPF, cpf, TAM_CPF);
                 GetDlgItemText(hwnd, ID_PROP_BUSCA_NOME, nome, TAM_NOME);
-                atualizaListaProp(GetDlgItem(hwnd, ID_PROP_LIST), cpf, nome);
+                atualizaListaProp(hwndList, cpf, nome);
 
             }
             switch(LOWORD(wp)){
@@ -460,14 +457,19 @@ BOOL CALLBACK formExcluirProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     switch(msg) {
         case WM_INITDIALOG:
             hwndList = GetDlgItem(hwnd, ID_PROP_LIST);
+
             inicializaListProp(hwndList);
 
+            Edit_LimitText(GetDlgItem(hwnd, ID_PROP_BUSCA_CPF), TAM_CPF-1);
+            Edit_LimitText(GetDlgItem(hwnd, ID_PROP_BUSCA_NOME), TAM_NOME-1);
         return TRUE;
         break;
 
         case WM_COMMAND:
 
             iSelect = ListView_GetNextItem(hwndList, -1,LVNI_SELECTED | LVNI_FOCUSED);
+
+            formataCPF(GetDlgItem(hwnd, ID_PROP_BUSCA_CPF));
 
             if(HIWORD(wp) == EN_CHANGE){
                 GetDlgItemText(hwnd, ID_PROP_BUSCA_CPF, cpf, TAM_CPF);
@@ -503,6 +505,141 @@ BOOL CALLBACK formExcluirProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
             }
         return TRUE;
         break;
+    }
+    return FALSE;
+}
+
+/********************************************//**
+ * \brief Atualiza uma lista de veiculos de
+ *        acordo com um determinado filtro
+ * \param hwndList HWND
+ * \param filtro char*
+ * \return void
+ *
+ ***********************************************/
+void atualizaListaVeicProp(HWND hwndList, char *filtro)
+{
+
+    LVITEM lvItem;
+    int cont = 0;
+    Veiculo aux;
+    FILE *arq;
+    SendMessage(hwndList,LVM_DELETEALLITEMS,0,0);
+
+    if(strlen(filtro) != 0){
+        if(existeArquivo(ARQUIVO_DADOS_VEICULO)){
+            arq = fopen(ARQUIVO_DADOS_VEICULO, "rb");
+            if(arq != NULL){
+                while(fread(&aux, sizeof(Veiculo), 1, arq) == 1){
+                    if(strnicmp(aux.placa, filtro, strlen(filtro)) == 0){
+                        lvItem.mask=LVIF_TEXT;   // Text Style
+                        lvItem.cchTextMax = TAM_MODELO;
+                        lvItem.iItem=cont;          // choose item
+                        lvItem.iSubItem=0;       // Put in first coluom
+                        lvItem.pszText=aux.modelo; // Text to display (can be from a char variable) (Items)
+
+                        SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+
+                        lvItem.iSubItem = 1;       // Put in first coluom
+                        lvItem.pszText = aux.placa; // Text to display (can be from a char variable) (Items)
+
+                        SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+
+                        lvItem.iSubItem = 2;           // Put in first coluom
+                        lvItem.pszText = aux.chassi; // Text to display (can be from a char variable) (Items)
+
+                        SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+
+                        cont++;
+                    }
+                }
+                if(win_trataErros(hwndList, fechaArquivo(arq)) == 1) return;
+            }else{
+                if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) == 1) return;
+            }
+        }
+    }
+}
+
+
+/********************************************//**
+ * \brief Função de controle da janela "Alterar Proprietario"
+ *
+ * \param hwnd Manipulador da janela
+ * \param message Indica qual comando foi acionado pelo usuario
+ * \param wParam Uma WORD que se divide em duas partes:
+ *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
+ *               (LOWORD) - 16 bits, informa o id do controle que o acionou
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
+ * \return Padrao Windows para janelas
+ *
+ ***********************************************/
+BOOL CALLBACK formMostraVeicProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+{
+    static Veiculo *auxEnvio;
+    static HINSTANCE g_inst;
+    static HWND hwndList, formVerDados;
+    int iSelect, qtManut, aux;
+    char cpf[TAM_CPF], placa[TAM_PLACA];
+    Manutencao *manut;
+    LV_ITEM lvItem;
+    COPYDATASTRUCT CDS;
+    HWND formAlterar;
+
+    switch(msg) {
+        case WM_INITDIALOG:
+        	SendMessage(GetDlgItem(hwnd, ID_PROP_BUSCA_CPF), EM_LIMITTEXT, TAM_CPF-1, 0);
+            hwndList = GetDlgItem(hwnd, ID_VEIC_LIST);
+            inicializaListVeic(GetDlgItem(hwnd, ID_VEIC_LIST));
+
+            return TRUE;
+        break;
+
+        case WM_COMMAND:
+
+            iSelect = ListView_GetNextItem(hwndList, -1,LVNI_SELECTED | LVNI_FOCUSED);
+
+            formataCPF(GetDlgItem(hwnd, ID_PROP_BUSCA_CPF));
+
+            if(HIWORD(wp) == EN_CHANGE){
+
+//                GetDlgItemText(hwnd, ID_PROP_BUSCA_CPF, cpf, TAM_CPF);
+//                manut = pegaManutencaoCPF(cpf, &qtManut);
+//                if(manut != NULL){
+//				
+//                	atualizaListaVeic(GetDlgItem(hwnd, ID_VEIC_LIST), manut);
+//                	
+//            	}
+
+            }
+            switch(LOWORD(wp)){
+                case ID_BOTAO_ACAO_PROP:
+                    if(iSelect == -1){
+                        MessageBox(hwnd,"Nenhum veiculo selecionado!",
+                        "Erro!",MB_OK|MB_ICONINFORMATION);
+                    }else{
+						formVerDados = CreateDialog(NULL, MAKEINTRESOURCE(IDD_VEIC_MOSTRA_DADOS_FORM), hwnd, (DLGPROC)formDadosVeicBox);
+
+                        ListView_GetItemText(hwndList, iSelect, 1, placa, TAM_PLACA);
+
+						auxEnvio = (Veiculo *)malloc(sizeof(Veiculo));
+                        pegaVeiculo(placa, auxEnvio);
+
+                        CDS.dwData = 0;
+                        CDS.cbData = sizeof(Veiculo);
+                        CDS.lpData = auxEnvio;
+
+                        SendMessage(formVerDados, WM_COPYDATA , (WPARAM)(HWND)hwnd, (LPARAM) (LPVOID) &CDS);
+                    }
+                break;
+
+                case ID_PROP_MOSTRAR_ATUALIZAR_BOTAO:
+                        SetDlgItemText(hwnd, ID_PROP_BUSCA_CPF, "");
+                break;
+            }
+        return TRUE;
+        break;
+
     }
     return FALSE;
 }
@@ -544,8 +681,9 @@ BOOL CALLBACK tabPropPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
             break;
 
         case ID_BOTAO_APRESENTAR_VEIC_PROP:
-        	formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_MOSTRA_VEIC), GetParent(hwnd), (DLGPROC)NULL);
+        	formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_MOSTRA_VEIC), GetParent(hwnd), (DLGPROC)formMostraVeicProc);
         	break;
+
         }
 
         guardaPegaHandle(&formPropDlg, 0);
