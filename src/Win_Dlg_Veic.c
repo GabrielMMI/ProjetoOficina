@@ -458,6 +458,8 @@ BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                         auxEnvio = (Veiculo *)malloc(sizeof(Veiculo));
                         pegaVeiculo(placa, auxEnvio);
 
+						MessageBox(hwnd, auxEnvio->placa, auxEnvio->modelo, MB_OK);
+
                         CDS.dwData = 0;
                         CDS.cbData = sizeof(Veiculo);
                         CDS.lpData = auxEnvio;

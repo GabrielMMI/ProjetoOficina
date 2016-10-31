@@ -40,7 +40,7 @@ int excluiManutencao(char *placa,char *cpf, Data data);
 int buscaManutencao(char *placa, char *cpf, Data data, int *pos);
 int pegaManutencao(char *placa, char *cpf, Data data, Manutencao *manut);
 int buscaManutencaoCPF(char *cpf, int *pos);
-Manutencao *carregaManutencoesCPF(char *cpf, int *qtManutCPF);
+int carregaManutencoesCPF(char *cpf, int *qtManutCPF, Manutencao *manutencao);
 void obtemDataAtual(Data *data);
 int comparaData(Data data1, Data data2);
 Data convertTime(SYSTEMTIME st);
@@ -49,6 +49,7 @@ int obtemQuantManutArquivo();
 int converteDataString(char* stringData, Data data);
 int pegaManutencaoPlacDat(char *placa, Data data, Manutencao *manut);
 int buscaManutencaoPlacDat(char *placa,Data data, int *pos);
+int buscaManutencaoPlaca(char *placa, int *pos);
 int converteStringData(char *stringData, Data *data);
 //----------------------------------------------------------------------//
 #endif

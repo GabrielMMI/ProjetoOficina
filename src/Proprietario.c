@@ -102,6 +102,8 @@ int buscaProprietario(char *cpf, int *pos)
     }else{
         flag = ERRO_ABRIR_ARQUIVO;
     }
+    
+    free(pAux);
 
 	return flag;
 
@@ -151,62 +153,6 @@ int alteraProprietario(Proprietario novoP, char *cpf)
 }
 
 /********************************************//**
- * \brief Atualiza o arquivo de proprietarios
- *
- * \param void
- *
- * \return PROP_INSERIR_ERRO - Erro na reinsercao dos dados
- * \return ERRO_ABRIR_ARQUIVO - Erro ao abrir o arquivo
- * \return FECHA_ARQUIVO_ERRO - Erro ao fechar o arquivo
- * \return ERRO_ARQUIVO_GRAVAR_PROP - Erro ao gravar um proprietario no arquivo
- * \return ERRO_REMOVER_ARQUIVO - Erro ao remover o arquivo
- * \return ERRO_RENOMEAR_ARQUIVO - Erro ao renomer o arquivo
- ***********************************************/
-int atualizaArqProp(){
-    FILE *arqEntrada, *arqSaida;
-    Proprietario *aux==NULL;
-    int flag = ARQ_PROP_ATUALIZADO;
-	
-	if(aux==NULL){
-		return ALOC_ERRO;
-	}else{
-		flag=ALOC_SUCESSO;
-	}
-	
-    arqEntrada = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
-    arqSaida = fopen("XXXX.txt", "wb");
-
-    if(arqEntrada != NULL){
-    	if(arqSaida != NULL){
-	        while(fread(aux, sizeof(Proprietario), 1, arqEntrada) == 1){
-	            if(aux->nome[0] != '\0'){
-	                if(fwrite(aux, sizeof(Proprietario), 1, arqSaida) != 1){
-	                	flag = ERRO_ARQUIVO_GRAVAR_PROP;
-	                	break;
-					}
-	            }
-	        }
-            if(fechaArquivo(arqSaida) == FECHA_ARQUIVO_ERRO){
-                flag = FECHA_ARQUIVO_ERRO;
-            }
-		}else{
-            flag = ERRO_ABRIR_ARQUIVO;
-		}
-
-        if(fechaArquivo(arqEntrada) == FECHA_ARQUIVO_ERRO){
-                flag = FECHA_ARQUIVO_ERRO;
-        }
-    }else{
-        flag =  ERRO_ABRIR_ARQUIVO;
-    }
-
-    if(remove(ARQUIVO_DADOS_PROPRIETARIO) != 0) flag = ERRO_REMOVER_ARQUIVO;
-    if(rename("XXXX.txt", ARQUIVO_DADOS_PROPRIETARIO) != 0)flag = ERRO_RENOMEAR_ARQUIVO;
-
-    return flag;
-}
-
-/********************************************//**
  * \brief Exclui um proprietario em um arquivo de dados de um proprietario
  *
  * \param cpf - o endereco de memoria de um string contendo o CPF do proprietario desejado
@@ -221,48 +167,70 @@ int atualizaArqProp(){
  ***********************************************/
 int excluiProprietario(char *cpf)
 {
-	int pos = -1, flag = 0, erro;
-	Proprietario *pAux==NULL;
-	FILE *dbProp;
+	int pos = -1, flag = PROP_EXCLUIR_ERRO, erro;
+	Proprietario *pAux = NULL;
+	FILE *arq, *arqSemExcluido;
 
+	pAux = (Proprietario *)malloc(sizeof(Proprietario));
 	if(pAux==NULL){
 		return ALOC_ERRO;
-	}else{
-		flag=ALOC_SUCESSO;
 	}
 
-	flag = buscaProprietario(cpf, &pos);
-	if(flag == PROP_BUSCA_SUCESSO){
-        if(pos == -1){
-            flag = PROP_BUSCA_INEXISTENTE;
-        }else{
-            flag = buscaManutencaoCPF(cpf, &pos);
-            if(pos == -1 && flag == MANUT_BUSCA_SUCESSO){
-                dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "r+b");
-                if(dbProp != NULL){
-                    pAux->nome[0] = '\0';
-
-                    flag = alteraProprietario(*pAux, cpf);
-                    if(flag == PROP_ALTERAR_SUCESSO){
-                        flag = PROP_EXCLUIR_SUCESSO;
-                    }else{
-                        flag = PROP_EXCLUIR_ERRO;
-                    }
-
-                    if(fechaArquivo(dbProp) == FECHA_ARQUIVO_ERRO){
-                        flag = FECHA_ARQUIVO_ERRO;
-                    }
-                }else{
-                    flag = ERRO_ABRIR_ARQUIVO;
-                }
-            }else{
-                flag = PROP_EXCLUIR_ERRO_MANUT_EXISTENTE;
-            }
+	arq = fopen(ARQUIVO_DADOS_PROPRIETARIO,"rb");
+	arqSemExcluido = fopen("database/dbPropAux.dat","wb");
+	
+	if(arq==NULL){
+        flag = ERRO_ABRIR_ARQUIVO;
+		return flag;
+	}
+	
+	if(arqSemExcluido==NULL){
+        if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
         }
+		return flag;
 	}
 
-    erro = atualizaArqProp();
-    if(erro != ARQ_PROP_ATUALIZADO) flag = erro;
+	buscaManutencaoCPF(cpf, &pos);
+
+	if(pos == -1){
+		while(!feof(arq)){
+	        if(fread(pAux,sizeof(Proprietario),1,arq)==1){
+	            if(stricmp(pAux->cpf,cpf) != 0){
+	                if(fwrite(pAux,sizeof(Proprietario),1,arqSemExcluido)==1){
+	                    flag = PROP_EXCLUIR_SUCESSO;
+	                }else{
+	                    flag = PROP_EXCLUIR_ERRO;
+	                    return flag;
+	                }
+	            }
+	        }
+	    }
+	}else{
+		flag = PROP_EXCLUIR_ERRO_MANUT_EXISTENTE;
+	}
+    
+    if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO){
+        flag = FECHA_ARQUIVO_ERRO;
+    }
+
+    if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
+        flag = FECHA_ARQUIVO_ERRO;
+    }
+
+	if(flag == PROP_EXCLUIR_SUCESSO){
+	    if(remove(ARQUIVO_DADOS_PROPRIETARIO)==0){
+	    	if(rename("database/dbPropAux.dat", ARQUIVO_DADOS_PROPRIETARIO)==0){
+	    		flag = PROP_EXCLUIR_SUCESSO;
+			}else{
+				flag = PROP_EXCLUIR_ERRO;
+			}
+		}else{
+			flag = PROP_EXCLUIR_ERRO;
+		}
+	}
+
+    free(pAux);
 	return flag;
 }
 
@@ -277,11 +245,11 @@ int excluiProprietario(char *cpf)
  * \return BUSCA_PROP_INEXISTENTE - Proprietario inexistente
  * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir arquivo
  ***********************************************/
-int pegaProprietario(char *cpf, Proprietario *pAux){
+int pegaProprietario(char *cpf, Proprietario *proprietario){
     int flag;
 	FILE *dbProp;
 	int pos;
-
+	
 	flag = buscaProprietario(cpf, &pos);
 	if(flag == PROP_BUSCA_SUCESSO){
         if(pos == -1){
@@ -290,7 +258,7 @@ int pegaProprietario(char *cpf, Proprietario *pAux){
             dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
             if(dbProp != NULL){
                 fseek(dbProp, pos*sizeof(Proprietario), SEEK_SET);
-                if(fread(pAux, sizeof(Proprietario), 1, dbProp) == 1){
+                if(fread(proprietario, sizeof(Proprietario), 1, dbProp) == 1){
                     flag = PROP_PEGAPROP_SUCESSO;
                 }else{
                     flag = PROP_PEGAPROP_ERRO;
@@ -304,6 +272,7 @@ int pegaProprietario(char *cpf, Proprietario *pAux){
             }
         }
 	}
+	
 	return flag;
 }
 

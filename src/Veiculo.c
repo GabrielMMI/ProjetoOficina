@@ -17,12 +17,12 @@ int incluiVeiculo(Veiculo veiculo)
 	FILE *arq;
 	int flag, pos;
 
-	flag = buscaVeiculo(v.placa, &pos);
+	flag = buscaVeiculo(veiculo.placa, &pos);
         if(flag == VEIC_BUSCA_SUCESSO){
             if(pos == -1){
                 arq = fopen(ARQUIVO_DADOS_VEICULO ,"ab");
                 if(arq!=NULL){
-                    if(fwrite(&v,sizeof(Veiculo),1,arq)==1){
+                    if(fwrite(&veiculo,sizeof(Veiculo),1,arq)==1){
                         flag = VEIC_INSERIR_SUCESSO;
                     }else{
                         flag = VEIC_INSERIR_ERRO;
@@ -56,7 +56,7 @@ int incluiVeiculo(Veiculo veiculo)
 int buscaVeiculo(char *placa, int *pos)
 {
 	FILE *arq;
-	Veiculo *veiculo==NULL;
+	Veiculo *veiculo = NULL;
 	int posicao = 0, flag;
 	*pos = -1;
 	
@@ -86,6 +86,8 @@ int buscaVeiculo(char *placa, int *pos)
 	}else{
         flag = ERRO_ABRIR_ARQUIVO;
 	}
+	
+	free(veiculo);
 	return flag;
 }
 
@@ -133,73 +135,6 @@ int alteraVeiculo(Veiculo vNovo, char *placa)
 }
 
 /********************************************//**
- * \brief Atualiza o arquivo de veiculos
- *
- * \param void
- *
- * \return ERRO_ABRIR_ARQUIVO - Erro ao abrir o arquivo
- * \return FECHA_ARQUIVO_ERRO - Erro ao fechar o arquivo
- * \return ERRO_ARQUIVO_GRAVAR_VEIC - Erro ao gravar no arquivo de veiculos
- * \return ARQ_VEIC_ATUALIZADO - Arquivo de veiculo atualizado com sucesso
- * \return ERRO_ARQUIVO_GRAVAR_VEIC - Erro ao gravar no arquivo de veiculo
- * \return ALOC_ERRO - Erro ao alocar memoria
- ***********************************************/
- 
-int atualizaArqVeic(){
-    FILE *arqEntrada, *arqSaida;
-    Veiculo *aux==NULL;
-    int flag = ARQ_VEIC_ATUALIZADO;
-
-	aux=(Veiculo*)malloc(sizeof(Veiculo));
-	if(aux==NULL){
-		return ALOC_ERRO;
-	}
-
-    arqEntrada = fopen(ARQUIVO_DADOS_VEICULO, "rb");
-    arqSaida = fopen("database/dbVeicAux.dat", "wb");
-
-	if(arqEntrada==NULL){
-		return ERRO_ABRIR_ARQUIVO;
-	}
-
-	if(arqSaida==NULL){
-        flag = ERRO_ABRIR_ARQUIVO;
-        if(fechaArquivo(arqEntrada) == FECHA_ARQUIVO_ERRO){
-            flag = FECHA_ARQUIVO_ERRO;
-        }
-		return flag;
-	}
-
-	while(fread(aux, sizeof(Veiculo), 1, arqEntrada) == 1){
-	    if(aux->placa[0] != '\0'){
-	        if(fwrite(aux, sizeof(Veiculo), 1, arqSaida) != 1){
-	        	return ERRO_ARQUIVO_GRAVAR_VEIC;
-			}
-	    }
-	}
-
-    if(fechaArquivo(arqEntrada) == FECHA_ARQUIVO_ERRO){
-        flag = FECHA_ARQUIVO_ERRO;
-    }
-
-    if(fechaArquivo(arqSaida) == FECHA_ARQUIVO_ERRO){
-        flag = FECHA_ARQUIVO_ERRO;
-    }
-
-	if(flag != ARQ_VEIC_ATUALIZADO) return flag;
-
-    if(remove(ARQUIVO_DADOS_VEICULO)==0){
-    	if(rename("database/dbVeicAux.dat", ARQUIVO_DADOS_VEICULO)==0){
-    		return ARQ_VEIC_ATUALIZADO;
-		}else{
-			return ERRO_ARQUIVO_GRAVAR_VEIC;
-		}
-	}else{
-		return ERRO_ARQUIVO_GRAVAR_VEIC;
-	}
-}
-
-/********************************************//**
  * \brief Excluir um veiculo no arquivo de veiculo
  *
  * \param placa - Endereço de memoria de uma string de placa
@@ -216,63 +151,71 @@ int atualizaArqVeic(){
 
 int excluiVeiculo(char *placa)
 {
-	FILE *arq;
-	Manutencao *manutencao==NULL;
-	Veiculo *veiculo==NULL;
-	int pos, flag = VEIC_EXCLUIR_SUCESSO, erro;
-	
-	manutencao=(Manutencao*)malloc(sizeof(Manutencao));
-	if(manutencao==NULL){
+	int pos = -1, flag = VEIC_EXCLUIR_ERRO, erro;
+	Veiculo *vAux = NULL;
+	FILE *arq, *arqSemExcluido;
+
+	vAux = (Veiculo *)malloc(sizeof(Veiculo));
+	if(vAux==NULL){
 		return ALOC_ERRO;
 	}
+
+	arq = fopen(ARQUIVO_DADOS_VEICULO,"rb");
+	arqSemExcluido = fopen("database/dbVeicAux.dat","wb");
 	
-	veiculo=(Veiculo*)malloc(sizeof(Veiculo));
-	if(veiculo==NULL){
-		return ALOC_ERRO;
+	if(arq==NULL){
+        flag = ERRO_ABRIR_ARQUIVO;
+		return flag;
 	}
 	
-	arq = fopen(ARQUIVO_DADOS_MANUTENCAO,"rb");
-	if(arq != NULL){
-		while(!feof(arq)){
-			if(fread(manutencao,sizeof(Manutencao),1,arq)==1){
-				if(stricmp(manutencao->placa,placa) == 0){
-					flag = VEIC_EXCLUIR_ERRO_MANUT;
-					break;
-				}
-			}else{
-			    flag = ERRO_ARQUIVO_LER_MANUT;
-				break;
-			}
-		}
+	if(arqSemExcluido==NULL){
         if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
             flag = FECHA_ARQUIVO_ERRO;
         }
-	}else{
-        flag = ERRO_ABRIR_ARQUIVO;
-        return flag;
+		return flag;
 	}
 
-	if(flag != VEIC_EXCLUIR_ERRO_MANUT){
+	buscaManutencaoPlaca(placa, &pos);
 
-        flag = buscaVeiculo(placa, &pos);
-        if(flag == VEIC_BUSCA_SUCESSO){
-            if(pos == -1){
-                flag = VEIC_BUSCA_INEXISTENTE;
-                return flag;
-            }else{
-                veiculo->placa[0] = '\0';
-                if(alteraVeiculo(veiculo, placa) == VEIC_ALTERAR_SUCESSO){
-                    flag = VEIC_EXCLUIR_SUCESSO;
-                }else{
-                    flag = VEIC_EXCLUIR_ERRO;
-                }
-            }
-        }
-	
-    erro = atualizaArqVeic();
-    if(erro != ARQ_VEIC_ATUALIZADO) flag = erro;
+	if(pos == -1){
+		while(!feof(arq)){
+	        if(fread(vAux,sizeof(Veiculo),1,arq)==1){
+	            if(stricmp(vAux->placa,placa) != 0){
+	                if(fwrite(vAux,sizeof(Veiculo),1,arqSemExcluido)==1){
+	                    flag = VEIC_EXCLUIR_SUCESSO;
+	                }else{
+	                    flag = VEIC_EXCLUIR_ERRO;
+	                    return flag;
+	                }
+	            }
+	        }
+	    }
+	}else{
+		flag = VEIC_EXCLUIR_ERRO_MANUT;
+	}
+    
+    if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO){
+        flag = FECHA_ARQUIVO_ERRO;
     }
-    return flag;
+
+    if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
+        flag = FECHA_ARQUIVO_ERRO;
+    }
+
+	if(flag == VEIC_EXCLUIR_SUCESSO){
+	    if(remove(ARQUIVO_DADOS_VEICULO)==0){
+	    	if(rename("database/dbVeicAux.dat", ARQUIVO_DADOS_VEICULO)==0){
+	    		flag = VEIC_EXCLUIR_SUCESSO;
+			}else{
+				flag = VEIC_EXCLUIR_ERRO;
+			}
+		}else{
+			flag = VEIC_EXCLUIR_ERRO;
+		}
+	}
+
+    free(vAux);
+	return flag;
 }
 
 /********************************************//**
@@ -312,7 +255,7 @@ int validaPlaca(char *placa)
 int verificaChassiRepetido(char *chassi)
 {
 	FILE *arq;
-	Veiculo *veiculo==NULL;
+	Veiculo *veiculo = NULL;
 	int flag = CHASSI_VALIDO;
 
 	veiculo=(Veiculo*)malloc(sizeof(Veiculo));
@@ -342,6 +285,8 @@ int verificaChassiRepetido(char *chassi)
 	}else{
         flag = ERRO_ARQUIVO_INEXISTENTE;
 	}
+	
+	free(veiculo);
 	return flag;
 }
 
@@ -362,13 +307,7 @@ int pegaVeiculo(char *placa,Veiculo *veiculo)
 {
 	int flag;
 	FILE *arqVeic;
-	Veiculo *vAux==NULL;
 	int posicaoPlaca;
-
-	vAux=(Veiculo*)malloc(sizeof(Veiculo));
-	if(vAux==NULL){
-		return ALOC_ERRO;
-	}
 
     flag = buscaVeiculo(placa,&posicaoPlaca);
 	if(flag == VEIC_BUSCA_SUCESSO){
@@ -378,8 +317,7 @@ int pegaVeiculo(char *placa,Veiculo *veiculo)
             arqVeic=fopen(ARQUIVO_DADOS_VEICULO, "rb");
             if(arqVeic!=NULL){
                 if(fseek(arqVeic,posicaoPlaca*sizeof(Veiculo),SEEK_SET)==0){
-                    if(fread(vAux,sizeof(Veiculo),1,arqVeic)==1){
-                        *veiculo=vAux;
+                    if(fread(veiculo,sizeof(Veiculo),1,arqVeic)==1){
                         flag = VEIC_PEGAVEIC_SUCESSO;
                     }else{
                         flag = ERRO_ARQUIVO_LER_VEIC;
@@ -393,6 +331,7 @@ int pegaVeiculo(char *placa,Veiculo *veiculo)
             }
         }
 	}
+
 	return flag;
 }
 

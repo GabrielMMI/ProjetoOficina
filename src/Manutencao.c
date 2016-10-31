@@ -1,8 +1,6 @@
 #include "../include/Manutencao.h"
 
-//Objetivo: Ler e incluir uma manutenÃ§Ã£o no arquivo de manutenÃ§Ã£o
-//Parametros: ---------
-//Retorno: ----------
+
 /********************************************//**
  * \brief Inclui uma manutenção no arquivo de manutenções
  *
@@ -15,22 +13,26 @@
  * \return 
  * \return 
  ***********************************************/
-
-int incluiManutencao(Manutencao m)
+int incluiManutencao(Manutencao manutencao)
 {
 	FILE *arq;
-	Manutencao mAux;
+	Manutencao *mAux = NULL;
 	int flag = 0, posP, posV;
 
-	buscaProprietario(m.cpf, &posP);
-	buscaVeiculo(m.placa, &posV);
+	buscaProprietario(manutencao.cpf, &posP);
+	buscaVeiculo(manutencao.placa, &posV);
 
+	mAux=(Manutencao*)malloc(sizeof(Manutencao));
+	if(mAux==NULL){
+		return ALOC_ERRO;
+	}
+	
 	arq=fopen(ARQUIVO_DADOS_MANUTENCAO,"rb");
 	if(arq!=NULL){
 		while(!feof(arq)){
-			if(fread(&mAux,sizeof(Manutencao),1,arq)==1){
-				if(stricmp(m.placa,mAux.placa)==0){
-					if(comparaData(m.data, mAux.data) == 0){
+			if(fread(mAux,sizeof(Manutencao),1,arq)==1){
+				if(stricmp(manutencao.placa,mAux->placa)==0){
+					if(comparaData(manutencao.data, mAux->data) == 0){
 						flag = MANUT_INSERIR_ERRO_DIA;
 						break;
 					}
@@ -45,6 +47,8 @@ int incluiManutencao(Manutencao m)
 	}else{
         flag = ERRO_ABRIR_ARQUIVO;
 	}
+	
+	free(mAux);
 
     if(posP == -1)  flag = PROP_BUSCA_INEXISTENTE;
 
@@ -54,7 +58,7 @@ int incluiManutencao(Manutencao m)
 		arq=fopen(ARQUIVO_DADOS_MANUTENCAO,"ab");
 
 		if(arq!=NULL){
-				if(fwrite(&m,sizeof(Manutencao),1,arq)==1){
+				if(fwrite(&manutencao,sizeof(Manutencao),1,arq)==1){
                     flag = MANUT_INSERIR_SUCESSO;
                 }else{
                     flag = MANUT_INSERIR_ERRO;
@@ -76,31 +80,35 @@ int incluiManutencao(Manutencao m)
 int excluiManutencao(char *placa,char *cpf, Data data)
 {
 	FILE *arq,*arqSemExcluido;
-	Manutencao m;
+	Manutencao *manutencao = NULL;
 	int flag;
 
 	arq = fopen(ARQUIVO_DADOS_MANUTENCAO,"rb");
 	arqSemExcluido = fopen("database/dbManutAux.dat","wb");
 	if(arq==NULL){
-		printf(" Erro ao abrir o arquivo de manutencao.\n");
         flag = ERRO_ABRIR_ARQUIVO;
 		return flag;
 	}
 	if(arqSemExcluido==NULL){
-		printf(" Erro ao abrir o arquivo auxiliar de manutencao.\n");
         if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
             flag = FECHA_ARQUIVO_ERRO;
         }
 		return flag;
 	}
 
+	manutencao=(Manutencao*)malloc(sizeof(Manutencao));
+	if(manutencao==NULL){
+		return ALOC_ERRO;
+	}
+
 	while(!feof(arq)){
-        if(fread(&m,sizeof(Manutencao),1,arq)==1){
-            if(stricmp(m.cpf,cpf) != 0 || stricmp(m.placa,placa) != 0 || comparaData(data, m.data) != 0){
-                if(fwrite(&m,sizeof(Manutencao),1,arqSemExcluido)==1){
+        if(fread(manutencao,sizeof(Manutencao),1,arq)==1){
+            if(stricmp(manutencao->cpf,cpf) != 0 || stricmp(manutencao->placa,placa) != 0 || comparaData(data, manutencao->data) != 0){
+                if(fwrite(manutencao,sizeof(Manutencao),1,arqSemExcluido)==1){
                     flag = MANUT_EXCLUIR_SUCESSO;
                 }else{
                     flag = MANUT_EXCLUIR_ERRO;
+                    free(manutencao);
                     return flag;
                 }
             }
@@ -124,7 +132,8 @@ int excluiManutencao(char *placa,char *cpf, Data data)
 	}else{
 		flag = MANUT_EXCLUIR_ERRO;
 	}
-
+	
+	free(manutencao);
 	return flag;
 
 }
@@ -132,7 +141,6 @@ int excluiManutencao(char *placa,char *cpf, Data data)
 int pegaManutencao(char *placa, char *cpf, Data data, Manutencao *manut){
     int flag;
 	FILE *arqManut;
-	Manutencao mAux;
 	int posicaoManut;
 
     flag = buscaManutencao(placa, cpf, data, &posicaoManut);
@@ -143,8 +151,7 @@ int pegaManutencao(char *placa, char *cpf, Data data, Manutencao *manut){
             arqManut=fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
             if(arqManut!=NULL){
                 if(fseek(arqManut,posicaoManut*sizeof(Manutencao),SEEK_SET)==0){
-                    if(fread(&mAux,sizeof(Manutencao),1,arqManut)==1){
-                        *manut = mAux;
+                    if(fread(manut,sizeof(Manutencao),1,arqManut)==1){
                         flag = MANUT_PEGAMANUT_SUCESSO;
                     }
                 }
@@ -159,18 +166,13 @@ int pegaManutencao(char *placa, char *cpf, Data data, Manutencao *manut){
 	return flag;
 }
 
-int pegaManutencaoPlacDat(char *placa, Data data, Manutencao *manut){
+int pegaManutencaoPlacDat(char *placa, Data data, Manutencao *manut)
+{
     int flag;
 	FILE *arqManut;
-	Manutencao *mAux==NULL;
 	int posicaoManut;
 
-	mAux=(Manutencao*)malloc(sizeof(Manutencao));
-	if(mAux==NULL){
-		return ALOC_ERRO;
-	}
-
-    flag = buscaManutencao(placa, data, &posicaoManut);
+    flag = buscaManutencaoPlacDat(placa, data, &posicaoManut);
 	if(flag == MANUT_BUSCA_SUCESSO){
         if(posicaoManut == -1){
             flag = MANUT_PEGAMANUT_ERRO;
@@ -178,8 +180,7 @@ int pegaManutencaoPlacDat(char *placa, Data data, Manutencao *manut){
             arqManut=fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
             if(arqManut!=NULL){
                 if(fseek(arqManut,posicaoManut*sizeof(Manutencao),SEEK_SET)==0){
-                    if(fread(mAux,sizeof(Manutencao),1,arqManut)==1){
-                        manut = mAux;
+                    if(fread(manut,sizeof(Manutencao),1,arqManut)==1){
                         flag = MANUT_PEGAMANUT_SUCESSO;
                     }
                 }
@@ -226,6 +227,7 @@ int buscaManutencaoPlacDat(char *placa,Data data, int *pos)
         flag = ERRO_ABRIR_ARQUIVO;
     }
 
+	free(mAux);
 	return flag;
 
 }
@@ -233,18 +235,23 @@ int buscaManutencaoPlacDat(char *placa,Data data, int *pos)
 int buscaManutencao(char *placa, char *cpf, Data data, int *pos)
 {
 	FILE *dbManut;
-	Manutencao mAux;
+	Manutencao *mAux = NULL;
 	int ind = -1, flag;
 
 	*pos = ind;
 
 	if(!existeArquivo(ARQUIVO_DADOS_MANUTENCAO)) return ERRO_ARQUIVO_INEXISTENTE;
 
+	mAux=(Manutencao*)malloc(sizeof(Manutencao));
+	if(mAux==NULL){
+		return ALOC_ERRO;
+	}
+
 	dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
     if(dbManut != NULL){
-        while(fread(&mAux, sizeof(Manutencao), 1, dbManut) == 1){
+        while(fread(mAux, sizeof(Manutencao), 1, dbManut) == 1){
             ind++;
-            if(stricmp(mAux.cpf, cpf) == 0 && stricmp(mAux.placa, placa) == 0 && comparaData(mAux.data, data) == 0){
+            if(stricmp(mAux->cpf, cpf) == 0 && stricmp(mAux->placa, placa) == 0 && comparaData(mAux->data, data) == 0){
                 *pos = ind;
                 break;
             }
@@ -257,24 +264,30 @@ int buscaManutencao(char *placa, char *cpf, Data data, int *pos)
         flag = ERRO_ABRIR_ARQUIVO;
     }
 
+	free(mAux);
 	return flag;
 
 }
 
 int buscaManutencaoCPF(char *cpf, int *pos){
     FILE *dbManut;
-	Manutencao mAux;
+	Manutencao *mAux;
 	int ind = -1, flag;
 
 	*pos = ind;
 
 	if(!existeArquivo(ARQUIVO_DADOS_MANUTENCAO)) return ERRO_ARQUIVO_INEXISTENTE;
 
+	mAux=(Manutencao*)malloc(sizeof(Manutencao));
+	if(mAux==NULL){
+		return ALOC_ERRO;
+	}
+
 	dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
     if(dbManut != NULL){
         while(fread(&mAux, sizeof(Manutencao), 1, dbManut) == 1){
             ind++;
-            if(stricmp(mAux.cpf, cpf) == 0){
+            if(stricmp(mAux->cpf, cpf) == 0){
                 *pos = ind;
                 break;
             }
@@ -288,25 +301,67 @@ int buscaManutencaoCPF(char *cpf, int *pos){
         flag = ERRO_ABRIR_ARQUIVO;
     }
 
+	free(mAux);
+	return flag;
+}
+
+int buscaManutencaoPlaca(char *placa, int *pos){
+    FILE *dbManut;
+	Manutencao *mAux = NULL;
+	int ind = -1, flag;
+
+	*pos = ind;
+
+	if(!existeArquivo(ARQUIVO_DADOS_MANUTENCAO)) return ERRO_ARQUIVO_INEXISTENTE;
+
+	mAux=(Manutencao*)malloc(sizeof(Manutencao));
+	if(mAux==NULL){
+		return ALOC_ERRO;
+	}
+
+	dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+    if(dbManut != NULL){
+        while(fread(&mAux, sizeof(Manutencao), 1, dbManut) == 1){
+            ind++;
+            if(stricmp(mAux->placa, placa) == 0){
+                *pos = ind;
+                break;
+            }
+        }
+        flag = MANUT_BUSCA_SUCESSO;
+
+        if(fechaArquivo(dbManut) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
+    }else{
+        flag = ERRO_ABRIR_ARQUIVO;
+    }
+
+	free(mAux);
 	return flag;
 
 }
 
-Manutencao *carregaManutencoesCPF(char *cpf, int *qtManutCPF){
+int carregaManutencoesCPF(char *cpf, int *qtManutCPF, Manutencao *manutencao){
     int flag, cont;
 	FILE *arqManut;
-	Manutencao *manuts = NULL, mAux;
+	Manutencao *manuts = NULL, *mAux = NULL;
 	int posicaoManut;
 	cont = 0;
+
+	mAux = (Manutencao *)malloc(sizeof(Manutencao));
+	if(mAux == NULL){
+		return ALOC_ERRO;
+	}
 
 	manuts = (Manutencao *)malloc(sizeof(Manutencao));
 	if(manuts != NULL){
 	    arqManut=fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
 	    if(arqManut!=NULL){
-	    	while(arqManut != EOF){
-		        if(fread(&mAux,sizeof(Manutencao),1,arqManut)==1){
-		        	if(strcmp(mAux.cpf, cpf) == 0){
-			            manuts[cont] = mAux;
+	    	while(!feof(arqManut)){
+		        if(fread(mAux,sizeof(Manutencao),1,arqManut)==1){
+		        	if(strcmp(mAux->cpf, cpf) == 0){
+			            manuts[cont] = *mAux;
 			            flag = MANUT_PEGAMANUT_SUCESSO;
 			            cont++;
 			            manuts = (Manutencao *)realloc(manuts, (cont+1)*sizeof(Manutencao));
@@ -315,6 +370,7 @@ Manutencao *carregaManutencoesCPF(char *cpf, int *qtManutCPF){
 			}
 			
 			*qtManutCPF = cont;
+			manutencao = manuts;
 			
 	        if(fechaArquivo(arqManut) == FECHA_ARQUIVO_ERRO){
 	            flag = FECHA_ARQUIVO_ERRO;
@@ -324,9 +380,10 @@ Manutencao *carregaManutencoesCPF(char *cpf, int *qtManutCPF){
 	        flag = ERRO_ABRIR_ARQUIVO;
 	    }
 	}else{
-		flag = ERRO_ABRIR_ARQUIVO;
+		flag = ALOC_ERRO;
 	}
 	
+	free(mAux);
 	return flag;
 }
 

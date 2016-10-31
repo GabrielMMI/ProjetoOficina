@@ -541,6 +541,7 @@ BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                             ListView_GetItemText(hwndList, iSelect, 1, cpf, TAM_CPF);
 
                             auxEnvio = (Manutencao *)malloc(sizeof(Manutencao));
+                            
                             pegaManutencao(placa,cpf,dataI,auxEnvio);
 
                             CDS.dwData = 0;
