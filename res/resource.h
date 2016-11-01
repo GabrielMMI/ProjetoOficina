@@ -31,9 +31,11 @@
 #define IDD_TODOS_DADOS_MANUT                   184
 #define IDD_TODOS_DADOS_PROP                    186
 #define IDD_TODOS_DADOS_VEIC                    188
+#define IDD_PROP_PESQUISAR                      189
+#define IDD_PROP_PESQUISAR_FORM                 190
 #define ID_BOTAO_ACAO_VEIC                      40000
-#define ID_BOTAO_APRESENTAR_PROP                40000
 #define ID_BOTAO_EXCLUIR_MANUT                  40000
+#define ID_BOTAO_PESQUISAR_PROP                 40000
 #define ID_BOTAO_PROP_MANUT_VEIC                40000
 #define ID_EDIT_DDD_PROP                        40000
 #define ID_EDIT_PLACA_MANUT                     40000

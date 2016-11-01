@@ -5,6 +5,8 @@
  *        a estrutura do tipo Veiculo.
  * @bug Nao contem bugs conhecidos!
  *
+ *@author Matheus Bispo
+ *@author Gabriel Messias
  ***********************************************/
 #ifndef VEICULO_H_SECURE
 #define VEICULO_H_SECURE
@@ -29,11 +31,13 @@ typedef struct veiculo{
 //----------------------------------------------------------------------//
 //Veiculo
 int incluiVeiculo(Veiculo v);
-int buscaVeiculo(char *placa, int *pos);
 int alteraVeiculo(Veiculo vNovo, char *placa);
 int excluiVeiculo(char *placa);
+
 int validaPlaca(char *placa);
 int verificaChassiRepetido(char *chassi);
+
+int buscaVeiculo(char *placa, int *pos);
 int pegaVeiculo(char *placa,Veiculo *v);
 Veiculo *carregaVeiculos();
 int obtemQuantVeicArquivo();

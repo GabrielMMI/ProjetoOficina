@@ -3,7 +3,9 @@
  * @brief Contem o valor de todos os identificadores
  *        de erros utilizados pelo programa
  * @bug Nao contem bugs conhecidos!
- * @author Matheus Bispo
+ *
+ *@author Matheus Bispo
+ *@author Gabriel Messias
  ***********************************************/
 
 #ifndef ERROS_H_SECURE

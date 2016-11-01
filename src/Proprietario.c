@@ -1,7 +1,6 @@
 /********************************************//**
  ** @file Proprietario.c
- * @brief ContÃ©m todas as funÃ§Ãµes de operacoes que envolvem
- *        Proprietario.
+ * @brief Implementa todas as funções de Proprietario.h
  *
  *
  * @bug Nenhum problema conhecido!
@@ -50,7 +49,6 @@ int incluiProprietario(Proprietario prop)
 
 	return flag;
 }
-
 
 /********************************************//**
  * \brief Busca a posicao de uma estrutura do tipo
@@ -190,7 +188,7 @@ int excluiProprietario(char *cpf)
         }
 		return flag;
 	}
-
+	
 	buscaManutencaoCPF(cpf, &pos);
 
 	if(pos == -1){
@@ -358,8 +356,8 @@ int validaCPF(char *cpf)
  *
  * \param tel - O endereco de memoria de um string contendo um telefone
  *
- * \return TEL_VALIDO - CPF valido
- * \return TEL_INVALIDO - CPF invalido
+ * \return TEL_VALIDO - Telefone valido
+ * \return TEL_INVALIDO - Telefone invalido
  ***********************************************/
 int validaTelefone(char *tel)
 {
@@ -381,7 +379,16 @@ int validaTelefone(char *tel)
 	return TEL_VALIDO;
 }
 
-int validaDDD(char *ddd){
+/********************************************//**
+ * \brief Valida um DDD
+ *
+ * \param DDD - O endereco de memoria de um string contendo um DDD
+ *
+ * \return DDD_VALIDO - DDD valido
+ * \return DDD_INVALIDO - DDD invalido
+ ***********************************************/
+int validaDDD(char *ddd)
+{
     int i, valido = DDD_VALIDO;
     i = ddd[0] - '0';
     if(i > 9 || i < 1){
@@ -397,7 +404,7 @@ int validaDDD(char *ddd){
 }
 
 /********************************************//**
- * \brief Busca um proprietario em um arquivo de dados de proprietarios
+ * \brief Carrega os proprietario de um arquivo de dados de proprietarios
  *
  * \param void
  *
@@ -432,7 +439,6 @@ Proprietario *carregaProprietarios()
  *
  * \return A quantidade de proprietarios
  ***********************************************/
-
 int obtemQuantPropArquivo()
 {
 	FILE *arqProp;

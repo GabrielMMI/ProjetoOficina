@@ -1,3 +1,13 @@
+/********************************************//**
+ * @file Win_Dlg_Veic.h
+ * @brief Contem os cabeçalhos de todas as
+ *        funcoes existentes na tab de Veiculos
+ * @bug Nao contem bugs conhecidos!
+ *
+ *@author Matheus Bispo
+ *@author Gabriel Messias
+ ***********************************************/
+
 #ifndef H_DLG_VEIC_SECURE
 #define H_DLG_VEIC_SECURE
 

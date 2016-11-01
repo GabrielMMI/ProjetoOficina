@@ -1,10 +1,12 @@
 /********************************************//**
- * @file FuncoesBasicas.h
+ * @file Win_Funcoes_Basicas.h
  * @brief Contem os cabeçalhos de todas as
  *        funcoes basicas de leitura
  *        e de arquivos.
  * @bug Nao contem bugs conhecidos!
  *
+ *@author Matheus Bispo
+ *@author Gabriel Messias
  ***********************************************/
 
 #ifndef FBASICAS_H_SECURE
@@ -37,7 +39,7 @@ BOOL isFloat(char *str);
 void formataCPF(HWND hwndEdit);
 void formataTel(HWND hwndEdit);
 void formataPlaca(HWND hwndEdit);
-void formataFloat(HWND hwndEdit);
+char *stristr (char *str, char *strSearch);
 //----------------------------------------------------------------------//
 
 #endif

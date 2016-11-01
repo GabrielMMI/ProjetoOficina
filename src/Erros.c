@@ -2,8 +2,9 @@
  * @file Erros.c
  * @brief Contem as funções de tratamento de erros
  * @bug Nao contem bugs conhecidos!
- * @author Matheus Bispo
- * @author Gabriel Messias
+ *
+ *@author Matheus Bispo
+ *@author Gabriel Messias
  ***********************************************/
 
 #include <windows.h>
@@ -255,7 +256,16 @@ int win_trataErros(HWND hwnd, int erro)
             MessageBox(hwnd, "Erro ao fechar arquivo!", "", MB_OK | MB_ICONERROR);
             qtErros++;
             break;
-
+            
+//--------- ALOCAÇÃO
+        case ALOC_ERRO:
+            MessageBox(hwnd, "Erro! Falta de memória!", "", MB_OK | MB_ICONERROR);
+            qtErros++;
+            break;
+        
+        case ALOC_SUCESSO:
+            //MessageBox(hwnd, "Memória reservada com sucesso!", "", MB_OK | MB_ICONINFORMATION);
+            break;
     }
 
     return qtErros;

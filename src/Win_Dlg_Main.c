@@ -1,8 +1,9 @@
 /********************************************//**
- ** @file Win_DlgMain.c
- * @brief Contem a funcao de controle da janela Principal.
- * @bug Nao contem bugs conhecidos!
+ ** @file Win_Dlg_Main.c
+ * @brief Implementa todas as funções de Win_Dlg_Main.h
  *
+ *
+ * @bug Nenhum problema conhecido!
  * @author Matheus Bispo
  * @author Gabriel Messias
  ***********************************************/
@@ -11,14 +12,14 @@
 #include "../include/Win_Dlg_Prop.h"
 
 /********************************************//**
- * \brief FunÃ§Ã£o de controle da janela "CrÃ©ditos"
+ * \brief Função de controle da janela "Créditos"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuÃ¡rio
+ * \param message Indica qual comando foi acionado pelo usuário
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informaÃ§Ãµes adicionais sobre o comando ou nÃ£o
+ * \param lParam Pode carregar informações adicionais sobre o comando ou não
  * \return Padrao Windows para janelas
  *
  ***********************************************/
@@ -47,18 +48,19 @@ BOOL CALLBACK creditosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief FunÃ§Ã£o de controle da janela "CrÃ©ditos"
+ * \brief Função de controle do formulario auto-completo de Proprietario
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuÃ¡rio
+ * \param message Indica qual comando foi acionado pelo usuário
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informaÃ§Ãµes adicionais sobre o comando ou nÃ£o
+ * \param lParam Pode carregar informações adicionais sobre o comando ou não
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK mostraDadosProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp){
+BOOL CALLBACK mostraDadosProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+{
 	static Proprietario *auxAntigo;
     int erro;
     PCOPYDATASTRUCT pcds;
@@ -79,7 +81,20 @@ BOOL CALLBACK mostraDadosProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp){
     return FALSE;
 }
 
-BOOL CALLBACK mostraDadosVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp){
+/********************************************//**
+ * \brief Função de controle do formulario auto-completo de Veiculo
+ *
+ * \param hwnd Manipulador da janela
+ * \param message Indica qual comando foi acionado pelo usuário
+ * \param wParam Uma WORD que se divide em duas partes:
+ *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
+ *               (LOWORD) - 16 bits, informa o id do controle que o acionou
+ * \param lParam Pode carregar informações adicionais sobre o comando ou não
+ * \return Padrao Windows para janelas
+ *
+ ***********************************************/
+BOOL CALLBACK mostraDadosVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+{
 	static Veiculo *auxAntigo;
     int erro;
     PCOPYDATASTRUCT pcds;
@@ -99,14 +114,56 @@ BOOL CALLBACK mostraDadosVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp){
 }
 
 /********************************************//**
- * \brief FunÃ§Ã£o de controle da janela "CrÃ©ditos"
+ * \brief Função de controle do formulario auto-completo de Manutenção
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuÃ¡rio
+ * \param message Indica qual comando foi acionado pelo usuário
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informaÃ§Ãµes adicionais sobre o comando ou nÃ£o
+ * \param lParam Pode carregar informações adicionais sobre o comando ou não
+ * \return Padrao Windows para janelas
+ *
+ ***********************************************/
+BOOL CALLBACK mostraDadosManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+{
+   	static Manutencao *auxAntigo;
+    int erro;
+    PCOPYDATASTRUCT pcds;
+    HWND hwndList, *hwndAux;
+    char valor[10];
+
+    switch(msg) {
+        case WM_COPYDATA:
+			pcds = (PCOPYDATASTRUCT)lp;
+			auxAntigo = (Manutencao *)(pcds->lpData);
+			if(pcds->dwData == 0){
+				    auxAntigo = (Manutencao *)(pcds->lpData);
+                    SetDlgItemText(hwnd, ID_EDIT_PLACA_MANUT, auxAntigo->placa);
+                    SetDlgItemText(hwnd, ID_EDIT_CPF_MANUT, auxAntigo->cpf);
+                    sprintf(valor, "%.2f", auxAntigo->valorPecas);
+                    SetDlgItemText(hwnd, ID_EDIT_PECAS_MANUT, valor);
+                    sprintf(valor, "%.2f", auxAntigo->valorObra);
+                    SetDlgItemText(hwnd, ID_EDIT_OBRA_MANUT, valor);
+                    SetDlgItemText(hwnd, ID_EDIT_DESCRICAO_MANUT, auxAntigo->descricao);
+			}
+        return TRUE;
+        break;
+    return TRUE;
+    break;
+    }
+    return FALSE;
+}
+
+/********************************************//**
+ * \brief Função de controle da janela "Apresentar todos os dados"
+ *
+ * \param hwnd Manipulador da janela
+ * \param message Indica qual comando foi acionado pelo usuário
+ * \param wParam Uma WORD que se divide em duas partes:
+ *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
+ *               (LOWORD) - 16 bits, informa o id do controle que o acionou
+ * \param lParam Pode carregar informações adicionais sobre o comando ou não
  * \return Padrao Windows para janelas
  *
  ***********************************************/
@@ -266,15 +323,15 @@ BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 						}
 						
 						if(TreeView_GetParent(hwndTree, TreeView_GetParent(hwndTree, noSelected)) == noManut){
-							telaAux = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TODOS_DADOS_MANUT), hwnd, (DLGPROC)mostraDadosProp);
+							telaAux = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TODOS_DADOS_MANUT), hwnd, (DLGPROC)mostraDadosManut);
 							
-							tvitem.hItem = noSelected;
+							noAux = TreeView_GetParent(hwndTree, noSelected);
+							tvitem.hItem = noAux;
 							tvitem.mask = TVIF_TEXT;
 							tvitem.pszText = data;
 							tvitem.cchTextMax = TAM_DATA;
 							
 							TreeView_GetItem(hwndTree, &tvitem);
-							
 							tvitem.hItem = noSelected;
 							tvitem.mask = TVIF_TEXT;
 							tvitem.pszText = placa;
@@ -282,7 +339,9 @@ BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 							
 							TreeView_GetItem(hwndTree, &tvitem);
 							
-							//pegaManut ----------
+							converteStringData(data, &dataAux);
+							
+							pegaManutencaoPlacDat(placa, dataAux, &auxManut);
 
 	                        CDS.dwData = 0;
 	                        CDS.cbData = sizeof(Manutencao);
@@ -306,14 +365,14 @@ BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief FunÃ§Ã£o de controle da janela Principal
+ * \brief Função de controle da janela Principal
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuÃ¡rio
+ * \param message Indica qual comando foi acionado pelo usuário
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou nÃ£o
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou não
  * \return Padrao Windows para janelas
  *
  ***********************************************/

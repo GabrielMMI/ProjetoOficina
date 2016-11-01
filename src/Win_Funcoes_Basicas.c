@@ -1,7 +1,10 @@
 /********************************************//**
- ** @file FuncoesBasicas.c
- * @brief Contem todas as funções básicas.
+ ** @file Win_Funcoes_Basicas.c
+ * @brief Contem as funções básicas utilizadas no programa.
+ * @bug Nao contem bugs conhecidos!
  *
+ * @author Matheus Bispo
+ * @author Gabriel Messias
  ***********************************************/
 
 
@@ -38,9 +41,10 @@ int existeArquivo(char *nomeArq)
 /********************************************//**
  * \brief Armazena ou recupera o ultimo handle armazenado
  *
- * \param handle HWND*
- * \param tipo int
- * \return HWND*
+ * \param handle - um endereço de memória de um handle
+ * \param tipo   - 1 :: Caso queria guardar
+ *				 - 2 :: Caso queira recuperar
+ * \return HWND* - Endereço de memória de um handle
  *
  ***********************************************/
 HWND *guardaPegaHandle(HWND *handle, int tipo)
@@ -70,6 +74,15 @@ int fechaArquivo(FILE *arq)
     return flag;
 }
 
+/********************************************//**
+ * \brief formata um CPF em um EditControl em tempo real
+ *
+ * \param hwndEdit - O handle de um EditControl
+ *
+ * \return FECHA_ARQUIVO_SUCESSO - Sucesso ao fechar arquivo
+ * \return FECHA_ARQUIVO_ERRO - Erro ao fechar arquivo
+ *
+ ***********************************************/
 void formataCPF(HWND hwndEdit)
 {
     int tam = Edit_GetTextLength(hwndEdit);
@@ -120,6 +133,15 @@ void formataCPF(HWND hwndEdit)
     }
 }
 
+/********************************************//**
+ * \brief formata um telefone em um EditControl em tempo real
+ *
+ * \param hwndEdit - O handle de um EditControl
+ *
+ * \return FECHA_ARQUIVO_SUCESSO - Sucesso ao fechar arquivo
+ * \return FECHA_ARQUIVO_ERRO - Erro ao fechar arquivo
+ *
+ ***********************************************/
 void formataTel(HWND hwndEdit)
 {
     int tam = Edit_GetTextLength(hwndEdit);
@@ -143,6 +165,15 @@ void formataTel(HWND hwndEdit)
     }
 }
 
+/********************************************//**
+ * \brief formata uma placa em um EditControl em tempo real
+ *
+ * \param hwndEdit - O handle de um EditControl
+ *
+ * \return FECHA_ARQUIVO_SUCESSO - Sucesso ao fechar arquivo
+ * \return FECHA_ARQUIVO_ERRO - Erro ao fechar arquivo
+ *
+ ***********************************************/
 void formataPlaca(HWND hwndEdit)
 {
     int tam = Edit_GetTextLength(hwndEdit);
@@ -166,6 +197,15 @@ void formataPlaca(HWND hwndEdit)
     }
 }
 
+/********************************************//**
+ * \brief Verifica se uma string pode ser transformada em um float
+ *
+ * \param str 	- O endereço de memória de uma string
+ *
+ * \return TRUE 	- Pode ser transformada em float
+ * \return FALSE 	- Não pode ser transformada em float
+ *
+ ***********************************************/
 BOOL isFloat(char *str)
 {
     float f;
@@ -180,6 +220,15 @@ BOOL isFloat(char *str)
     return TRUE;
 }
 
+/********************************************//**
+ * \brief Configura um EditControl de tal modo que ele só aceite número inteiros ou float
+ *
+ * \param hDlg 		- O handle do dialogo onde se encontra o EditCOntrol
+ * \param ctrlID 	- O ID do EditControl
+ *
+ * \return void
+ *
+ ***********************************************/
 void editTextFloat(HWND hDlg, int ctrlID)
 {
     HWND hEdit    = GetDlgItem(hDlg, ctrlID);
@@ -198,25 +247,25 @@ void editTextFloat(HWND hDlg, int ctrlID)
     }
 }
 
-void formataFloat(HWND hwndEdit)
-{
-    int tam = Edit_GetTextLength(hwndEdit);
-    static int cont;
-
-    if(tam == 0){
-        cont = 0;
-    }
-
-    if(tam == 2){
-        if(cont < 1){
-            Edit_SetSel(hwndEdit, 0, 0);
-            Edit_ReplaceSel(hwndEdit, ".");
-            Edit_SetSel(hwndEdit, 3, 3);
-            cont++;
-        }else{
-            Edit_SetSel(hwndEdit, 0, 1);
-            Edit_ReplaceSel(hwndEdit, "");
-            cont--;
+/********************************************//**
+ * \brief Pesquisa a ocorrência de uma substring em um string, sem case sensitive
+ *
+ * \param str 		- O endereço de memória de uma string
+ * \param strSearch	- O endereço de memória de uma string
+ *
+ * \return void
+ *
+ ***********************************************/
+char *stristr (char *str, char *strSearch) {
+    char *sors, *subs, *res = NULL;
+    if ((sors = strdup (str)) != NULL) {
+        if ((subs = strdup (strSearch)) != NULL) {
+            res = strstr (strlwr (sors), strlwr (subs));
+            if (res != NULL)
+                res = str + (res - sors);
+            free (subs);
         }
+        free (sors);
     }
+    return res;
 }

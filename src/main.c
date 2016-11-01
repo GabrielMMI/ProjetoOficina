@@ -1,6 +1,6 @@
 /********************************************//**
- ** @file main.c
- * @brief Inicializa a janela inicial e cria os diretórios necessórios.
+ ** @file Main.c
+ * @brief Inicializa a janela inicial e cria os diretórios necessários.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo

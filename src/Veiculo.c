@@ -1,3 +1,13 @@
+/********************************************//**
+ ** @file Veiculo.c
+ * @brief Implementa todas as funções de Veiculo.h
+ *
+ *
+ * @bug Nenhum problema conhecido!
+ * @author Matheus Bispo
+ * @author Gabriel Messias
+ ***********************************************/
+
 #include "../include/Veiculo.h"
 
 /********************************************//**
@@ -11,7 +21,6 @@
  * \return ERRO_ABRIR_ARQUIVO - Erro ao abrir um arquvio
  * \return VEIC_BUSCA_EXISTENTE - Veiculo buscado ja existe
  ***********************************************/
-
 int incluiVeiculo(Veiculo veiculo)
 {
 	FILE *arq;
@@ -52,7 +61,6 @@ int incluiVeiculo(Veiculo veiculo)
  * \return -1 - se não existir no arquivo
  * \return ALOC_ERRO - Erro ao alocar memoria
  ***********************************************/
-
 int buscaVeiculo(char *placa, int *pos)
 {
 	FILE *arq;
@@ -102,7 +110,6 @@ int buscaVeiculo(char *placa, int *pos)
  * \return VEIC_ALTERAR_ERRO - Erro ao alterar o veiculo
  * \return FECHA_ARQUIVO_ERRO - Erro ao fechar o arquivo
  ***********************************************/
-
 int alteraVeiculo(Veiculo vNovo, char *placa)
 {
 	FILE *arq;
@@ -148,7 +155,6 @@ int alteraVeiculo(Veiculo vNovo, char *placa)
  * \return VEIC_EXCLUIR_ERRO - Erro ao excluir o veiculo
  * \return ALOC_ERRO - Erro ao alocar memoria
  ***********************************************/
-
 int excluiVeiculo(char *placa)
 {
 	int pos = -1, flag = VEIC_EXCLUIR_ERRO, erro;
@@ -226,7 +232,6 @@ int excluiVeiculo(char *placa)
  * \return PLACA_VALIDA - Placa valida
  * \return PLACA_INVALIDA - Placa inválida
  ***********************************************/
-
 int validaPlaca(char *placa)
 {
 	int flag = PLACA_VALIDA;
@@ -251,7 +256,6 @@ int validaPlaca(char *placa)
  * \return ERRO_ARQUIVO_INEXISTENTE - Arquivo não existe
  * \return ALOC_ERRO - Erro ao alocar memoria
  ***********************************************/
-
 int verificaChassiRepetido(char *chassi)
 {
 	FILE *arq;
@@ -291,7 +295,7 @@ int verificaChassiRepetido(char *chassi)
 }
 
 /********************************************//**
- * \brief Pega um veiculo
+ * \brief Pega um veiculo no arquivo de Veiculos
  *
  * \param placa - Endereço de memoria de uma string de placa
  * \param veiculo - Endereço de memoria de uma string de veiculo
@@ -302,7 +306,6 @@ int verificaChassiRepetido(char *chassi)
  * \return FECHA_ARQUIVO_ERRO - Erro ao fechar o arquivo de veiculos
  * \return ERRO_ABRIR_ARQUIVO - Erro ao abrir o arquivo de veiculos
  ***********************************************/
-
 int pegaVeiculo(char *placa,Veiculo *veiculo)
 {
 	int flag;
@@ -336,7 +339,7 @@ int pegaVeiculo(char *placa,Veiculo *veiculo)
 }
 
 /********************************************//**
- * \brief Carrega todos os veiculos
+ * \brief Carrega todos os veiculos de um arquivo de veículos
  *
  * \param void
  *
@@ -371,7 +374,6 @@ Veiculo *carregaVeiculos()
  *
  * \return A quantidade de veiculos
  ***********************************************/
-
 int obtemQuantVeicArquivo()
 {
 	FILE *arqVeic;

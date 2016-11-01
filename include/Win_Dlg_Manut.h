@@ -1,5 +1,20 @@
+/********************************************//**
+ * @file Win_Dlg_Manut.h
+ * @brief Contem os cabeçalhos de todas as
+ *        funcoes existentes na tab de Manutenção
+ * @bug Nao contem bugs conhecidos!
+ *
+ *@author Matheus Bispo
+ *@author Gabriel Messias
+ ***********************************************/
+
+#ifndef H_DLG_MANUT_SECURE
+#define H_DLG_MANUT_SECURE
+
 #include "Win_Funcoes_Basicas.h"
 
+//--------------------------------------------------------------------------------------
+//Operações de Manutenção
 Manutencao *leDadosManutForm(HWND hwnd);
 
 void inicializaListManut(HWND hwndList);
@@ -18,3 +33,4 @@ BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 BOOL CALLBACK formExcluirManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 BOOL CALLBACK tabManutPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 
+#endif

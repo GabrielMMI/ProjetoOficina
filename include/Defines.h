@@ -4,7 +4,9 @@
  *        programa.
  *
  * @bug Nao contem bugs conhecidos!
- * @author Matheus Bispo
+ *
+ *@author Matheus Bispo
+ *@author Gabriel Messias
  ***********************************************/
 
 #ifndef DEFINES_H_SECURE

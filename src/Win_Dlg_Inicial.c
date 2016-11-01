@@ -1,8 +1,9 @@
 /********************************************//**
- ** @file Win_DlgInicial.c
- * @brief Contem a funcao de controle da caixa de dialogo inicial.
- * @bug Nao contem bugs conhecidos!
+ ** @file Win_Dlg_Inicial.c
+ * @brief Implementa todas as funções de Win_Dlg_Inicial.h
  *
+ *
+ * @bug Nenhum problema conhecido!
  * @author Matheus Bispo
  * @author Gabriel Messias
  ***********************************************/

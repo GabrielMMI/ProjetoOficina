@@ -5,6 +5,8 @@
  *        a estrutura do tipo Proprietario e do tipo Endereço.
  * @bug Nao contem bugs conhecidos!
  *
+ *@author Matheus Bispo
+ *@author Gabriel Messias
  ***********************************************/
 
 #ifndef PROPRIETARIO_H_SECURE
@@ -25,11 +27,11 @@ typedef struct endereco{
 }Endereco;
 
 /********************************************//**
- * \brief Guarda um endereço
+ * \brief Guarda um telefone
  ***********************************************/
 typedef struct telefone{
-	char ddd[TAM_DDD];/**< A descrição do endereço*/
-	char telefone[TAM_TEL];/**< A cidade do endereço */
+	char ddd[TAM_DDD];/**< O DDD do telefone*/
+	char telefone[TAM_TEL];/**< O número do telefone */
 }Telefone;
 
 /********************************************//**
@@ -46,14 +48,16 @@ typedef struct proprietario{
 //----------------------------------------------------------------------//
 //Proprietario
 int incluiProprietario(Proprietario p);
-int buscaProprietario(char *cpf, int *pos);
 int alteraProprietario(Proprietario novoP, char *cpf);
 int excluiProprietario(char *cpf);
-Proprietario *pesquisaProprietario(char *nome);
+
+int buscaProprietario(char *cpf, int *pos);
 int pegaProprietario(char *cpf, Proprietario *pAux);
-int validaCPF(char *cpf);
-int validaTelefone(char *tel);
 Proprietario *carregaProprietarios();
 int obtemQuantPropArquivo();
+
+int validaDDD(char *ddd);
+int validaCPF(char *cpf);
+int validaTelefone(char *tel);
 //----------------------------------------------------------------------//
 #endif
