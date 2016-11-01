@@ -157,7 +157,7 @@ int alteraVeiculo(Veiculo vNovo, char *placa)
  ***********************************************/
 int excluiVeiculo(char *placa)
 {
-	int pos = -1, flag = VEIC_EXCLUIR_ERRO, erro;
+	int pos = -1, flag = VEIC_EXCLUIR_SUCESSO, erro;
 	Veiculo *vAux = NULL;
 	FILE *arq, *arqSemExcluido;
 

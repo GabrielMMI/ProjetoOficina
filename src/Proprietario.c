@@ -165,7 +165,7 @@ int alteraProprietario(Proprietario novoP, char *cpf)
  ***********************************************/
 int excluiProprietario(char *cpf)
 {
-	int pos = -1, flag = PROP_EXCLUIR_ERRO, erro;
+	int pos = -1, flag = PROP_EXCLUIR_SUCESSO, erro;
 	Proprietario *pAux = NULL;
 	FILE *arq, *arqSemExcluido;
 
