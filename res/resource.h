@@ -63,11 +63,13 @@
 #define ID_EDIT_MODELO_VEIC                     40003
 #define ID_EDIT_OBRA_MANUT                      40003
 #define ID_MANUT_EXCLUIR_ATUALIZAR_BOTAO        40003
+#define ID_MANUT_TOTAL_PECAS                    40003
 #define ID_PROP_LIMPAR_BOTAO                    40003
 #define ID_PROP_MOSTRAR_ATUALIZAR_BOTAO         40003
 #define ID_VEIC_EXCLUIR_BOTAO                   40003
 #define ID_EDIT_DESCRICAO_MANUT                 40004
 #define ID_EDIT_NOME_PROP                       40004
+#define ID_MANUT_TOTAL_OBRA                     40004
 #define ID_BOTAO_ACAO_MANUT                     40005
 #define ID_BOTAO_SAIR_MANUT                     40005
 #define ID_GIF_CREDITOS                         40005

@@ -31,7 +31,7 @@ BOOL CALLBACK creditosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
             Animate_Open(GetDlgItem(hwnd, ID_GIF_CREDITOS), "res/matheus.avi");
             Animate_Play(GetDlgItem(hwnd, ID_GIF_CREDITOS), 0, -1, -1);
 
-            Animate_Open(GetDlgItem(hwnd, ID_GIF_CREDITOS_2), "res/matheus.avi");
+            Animate_Open(GetDlgItem(hwnd, ID_GIF_CREDITOS_2), "res/gabriel.avi");
             Animate_Play(GetDlgItem(hwnd, ID_GIF_CREDITOS_2), 0, -1, -1);
             return TRUE;
         break;
@@ -434,7 +434,7 @@ LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
                 (LPARAM) (LPTCITEM) &itemProp);
 
             itemVeic.mask = TCIF_TEXT;
-            itemVeic.pszText = "Veiculos";
+            itemVeic.pszText = "   Veiculos  ";
 
             count = SendMessage(hTab, TCM_GETITEMCOUNT, 0, 0);
             SendMessage(hTab, TCM_INSERTITEM, count,

@@ -12,10 +12,12 @@
 #include "../include/Veiculo.h"
 #include "../include/Win_Dlg_Main.h"
 #include "../include/Win_Dlg_Inicial.h"
-#include <dirent.h>
+#include <commctrl.h>
+#pragma comment(lib, "comctl32.lib")
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd){
     InitCommonControls();
+    
     FILE *dbprop, *dbveic, *dbmanut;
     int flag = 0;
 
