@@ -42,7 +42,9 @@ LRESULT CALLBACK DlgIniProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPar
 
 	        if(GetWindowTextLength(editNome) != 0 && GetWindowTextLength(editEnder) != 0){
 	            EnableWindow(GetDlgItem(hwnd,ID_Entrar),TRUE);
-	        }
+	        }else{
+	        	EnableWindow(GetDlgItem(hwnd,ID_Entrar),FALSE);
+			}
 
 			switch(wParam){
 

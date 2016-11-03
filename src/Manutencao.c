@@ -519,9 +519,9 @@ int comparaData(Data data1, Data data2)
         flag = 0;
     }else if(data1.ano > data2.ano){
         flag = 1;
-    }else if(data1.mes > data2.mes){
+    }else if(data1.mes > data2.mes && data1.ano == data2.ano){
         flag = 1;
-    }else if(data1.dia > data2.dia){
+    }else if(data1.dia > data2.dia && data1.mes == data2.mes && data1.ano == data2.ano){
         flag = 1;
     }else{
         flag = -1;

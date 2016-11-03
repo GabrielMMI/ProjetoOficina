@@ -82,12 +82,87 @@ void atualizaListaManut(HWND hwndList, Data dataI, Data dataF)
                     lvItem.iSubItem = 2;       // Put in first coluom
                     sprintf(data, "%d/%d/%d", aux.data.dia, aux.data.mes, aux.data.ano);
                     lvItem.pszText = data; // Text to display (can be from a char variable) (Items)
-
+					 
                     SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
 
                     cont++;
                 }
             }
+			
+            if(win_trataErros(hwndList,fechaArquivo(arq)) != 0) return;
+        }else{
+            if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) != 0) return;
+        }
+    }
+
+}
+
+/********************************************//**
+ * \brief Atualiza a lista de manutenções de acordo
+ *        com a data inicial e a data final
+ * \param hwnd 		- Manipulador de uma janela
+ * \param dataI 	- Uma struct do tipo Data contendo uma data inicial
+ * \param dataF 	- Uma struct do tipo Data contendo uma data final
+ *
+ * \return void
+ *
+ ***********************************************/
+void atualizaListaManutBusca(HWND hwnd, Data dataI, Data dataF)
+{
+
+    LVITEM lvItem;
+    int cont = 0;
+    Manutencao aux;
+    char data[TAM_DATA];
+    FILE *arq;
+    float totalPecas = 0, totalObra = 0;
+    char pontoFlutuante[10];
+    HWND pecas, maoObra, hwndList;
+    
+    hwndList = GetDlgItem(hwnd, ID_MANUT_LIST);
+
+    SendMessage(hwndList,LVM_DELETEALLITEMS,0,0);
+    
+	pecas = GetDlgItem(hwnd, ID_MANUT_TOTAL_PECAS);
+	maoObra = GetDlgItem(hwnd, ID_MANUT_TOTAL_OBRA);
+
+    if(existeArquivo(ARQUIVO_DADOS_MANUTENCAO)){
+        arq = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+        if(arq != NULL){
+            while(fread(&aux, sizeof(Manutencao), 1, arq) == 1){
+                if(comparaData(aux.data, dataI) >= 0 && comparaData(aux.data, dataF) <= 0 && comparaData(dataI, dataF) <= 0){
+                    lvItem.mask=LVIF_TEXT;   // Text Style
+                    lvItem.cchTextMax = TAM_NOME;
+                    lvItem.iItem=cont;          // choose item
+                    lvItem.iSubItem=0;       // Put in first coluom
+                    lvItem.pszText=aux.placa; // Text to display (can be from a char variable) (Items)
+
+                    SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+
+                    lvItem.iSubItem = 1;       // Put in first coluom
+                    lvItem.pszText = aux.cpf; // Text to display (can be from a char variable) (Items)
+
+                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+
+                    lvItem.iSubItem = 2;       // Put in first coluom
+                    sprintf(data, "%d/%d/%d", aux.data.dia, aux.data.mes, aux.data.ano);
+                    lvItem.pszText = data; // Text to display (can be from a char variable) (Items)
+
+					totalPecas += aux.valorPecas;
+					totalObra  += aux.valorObra;
+					 
+                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+
+                    cont++;
+                }
+            }
+            if(pecas && maoObra){
+				sprintf(pontoFlutuante, "%.2f R$", totalPecas);
+				Edit_SetText(pecas, pontoFlutuante);
+				sprintf(pontoFlutuante, "%.2f R$", totalObra);
+				Edit_SetText(maoObra, pontoFlutuante);
+			}
+			
             if(win_trataErros(hwndList,fechaArquivo(arq)) != 0) return;
         }else{
             if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) != 0) return;
@@ -267,7 +342,7 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
             dataI = convertTime(dateT);
             DateTime_GetSystemtime(GetDlgItem(hwnd, ID_MANUT_DATA_FIM), &dateT);
             dataF = convertTime(dateT);
-            atualizaListaManut(hwndList, dataI, dataF);
+            atualizaListaManutBusca(hwnd, dataI, dataF);
 
             return TRUE;
         break;
@@ -281,7 +356,7 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                     dataI = convertTime(dateT);
                     DateTime_GetSystemtime(GetDlgItem(hwnd, ID_MANUT_DATA_FIM), &dateT);
                     dataF = convertTime(dateT);
-                    atualizaListaManut(hwndList, dataI, dataF);
+                    atualizaListaManutBusca(hwnd, dataI, dataF);
                 }
                 break;
 
@@ -296,7 +371,7 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
             switch(LOWORD(wp)){
                 case 3:
-                    atualizaListaManut(hwndList, dataI, dataF);
+                    atualizaListaManutBusca(hwnd, dataI, dataF);
                 break;
                 case ID_MANUT_BOTAO_VER_DADOS:
                     if(iSelect == -1){
