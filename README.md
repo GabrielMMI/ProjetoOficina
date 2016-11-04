@@ -1,8 +1,7 @@
 #**PROJETO FINAL: OFICINA MECÂNICA (TEMA 2)**
 
-###Matheus Filipe de Melo Bispo
-– UC16101760 
-###Gabriel Messias de Moura Ilha –UC16101214
+###Matheus Filipe de Melo Bispo – UC16101760 
+###Gabriel Messias de Moura Ilha – UC16101214
 
 ##Índice 
 
