@@ -121,35 +121,6 @@ O diagrama de esquema a seguir mostra todos os componentes utilizados nas struct
 
 ![Diagrama.jpg](https://bitbucket.org/repo/np4y89/images/2904809167-Diagrama.jpg)# PROJETO FINAL: OFICINA 
 
-|Proprietário|            |            |            |            |            |
-|----------||----------||----------||----------||----------||----------||
-|Proprietário|   nome     |cpf         |endereco    |telefone	 |            |
-
-|Veiculo     |            |            |            |            |            |
-|----------|----------|----------|----------|----------|----------|
-|placa       |	modelo    |fabricante  |chassi      |	ano      |            |
-
-|Manutenção  |            |            |            |            |            |
-|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
-|placa	     |cpf	  |descrição   |valorPecas  |valorObra	 |data        |
-
-|Endereço    |            |            |            |            |            |
-|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
-|descricao   |cidade      |estado      |            |            |            |
-
-|Telefone    |            |            |            |            |            |
-|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
-|ddd         |	telefone  |            |            |            |            |
-
-|Data        |            |            |            |            |            |
-|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
-|dia	     |mes	  |ano         |            |            |            |
-
-|Oficina     |            |            |            |            |            |
-|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
-|nome	     |endereco    |            |            |            |            |
-
-
 ##Implementação
 
 Esse projeto está sendo desenvolvido por meio da Linguagem de Programação C, utilizando como base a biblioteca windows.h no segundo semestre de 2016. Seu código fonte está disponível com o nome físico  ** Main.c **
