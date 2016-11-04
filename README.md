@@ -153,5 +153,4 @@ O diagrama de esquema a seguir mostra todos os componentes utilizados nas struct
 
 ##Implementação
 
-Esse projeto está sendo desenvolvido por meio da Linguagem de Programação C, utilizando como base a biblioteca windows.h no segundo semestre de 2016. Seu código fonte está disponível com o nome físico  *** Main.c
- ***
+Esse projeto está sendo desenvolvido por meio da Linguagem de Programação C, utilizando como base a biblioteca windows.h no segundo semestre de 2016. Seu código fonte está disponível com o nome físico  ** Main.c **
