@@ -120,32 +120,32 @@ typedef struct oficina{
 O diagrama de esquema a seguir mostra todos os componentes utilizados nas structs desse projeto, além das informações chaves em destaque
 
 |Proprietário|
-|:----------:|:----------:|:----------:|:----------:|:----------:|
-|Proprietário|   nome     |cpf         |endereco    |telefone	 |
+|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+|Proprietário|   nome     |cpf         |endereco    |telefone	 |            |
 
 |Veiculo     |
-|:----------:|:----------:|:----------:|:----------:|:----------:|
-|placa       |	modelo    |fabricante  |chassi      |	ano      |
+|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+|placa       |	modelo    |fabricante  |chassi      |	ano      |            |
 
 |Manutenção  |
 |:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
 |placa	     |cpf	  |descrição   |valorPecas  |valorObra	 |data        |
 
 |Endereço    |
-|:----------:|:----------:|:----------:|
-|descricao   |cidade      |estado      |
+|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+|descricao   |cidade      |estado      |            |            |            |
 
 |Telefone    |
-|:----------:|:----------:|
-|ddd         |	telefone  |
+|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+|ddd         |	telefone  |            |            |            |            |
 
 |Data                                  |
-|:----------:|:----------:|:----------:|
-|dia	     |mes	  |ano         |
+|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+|dia	     |mes	  |ano         |            |            |            |
 
 |Oficina                               |
-|:----------:|:----------:|:----------:|
-|nome	     |endereco    |            |
+|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+|nome	     |endereco    |            |            |            |            |
 
 
 ##Implementação
