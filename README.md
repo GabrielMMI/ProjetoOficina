@@ -121,16 +121,13 @@ O diagrama de esquema a seguir mostra todos os componentes utilizados nas struct
 
 | Proprietário  |
 |:----------:|
-|Proprietário
-| nome|cpf|	endereco|	telefone	|
+|Proprietário| nome|cpf|	endereco|	telefone	|
 
-|Veiculo
-|
+|Veiculo|
 |:----------:|
 |placa|	modelo|	fabricante|	chassi|	ano|
 
-|Manutenção
-|
+|Manutenção|
 |:----------:|
 |placa	|cpf	|descrição	|valorPecas	|valorObra	|data|
 
