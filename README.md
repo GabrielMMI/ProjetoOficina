@@ -119,8 +119,8 @@ typedef struct oficina{
 
 O diagrama de esquema a seguir mostra todos os componentes utilizados nas structs desse projeto, além das informações chaves em destaque
 
-| Proprietário  |
-|:----------:|
+|Proprietário|
+|:----------:||:----------:||:----------:||:----------:||:----------:|
 |Proprietário| nome|cpf|	endereco|	telefone	|
 
 |Veiculo|
