@@ -14,13 +14,13 @@
 
 ##Especificação
 
-Esse projeto tem o objetivo de administrar e controlar os dados gerados em uma oficina mecânica. O programa será criado em cima de 3 “pilares” ( **** Proprietario, Veiculo e Manutencao **** ), onde esses serão as structs principais do programa, tendo mais 4 structs ( **** Endereço, Telefone, Data e Oficina **** ) “auxiliares”. 
+Esse projeto tem o objetivo de administrar e controlar os dados gerados em uma oficina mecânica. O programa será criado em cima de 3 “pilares” ( *** Proprietario, Veiculo e Manutencao *** ), onde esses serão as structs principais do programa, tendo mais 4 structs ( *** Endereço, Telefone, Data e Oficina *** ) “auxiliares”. 
 O programa em questão será responsável por cadastrar, alterar e excluir um proprietário e/ou um veículo, onde a manutenção terá apenas a função cadastrar e excluir, respeitando as possíveis regras de alteração e exclusão.
 Tendo essas funcionalidades ativas, o programa terá algumas funcionalidades a mais, como, por exemplo, apresentação de todos os dados (proprietários, veículos e manutenções) e pesquisas filtradas, onde serão dadas, pelo usuário, as informações chaves de cada struct principal para suas respectivas pesquisas.
 
 ##Structs 
 
--  **** Proprietario  : ****  
+-  *** Proprietario  : ***  
 
 ````
 typedef struct{
@@ -34,7 +34,7 @@ typedef struct{
 > A struct do tipo Proprietario é responsável por manipular o arquivo binário “ **** dbProp.dat **** ”, onde será salvo os dados lido por essa struct, para futuros cadastros, alterações, exclusões ou pesquisas.
 
 
--	  **** Veiculo:  ****  
+-	  *** Veiculo:  *** 
 ```
 typedef struct{
 	        char placa[TAM_PLACA];     // A placa do veículo ##(chave)##
@@ -49,7 +49,7 @@ typedef struct{
 
 
 
--  **** Manutenção: ****
+-  *** Manutenção: ***
 ```
 typedef struct{
 	        char placa[TAM_PLACA];  // A placa do veículo ##(chave)##
@@ -62,9 +62,9 @@ typedef struct{
 
 ```
 
-> A struct do tipo Manutenção é responsável por manipular o arquivo binário “ **** dbManut.dat **** ”, onde será salvo os dados lido por essa struct, para futuros cadastros, exclusões ou pesquisas.
+> A struct do tipo Manutenção é responsável por manipular o arquivo binário “ *** dbManut.dat *** ”, onde será salvo os dados lido por essa struct, para futuros cadastros, exclusões ou pesquisas.
 
-- 	 **** Endereço: **** 
+- 	 *** Endereço: *** 
 
 ```
  typedef struct endereco{
@@ -74,11 +74,11 @@ typedef struct{
 }Endereco;
 ```	
 
->	A struct do tipo Endereço é responsável por manipular o endereço ultilizado na  struct ****  Proprietario.
- **** 
+>	A struct do tipo Endereço é responsável por manipular o endereço ultilizado na  struct ***  Proprietario.
+ *** 
 
--  **** 	Telefone: 
- **** 
+-  *** 	Telefone: 
+ *** 
 ```
 typedef struct telefone{
 	        char ddd[TAM_DDD];     // O DDD do telefone
@@ -88,9 +88,9 @@ typedef struct telefone{
 ```
 
 >A struct do tipo Telefone é responsável por manipular o telefone que será utilizado na 
-struct de  **** Proprietario **** .
+struct de  *** Proprietario *** .
 
--  **** 	Data: **** 
+-  *** 	Data: *** 
 
 ```
 typedef struct data{
@@ -105,8 +105,8 @@ Manutenção
 
 
 
-- 	 **** Oficina:
- **** 
+- 	 *** Oficina:
+ *** 
 
 ```
 typedef struct oficina{
@@ -155,5 +155,5 @@ O diagrama de esquema a seguir mostra todos os componentes utilizados nas struct
 
 ##Implementação
 
-Esse projeto está sendo desenvolvido por meio da Linguagem de Programação C, utilizando como base a biblioteca windows.h no segundo semestre de 2016. Seu código fonte está disponível com o nome físico  **** Main.c
- ****
+Esse projeto está sendo desenvolvido por meio da Linguagem de Programação C, utilizando como base a biblioteca windows.h no segundo semestre de 2016. Seu código fonte está disponível com o nome físico  *** Main.c
+ ***
