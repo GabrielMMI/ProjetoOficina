@@ -119,7 +119,7 @@ typedef struct oficina{
 
 O diagrama de esquema a seguir mostra todos os componentes utilizados nas structs desse projeto, além das informações chaves em destaque
 
-![Diagrama.jpg](https://bitbucket.org/repo/np4y89/images/2904809167-Diagrama.jpg)# PROJETO FINAL: OFICINA 
+![Diagrama.jpg](https://bitbucket.org/repo/np4y89/images/2158573433-Diagrama.jpg)
 
 ##**Implementação**
 
