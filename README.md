@@ -123,29 +123,29 @@ O diagrama de esquema a seguir mostra todos os componentes utilizados nas struct
 |:----------:|:----------:|:----------:|:----------:|:----------:|
 |Proprietário|   nome     |cpf         |endereco    |telefone	 |
 
-|Veiculo|
+|Veiculo     |
 |:----------:|:----------:|:----------:|:----------:|:----------:|
 |placa       |	modelo    |fabricante  |chassi      |	ano      |
 
-|Manutenção|
+|Manutenção  |
 |:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
 |placa	     |cpf	  |descrição   |valorPecas  |valorObra	 |data        |
 
-|Endereço|
+|Endereço    |
 |:----------:|:----------:|:----------:|
 |descricao   |cidade      |estado      |
 
-|Telefone|
+|Telefone    |
 |:----------:|:----------:|
 |ddd         |	telefone  |
 
-|Data|
+|Data                                  |
 |:----------:|:----------:|:----------:|
 |dia	     |mes	  |ano         |
 
-|Oficina|
-|:----------:|:----------:|
-|nome	     |endereco    |
+|Oficina                               |
+|:----------:|:----------:|:----------:|
+|nome	     |endereco    |            |
 
 
 ##Implementação
