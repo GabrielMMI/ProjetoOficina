@@ -144,8 +144,8 @@ O diagrama de esquema a seguir mostra todos os componentes utilizados nas struct
 |dia	     |mes	  |ano         |
 
 |Oficina|
-|:----------:|
-|nome	|endereco|
+|:----------:|:----------:|
+|nome	     |endereco    |
 
 
 ##Implementação
