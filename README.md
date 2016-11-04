@@ -1,4 +1,4 @@
-MECÂNICA (TEMA 2)
+#MECÂNICA (TEMA 2)
 
 ###Matheus Filipe de Melo Bispo
 – UC16101760 
@@ -12,13 +12,13 @@ MECÂNICA (TEMA 2)
 - Implementação 
 
 
-##Especificação
+##**Especificação**
 
 Esse projeto tem o objetivo de administrar e controlar os dados gerados em uma oficina mecânica. O programa será criado em cima de 3 “pilares” ( ** Proprietario, Veiculo e Manutencao ** ), onde esses serão as structs principais do programa, tendo mais 4 structs ( ** Endereço, Telefone, Data e Oficina ** ) “auxiliares”. 
 O programa em questão será responsável por cadastrar, alterar e excluir um proprietário e/ou um veículo, onde a manutenção terá apenas a função cadastrar e excluir, respeitando as possíveis regras de alteração e exclusão.
 Tendo essas funcionalidades ativas, o programa terá algumas funcionalidades a mais, como, por exemplo, apresentação de todos os dados (proprietários, veículos e manutenções) e pesquisas filtradas, onde serão dadas, pelo usuário, as informações chaves de cada struct principal para suas respectivas pesquisas.
 
-##Structs 
+##**Structs **
 
 -  ** Proprietario  : **  
 
@@ -115,12 +115,12 @@ typedef struct oficina{
 
 >A struct Oficina é responsável por receber os dados da oficina ao inicializar o programa, apresentando o nome e o endereço da oficina durante a execução do programa.
 
-## Diagrama de Esquema
+## **Diagrama de Esquema**
 
 O diagrama de esquema a seguir mostra todos os componentes utilizados nas structs desse projeto, além das informações chaves em destaque
 
 ![Diagrama.jpg](https://bitbucket.org/repo/np4y89/images/2904809167-Diagrama.jpg)# PROJETO FINAL: OFICINA 
 
-##Implementação
+##**Implementação**
 
 Esse projeto está sendo desenvolvido por meio da Linguagem de Programação C, utilizando como base a biblioteca windows.h no segundo semestre de 2016. Seu código fonte está disponível com o nome físico  ** Main.c **
