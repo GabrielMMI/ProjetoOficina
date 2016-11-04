@@ -13,6 +13,9 @@
 #define WINFUNCTIONS_H_SECURE
 
 #include "Win_Funcoes_Basicas.h"
+#include "Win_Dlg_Prop.h"
+#include "Win_Dlg_Veic.h"
+#include "Win_Dlg_Manut.h"
 
 /********************************************//**
  * \brief Contem os dados da oficina
@@ -21,6 +24,7 @@ typedef struct oficina{
 	char nome[TAM_NOME];/**< Nome da oficina */
 	char endereco[TAM_NOME];/**< Endereço resumido da oficina */
 }Oficina;
+
 
 //--------------------------------------------------------------------------------------
 //Dialog Principal

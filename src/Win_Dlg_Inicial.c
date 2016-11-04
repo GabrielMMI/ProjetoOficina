@@ -9,7 +9,6 @@
  ***********************************************/
 
 #include "../include/Win_Dlg_Inicial.h"
-#include "../include/Win_Dlg_Main.h"
 
 /********************************************//**
  * \brief Funcao de controle da caixa de dialogo inicial

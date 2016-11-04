@@ -12,6 +12,9 @@
 #define H_DLG_MANUT_SECURE
 
 #include "Win_Funcoes_Basicas.h"
+#include "Manutencao.h"
+#include<time.h>
+
 
 //--------------------------------------------------------------------------------------
 //Operações de Manutenção

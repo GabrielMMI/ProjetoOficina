@@ -11,6 +11,55 @@
 #include "../include/Veiculo.h"
 
 /********************************************//**
+ * \brief Verifica se existe um veiculo
+ *
+ * \param placa - Endereço de memoria de uma string de placa
+ * \param pos - Endereço de memoria da variavel de posição
+ *
+ * \return posicao - a posição no arquivo (se existir)
+ * \return -1 - se não existir no arquivo
+ * \return ALOC_ERRO - Erro ao alocar memoria
+ ***********************************************/
+int buscaVeiculo(char *placa, int *pos)
+{
+	FILE *arq;
+	Veiculo *veiculo = NULL;
+	int posicao = 0, flag;
+	*pos = -1;
+	
+	veiculo=(Veiculo*)malloc(sizeof(Veiculo));
+	if(veiculo==NULL){
+		return ALOC_ERRO;
+	}else{
+		flag=ALOC_SUCESSO;
+	}
+
+	if(existeArquivo(ARQUIVO_DADOS_VEICULO) == ERRO_ARQUIVO_INEXISTENTE) return ERRO_ARQUIVO_INEXISTENTE;
+
+	arq=fopen(ARQUIVO_DADOS_VEICULO,"rb");
+	if(arq!=NULL){
+		while(!feof(arq)){
+			if(fread(veiculo,sizeof(Veiculo),1,arq)==1){
+				if(stricmp(placa,veiculo->placa)==0){
+					*pos = posicao;
+				}
+			}
+			posicao++;
+		}
+        flag = VEIC_BUSCA_SUCESSO;
+        if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
+	}else{
+        flag = ERRO_ABRIR_ARQUIVO;
+	}
+	
+	free(veiculo);
+	return flag;
+}
+
+
+/********************************************//**
  * \brief Inclui um veiculo no arquivo de veiculos
  *
  * \param veiculo - Struct do tipo veiculo
@@ -48,54 +97,6 @@ int incluiVeiculo(Veiculo veiculo)
             }
         }
 
-	return flag;
-}
-
-/********************************************//**
- * \brief Verifica se existe um veiculo
- *
- * \param placa - Endereço de memoria de uma string de placa
- * \param pos - Endereço de memoria da variavel de posição
- *
- * \return posicao - a posição no arquivo (se existir)
- * \return -1 - se não existir no arquivo
- * \return ALOC_ERRO - Erro ao alocar memoria
- ***********************************************/
-int buscaVeiculo(char *placa, int *pos)
-{
-	FILE *arq;
-	Veiculo *veiculo = NULL;
-	int posicao = 0, flag;
-	*pos = -1;
-	
-	veiculo=(Veiculo*)malloc(sizeof(Veiculo));
-	if(veiculo==NULL){
-		return ALOC_ERRO;
-	}else{
-		flag=ALOC_SUCESSO;
-	}
-
-	if(!existeArquivo(ARQUIVO_DADOS_VEICULO)) return ERRO_ARQUIVO_INEXISTENTE;
-
-	arq=fopen(ARQUIVO_DADOS_VEICULO,"rb");
-	if(arq!=NULL){
-		while(!feof(arq)){
-			if(fread(veiculo,sizeof(Veiculo),1,arq)==1){
-				if(stricmp(placa,veiculo->placa)==0){
-					*pos = posicao;
-				}
-			}
-			posicao++;
-		}
-        flag = VEIC_BUSCA_SUCESSO;
-        if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
-            flag = FECHA_ARQUIVO_ERRO;
-        }
-	}else{
-        flag = ERRO_ABRIR_ARQUIVO;
-	}
-	
-	free(veiculo);
 	return flag;
 }
 
@@ -170,6 +171,11 @@ int excluiVeiculo(char *placa)
 	arqSemExcluido = fopen("database/dbVeicAux.dat","wb");
 	
 	if(arq==NULL){
+		if(arqSemExcluido != NULL){
+			if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO){
+	            flag = FECHA_ARQUIVO_ERRO;
+	        }
+    	}
         flag = ERRO_ABRIR_ARQUIVO;
 		return flag;
 	}
@@ -181,9 +187,18 @@ int excluiVeiculo(char *placa)
 		return flag;
 	}
 
-	buscaManutencaoPlaca(placa, &pos);
+	flag = buscaVeiculo(placa, &pos);
+	if(flag == VEIC_BUSCA_SUCESSO && pos == -1){
+		
+		if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO) flag = FECHA_ARQUIVO_ERRO;
+    	if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO) flag = FECHA_ARQUIVO_ERRO;
+    	
+		return VEIC_EXCLUIR_ERRO;
+	}
 
-	if(pos == -1){
+	flag = buscaManutencaoPlaca(placa, &pos);
+
+	if(pos == -1 && flag == MANUT_BUSCA_SUCESSO){
 		while(!feof(arq)){
 	        if(fread(vAux,sizeof(Veiculo),1,arq)==1){
 	            if(stricmp(vAux->placa,placa) != 0){
@@ -191,9 +206,11 @@ int excluiVeiculo(char *placa)
 	                    flag = VEIC_EXCLUIR_SUCESSO;
 	                }else{
 	                    flag = VEIC_EXCLUIR_ERRO;
-	                    return flag;
+	                    break;
 	                }
-	            }
+	            }else{
+	            	flag = VEIC_EXCLUIR_SUCESSO;
+				}
 	        }
 	    }
 	}else{
@@ -216,6 +233,10 @@ int excluiVeiculo(char *placa)
 				flag = VEIC_EXCLUIR_ERRO;
 			}
 		}else{
+			flag = VEIC_EXCLUIR_ERRO;
+		}
+	}else{
+		if(remove("database/dbVeicAux.dat")==0){
 			flag = VEIC_EXCLUIR_ERRO;
 		}
 	}
@@ -338,34 +359,6 @@ int pegaVeiculo(char *placa,Veiculo *veiculo)
 	return flag;
 }
 
-/********************************************//**
- * \brief Carrega todos os veiculos de um arquivo de veículos
- *
- * \param void
- *
- * \return Endereço de um ponteiro do tipo Veiculo
- ***********************************************/
-Veiculo *carregaVeiculos()
-{
-	FILE *dbVeic;
-	int qtVeic;
-	Veiculo *veiculos = NULL;
-
-	qtVeic = obtemQuantVeicArquivo();
-	veiculos = (Veiculo *)malloc(qtVeic * sizeof(Veiculo));
-	if(veiculos != NULL){
-		dbVeic = fopen(ARQUIVO_DADOS_VEICULO, "rb");
-		if(dbVeic != NULL){
-			if(fread(veiculos, sizeof(Veiculo), qtVeic, dbVeic) != qtVeic){
-				free(veiculos);
-				veiculos = NULL;
-			}
-			fechaArquivo(dbVeic);
-		}
-	}
-
-	return veiculos;
-}
 
 /********************************************//**
  * \brief Obtem a quantidade de veiculos no arquivo de veiculos
@@ -387,5 +380,38 @@ int obtemQuantVeicArquivo()
 		fechaArquivo(arqVeic);
 	}
 	return qtVeic;
+}
+
+
+/********************************************//**
+ * \brief Carrega todos os veiculos de um arquivo de veículos
+ *
+ * \param void
+ *
+ * \return Endereço de um ponteiro do tipo Veiculo
+ ***********************************************/
+Veiculo *carregaVeiculos()
+{
+	FILE *dbVeic;
+	int qtVeic;
+	Veiculo *veiculos = NULL;
+
+	qtVeic = obtemQuantVeicArquivo();
+	
+	if(qtVeic == -1 || qtVeic == 0) return veiculos;
+	
+	veiculos = (Veiculo *)malloc(qtVeic * sizeof(Veiculo));
+	if(veiculos != NULL){
+		dbVeic = fopen(ARQUIVO_DADOS_VEICULO, "rb");
+		if(dbVeic != NULL){
+			if(fread(veiculos, sizeof(Veiculo), qtVeic, dbVeic) != qtVeic){
+				free(veiculos);
+				veiculos = NULL;
+			}
+			fechaArquivo(dbVeic);
+		}
+	}
+
+	return veiculos;
 }
 

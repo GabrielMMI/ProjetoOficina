@@ -93,6 +93,7 @@
 #define ALOC_ERRO					50000
 #define ALOC_SUCESSO				50001
 
+
 int win_trataErros(HWND hwnd, int erro);
 
 #endif // ERROS_H_SECURE

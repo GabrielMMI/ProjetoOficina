@@ -18,14 +18,14 @@
 #include <stdlib.h>
 #include <commctrl.h>
 #include "../res/resource.h"
-#include "Manutencao.h"
-#include "Proprietario.h"
-#include "Veiculo.h"
 #include "Defines.h"
 #include "Erros.h"
+#include <ctype.h>
 
 //----------------------------------------------------------------------//
 //funcoes basicas
+
+int configuraAmbiente();
 
 int abreArquivo(char *nomeArq, char *tipoAbertura, FILE* arq);
 int existeArquivo(char *nomeArq);

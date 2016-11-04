@@ -12,6 +12,7 @@
 #define H_DLG_VEIC_SECURE
 
 #include "Win_Funcoes_Basicas.h"
+#include "Veiculo.h"
 
 Veiculo *leDadosVeicForm(HWND hwnd);
 

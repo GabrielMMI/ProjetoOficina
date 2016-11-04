@@ -8,7 +8,6 @@
  ***********************************************/
 
 #include "../include/Win_Dlg_Prop.h"
-#include "../include/Win_Dlg_Veic.h"
 
 /********************************************//**
  * \brief Atualiza a lista de proprietarios de acordo

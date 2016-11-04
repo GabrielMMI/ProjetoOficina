@@ -1,3 +1,6 @@
+#ifndef PROPRIETARIO_C_SECURE
+#define PROPRIETARIO_C_SECURE
+
 /********************************************//**
  ** @file Proprietario.c
  * @brief Implementa todas as funções de Proprietario.h
@@ -9,8 +12,65 @@
  ***********************************************/
 
 #include "../include/Proprietario.h"
-#include "../include/Erros.h"
-#include "../include/Manutencao.h"
+
+
+/********************************************//**
+ * \brief Busca a posicao de uma estrutura do tipo
+ *        Proprietario no arquivo de dados de proprietario
+ *
+ * \param cpf - o endereco de memoria de um string contendo o CPF do proprietario desejado
+ * \param pos - Um ponteiro contendo o endereco de memoria
+ *              de uma variavel do tipo inteiro, onde sera inserida
+ *              a posicao encontrada, no caso de -1 o proprietario nao
+ *              foi encontrado.
+ *
+ * \return PROP_BUSCA_SUCESSO - A busca foi realizada com sucesso
+ * \return ERRO_ABRIR_ARQUIVO - Erro ao abrir arquivo
+ * \return ALOC_ERRO - Erro ao alocar memoria
+ * \return ERRO_ARQUIVO_INEXISTENTE - Arquivo Inexistente
+ * \return FECHA_ARQUIVO_ERRO - Erro ao fechar arquivo
+ ***********************************************/
+int buscaProprietario(char *cpf, int *pos)
+{
+	FILE *dbProp;
+	Proprietario *pAux=NULL;
+	int ind = -1, flag;
+
+	pAux=(Proprietario *)malloc(sizeof(Proprietario));
+	if(pAux==NULL){
+		return ALOC_ERRO;
+	}else{
+		flag=ALOC_SUCESSO;
+	}
+	
+	*pos = ind;
+
+	if(existeArquivo(ARQUIVO_DADOS_PROPRIETARIO) == ERRO_ARQUIVO_INEXISTENTE) return ERRO_ARQUIVO_INEXISTENTE;
+
+	dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
+    if(dbProp != NULL){
+        while(fread(pAux, sizeof(Proprietario), 1, dbProp) == 1){
+            ind++;
+
+            if(stricmp(pAux->cpf, cpf) == 0){
+                *pos = ind;
+                break;
+            }
+        }
+        flag = PROP_BUSCA_SUCESSO;
+        if(fechaArquivo(dbProp) == FECHA_ARQUIVO_ERRO){
+                flag = FECHA_ARQUIVO_ERRO;
+        }
+    }else{
+        flag = ERRO_ABRIR_ARQUIVO;
+    }
+    
+    free(pAux);
+
+	return flag;
+
+}
+
 
 /********************************************//**
  * \brief Inclui um proprietario em um arquivo de dados de um proprietario
@@ -48,63 +108,6 @@ int incluiProprietario(Proprietario prop)
     }
 
 	return flag;
-}
-
-/********************************************//**
- * \brief Busca a posicao de uma estrutura do tipo
- *        Proprietario no arquivo de dados de proprietario
- *
- * \param cpf - o endereco de memoria de um string contendo o CPF do proprietario desejado
- * \param pos - Um ponteiro contendo o endereco de memoria
- *              de uma variavel do tipo inteiro, onde sera inserida
- *              a posicao encontrada, no caso de -1 o proprietario nao
- *              foi encontrado.
- *
- * \return PROP_BUSCA_SUCESSO - A busca foi realizada com sucesso
- * \return ERRO_ABRIR_ARQUIVO - Erro ao abrir arquivo
- * \return ALOC_ERRO - Erro ao alocar memoria
- * \return ERRO_ARQUIVO_INEXISTENTE - Arquivo Inexistente
- * \return FECHA_ARQUIVO_ERRO - Erro ao fechar arquivo
- ***********************************************/
-int buscaProprietario(char *cpf, int *pos)
-{
-	FILE *dbProp;
-	Proprietario *pAux=NULL;
-	int ind = -1, flag;
-
-	pAux=(Proprietario *)malloc(sizeof(Proprietario));
-	if(pAux==NULL){
-		return ALOC_ERRO;
-	}else{
-		flag=ALOC_SUCESSO;
-	}
-	
-	*pos = ind;
-
-	if(!existeArquivo(ARQUIVO_DADOS_PROPRIETARIO)) return ERRO_ARQUIVO_INEXISTENTE;
-
-	dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
-    if(dbProp != NULL){
-        while(fread(pAux, sizeof(Proprietario), 1, dbProp) == 1){
-            ind++;
-
-            if(stricmp(pAux->cpf, cpf) == 0){
-                *pos = ind;
-                break;
-            }
-        }
-        flag = PROP_BUSCA_SUCESSO;
-        if(fechaArquivo(dbProp) == FECHA_ARQUIVO_ERRO){
-                flag = FECHA_ARQUIVO_ERRO;
-        }
-    }else{
-        flag = ERRO_ABRIR_ARQUIVO;
-    }
-    
-    free(pAux);
-
-	return flag;
-
 }
 
 /********************************************//**
@@ -178,6 +181,11 @@ int excluiProprietario(char *cpf)
 	arqSemExcluido = fopen("database/dbPropAux.dat","wb");
 	
 	if(arq==NULL){
+		if(arqSemExcluido != NULL){
+			if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO){
+	            flag = FECHA_ARQUIVO_ERRO;
+	        }
+    	}
         flag = ERRO_ABRIR_ARQUIVO;
 		return flag;
 	}
@@ -189,33 +197,40 @@ int excluiProprietario(char *cpf)
 		return flag;
 	}
 	
-	buscaManutencaoCPF(cpf, &pos);
+	flag = buscaProprietario(cpf, &pos);
+	if(flag == PROP_BUSCA_SUCESSO && pos == -1){
+		
+		if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO) flag = FECHA_ARQUIVO_ERRO;
+    	if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO) flag = FECHA_ARQUIVO_ERRO;
+    	
+		return PROP_EXCLUIR_ERRO;
+	}
+	
+	flag = buscaManutencaoCPF(cpf, &pos);
 
-	if(pos == -1){
+	if(pos == -1 && flag == MANUT_BUSCA_SUCESSO){
 		while(!feof(arq)){
 	        if(fread(pAux,sizeof(Proprietario),1,arq)==1){
 	            if(stricmp(pAux->cpf,cpf) != 0){
-	                if(fwrite(pAux,sizeof(Proprietario),1,arqSemExcluido)==1){
-	                    flag = PROP_EXCLUIR_SUCESSO;
+	                if(fwrite(pAux,sizeof(Proprietario),1,arqSemExcluido) == 1){
+					    flag = PROP_EXCLUIR_SUCESSO;    
 	                }else{
 	                    flag = PROP_EXCLUIR_ERRO;
-	                    return flag;
+						break;
 	                }
-	            }
+	            }else{
+	            	flag = PROP_EXCLUIR_SUCESSO;
+				}
 	        }
 	    }
-	}else{
+
+	}else if(pos > -1){
 		flag = PROP_EXCLUIR_ERRO_MANUT_EXISTENTE;
 	}
-    
-    if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO){
-        flag = FECHA_ARQUIVO_ERRO;
-    }
-
-    if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
-        flag = FECHA_ARQUIVO_ERRO;
-    }
-
+	
+	if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO)flag = FECHA_ARQUIVO_ERRO; 
+	if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO)flag = FECHA_ARQUIVO_ERRO;
+	
 	if(flag == PROP_EXCLUIR_SUCESSO){
 	    if(remove(ARQUIVO_DADOS_PROPRIETARIO)==0){
 	    	if(rename("database/dbPropAux.dat", ARQUIVO_DADOS_PROPRIETARIO)==0){
@@ -224,6 +239,10 @@ int excluiProprietario(char *cpf)
 				flag = PROP_EXCLUIR_ERRO;
 			}
 		}else{
+			flag = PROP_EXCLUIR_ERRO;
+		}
+	}else{
+		if(remove("database/dbPropAux.dat")==0){
 			flag = PROP_EXCLUIR_ERRO;
 		}
 	}
@@ -404,35 +423,6 @@ int validaDDD(char *ddd)
 }
 
 /********************************************//**
- * \brief Carrega os proprietario de um arquivo de dados de proprietarios
- *
- * \param void
- *
- * \return Endereço de um ponteiro do tipo Proprietario
- ***********************************************/
-Proprietario *carregaProprietarios()
-{
-	FILE *dbProp;
-	int qtProp;
-	Proprietario *proprietario = NULL;
-
-	qtProp = obtemQuantPropArquivo();
-	proprietario = (Proprietario *)malloc(qtProp * sizeof(Proprietario));
-	if(proprietario != NULL){
-		dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
-		if(dbProp != NULL){
-			if(fread(proprietario, sizeof(Proprietario), qtProp, dbProp) != qtProp){
-				free(proprietario);
-				proprietario = NULL;
-			}
-			fechaArquivo(dbProp);
-		}
-	}
-
-	return proprietario;
-}
-
-/********************************************//**
  * \brief Obtem a quantidade de proprietarios no arquivo de proprietarios
  *
  * \param void
@@ -453,3 +443,37 @@ int obtemQuantPropArquivo()
 	}
 	return qtProp;
 }
+
+/********************************************//**
+ * \brief Carrega os proprietario de um arquivo de dados de proprietarios
+ *
+ * \param void
+ *
+ * \return Endereço de um ponteiro do tipo Proprietario
+ ***********************************************/
+Proprietario *carregaProprietarios()
+{
+	FILE *dbProp;
+	int qtProp;
+	Proprietario *proprietario = NULL;
+
+	qtProp = obtemQuantPropArquivo();
+	
+	if(qtProp == -1 || qtProp == 0) return proprietario;
+	
+	proprietario = (Proprietario *)malloc(qtProp * sizeof(Proprietario));
+	if(proprietario != NULL){
+		dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");
+		if(dbProp != NULL){
+			if(fread(proprietario, sizeof(Proprietario), qtProp, dbProp) != qtProp){
+				free(proprietario);
+				proprietario = NULL;
+			}
+			fechaArquivo(dbProp);
+		}
+	}
+
+	return proprietario;
+}
+
+#endif

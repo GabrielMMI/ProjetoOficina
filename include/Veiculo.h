@@ -12,9 +12,9 @@
 #define VEICULO_H_SECURE
 
 #include "Win_Funcoes_Basicas.h"
+#include "Manutencao.h"
 #include "Defines.h"
 #include "Erros.h"
-#include "Manutencao.h"
 #include <ctype.h>
 
 /********************************************//**

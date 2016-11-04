@@ -7,13 +7,22 @@
  * @author Gabriel Messias
  ***********************************************/
 
-
-#include<stdio.h>
-#include<stdlib.h>
-#include<conio.h>
-#include<string.h>
-#include "../include/Erros.h"
 #include "../include/Win_Funcoes_Basicas.h"
+
+int configuraAmbiente(){
+	int flag = 0;
+    FILE *dbprop, *dbveic, *dbmanut;
+    
+	mkdir("database");
+    dbprop = fopen(ARQUIVO_DADOS_PROPRIETARIO, "ab");
+    dbveic = fopen(ARQUIVO_DADOS_VEICULO, "ab");
+    dbmanut = fopen(ARQUIVO_DADOS_MANUTENCAO, "ab");
+    if(dbprop != NULL) flag = fechaArquivo(dbprop);
+    if(dbveic != NULL) flag = fechaArquivo(dbveic);
+    if(dbmanut != NULL) flag = fechaArquivo(dbmanut);
+    
+    return flag;
+}
 
 /********************************************//**
  * @brief Verificar se um arquivo existe
@@ -49,7 +58,7 @@ int existeArquivo(char *nomeArq)
  ***********************************************/
 HWND *guardaPegaHandle(HWND *handle, int tipo)
 {
-    static HWND *hwnd;
+    static HWND *hwnd = NULL;
 
     if(tipo == 0) hwnd = handle;
 
@@ -68,9 +77,9 @@ HWND *guardaPegaHandle(HWND *handle, int tipo)
 int fechaArquivo(FILE *arq)
 {
 	int flag = FECHA_ARQUIVO_ERRO;
-
-    if(fclose(arq) != EOF) flag = FECHA_ARQUIVO_SUCESSO;
-
+	if(arq){
+    	if(fclose(arq) != EOF) flag = FECHA_ARQUIVO_SUCESSO;
+    }
     return flag;
 }
 

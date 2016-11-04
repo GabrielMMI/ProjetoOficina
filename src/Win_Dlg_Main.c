@@ -9,7 +9,6 @@
  ***********************************************/
 
 #include "../include/Win_Dlg_Main.h"
-#include "../include/Win_Dlg_Prop.h"
 
 /********************************************//**
  * \brief Função de controle da janela "Créditos"

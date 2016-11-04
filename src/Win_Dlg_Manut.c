@@ -7,7 +7,6 @@
  * @author Gabriel Messias
  ***********************************************/
 #include "../include/Win_Dlg_Manut.h"
-#include<time.h>
 
 /********************************************//**
  * \brief Le os dados do formulario de manutenção

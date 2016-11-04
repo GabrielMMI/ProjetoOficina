@@ -13,7 +13,9 @@
 #define PROPRIETARIO_H_SECURE
 
 #include "Win_Funcoes_Basicas.h"
+#include "Manutencao.h"
 #include "Defines.h"
+#include "Erros.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -45,6 +47,7 @@ typedef struct proprietario{
 	Telefone telefone;/**< Telefone do proprietario */
 }Proprietario;
 
+
 //----------------------------------------------------------------------//
 //Proprietario
 int incluiProprietario(Proprietario p);
@@ -59,5 +62,6 @@ int obtemQuantPropArquivo();
 int validaDDD(char *ddd);
 int validaCPF(char *cpf);
 int validaTelefone(char *tel);
+
 //----------------------------------------------------------------------//
 #endif

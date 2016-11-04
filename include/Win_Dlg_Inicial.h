@@ -12,6 +12,8 @@
 #define H_DLG_INI_SECURE
 
 #include "Win_Funcoes_Basicas.h"
+#include "Win_Dlg_main.h"
+
 
 //Dialog Inicial
 LRESULT CALLBACK DlgIniProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);

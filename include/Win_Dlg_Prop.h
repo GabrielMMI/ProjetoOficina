@@ -12,6 +12,9 @@
 #define H_DLG_PROP_SECURE
 
 #include "Win_Funcoes_Basicas.h"
+#include "Win_Dlg_Veic.h"
+#include "Proprietario.h"
+
 
 Proprietario *leDadosPropForm(HWND hwnd);
 

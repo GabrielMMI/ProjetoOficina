@@ -7,7 +7,6 @@
  *@author Gabriel Messias
  ***********************************************/
 
-#include <windows.h>
 #include "../include/Erros.h"
 
 

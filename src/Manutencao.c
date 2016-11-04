@@ -10,6 +10,280 @@
 #include "../include/Manutencao.h"
 
 /********************************************//**
+ * \brief Busca uma manutenção no arquivo de manutenções através de uma placa
+ *
+ * \param placa - String contendo a placa cadastrada na manutenção a ser excluída
+ * \param pos 	- Um ponteiro para inteiro onde será colocada a posição onde a manutenção foi encontrada
+ *
+ * \return ALOC_ERRO 				- Erro por falta de memória
+ * \return MANUT_BUSCA_SUCESSO		- Busca de Manutenção executada com sucesso
+ * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
+ * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
+  ***********************************************/
+int buscaManutencaoPlaca(char *placa, int *pos)
+{
+    FILE *dbManut;
+	Manutencao *mAux = NULL;
+	int ind = -1, flag;
+
+	*pos = ind;
+
+	if(!existeArquivo(ARQUIVO_DADOS_MANUTENCAO)) return ERRO_ARQUIVO_INEXISTENTE;
+
+	mAux=(Manutencao*)malloc(sizeof(Manutencao));
+	if(mAux==NULL){
+		return ALOC_ERRO;
+	}
+
+	dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+    if(dbManut != NULL){
+        while(fread(mAux, sizeof(Manutencao), 1, dbManut) == 1){
+            ind++;
+            if(stricmp(mAux->placa, placa) == 0){
+            	flag = MANUT_BUSCA_SUCESSO;
+                *pos = ind;
+                break;
+            }
+        }
+        flag = MANUT_BUSCA_SUCESSO;
+
+        if(fechaArquivo(dbManut) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
+    }else{
+        flag = ERRO_ABRIR_ARQUIVO;
+    }
+
+	free(mAux);
+	return flag;
+
+}
+
+
+
+/********************************************//**
+ * \brief Busca uma manutenção no arquivo de manutenções através de um cpf
+ *
+ * \param cpf 	- String contendo o cpf cadastrado na manutenção a ser excluída
+ * \param pos 	- Um ponteiro para inteiro onde será colocada a posição onde a manutenção foi encontrada
+ *
+ * \return ALOC_ERRO 				- Erro por falta de memória
+ * \return MANUT_BUSCA_SUCESSO		- Busca de Manutenção executada com sucesso
+ * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
+ * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
+  ***********************************************/
+int buscaManutencaoCPF(char *cpf, int *pos)
+{
+    FILE *dbManut;
+	Manutencao *mAux;
+	int ind = -1, flag;
+
+	*pos = ind;
+
+	if(!existeArquivo(ARQUIVO_DADOS_MANUTENCAO)) return ERRO_ARQUIVO_INEXISTENTE;
+
+	mAux=(Manutencao*)malloc(sizeof(Manutencao));
+	if(mAux==NULL){
+		return ALOC_ERRO;
+	}
+
+	dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+    if(dbManut != NULL){
+        while(fread(mAux, sizeof(Manutencao), 1, dbManut) == 1){
+            ind++;
+            if(stricmp(mAux->cpf, cpf) == 0){
+            	flag = MANUT_BUSCA_SUCESSO;
+                *pos = ind;
+                break;
+            }
+        }
+        flag = MANUT_BUSCA_SUCESSO;
+
+        if(fechaArquivo(dbManut) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
+    }else{
+        flag = ERRO_ABRIR_ARQUIVO;
+    }
+
+	free(mAux);
+	return flag;
+}
+
+/********************************************//**
+ * \brief Compara duas structs do tipo Data
+ *
+ * \param data1 - Struct do tipo data
+ * \param data2 - Struct do tipo data
+ *
+ * \return 0 	- No caso de igualdade
+ * \return 1 	- Se Data1 maior que Data2
+ * \return -1 	- Se Data2 maior que Data1
+  ***********************************************/
+int comparaData(Data data1, Data data2)
+{
+    int flag;
+    if(data1.dia == data2.dia && data1.mes == data2.mes && data1.ano == data2.ano){
+        flag = 0;
+    }else if(data1.ano > data2.ano){
+        flag = 1;
+    }else if(data1.mes > data2.mes && data1.ano == data2.ano){
+        flag = 1;
+    }else if(data1.dia > data2.dia && data1.mes == data2.mes && data1.ano == data2.ano){
+        flag = 1;
+    }else{
+        flag = -1;
+    }
+
+    return flag;
+}
+
+/********************************************//**
+ * \brief Busca uma manutenção no arquivo de manutenções através da Data e de uma placa
+ *
+ * \param placa - String contendo a placa cadastrada na manutenção a ser excluída
+ * \param Data 	- Uma struct do tipo Data
+ * \param pos 	- Um ponteiro para inteiro onde será colocada a posição onde a manutenção foi encontrada
+ *
+ * \return ALOC_ERRO 				- Erro por falta de memória
+ * \return MANUT_BUSCA_SUCESSO		- Busca de Manutenção executada com sucesso
+ * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
+ * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
+  ***********************************************/
+int buscaManutencaoPlacDat(char *placa,Data data, int *pos)
+{
+	FILE *dbManut;
+	Manutencao *mAux=NULL;
+	int ind = -1, flag = MANUT_BUSCA_SUCESSO;
+
+	mAux=(Manutencao*)malloc(sizeof(Manutencao));
+	if(mAux==NULL){
+		return ALOC_ERRO;
+	}
+
+	*pos = ind;
+
+	if(!existeArquivo(ARQUIVO_DADOS_MANUTENCAO)) return ERRO_ARQUIVO_INEXISTENTE;
+
+	dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+    if(dbManut != NULL){
+        while(fread(mAux, sizeof(Manutencao), 1, dbManut) == 1){
+            ind++;
+            if(stricmp(mAux->placa, placa) == 0 && comparaData(mAux->data, data) == 0){
+            	flag = MANUT_BUSCA_SUCESSO;
+                *pos = ind;
+                break;
+            }
+        }
+        flag = MANUT_BUSCA_SUCESSO;
+        if(fechaArquivo(dbManut) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
+    }else{
+        flag = ERRO_ABRIR_ARQUIVO;
+    }
+
+	free(mAux);
+	return flag;
+
+}
+
+
+/********************************************//**
+ * \brief Recupera uma manutenção do arquivo de manutenções através da Data e de uma placa
+ *
+ * \param placa - String contendo a placa cadastrada na manutenção a ser excluída
+ * \param Data 	- Uma struct do tipo Data
+ * \param manut - Um ponteiro do tipo Manutenção
+ *
+ * \return MANUT_PEGAMANUT_ERRO 	- Erro ao recuperar manutenção
+ * \return MANUT_PEGAMANUT_SUCESSO	- Manutenção recuperada com sucesso
+ * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
+ * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
+  ***********************************************/
+int pegaManutencaoPlacDat(char *placa, Data data, Manutencao *manut)
+{
+    int flag;
+	FILE *arqManut;
+	int posicaoManut;
+
+    flag = buscaManutencaoPlacDat(placa, data, &posicaoManut);
+	if(flag == MANUT_BUSCA_SUCESSO){
+        if(posicaoManut == -1){
+            flag = MANUT_PEGAMANUT_ERRO;
+        }else{
+            arqManut=fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+            if(arqManut!=NULL){
+                if(fseek(arqManut,posicaoManut*sizeof(Manutencao),SEEK_SET)==0){
+                    if(fread(manut,sizeof(Manutencao),1,arqManut)==1){
+                        flag = MANUT_PEGAMANUT_SUCESSO;
+                    }
+                }
+                if(fechaArquivo(arqManut) == FECHA_ARQUIVO_ERRO){
+                    flag = FECHA_ARQUIVO_ERRO;
+                }
+            }else{
+                flag = ERRO_ABRIR_ARQUIVO;
+            }
+        }
+	}
+	return flag;
+}
+
+
+/********************************************//**
+ * \brief Busca uma manutenção no arquivo de manutenções através da Data, de um cpf e de uma placa
+ *
+ * \param placa - String contendo a placa cadastrada na manutenção a ser excluída
+ * \param cpf 	- String contendo o cpf cadastrado na manutenção a ser excluída
+ * \param data 	- Uma struct do tipo Data
+ * \param pos 	- Um ponteiro para inteiro onde será colocada a posição onde a manutenção foi encontrada
+ *
+ * \return ALOC_ERRO 				- Erro por falta de memória
+ * \return MANUT_BUSCA_SUCESSO		- Busca de Manutenção executada com sucesso
+ * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
+ * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
+  ***********************************************/
+int buscaManutencao(char *placa, char *cpf, Data data, int *pos)
+{
+	FILE *dbManut;
+	Manutencao *mAux = NULL;
+	int ind = -1, flag = MANUT_BUSCA_SUCESSO;;
+
+	*pos = ind;
+
+	if(!existeArquivo(ARQUIVO_DADOS_MANUTENCAO)) return ERRO_ARQUIVO_INEXISTENTE;
+
+	mAux=(Manutencao*)malloc(sizeof(Manutencao));
+	if(mAux==NULL){
+		return ALOC_ERRO;
+	}
+
+	dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+    if(dbManut != NULL){
+        while(fread(mAux, sizeof(Manutencao), 1, dbManut) == 1){
+            ind++;
+            if(stricmp(mAux->cpf, cpf) == 0 && stricmp(mAux->placa, placa) == 0 && comparaData(mAux->data, data) == 0){
+            	flag = MANUT_BUSCA_SUCESSO;
+                *pos = ind;
+                break;
+            }
+        }
+        flag = MANUT_BUSCA_SUCESSO;
+        if(fechaArquivo(dbManut) == FECHA_ARQUIVO_ERRO){
+            flag = FECHA_ARQUIVO_ERRO;
+        }
+    }else{
+        flag = ERRO_ABRIR_ARQUIVO;
+    }
+
+	free(mAux);
+	return flag;
+
+}
+
+
+/********************************************//**
  * \brief Inclui uma manutenção no arquivo de manutenções
  *
  * \param manutencao - Struct do tipo Manutencao
@@ -202,247 +476,6 @@ int pegaManutencao(char *placa, char *cpf, Data data, Manutencao *manut)
 }
 
 /********************************************//**
- * \brief Recupera uma manutenção do arquivo de manutenções através da Data e de uma placa
- *
- * \param placa - String contendo a placa cadastrada na manutenção a ser excluída
- * \param Data 	- Uma struct do tipo Data
- * \param manut - Um ponteiro do tipo Manutenção
- *
- * \return MANUT_PEGAMANUT_ERRO 	- Erro ao recuperar manutenção
- * \return MANUT_PEGAMANUT_SUCESSO	- Manutenção recuperada com sucesso
- * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
- * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
-  ***********************************************/
-int pegaManutencaoPlacDat(char *placa, Data data, Manutencao *manut)
-{
-    int flag;
-	FILE *arqManut;
-	int posicaoManut;
-
-    flag = buscaManutencaoPlacDat(placa, data, &posicaoManut);
-	if(flag == MANUT_BUSCA_SUCESSO){
-        if(posicaoManut == -1){
-            flag = MANUT_PEGAMANUT_ERRO;
-        }else{
-            arqManut=fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
-            if(arqManut!=NULL){
-                if(fseek(arqManut,posicaoManut*sizeof(Manutencao),SEEK_SET)==0){
-                    if(fread(manut,sizeof(Manutencao),1,arqManut)==1){
-                        flag = MANUT_PEGAMANUT_SUCESSO;
-                    }
-                }
-                if(fechaArquivo(arqManut) == FECHA_ARQUIVO_ERRO){
-                    flag = FECHA_ARQUIVO_ERRO;
-                }
-            }else{
-                flag = ERRO_ABRIR_ARQUIVO;
-            }
-        }
-	}
-	return flag;
-}
-
-/********************************************//**
- * \brief Busca uma manutenção no arquivo de manutenções através da Data e de uma placa
- *
- * \param placa - String contendo a placa cadastrada na manutenção a ser excluída
- * \param Data 	- Uma struct do tipo Data
- * \param pos 	- Um ponteiro para inteiro onde será colocada a posição onde a manutenção foi encontrada
- *
- * \return ALOC_ERRO 				- Erro por falta de memória
- * \return MANUT_BUSCA_SUCESSO		- Busca de Manutenção executada com sucesso
- * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
- * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
-  ***********************************************/
-int buscaManutencaoPlacDat(char *placa,Data data, int *pos)
-{
-	FILE *dbManut;
-	Manutencao *mAux=NULL;
-	int ind = -1, flag = MANUT_BUSCA_SUCESSO;
-
-	mAux=(Manutencao*)malloc(sizeof(Manutencao));
-	if(mAux==NULL){
-		return ALOC_ERRO;
-	}
-
-	*pos = ind;
-
-	if(!existeArquivo(ARQUIVO_DADOS_MANUTENCAO)) return ERRO_ARQUIVO_INEXISTENTE;
-
-	dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
-    if(dbManut != NULL){
-        while(fread(mAux, sizeof(Manutencao), 1, dbManut) == 1){
-            ind++;
-            if(stricmp(mAux->placa, placa) == 0 && comparaData(mAux->data, data) == 0){
-            	flag = MANUT_BUSCA_SUCESSO;
-                *pos = ind;
-                break;
-            }
-        }
-        flag = MANUT_BUSCA_SUCESSO;
-        if(fechaArquivo(dbManut) == FECHA_ARQUIVO_ERRO){
-            flag = FECHA_ARQUIVO_ERRO;
-        }
-    }else{
-        flag = ERRO_ABRIR_ARQUIVO;
-    }
-
-	free(mAux);
-	return flag;
-
-}
-
-/********************************************//**
- * \brief Busca uma manutenção no arquivo de manutenções através da Data, de um cpf e de uma placa
- *
- * \param placa - String contendo a placa cadastrada na manutenção a ser excluída
- * \param cpf 	- String contendo o cpf cadastrado na manutenção a ser excluída
- * \param data 	- Uma struct do tipo Data
- * \param pos 	- Um ponteiro para inteiro onde será colocada a posição onde a manutenção foi encontrada
- *
- * \return ALOC_ERRO 				- Erro por falta de memória
- * \return MANUT_BUSCA_SUCESSO		- Busca de Manutenção executada com sucesso
- * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
- * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
-  ***********************************************/
-int buscaManutencao(char *placa, char *cpf, Data data, int *pos)
-{
-	FILE *dbManut;
-	Manutencao *mAux = NULL;
-	int ind = -1, flag = MANUT_BUSCA_SUCESSO;;
-
-	*pos = ind;
-
-	if(!existeArquivo(ARQUIVO_DADOS_MANUTENCAO)) return ERRO_ARQUIVO_INEXISTENTE;
-
-	mAux=(Manutencao*)malloc(sizeof(Manutencao));
-	if(mAux==NULL){
-		return ALOC_ERRO;
-	}
-
-	dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
-    if(dbManut != NULL){
-        while(fread(mAux, sizeof(Manutencao), 1, dbManut) == 1){
-            ind++;
-            if(stricmp(mAux->cpf, cpf) == 0 && stricmp(mAux->placa, placa) == 0 && comparaData(mAux->data, data) == 0){
-            	flag = MANUT_BUSCA_SUCESSO;
-                *pos = ind;
-                break;
-            }
-        }
-        flag = MANUT_BUSCA_SUCESSO;
-        if(fechaArquivo(dbManut) == FECHA_ARQUIVO_ERRO){
-            flag = FECHA_ARQUIVO_ERRO;
-        }
-    }else{
-        flag = ERRO_ABRIR_ARQUIVO;
-    }
-
-	free(mAux);
-	return flag;
-
-}
-
-/********************************************//**
- * \brief Busca uma manutenção no arquivo de manutenções através de um cpf
- *
- * \param cpf 	- String contendo o cpf cadastrado na manutenção a ser excluída
- * \param pos 	- Um ponteiro para inteiro onde será colocada a posição onde a manutenção foi encontrada
- *
- * \return ALOC_ERRO 				- Erro por falta de memória
- * \return MANUT_BUSCA_SUCESSO		- Busca de Manutenção executada com sucesso
- * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
- * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
-  ***********************************************/
-int buscaManutencaoCPF(char *cpf, int *pos)
-{
-    FILE *dbManut;
-	Manutencao *mAux;
-	int ind = -1, flag;
-
-	*pos = ind;
-
-	if(!existeArquivo(ARQUIVO_DADOS_MANUTENCAO)) return ERRO_ARQUIVO_INEXISTENTE;
-
-	mAux=(Manutencao*)malloc(sizeof(Manutencao));
-	if(mAux==NULL){
-		return ALOC_ERRO;
-	}
-
-	dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
-    if(dbManut != NULL){
-        while(fread(mAux, sizeof(Manutencao), 1, dbManut) == 1){
-            ind++;
-            if(stricmp(mAux->cpf, cpf) == 0){
-            	flag = MANUT_BUSCA_SUCESSO;
-                *pos = ind;
-                break;
-            }
-        }
-        flag = MANUT_BUSCA_SUCESSO;
-
-        if(fechaArquivo(dbManut) == FECHA_ARQUIVO_ERRO){
-            flag = FECHA_ARQUIVO_ERRO;
-        }
-    }else{
-        flag = ERRO_ABRIR_ARQUIVO;
-    }
-
-	free(mAux);
-	return flag;
-}
-
-/********************************************//**
- * \brief Busca uma manutenção no arquivo de manutenções através de uma placa
- *
- * \param placa - String contendo a placa cadastrada na manutenção a ser excluída
- * \param pos 	- Um ponteiro para inteiro onde será colocada a posição onde a manutenção foi encontrada
- *
- * \return ALOC_ERRO 				- Erro por falta de memória
- * \return MANUT_BUSCA_SUCESSO		- Busca de Manutenção executada com sucesso
- * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
- * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
-  ***********************************************/
-int buscaManutencaoPlaca(char *placa, int *pos)
-{
-    FILE *dbManut;
-	Manutencao *mAux = NULL;
-	int ind = -1, flag;
-
-	*pos = ind;
-
-	if(!existeArquivo(ARQUIVO_DADOS_MANUTENCAO)) return ERRO_ARQUIVO_INEXISTENTE;
-
-	mAux=(Manutencao*)malloc(sizeof(Manutencao));
-	if(mAux==NULL){
-		return ALOC_ERRO;
-	}
-
-	dbManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
-    if(dbManut != NULL){
-        while(fread(mAux, sizeof(Manutencao), 1, dbManut) == 1){
-            ind++;
-            if(stricmp(mAux->placa, placa) == 0){
-            	flag = MANUT_BUSCA_SUCESSO;
-                *pos = ind;
-                break;
-            }
-        }
-        flag = MANUT_BUSCA_SUCESSO;
-
-        if(fechaArquivo(dbManut) == FECHA_ARQUIVO_ERRO){
-            flag = FECHA_ARQUIVO_ERRO;
-        }
-    }else{
-        flag = ERRO_ABRIR_ARQUIVO;
-    }
-
-	free(mAux);
-	return flag;
-
-}
-
-/********************************************//**
  * \brief Carrega na memória todos as manutenções de um determinado CPF
  *
  * \param cpf 			- String contendo o cpf cadastrado na manutenção a ser excluída
@@ -486,49 +519,6 @@ Manutencao * carregaManutencoesCPF(char *cpf, int *qtManutCPF)
 	return manutencao;
 }
 
-/********************************************//**
- * \brief Pega a data atual
- *
- * \param data - Um ponteiro do tipo Data, que irá receber a data atual
- *
- * \return void
-  ***********************************************/
-void obtemDataAtual(Data *data)
-{
-    SYSTEMTIME lt;
-
-    GetLocalTime(&lt);
-
-    *data = convertTime(lt);
-}
-
-/********************************************//**
- * \brief Compara duas structs do tipo Data
- *
- * \param data1 - Struct do tipo data
- * \param data2 - Struct do tipo data
- *
- * \return 0 	- No caso de igualdade
- * \return 1 	- Se Data1 maior que Data2
- * \return -1 	- Se Data2 maior que Data1
-  ***********************************************/
-int comparaData(Data data1, Data data2)
-{
-    int flag;
-    if(data1.dia == data2.dia && data1.mes == data2.mes && data1.ano == data2.ano){
-        flag = 0;
-    }else if(data1.ano > data2.ano){
-        flag = 1;
-    }else if(data1.mes > data2.mes && data1.ano == data2.ano){
-        flag = 1;
-    }else if(data1.dia > data2.dia && data1.mes == data2.mes && data1.ano == data2.ano){
-        flag = 1;
-    }else{
-        flag = -1;
-    }
-
-    return flag;
-}
 
 /********************************************//**
  * \brief Converte um struct do tipo SYSTEMTIME em
@@ -548,6 +538,46 @@ Data convertTime(SYSTEMTIME st)
 
 	return data;
 }
+
+
+/********************************************//**
+ * \brief Pega a data atual
+ *
+ * \param data - Um ponteiro do tipo Data, que irá receber a data atual
+ *
+ * \return void
+  ***********************************************/
+void obtemDataAtual(Data *data)
+{
+    SYSTEMTIME lt;
+
+    GetLocalTime(&lt);
+
+    *data = convertTime(lt);
+}
+
+/********************************************//**
+ * \brief Obtem a quantidade de manutenções existentes em um arquivo
+ *
+ *
+ * \return n 	- número de manutenções existentes no arquivo
+ * \return -1 	- Caso não seja verificar a quantidade de manutenções
+ ***********************************************/
+int obtemQuantManutArquivo()
+{
+	FILE *arqManut;
+	int qtManut = -1;
+
+	arqManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
+	if(arqManut != NULL){
+		if(fseek(arqManut, 0, SEEK_END) == 0){
+			qtManut = ftell(arqManut)/sizeof(Manutencao);
+		}
+		fechaArquivo(arqManut);
+	}
+	return qtManut;
+}
+
 
 /********************************************//**
  * \brief Carrega todas as manutenções de um arquivo de manutenções
@@ -576,28 +606,6 @@ Manutencao *carregaManutencoes()
 	}
 
 	return manutencoes;
-}
-
-/********************************************//**
- * \brief Obtem a quantidade de manutenções existentes em um arquivo
- *
- *
- * \return n 	- número de manutenções existentes no arquivo
- * \return -1 	- Caso não seja verificar a quantidade de manutenções
- ***********************************************/
-int obtemQuantManutArquivo()
-{
-	FILE *arqManut;
-	int qtManut = -1;
-
-	arqManut = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
-	if(arqManut != NULL){
-		if(fseek(arqManut, 0, SEEK_END) == 0){
-			qtManut = ftell(arqManut)/sizeof(Manutencao);
-		}
-		fechaArquivo(arqManut);
-	}
-	return qtManut;
 }
 
 /********************************************//**

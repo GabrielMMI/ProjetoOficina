@@ -8,10 +8,12 @@
  *@author Matheus Bispo
  *@author Gabriel Messias
  ***********************************************/
-#ifndef MANUNTENCAO_H_SECURE
-#define MANUNTENCAO_H_SECURE
+#ifndef MANUTENCAO_H_SECURE
+#define MANUTENCAO_H_SECURE
 
 #include "Win_Funcoes_Basicas.h"
+#include "Proprietario.h"
+#include "Veiculo.h"
 #include "Defines.h"
 #include "Erros.h"
 #include <time.h>
@@ -35,6 +37,7 @@ typedef struct manutencao{
 	Data data;
 }Manutencao;
 
+
 //----------------------------------------------------------------------//
 //Manutencao
 int incluiManutencao(Manutencao m);
@@ -43,8 +46,6 @@ int excluiManutencao(char *placa,char *cpf, Data data);
 int buscaManutencao(char *placa, char *cpf, Data data, int *pos);
 int pegaManutencao(char *placa, char *cpf, Data data, Manutencao *manut);
 
-int buscaManutencaoCPF(char *cpf, int *pos);
-
 Manutencao * carregaManutencoesCPF(char *cpf, int *qtManutCPF);
 Manutencao * carregaManutencoes();
 int obtemQuantManutArquivo();
@@ -52,6 +53,7 @@ int obtemQuantManutArquivo();
 int pegaManutencaoPlacDat(char *placa, Data data, Manutencao *manut);
 int buscaManutencaoPlacDat(char *placa,Data data, int *pos);
 int buscaManutencaoPlaca(char *placa, int *pos);
+int buscaManutencaoCPF(char *cpf, int *pos);
 
 int converteDataString(char* stringData, Data data);
 int converteStringData(char *stringData, Data *data);
