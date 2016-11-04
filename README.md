@@ -14,7 +14,7 @@
 
 ##Especificação
 
-Esse projeto tem o objetivo de administrar e controlar os dados gerados em uma oficina mecânica. O programa será criado em cima de 3 “pilares” ( *** Proprietario, Veiculo e Manutencao *** ), onde esses serão as structs principais do programa, tendo mais 4 structs ( *** Endereço, Telefone, Data e Oficina *** ) “auxiliares”. 
+Esse projeto tem o objetivo de administrar e controlar os dados gerados em uma oficina mecânica. O programa será criado em cima de 3 “pilares” ( ** Proprietario, Veiculo e Manutencao ** ), onde esses serão as structs principais do programa, tendo mais 4 structs ( ** Endereço, Telefone, Data e Oficina ** ) “auxiliares”. 
 O programa em questão será responsável por cadastrar, alterar e excluir um proprietário e/ou um veículo, onde a manutenção terá apenas a função cadastrar e excluir, respeitando as possíveis regras de alteração e exclusão.
 Tendo essas funcionalidades ativas, o programa terá algumas funcionalidades a mais, como, por exemplo, apresentação de todos os dados (proprietários, veículos e manutenções) e pesquisas filtradas, onde serão dadas, pelo usuário, as informações chaves de cada struct principal para suas respectivas pesquisas.
 
@@ -77,8 +77,7 @@ typedef struct{
 >	A struct do tipo Endereço é responsável por manipular o endereço ultilizado na  struct ***  Proprietario.
  *** 
 
--  *** 	Telefone: 
- *** 
+-  ** 	Telefone: ** 
 ```
 typedef struct telefone{
 	        char ddd[TAM_DDD];     // O DDD do telefone
