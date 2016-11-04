@@ -20,7 +20,7 @@ Tendo essas funcionalidades ativas, o programa terá algumas funcionalidades a m
 
 ##Structs 
 
--  *** Proprietario  : ***  
+-  ** Proprietario  : **  
 
 ````
 typedef struct{
@@ -31,10 +31,10 @@ typedef struct{
 }Proprietario;
 ````
 
-> A struct do tipo Proprietario é responsável por manipular o arquivo binário “ **** dbProp.dat **** ”, onde será salvo os dados lido por essa struct, para futuros cadastros, alterações, exclusões ou pesquisas.
+> A struct do tipo Proprietario é responsável por manipular o arquivo binário “ ** dbProp.dat ** ”, onde será salvo os dados lido por essa struct, para futuros cadastros, alterações, exclusões ou pesquisas.
 
 
--	  *** Veiculo:  *** 
+-	  ** Veiculo:  ** 
 ```
 typedef struct{
 	        char placa[TAM_PLACA];     // A placa do veículo ##(chave)##
@@ -45,11 +45,11 @@ typedef struct{
 }Veiculo;
 ```
 
-> A struct do tipo Veiculo é responsável por manipular o arquivo binário “ **** dbVeic.dat **** ”, onde será salvo os dados lido por essa struct, para futuros cadastros, alterações, exclusões ou pesquisas.
+> A struct do tipo Veiculo é responsável por manipular o arquivo binário “ ** dbVeic.dat ** ”, onde será salvo os dados lido por essa struct, para futuros cadastros, alterações, exclusões ou pesquisas.
 
 
 
--  *** Manutenção: ***
+-  ** Manutenção: **
 ```
 typedef struct{
 	        char placa[TAM_PLACA];  // A placa do veículo ##(chave)##
@@ -62,9 +62,9 @@ typedef struct{
 
 ```
 
-> A struct do tipo Manutenção é responsável por manipular o arquivo binário “ *** dbManut.dat *** ”, onde será salvo os dados lido por essa struct, para futuros cadastros, exclusões ou pesquisas.
+> A struct do tipo Manutenção é responsável por manipular o arquivo binário “ ** dbManut.dat ** ”, onde será salvo os dados lido por essa struct, para futuros cadastros, exclusões ou pesquisas.
 
-- 	 *** Endereço: *** 
+- 	 ** Endereço: ** 
 
 ```
  typedef struct endereco{
@@ -74,8 +74,8 @@ typedef struct{
 }Endereco;
 ```	
 
->	A struct do tipo Endereço é responsável por manipular o endereço ultilizado na  struct ***  Proprietario.
- *** 
+>	A struct do tipo Endereço é responsável por manipular o endereço ultilizado na  struct **  Proprietario.
+ ** 
 
 -  ** 	Telefone: ** 
 ```
@@ -87,9 +87,9 @@ typedef struct telefone{
 ```
 
 >A struct do tipo Telefone é responsável por manipular o telefone que será utilizado na 
-struct de  *** Proprietario *** .
+struct de  ** Proprietario ** .
 
--  *** 	Data: *** 
+-  ** 	Data: ** 
 
 ```
 typedef struct data{
@@ -104,8 +104,7 @@ Manutenção
 
 
 
-- 	 *** Oficina:
- *** 
+- 	 ** Oficina: ** 
 
 ```
 typedef struct oficina{
