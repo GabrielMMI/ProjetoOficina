@@ -352,6 +352,7 @@ BOOL CALLBACK formAddVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  ***********************************************/
 void inicializaListVeic(HWND hwndList)
 {
+	ListView_SetExtendedListViewStyle(hwndList, LVS_REPORT | LVS_EX_FULLROWSELECT);
     LVCOLUMN lvCol;
 
     lvCol.mask=LVCF_TEXT|LVCF_WIDTH|LVCF_SUBITEM;

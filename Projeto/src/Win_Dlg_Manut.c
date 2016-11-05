@@ -233,6 +233,7 @@ void atualizaListaManutExcluir(HWND hwndList, char *cpf,char *placa,Data dataI)
  ***********************************************/
 void inicializaListManut(HWND hwndList)
 {
+	ListView_SetExtendedListViewStyle(hwndList, LVS_REPORT | LVS_EX_FULLROWSELECT);
     LVCOLUMN lvCol;
 
     lvCol.mask=LVCF_TEXT|LVCF_WIDTH|LVCF_SUBITEM;
@@ -412,6 +413,7 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  *
  ***********************************************/
 void inicializaFormManut(HWND hwnd){
+	
     SendMessage(GetDlgItem(hwnd, ID_EDIT_PLACA_MANUT), EM_LIMITTEXT, TAM_PLACA-1, 0);
     SendMessage(GetDlgItem(hwnd, ID_EDIT_CPF_MANUT), EM_LIMITTEXT, TAM_CPF-1, 0);
     SendMessage(GetDlgItem(hwnd, ID_EDIT_DESCRICAO_MANUT), EM_LIMITTEXT, TAM_DESCRICAO-1, 0);
@@ -590,6 +592,7 @@ BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     switch(msg) {
     	case WM_INITDIALOG:
     		hwndList = GetDlgItem(hwnd, ID_MANUT_EXCLUIR_LIST);
+    		
     		SendMessage(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_CPF), EM_LIMITTEXT, TAM_CPF-1, 0);
     		SendMessage(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_PLACA), EM_LIMITTEXT, TAM_PLACA-1, 0);
 

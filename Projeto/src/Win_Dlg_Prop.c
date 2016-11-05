@@ -355,6 +355,7 @@ BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  ***********************************************/
 void inicializaListProp(HWND hwndList)
 {
+	ListView_SetExtendedListViewStyle(hwndList, LVS_REPORT | LVS_EX_FULLROWSELECT);
 
     LVCOLUMN lvCol;
 
