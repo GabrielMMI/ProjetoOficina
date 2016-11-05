@@ -1,0 +1,37 @@
+#tela-direita {
+	background-color: rgb(132, 147, 255);
+	height: 100%;
+	border-right-style: solid;
+	border-width: 3px;
+	border-right-color: black;
+	padding: 30px;
+}
+
+#tabela-direita{
+	color: white;
+}
+
+#titulo-direita{
+	font-size: 30px;
+	text-align: center;
+	margin-top: -10px;
+	margin-bottom: 20px;
+	border-style: solid;
+	border-width: 3px;
+	border-color: black;
+}
+
+#tela-esquerda{
+}
+
+.row{
+	height: 100%;
+	
+}
+
+html,body{
+	height:100%;
+	width:100%;
+	margin:0px;
+	padding: 0px;
+}
