@@ -7,6 +7,7 @@
  * @author Gabriel Messias
  ***********************************************/
 #include "../include/Win_Dlg_Manut.h"
+#include "../include/Arvore_Prop.h"
 
 /********************************************//**
  * \brief Le os dados do formulario de manuten��o
@@ -39,8 +40,42 @@ Manutencao *leDadosManutForm(HWND hwnd)
     return aux;
 }
 
+void atualizaComboBoxProp(Arvore *a, HWND comboBox)
+{
+ char nomeFormat[TAM_CPF + TAM_NOME + 3];
+ if (a != NULL) {
+    abb_imprime(a->esquerda);
+    sprintf(nomeFormat, "%s (%s)", a->dado.cpf, a->dado.nome);
+    ComboBox_AddString(comboBox, nomeFormat);
+    abb_imprime(a->direita);
+ }
+}
+
 void preencheComboBoxProp(HWND comboBox, char *filtroCPF){
-    
+    FILE *arqProp;
+    Proprietario prop;
+    ArvoreProp *arv;
+    int cont = 0, x;
+
+    ComboBox_ResetContent(comboBox);
+
+    arv = inicializaArvoreProp();
+
+    if(existeArquivo(ARQUIVO_DADOS_PROPRIETARIO) == ERRO_ARQUIVO_INEXISTENTE) return;
+
+    arqProp = fopen(ARQUIVO_DADOS_PROPRIETARIO ,"rb");
+    if(arqProp!=NULL){
+        if(fread(&prop, sizeof(Proprietario), 1, arqProp) == 1){
+            if(strnicmp(filtroCPF, prop.cpf, strlen(filtroCPF)) == 0){
+                inserirNaArvoreProp(arv, prop);
+                cont++;
+            }
+        }
+    }
+
+    atualizaComboBoxProp(arv, comboBox);
+
+    liberaArvoreProp(arv);
 }
 
 /********************************************//**
@@ -437,6 +472,8 @@ void validaLiberaFormManut(HWND hwnd){
 
     GetDlgItemText(hwnd, ID_EDIT_CPF_MANUT, cpf, TAM_CPF);
     GetDlgItemText(hwnd, ID_EDIT_PLACA_MANUT, placa, TAM_PLACA);
+
+    preencheComboBoxProp(GetDlgItem(hwnd, ID_EDIT_CPF_MANUT), cpf);
 
     if( GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_PECAS_MANUT)) > 0 &&
         validaCPF(cpf) == CPF_VALIDO && validaPlaca(placa) == PLACA_VALIDA &&

@@ -1,7 +1,7 @@
 /********************************************//**
  * @file Win_Dlg_Manut.h
- * @brief Contem os cabeçalhos de todas as
- *        funcoes existentes na tab de Manutenção
+ * @brief Contem os cabeï¿½alhos de todas as
+ *        funcoes existentes na tab de Manutenï¿½ï¿½o
  * @bug Nao contem bugs conhecidos!
  *
  *@author Matheus Bispo
@@ -17,7 +17,7 @@
 
 
 //--------------------------------------------------------------------------------------
-//Operações de Manutenção
+//Operaï¿½ï¿½es de Manutenï¿½ï¿½o
 Manutencao *leDadosManutForm(HWND hwnd);
 
 void inicializaListManut(HWND hwndList);
@@ -28,6 +28,9 @@ void atualizaListaManutExcluir(HWND hwndList, char *cpf,char *placa,Data dataI);
 void validaLiberaFormManut(HWND hwnd);
 void inicializaFormManut(HWND hwnd);
 void preencheFormManut(HWND hwndForm, Manutencao *manut);
+
+void atualizaComboBoxProp(Arvore *a, HWND comboBox);
+void preencheComboBoxProp(HWND comboBox, char *filtroCPF);
 
 BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 BOOL CALLBACK formDadosManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
