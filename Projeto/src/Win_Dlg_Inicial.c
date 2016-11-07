@@ -89,8 +89,10 @@ LRESULT CALLBACK DlgIniProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPar
 	        ComboBox_AddString(hwndCombo, "SP"); ComboBox_AddString(hwndCombo, "SE"); ComboBox_AddString(hwndCombo, "TO");
 
         	ComboBox_SetCurSel(hwndCombo, 0);
+        	
 			return TRUE;
         break;
+        
         case WM_COMMAND:
 
 	        validaLiberaFormOfic(hwnd);

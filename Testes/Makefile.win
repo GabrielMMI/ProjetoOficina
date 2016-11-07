@@ -1,14 +1,14 @@
 # Project: ProjetoTestes
-# Makefile created by Dev-C++ 5.11
+# Makefile created by Dev-C++ 5.9.2
 
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
 OBJ      = obj/Teste_Main.o
 LINKOBJ  = obj/Teste_Main.o
-LIBS     = -L"C:/Users/Programador/Desktop/ProjetoFinal/Testes/lib" lib/libgtest.a
-INCS     = -I"C:/Users/Programador/Desktop/ProjetoFinal/Testes/include" -I"C:/Users/Programador/Desktop/ProjetoFinal/Testes/include/gtest" -I"C:/Users/Programador/Desktop/ProjetoFinal/Testes/include/gtest/internal"
-CXXINCS  = -I"C:/Users/Programador/Desktop/ProjetoFinal/Testes/include" -I"C:/Users/Programador/Desktop/ProjetoFinal/Testes/include/gtest" -I"C:/Users/Programador/Desktop/ProjetoFinal/Testes/include/gtest/internal"
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -L"C:/Users/uc16101760/Desktop/Projeto/projeto_final_oficina/Testes/lib" lib/libgtest.a
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include" -I"C:/Users/uc16101760/Desktop/Projeto/projeto_final_oficina/Testes/include" -I"C:/Users/uc16101760/Desktop/Projeto/projeto_final_oficina/Testes/include/gtest" -I"C:/Users/uc16101760/Desktop/Projeto/projeto_final_oficina/Testes/include/gtest/internal" -I"C:/Users/uc16101760/Desktop/Projeto/projeto_final_oficina/Projeto/src" -I"C:/Users/uc16101760/Desktop/Projeto/projeto_final_oficina/Projeto/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include/c++" -I"C:/Users/uc16101760/Desktop/Projeto/projeto_final_oficina/Testes/include" -I"C:/Users/uc16101760/Desktop/Projeto/projeto_final_oficina/Testes/include/gtest" -I"C:/Users/uc16101760/Desktop/Projeto/projeto_final_oficina/Testes/include/gtest/internal" -I"C:/Users/uc16101760/Desktop/Projeto/projeto_final_oficina/Projeto/src" -I"C:/Users/uc16101760/Desktop/Projeto/projeto_final_oficina/Projeto/include"
 BIN      = ProjetoTestes.exe
 CXXFLAGS = $(CXXINCS) -pthread
 CFLAGS   = $(INCS) 

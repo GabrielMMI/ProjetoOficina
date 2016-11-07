@@ -13,7 +13,7 @@
 
 #include "Win_Funcoes_Basicas.h"
 #include "Manutencao.h"
-#include "../include/Arvore_Prop.h"
+#include "Arvore_Prop.h"
 #include<time.h>
 
 

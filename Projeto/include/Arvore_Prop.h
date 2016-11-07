@@ -1,3 +1,6 @@
+#ifndef H_ARVORE_SECURE
+#define H_ARVORE_SECURE
+
 /********************************************//**
  * @file ListaEncadeada.h
  * @brief Contem os cabe�alhos de todas as
@@ -21,3 +24,5 @@ Arvore* inicializaArvoreProp();
 Arvore* criaNoProp(Proprietario dado);
 Arvore* inserirNaArvoreProp(Arvore *arvore,Proprietario dado);
 void liberaArvoreProp(Arvore *arvore);
+
+#endif
