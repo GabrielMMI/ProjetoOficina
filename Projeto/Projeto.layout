@@ -94,7 +94,7 @@ CursorRow=39
 TopLine=15
 LeftChar=1
 [Editors]
-Order=13,3,14,21,15
+Order=
 Focused=13
 [Editor_1]
 CursorCol=69
@@ -109,7 +109,7 @@ LeftChar=1
 [Editor_21]
 CursorCol=1
 CursorRow=21
-TopLine=13
+TopLine=1
 LeftChar=1
 [Editor_22]
 CursorCol=19

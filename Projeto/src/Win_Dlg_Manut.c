@@ -1,18 +1,19 @@
 /********************************************//**
  ** @file Win_Dlg_Manut.c
- * @brief Contem as funções de controle da tabPage Manutenção.
+ * @brief Contem as funï¿½ï¿½es de controle da tabPage Manutenï¿½ï¿½o.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
  * @author Gabriel Messias
  ***********************************************/
 #include "../include/Win_Dlg_Manut.h"
+#include "../include/Arvore_Prop.h"
 
 /********************************************//**
- * \brief Le os dados do formulario de manutenção
+ * \brief Le os dados do formulario de manutenï¿½ï¿½o
  *
  * \param hwnd 				- Manipulador da janela
- * \return Manutencao * 	- Endereço de memória do tipo Manutenção contendo os dados lidos de um formulario
+ * \return Manutencao * 	- Endereï¿½o de memï¿½ria do tipo Manutenï¿½ï¿½o contendo os dados lidos de um formulario
  *
  ***********************************************/
 Manutencao *leDadosManutForm(HWND hwnd)
@@ -39,8 +40,46 @@ Manutencao *leDadosManutForm(HWND hwnd)
     return aux;
 }
 
+void atualizaComboBoxProp(Arvore *a, HWND comboBox)
+{
+ char nomeFormat[TAM_CPF + TAM_NOME + 3];
+ if (a != NULL) {
+    abb_imprime(a->esquerda);
+    sprintf(nomeFormat, "%s (%s)", a->dado.cpf, a->dado.nome);
+    ComboBox_AddString(comboBox, nomeFormat);
+    abb_imprime(a->direita);
+ }
+}
+
+void preencheComboBoxProp(HWND comboBox, char *filtroCPF){
+    FILE *arqProp;
+    Proprietario prop;
+    ArvoreProp *arv;
+    int cont = 0, x;
+
+    ComboBox_ResetContent(comboBox);
+
+    arv = inicializaArvoreProp();
+
+    if(existeArquivo(ARQUIVO_DADOS_PROPRIETARIO) == ERRO_ARQUIVO_INEXISTENTE) return;
+
+    arqProp = fopen(ARQUIVO_DADOS_PROPRIETARIO ,"rb");
+    if(arqProp!=NULL){
+        if(fread(&prop, sizeof(Proprietario), 1, arqProp) == 1){
+            if(strnicmp(filtroCPF, prop.cpf, strlen(filtroCPF)) == 0){
+                inserirNaArvoreProp(arv, prop);
+                cont++;
+            }
+        }
+    }
+
+    atualizaComboBoxProp(arv, comboBox);
+
+    liberaArvoreProp(arv);
+}
+
 /********************************************//**
- * \brief Atualiza a lista de manutenções de acordo
+ * \brief Atualiza a lista de manutenï¿½ï¿½es de acordo
  *        com a data inicial e a data final
  * \param hwndList 	- Manipulador de uma ListView Control
  * \param dataI 	- Uma struct do tipo Data contendo uma data inicial
@@ -97,7 +136,7 @@ void atualizaListaManut(HWND hwndList, Data dataI, Data dataF)
 }
 
 /********************************************//**
- * \brief Atualiza a lista de manutenções de acordo
+ * \brief Atualiza a lista de manutenï¿½ï¿½es de acordo
  *        com a data inicial e a data final
  * \param hwnd 		- Manipulador de uma janela
  * \param dataI 	- Uma struct do tipo Data contendo uma data inicial
@@ -171,10 +210,10 @@ void atualizaListaManutBusca(HWND hwnd, Data dataI, Data dataF)
 }
 
 /********************************************//**
- * \brief Atualiza a lista de manutenções de acordo
+ * \brief Atualiza a lista de manutenï¿½ï¿½es de acordo
  *        com a data inicial e a data final
  * \param hwndList 	- Manipulador de uma ListView Control
- * \param cpf		- Endereço de memória de uma string contendo um cpf
+ * \param cpf		- Endereï¿½o de memï¿½ria de uma string contendo um cpf
  * \param dataI 	- Uma struct do tipo Data contendo uma data inicial
  *
  * \return void
@@ -225,7 +264,7 @@ void atualizaListaManutExcluir(HWND hwndList, char *cpf,char *placa,Data dataI)
 }
 
 /********************************************//**
- * \brief Nomeia as colunas da lista de Manutenções
+ * \brief Nomeia as colunas da lista de Manutenï¿½ï¿½es
  *
  * \param hwndList - Manipulador de uma ListView Control
  * \return void
@@ -256,15 +295,15 @@ void inicializaListManut(HWND hwndList)
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Ver dados"
+ * \brief Funï¿½ï¿½o de controle do Dialogo "Ver dados"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formDadosManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -308,15 +347,15 @@ BOOL CALLBACK formDadosManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Função de controle da janela "Pesquisa Manutenção"
+ * \brief Funï¿½ï¿½o de controle da janela "Pesquisa Manutenï¿½ï¿½o"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -406,7 +445,7 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Inicializa um formulário de manutenção
+ * \brief Inicializa um formulï¿½rio de manutenï¿½ï¿½o
  *
  * \param hwnd 				- Manipulador da janela
  * \return void
@@ -422,7 +461,7 @@ void inicializaFormManut(HWND hwnd){
 }
 
 /********************************************//**
- * \brief le valida e libera o botão de ação de manutenção
+ * \brief le valida e libera o botï¿½o de aï¿½ï¿½o de manutenï¿½ï¿½o
  *
  * \param hwnd 				- Manipulador da janela
  * \return void
@@ -433,6 +472,8 @@ void validaLiberaFormManut(HWND hwnd){
 
     GetDlgItemText(hwnd, ID_EDIT_CPF_MANUT, cpf, TAM_CPF);
     GetDlgItemText(hwnd, ID_EDIT_PLACA_MANUT, placa, TAM_PLACA);
+
+    preencheComboBoxProp(GetDlgItem(hwnd, ID_EDIT_CPF_MANUT), cpf);
 
     if( GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_PECAS_MANUT)) > 0 &&
         validaCPF(cpf) == CPF_VALIDO && validaPlaca(placa) == PLACA_VALIDA &&
@@ -451,15 +492,15 @@ void validaLiberaFormManut(HWND hwnd){
 }
 
 /********************************************//**
- * \brief Função de controle do janela "Adicionar Manutenção"
+ * \brief Funï¿½ï¿½o de controle do janela "Adicionar Manutenï¿½ï¿½o"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formAddManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -504,7 +545,7 @@ BOOL CALLBACK formAddManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Excluir Manutencao"
+ * \brief Funï¿½ï¿½o de controle do Dialogo "Excluir Manutencao"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -565,15 +606,15 @@ BOOL CALLBACK formExcluirManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Função de controle do janela "Exclui Manutenção"
+ * \brief Funï¿½ï¿½o de controle do janela "Exclui Manutenï¿½ï¿½o"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou não
- * \return Padrão Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nï¿½o
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -674,7 +715,7 @@ BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle da tabPage "Manutenção"
+ * \brief Funï¿½ï¿½o de controle da tabPage "Manutenï¿½ï¿½o"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -682,7 +723,7 @@ BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
  * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
- * \return Padrão Windows para janelas
+ * \return Padrï¿½o Windows para janelas
  *
  ***********************************************/
 
