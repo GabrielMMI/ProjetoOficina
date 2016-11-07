@@ -114,11 +114,25 @@ typedef struct oficina{
 
 >A struct Oficina é responsável por receber os dados da oficina ao inicializar o programa, apresentando o nome e o endereço da oficina durante a execução do programa.
 
+
+
+- 	 ** Arvore: ** 
+
+```
+typedef struct Arvore{
+     Proprietario dado;                         // Dados de um proprietario
+     struct Arvore *esquerda;                   // Proprietario à esquerda (menor nome alfabeticamente)
+     struct Arvore *direita;                    // Proprietario à direita(maior nome alfabeticamente)
+ }Arvore;
+```
+
+>A struct Arvore é responsável por carregar os dados de um proprietario na memoria em ordem alfabetica do nome dos proprietarios.
+
 ## **Diagrama de Esquema**
 
 O diagrama de esquema a seguir mostra todos os componentes utilizados nas structs desse projeto, além das informações chaves em destaque
 
-![Diagrama.jpg](https://bitbucket.org/repo/np4y89/images/2158573433-Diagrama.jpg)
+![Diagrama.jpg](https://bitbucket.org/repo/np4y89/images/955262409-Capturar.PNG)
 
 ##**Implementação**
 
