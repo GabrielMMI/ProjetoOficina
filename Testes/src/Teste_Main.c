@@ -40,7 +40,7 @@ TEST(Win_Funcoes_Basicas, existeArquivo){
 	
 	EXPECT_EQ(ERRO_ARQUIVO_INEXISTENTE, existeArquivo(ARQUIVO_DADOS_MANUTENCAO));
 	configuraAmbiente();
-	existeArquivo(ARQUIVO_DADOS_PROPRIETARIO);
+	EXPECT_EQ(ARQUIVO_EXISTENTE, existeArquivo(ARQUIVO_DADOS_PROPRIETARIO));
 	
 	deletaDados();
 }
@@ -50,6 +50,7 @@ TEST(Win_Funcoes_Basicas, guardaPegaHandle){
 	
 	EXPECT_EQ(NULL,  guardaPegaHandle(NULL, 1));
 	EXPECT_EQ(&handle, guardaPegaHandle(&handle, 0));
+	EXPECT_EQ(&handle, guardaPegaHandle(NULL, 1));
 
 }
 

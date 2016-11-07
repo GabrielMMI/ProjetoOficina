@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_Funcoes_Basicas.c
- * @brief Contem as funções básicas utilizadas no programa.
+ * @brief Contem as funï¿½ï¿½es bï¿½sicas utilizadas no programa.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -27,9 +27,9 @@ int configuraAmbiente(){
 /********************************************//**
  * @brief Verificar se um arquivo existe
  *
- * @param nomeArq - Endereço de memória do nome do arquivo
+ * @param nomeArq - Endereï¿½o de memï¿½ria do nome do arquivo
  *
- * @return ERRO_ARQUIVO_INEXISTENTE - Não existe
+ * @return ERRO_ARQUIVO_INEXISTENTE - Nï¿½o existe
  * @return ARQUIVO_EXISTENTE - Existe
  *
  ***********************************************/
@@ -50,10 +50,10 @@ int existeArquivo(char *nomeArq)
 /********************************************//**
  * \brief Armazena ou recupera o ultimo handle armazenado
  *
- * \param handle - um endereço de memória de um handle
- * \param tipo   - 1 :: Caso queria guardar
- *				 - 2 :: Caso queira recuperar
- * \return HWND* - Endereço de memória de um handle
+ * \param handle - um endereï¿½o de memï¿½ria de um handle
+ * \param tipo   - 0 :: Caso queria guardar
+ *				 - 1 :: Caso queira recuperar
+ * \return HWND* - Endereï¿½o de memï¿½ria de um handle
  *
  ***********************************************/
 HWND *guardaPegaHandle(HWND *handle, int tipo)
@@ -209,10 +209,10 @@ void formataPlaca(HWND hwndEdit)
 /********************************************//**
  * \brief Verifica se uma string pode ser transformada em um float
  *
- * \param str 	- O endereço de memória de uma string
+ * \param str 	- O endereï¿½o de memï¿½ria de uma string
  *
  * \return TRUE 	- Pode ser transformada em float
- * \return FALSE 	- Não pode ser transformada em float
+ * \return FALSE 	- Nï¿½o pode ser transformada em float
  *
  ***********************************************/
 BOOL isFloat(char *str)
@@ -230,7 +230,7 @@ BOOL isFloat(char *str)
 }
 
 /********************************************//**
- * \brief Configura um EditControl de tal modo que ele só aceite número inteiros ou float
+ * \brief Configura um EditControl de tal modo que ele sï¿½ aceite nï¿½mero inteiros ou float
  *
  * \param hDlg 		- O handle do dialogo onde se encontra o EditCOntrol
  * \param ctrlID 	- O ID do EditControl
@@ -257,10 +257,10 @@ void editTextFloat(HWND hDlg, int ctrlID)
 }
 
 /********************************************//**
- * \brief Pesquisa a ocorrência de uma substring em um string, sem case sensitive
+ * \brief Pesquisa a ocorrï¿½ncia de uma substring em um string, sem case sensitive
  *
- * \param str 		- O endereço de memória de uma string
- * \param strSearch	- O endereço de memória de uma string
+ * \param str 		- O endereï¿½o de memï¿½ria de uma string
+ * \param strSearch	- O endereï¿½o de memï¿½ria de uma string
  *
  * \return void
  *
