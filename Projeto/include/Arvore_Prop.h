@@ -9,10 +9,12 @@
  *@author Gabriel Messias
  ***********************************************/
 
+#include "Proprietario.h"
+
  typedef struct Arvore{
      Proprietario dado;
      struct Arvore *esquerda;
-      struct Arvore *direita;
+     struct Arvore *direita;
  }Arvore;
 
 Arvore* inicializaArvoreProp();

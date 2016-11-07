@@ -7,7 +7,7 @@
  * @author Gabriel Messias
  ***********************************************/
 
- #include "../include/ListaEncadeada.h"
+ #include "../include/Arvore_Prop.h"
 
 /********************************************//**
  * \brief Inicializa uma arvore com um nó nulo
@@ -41,7 +41,7 @@ Arvore* criaNoProp(Proprietario dado){
         arvore->esquerda=NULL;
         arvore->direita=NULL;
     }
-    return lista;
+    return arvore;
 }
 
 /********************************************//**
@@ -56,11 +56,11 @@ Arvore* criaNoProp(Proprietario dado){
 
 Arvore* inserirNaArvoreProp(Arvore *arvore,Proprietario dado){
     Arvore *arvoreAux;
-    arvoreAux=criaNo(dado);
+    arvoreAux = criaNoProp(dado);
     if(arvore==NULL){
     	arvore=arvoreAux;
 	}else if(stricmp(dado.nome,arvore->dado.nome)<0){
-		arvore->esqueda=inserirNaArvoreProp(arvore->esquerda,dado);
+		arvore->esquerda=inserirNaArvoreProp(arvore->esquerda,dado);
 	}else if(stricmp(dado.nome,arvore->dado.nome)>=0){
 		arvore->direita=inserirNaArvoreProp(arvore->direita,dado);
 	}

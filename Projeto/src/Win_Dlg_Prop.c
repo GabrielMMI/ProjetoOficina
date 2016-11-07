@@ -9,6 +9,40 @@
 
 #include "../include/Win_Dlg_Prop.h"
 
+void atualizaListaArvProp(Arvore *a, HWND list)
+{
+	 LVITEM lvItem;
+	 char tel[TAM_TEL + TAM_DDD + 2];
+	 
+	 if (a != NULL) {
+
+	    atualizaListaArvProp(a->direita, list);
+	    
+	    lvItem.mask=LVIF_TEXT;   // Text Style
+        lvItem.cchTextMax = TAM_NOME;
+        lvItem.iItem=0;          // choose item
+        lvItem.iSubItem=0;       // Put in first coluom
+        lvItem.pszText= a->dado.nome; // Text to display (can be from a char variable) (Items)
+
+        ListView_InsertItem(list, &lvItem);
+
+        lvItem.iSubItem = 1;       // Put in first coluom
+        lvItem.pszText = a->dado.cpf; // Text to display (can be from a char variable) (Items)
+
+        SendMessage(list,LVM_SETITEM,0,(LPARAM)&lvItem); // Send info to the Listview
+
+        lvItem.iSubItem = 2;       // Put in first coluom
+        sprintf(tel, "(%s) %s", a->dado.telefone.ddd, a->dado.telefone.telefone);
+        lvItem.pszText = tel; // Text to display (can be from a char variable) (Items)
+
+        SendMessage(list,LVM_SETITEM,0,(LPARAM)&lvItem); // Send info to the Listview
+        
+	    atualizaListaArvProp(a->esquerda, list);
+	    
+	    
+	 }
+}
+
 /********************************************//**
  * \brief Atualiza a lista de proprietarios de acordo
  *        com o cpf e o nome
@@ -21,13 +55,13 @@
  ***********************************************/
 void atualizaListaProp(HWND hwndList, char *cpf, char *nome)
 {
-
-    LVITEM lvItem;
-    char tel[TAM_DDD + TAM_TEL+2];
-    int cont = 0;
-    SendMessage(hwndList,LVM_DELETEALLITEMS,0,0);
     Proprietario aux;
     FILE *arq;
+    Arvore *arv;
+    
+    SendMessage(hwndList,LVM_DELETEALLITEMS,0,0);
+    
+    arv = inicializaArvoreProp();
 
     if(strlen(cpf) != 0 || strlen(nome) != 0){
         if(existeArquivo(ARQUIVO_DADOS_PROPRIETARIO)){
@@ -35,34 +69,21 @@ void atualizaListaProp(HWND hwndList, char *cpf, char *nome)
             if(arq != NULL){
                 while(fread(&aux, sizeof(Proprietario), 1, arq) == 1){
                     if(strnicmp(aux.cpf, cpf, strlen(cpf)) == 0 && (strnicmp(aux.nome, nome, strlen(nome)) == 0 || stristr(aux.nome, nome) != NULL)){
-                        lvItem.mask=LVIF_TEXT;   // Text Style
-                        lvItem.cchTextMax = TAM_NOME;
-                        lvItem.iItem=cont;          // choose item
-                        lvItem.iSubItem=0;       // Put in first coluom
-                        lvItem.pszText=aux.nome; // Text to display (can be from a char variable) (Items)
-
-                        ListView_InsertItem(hwndList, &lvItem);
-
-                        lvItem.iSubItem = 1;       // Put in first coluom
-                        lvItem.pszText = aux.cpf; // Text to display (can be from a char variable) (Items)
-
-                        SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
-
-                        lvItem.iSubItem = 2;       // Put in first coluom
-                        sprintf(tel, "(%s) %s", aux.telefone.ddd, aux.telefone.telefone);
-                        lvItem.pszText = tel; // Text to display (can be from a char variable) (Items)
-
-                        SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
-
-                        cont++;
+                    	arv = inserirNaArvoreProp(arv, aux);
                     }
                 }
+                
+                
                 if(win_trataErros(hwndList,fechaArquivo(arq)) != 0) return;
             }else{
                 if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) != 0) return;
             }
         }
     }
+    
+    atualizaListaArvProp(arv, hwndList);
+    
+    liberaArvoreProp(arv);
 }
 
 /********************************************//**

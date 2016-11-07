@@ -7,7 +7,6 @@
  * @author Gabriel Messias
  ***********************************************/
 #include "../include/Win_Dlg_Manut.h"
-#include "../include/Arvore_Prop.h"
 
 /********************************************//**
  * \brief Le os dados do formulario de manuten��o
@@ -42,40 +41,50 @@ Manutencao *leDadosManutForm(HWND hwnd)
 
 void atualizaComboBoxProp(Arvore *a, HWND comboBox)
 {
- char nomeFormat[TAM_CPF + TAM_NOME + 3];
- if (a != NULL) {
-    abb_imprime(a->esquerda);
-    sprintf(nomeFormat, "%s (%s)", a->dado.cpf, a->dado.nome);
-    ComboBox_AddString(comboBox, nomeFormat);
-    abb_imprime(a->direita);
- }
+	 char nomeFormat[TAM_CPF + TAM_NOME + 3];
+	 if (a != NULL) {
+	    atualizaComboBoxProp(a->esquerda, comboBox);
+	    sprintf(nomeFormat, "%s (%s)", a->dado.cpf, a->dado.nome);
+	    ComboBox_AddString(comboBox, nomeFormat);
+	    atualizaComboBoxProp(a->direita, comboBox);
+	 }
 }
 
 void preencheComboBoxProp(HWND comboBox, char *filtroCPF){
     FILE *arqProp;
     Proprietario prop;
-    ArvoreProp *arv;
-    int cont = 0, x;
+    Arvore *arv;
+    int cont, x;
 
-    ComboBox_ResetContent(comboBox);
-
+	ComboBox_DeleteString(comboBox, 0);	
+	
+	cont = ComboBox_GetCount(comboBox);
+	for(x = 0; x < cont; x++){
+		ComboBox_DeleteString(comboBox, 0);	
+	}
+	
     arv = inicializaArvoreProp();
 
     if(existeArquivo(ARQUIVO_DADOS_PROPRIETARIO) == ERRO_ARQUIVO_INEXISTENTE) return;
 
     arqProp = fopen(ARQUIVO_DADOS_PROPRIETARIO ,"rb");
     if(arqProp!=NULL){
-        if(fread(&prop, sizeof(Proprietario), 1, arqProp) == 1){
-            if(strnicmp(filtroCPF, prop.cpf, strlen(filtroCPF)) == 0){
-                inserirNaArvoreProp(arv, prop);
-                cont++;
-            }
-        }
+    	while(!feof(arqProp)){
+	        if(fread(&prop, sizeof(Proprietario), 1, arqProp) == 1){
+	            if(strnicmp(prop.cpf, filtroCPF, strlen(filtroCPF)) == 0){
+	                arv = inserirNaArvoreProp(arv, prop);
+	            }
+	        }
+    	}
+        
+        win_trataErros(comboBox, fechaArquivo(arqProp));
     }
 
     atualizaComboBoxProp(arv, comboBox);
 
     liberaArvoreProp(arv);
+	
+	ComboBox_ShowDropdown(comboBox, TRUE);
 }
 
 /********************************************//**
@@ -118,7 +127,7 @@ void atualizaListaManut(HWND hwndList, Data dataI, Data dataF)
                     SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
 
                     lvItem.iSubItem = 2;       // Put in first coluom
-                    sprintf(data, "%d/%d/%d", aux.data.dia, aux.data.mes, aux.data.ano);
+                    sprintf(data, "%02d/%02d/%d", aux.data.dia, aux.data.mes, aux.data.ano);
                     lvItem.pszText = data; // Text to display (can be from a char variable) (Items)
 					 
                     SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
@@ -126,6 +135,7 @@ void atualizaListaManut(HWND hwndList, Data dataI, Data dataF)
                     cont++;
                 }
             }
+            
 			
             if(win_trataErros(hwndList,fechaArquivo(arq)) != 0) return;
         }else{
@@ -425,7 +435,7 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
                         ListView_GetItemText(GetDlgItem(hwnd, ID_MANUT_LIST), iSelect, 2, data, TAM_DATA);
 
-                        sscanf(data, "%d/%d/%d", &(auxEnvio.data.dia), &(auxEnvio.data.mes), &(auxEnvio.data.ano));
+                        sscanf(data, "%02d/%02d/%d", &(auxEnvio.data.dia), &(auxEnvio.data.mes), &(auxEnvio.data.ano));
 
                         pegaManutencao(auxEnvio.placa, auxEnvio.cpf, auxEnvio.data, &auxEnvio);
 
@@ -454,7 +464,7 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 void inicializaFormManut(HWND hwnd){
 	
     SendMessage(GetDlgItem(hwnd, ID_EDIT_PLACA_MANUT), EM_LIMITTEXT, TAM_PLACA-1, 0);
-    SendMessage(GetDlgItem(hwnd, ID_EDIT_CPF_MANUT), EM_LIMITTEXT, TAM_CPF-1, 0);
+   	ComboBox_LimitText(GetDlgItem(hwnd, ID_EDIT_CPF_MANUT), TAM_CPF-1);
     SendMessage(GetDlgItem(hwnd, ID_EDIT_DESCRICAO_MANUT), EM_LIMITTEXT, TAM_DESCRICAO-1, 0);
 
     EnableWindow(GetDlgItem(hwnd, ID_BOTAO_ACAO_MANUT), FALSE);
@@ -472,8 +482,6 @@ void validaLiberaFormManut(HWND hwnd){
 
     GetDlgItemText(hwnd, ID_EDIT_CPF_MANUT, cpf, TAM_CPF);
     GetDlgItemText(hwnd, ID_EDIT_PLACA_MANUT, placa, TAM_PLACA);
-
-    preencheComboBoxProp(GetDlgItem(hwnd, ID_EDIT_CPF_MANUT), cpf);
 
     if( GetWindowTextLength(GetDlgItem(hwnd, ID_EDIT_PECAS_MANUT)) > 0 &&
         validaCPF(cpf) == CPF_VALIDO && validaPlaca(placa) == PLACA_VALIDA &&
@@ -508,6 +516,7 @@ BOOL CALLBACK formAddManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     Manutencao *aux;
     int erro;
     SYSTEMTIME data;
+    char cpf[TAM_CPF];
 
     switch(msg) {
         case WM_INITDIALOG:
@@ -515,12 +524,16 @@ BOOL CALLBACK formAddManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         break;
 
         case WM_COMMAND:
+			if(HIWORD(wp) == CBN_EDITUPDATE){
+			    ComboBox_GetText(GetDlgItem(hwnd, ID_EDIT_CPF_MANUT), cpf, ComboBox_GetTextLength(GetDlgItem(hwnd, ID_EDIT_CPF_MANUT)));
+    			preencheComboBoxProp(GetDlgItem(hwnd, ID_EDIT_CPF_MANUT), cpf);
+    		}
 
             if(HIWORD(wp)==EN_CHANGE){
-                formataCPF(GetDlgItem(hwnd, ID_EDIT_CPF_MANUT));
                 formataPlaca(GetDlgItem(hwnd, ID_EDIT_PLACA_MANUT));
                 editTextFloat(hwnd, ID_EDIT_PECAS_MANUT);
                 editTextFloat(hwnd, ID_EDIT_OBRA_MANUT);
+                
             }
 
             validaLiberaFormManut(hwnd);
