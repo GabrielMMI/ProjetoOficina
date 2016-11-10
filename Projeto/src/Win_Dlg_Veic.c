@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_Dlg_Veic.c
- * @brief Contem as funções de controle da tabPage Veiculo.
+ * @brief Contem as funï¿½ï¿½es de controle da tabPage Veiculo.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -15,7 +15,7 @@
  * \brief Le os dados do formulario de veiculo
  *
  * \param hwnd 				- Manipulador da janela
- * \return Manutencao * 	- Endereço de memória do tipo Veiculo contendo os dados lidos de um formulario
+ * \return Manutencao * 	- Endereï¿½o de memï¿½ria do tipo Veiculo contendo os dados lidos de um formulario
  *
  ***********************************************/
 Veiculo *leDadosVeicForm(HWND hwnd)
@@ -33,9 +33,11 @@ Veiculo *leDadosVeicForm(HWND hwnd)
 }
 
 /********************************************//**
- * \brief Atualiza a lista de manutenções de acordo
+ * \brief Atualiza a lista de manutenï¿½ï¿½es de acordo
  *        com a placa
- * \param placa - A placa de um veiculo que esta na manutenção
+ *
+ * \param hwnd 				- Manipulador da janela
+ * \param placa - A placa de um veiculo que esta na manutenï¿½ï¿½o
  *
  * \return void
  *
@@ -54,22 +56,22 @@ void atualizaListaManutVeic(HWND hwndList, char *placa)
         if(arq != NULL){
             while(fread(&aux, sizeof(Manutencao), 1, arq) == 1){
                 if(strnicmp(aux.placa,placa,strlen(placa))==0){
-                    lvItem.mask=LVIF_TEXT;   // Text Style
+                    lvItem.mask=LVIF_TEXT;
                     lvItem.cchTextMax = TAM_NOME;
-                    lvItem.iItem=cont;          // choose item
-                    lvItem.iSubItem=0;       // Put in first coluom
-                    lvItem.pszText=aux.placa; // Text to display (can be from a char variable) (Items)
+                    lvItem.iItem=cont;
+                    lvItem.iSubItem=0;
+                    lvItem.pszText=aux.placa;
 
-                    SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
-                    lvItem.iSubItem = 1;       // Put in first coluom
-                    lvItem.pszText = aux.cpf; // Text to display (can be from a char variable) (Items)
+                    SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem);
+                    lvItem.iSubItem = 1;
+                    lvItem.pszText = aux.cpf;
 
-                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
-                    lvItem.iSubItem = 2;       // Put in first coluom
+                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
+                    lvItem.iSubItem = 2;
                     sprintf(data, "%02d/%02d/%d", aux.data.dia, aux.data.mes, aux.data.ano);
-                    lvItem.pszText = data; // Text to display (can be from a char variable) (Items)
+                    lvItem.pszText = data;
 					 
-                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
                     cont++;
                 }
@@ -85,7 +87,9 @@ void atualizaListaManutVeic(HWND hwndList, char *placa)
 /********************************************//**
  * \brief Atualiza a lista de proprietarios de acordo
  *        com a placa
- * \param placa - A placa de um veiculo que esta na manutenção
+ *
+ * \param hwnd 				- Manipulador da janela
+ * \param placa - A placa de um veiculo que esta na manutenï¿½ï¿½o
  *
  * \return void
  *
@@ -114,22 +118,22 @@ void atualizaListaPropVeic(HWND hwndList, char *placa)
 		            
                 	if(ListView_FindItem(hwndList, -1, &info) == -1){
 
-		                lvItem.mask=LVIF_TEXT;   // Text Style
+		                lvItem.mask=LVIF_TEXT;
 		                lvItem.cchTextMax = TAM_NOME;
-		                lvItem.iItem=cont;          // choose item
-		                lvItem.iSubItem=0;       // Put in first coluom
-		                lvItem.pszText=propAux.nome; // Text to display (can be from a char variable) (Items)
+		                lvItem.iItem=cont;
+		                lvItem.iSubItem=0;
+		                lvItem.pszText=propAux.nome;
 		
-		                SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
-		                lvItem.iSubItem = 1;       // Put in first coluom
-		                lvItem.pszText = propAux.cpf; // Text to display (can be from a char variable) (Items)
+		                SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem);
+		                lvItem.iSubItem = 1;
+		                lvItem.pszText = propAux.cpf;
 		
-		                SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
-		                lvItem.iSubItem = 2;       // Put in first coluom
+		                SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
+		                lvItem.iSubItem = 2;
 		                sprintf(telefone, "(%s)%s", propAux.telefone.ddd, propAux.telefone.telefone);
-		                lvItem.pszText = telefone; // Text to display (can be from a char variable) (Items)
+		                lvItem.pszText = telefone;
 							 
-		                SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+		                SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 		
 		                cont++;
 	            	}
@@ -148,7 +152,7 @@ void atualizaListaPropVeic(HWND hwndList, char *placa)
  * \brief Atualiza uma lista de veiculos de
  *        acordo com uma placa
  * \param hwndList 	- Manipulador de uma ListView Control
- * \param placa  	- Placa que será utilizada como filtro na pesquisa
+ * \param placa  	- Placa que serï¿½ utilizada como filtro na pesquisa
  * \return void
  *
  ***********************************************/
@@ -167,23 +171,23 @@ void atualizaListaVeic(HWND hwndList, char *placa)
             if(arq != NULL){
                 while(fread(&aux, sizeof(Veiculo), 1, arq) == 1){
                     if(strnicmp(aux.placa, placa, strlen(placa)) == 0){
-                        lvItem.mask=LVIF_TEXT;   // Text Style
+                        lvItem.mask=LVIF_TEXT;
                         lvItem.cchTextMax = TAM_MODELO;
-                        lvItem.iItem=cont;          // choose item
-                        lvItem.iSubItem=0;       // Put in first coluom
-                        lvItem.pszText=aux.modelo; // Text to display (can be from a char variable) (Items)
+                        lvItem.iItem=cont;
+                        lvItem.iSubItem=0;
+                        lvItem.pszText=aux.modelo;
 
-                        SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                        SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem);
 
-                        lvItem.iSubItem = 1;       // Put in first coluom
-                        lvItem.pszText = aux.placa; // Text to display (can be from a char variable) (Items)
+                        lvItem.iSubItem = 1;
+                        lvItem.pszText = aux.placa;
 
-                        SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                        SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
-                        lvItem.iSubItem = 2;           // Put in first coluom
-                        lvItem.pszText = aux.chassi; // Text to display (can be from a char variable) (Items)
+                        lvItem.iSubItem = 2;
+                        lvItem.pszText = aux.chassi;
 
-                        SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                        SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
                         cont++;
                     }
@@ -197,7 +201,7 @@ void atualizaListaVeic(HWND hwndList, char *placa)
 }
 
 /********************************************//**
- * \brief Inicializa um formulário de Veiculo
+ * \brief Inicializa um formulï¿½rio de Veiculo
  *
  * \param hwnd - Manipulador de uma ListView Control
  * \return void
@@ -214,7 +218,7 @@ void inicializaFormVeic(HWND hwnd){
 }
 
 /********************************************//**
- * \brief le valida e libera o botão de ação de um veiculo
+ * \brief le valida e libera o botï¿½o de aï¿½ï¿½o de um veiculo
  *
  * \param hwnd 				- Manipulador da janela
  * \return void
@@ -248,7 +252,7 @@ void validaLiberaFormVeic(HWND hwnd){
  * \brief Preenche um formulario de Veiculo
  *
  * \param hwndForm	- Manipulador da janela
- * \param prop		- Endereço de memória de uma struct do tipo Veiculo
+ * \param veic		- Endereï¿½o de memï¿½ria de uma struct do tipo Veiculo
  *
  * \return void
  *
@@ -262,7 +266,7 @@ void preencheFormVeic(HWND hwnd, Veiculo *veic){
 }
 
 /********************************************//**
- * \brief Função de controle do janela "Pesquisar Veiculos"
+ * \brief Funï¿½ï¿½o de controle do janela "Pesquisar Veiculos"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -298,7 +302,7 @@ BOOL CALLBACK formDadosVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp){
 }
 
 /********************************************//**
- * \brief Função de controle do janela "Adicionar Veiculo"
+ * \brief Funï¿½ï¿½o de controle do janela "Adicionar Veiculo"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -344,7 +348,7 @@ BOOL CALLBACK formAddVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Nomeia as colunas da lista de Veículos
+ * \brief Nomeia as colunas da lista de Veï¿½culos
  *
  * \param hwndList HWND
  * \return void
@@ -374,10 +378,10 @@ void inicializaListVeic(HWND hwndList)
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Alterar Proprietario"
+ * \brief Funï¿½ï¿½o de controle do Dialogo "Alterar Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
@@ -430,10 +434,10 @@ BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Função de controle do janela "Alterar Veiculo"
+ * \brief Funï¿½ï¿½o de controle do janela "Alterar Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
@@ -501,10 +505,10 @@ BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Excluir Proprietario"
+ * \brief Funï¿½ï¿½o de controle do Dialogo "Excluir Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usuário
+ * \param message Indica qual comando foi acionado pelo usuï¿½rio
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
@@ -551,10 +555,10 @@ BOOL CALLBACK formExcluirVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Função de controle do janela "Excluir Veiculo"
+ * \brief Funï¿½ï¿½o de controle do janela "Excluir Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param msg Indica qual comando foi acionado pelo usuário
+ * \param msg Indica qual comando foi acionado pelo usuï¿½rio
  * \param wp Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
@@ -621,10 +625,10 @@ BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle do janela "Proprietários e Manutenções de um Veiculo"
+ * \brief Funï¿½ï¿½o de controle do janela "Proprietï¿½rios e Manutenï¿½ï¿½es de um Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param msg Indica qual comando foi acionado pelo usuário
+ * \param msg Indica qual comando foi acionado pelo usuï¿½rio
  * \param wp Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
@@ -689,7 +693,7 @@ BOOL CALLBACK formMostrarPropManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                     
                     case ID_VEIC_VER_MANUT_BOTAO:
                     	if(iSelectManut == -1){
-                    		MessageBox(hwnd, "Nenhuma manutenção foi selecionada!", "Erro", MB_OK|MB_ICONINFORMATION);
+                    		MessageBox(hwnd, "Nenhuma manutenï¿½ï¿½o foi selecionada!", "Erro", MB_OK|MB_ICONINFORMATION);
                 		}else{
 	                        formAlterarManut = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_MANUT_DADOS_FORM), hwnd, (DLGPROC)formDadosManutBox);
 	
@@ -722,10 +726,10 @@ BOOL CALLBACK formMostrarPropManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle da tabPage "Veículo"
+ * \brief Funï¿½ï¿½o de controle da tabPage "Veï¿½culo"
  *
  * \param hwnd Manipulador da janela
- * \param msg Indica qual comando foi acionado pelo usuário
+ * \param msg Indica qual comando foi acionado pelo usuï¿½rio
  * \param wp Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou

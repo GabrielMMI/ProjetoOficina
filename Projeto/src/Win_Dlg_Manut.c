@@ -39,6 +39,16 @@ Manutencao *leDadosManutForm(HWND hwnd)
     return aux;
 }
 
+/********************************************//**
+ * \brief Atualiza em ordem alfabetica os cpfs e os nomes das pessoas ao receber uma arvore de proprietario
+ *
+ * \param a - Arvore de proprietarios
+ * \param comboBox - hwnd da combo box de cpf e nome
+ * 
+ * \return void
+ *
+ ***********************************************/
+
 void atualizaComboBoxProp(Arvore *a, HWND comboBox)
 {
 	 char nomeFormat[TAM_CPF + TAM_NOME + 3];
@@ -49,6 +59,16 @@ void atualizaComboBoxProp(Arvore *a, HWND comboBox)
 	    atualizaComboBoxProp(a->direita, comboBox);
 	 }
 }
+
+/********************************************//**
+ * \brief Preenche a combo box com os cpfs filtrados
+ *
+ * \param comboBox - Hwnd da combo box de cpf e nome
+ * \param filtroCPF - Pedaço de um cpf dado pelo usuario
+ * 
+ * \return void
+ *
+ ***********************************************/
 
 void preencheComboBoxProp(HWND comboBox, char *filtroCPF){
     FILE *arqProp;
@@ -113,24 +133,24 @@ void atualizaListaManut(HWND hwndList, Data dataI, Data dataF)
         if(arq != NULL){
             while(fread(&aux, sizeof(Manutencao), 1, arq) == 1){
                 if(comparaData(aux.data, dataI) >= 0 && comparaData(aux.data, dataF) <= 0 && comparaData(dataI, dataF) <= 0){
-                    lvItem.mask=LVIF_TEXT;   // Text Style
+                    lvItem.mask=LVIF_TEXT;
                     lvItem.cchTextMax = TAM_NOME;
-                    lvItem.iItem=cont;          // choose item
-                    lvItem.iSubItem=0;       // Put in first coluom
-                    lvItem.pszText=aux.placa; // Text to display (can be from a char variable) (Items)
+                    lvItem.iItem=cont;
+                    lvItem.iSubItem=0;
+                    lvItem.pszText=aux.placa;
 
-                    SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                    SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem);
 
-                    lvItem.iSubItem = 1;       // Put in first coluom
-                    lvItem.pszText = aux.cpf; // Text to display (can be from a char variable) (Items)
+                    lvItem.iSubItem = 1;
+                    lvItem.pszText = aux.cpf;
 
-                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
-                    lvItem.iSubItem = 2;       // Put in first coluom
+                    lvItem.iSubItem = 2;
                     sprintf(data, "%02d/%02d/%d", aux.data.dia, aux.data.mes, aux.data.ano);
-                    lvItem.pszText = data; // Text to display (can be from a char variable) (Items)
+                    lvItem.pszText = data;
 					 
-                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
                     cont++;
                 }
@@ -179,27 +199,27 @@ void atualizaListaManutBusca(HWND hwnd, Data dataI, Data dataF)
         if(arq != NULL){
             while(fread(&aux, sizeof(Manutencao), 1, arq) == 1){
                 if(comparaData(aux.data, dataI) >= 0 && comparaData(aux.data, dataF) <= 0 && comparaData(dataI, dataF) <= 0){
-                    lvItem.mask=LVIF_TEXT;   // Text Style
+                    lvItem.mask=LVIF_TEXT;
                     lvItem.cchTextMax = TAM_NOME;
-                    lvItem.iItem=cont;          // choose item
-                    lvItem.iSubItem=0;       // Put in first coluom
-                    lvItem.pszText=aux.placa; // Text to display (can be from a char variable) (Items)
+                    lvItem.iItem=cont;
+                    lvItem.iSubItem=0;
+                    lvItem.pszText=aux.placa;
 
-                    SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                    SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem);
 
-                    lvItem.iSubItem = 1;       // Put in first coluom
-                    lvItem.pszText = aux.cpf; // Text to display (can be from a char variable) (Items)
+                    lvItem.iSubItem = 1;
+                    lvItem.pszText = aux.cpf;
 
-                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
-                    lvItem.iSubItem = 2;       // Put in first coluom
-                    sprintf(data, "%d/%d/%d", aux.data.dia, aux.data.mes, aux.data.ano);
-                    lvItem.pszText = data; // Text to display (can be from a char variable) (Items)
+                    lvItem.iSubItem = 2;
+                    sprintf(data, "%02d/%02d/%d", aux.data.dia, aux.data.mes, aux.data.ano);
+                    lvItem.pszText = data;
 
 					totalPecas += aux.valorPecas;
 					totalObra  += aux.valorObra;
 					 
-                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
                     cont++;
                 }
@@ -220,10 +240,11 @@ void atualizaListaManutBusca(HWND hwnd, Data dataI, Data dataF)
 }
 
 /********************************************//**
- * \brief Atualiza a lista de manuten��es de acordo
+ * \brief Atualiza a lista de escluir manuten��es de acordo
  *        com a data inicial e a data final
  * \param hwndList 	- Manipulador de uma ListView Control
  * \param cpf		- Endere�o de mem�ria de uma string contendo um cpf
+ * \param placa		- Endere�o de mem�ria de uma string contendo uma placa
  * \param dataI 	- Uma struct do tipo Data contendo uma data inicial
  *
  * \return void
@@ -244,24 +265,24 @@ void atualizaListaManutExcluir(HWND hwndList, char *cpf,char *placa,Data dataI)
         if(arq != NULL){
             while(fread(&aux, sizeof(Manutencao), 1, arq) == 1){
                 if(comparaData(aux.data, dataI) == 0 && strnicmp(aux.cpf,cpf,strlen(cpf))==0 && strnicmp(aux.placa,placa,strlen(placa))==0){
-                    lvItem.mask=LVIF_TEXT;   // Text Style
+                    lvItem.mask=LVIF_TEXT;
                     lvItem.cchTextMax = TAM_NOME;
-                    lvItem.iItem=cont;          // choose item
-                    lvItem.iSubItem=0;       // Put in first coluom
-                    lvItem.pszText=aux.placa; // Text to display (can be from a char variable) (Items)
+                    lvItem.iItem=cont;
+                    lvItem.iSubItem=0;
+                    lvItem.pszText=aux.placa;
 
-                    SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                    SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem);
 
-                    lvItem.iSubItem = 1;       // Put in first coluom
-                    lvItem.pszText = aux.cpf; // Text to display (can be from a char variable) (Items)
+                    lvItem.iSubItem = 1;
+                    lvItem.pszText = aux.cpf;
 
-                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
-                    lvItem.iSubItem = 2;       // Put in first coluom
-                    sprintf(data, "%d/%d/%d", aux.data.dia, aux.data.mes, aux.data.ano);
-                    lvItem.pszText = data; // Text to display (can be from a char variable) (Items)
+                    lvItem.iSubItem = 2;
+                    sprintf(data, "%02d/%02d/%d", aux.data.dia, aux.data.mes, aux.data.ano);
+                    lvItem.pszText = data;
 
-                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                    SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
                     cont++;
                 }
@@ -457,7 +478,7 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 /********************************************//**
  * \brief Inicializa um formul�rio de manuten��o
  *
- * \param hwnd 				- Manipulador da janela
+ * \param hwnd - Manipulador da janela
  * \return void
  *
  ***********************************************/

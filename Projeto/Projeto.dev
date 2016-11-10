@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000000000000
-UnitCount=24
+UnitCount=25
 
 [VersionInfo]
 Major=1
@@ -284,6 +284,16 @@ BuildCmd=
 FileName=include\Win_Funcoes_Basicas.h
 CompileCpp=0
 Folder=include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit25]
+FileName=src\Arvore_Prop.c
+CompileCpp=0
+Folder=src
 Compile=1
 Link=1
 Priority=1000

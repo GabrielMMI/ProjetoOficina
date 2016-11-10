@@ -1,6 +1,6 @@
 /********************************************//**
  * @file Win_Dlg_Veic.h
- * @brief Contem os cabeçalhos de todas as
+ * @brief Contem os cabeï¿½alhos de todas as
  *        funcoes existentes na tab de Veiculos
  * @bug Nao contem bugs conhecidos!
  *
@@ -31,6 +31,7 @@ BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 BOOL CALLBACK formExcluirVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
+BOOL CALLBACK formMostrarPropManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 BOOL CALLBACK tabVeicPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 
 #endif // H_DLG_VEIC_SECURE

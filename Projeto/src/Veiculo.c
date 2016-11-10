@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Veiculo.c
- * @brief Implementa todas as funções de Veiculo.h
+ * @brief Implementa todas as funï¿½ï¿½es de Veiculo.h
  *
  *
  * @bug Nenhum problema conhecido!
@@ -13,11 +13,11 @@
 /********************************************//**
  * \brief Verifica se existe um veiculo
  *
- * \param placa - Endereço de memoria de uma string de placa
- * \param pos - Endereço de memoria da variavel de posição
+ * \param placa - Endereï¿½o de memoria de uma string de placa
+ * \param pos - Endereï¿½o de memoria da variavel de posiï¿½ï¿½o
  *
- * \return posicao - a posição no arquivo (se existir)
- * \return -1 - se não existir no arquivo
+ * \return posicao - a posiï¿½ï¿½o no arquivo (se existir)
+ * \return -1 - se nï¿½o existir no arquivo
  * \return ALOC_ERRO - Erro ao alocar memoria
  ***********************************************/
 int buscaVeiculo(char *placa, int *pos)
@@ -104,9 +104,9 @@ int incluiVeiculo(Veiculo veiculo)
  * \brief Altera um veiculo no arquivo de veiculo
  *
  * \param vNovo - Dados novos do veiculo
- * \param placa - Endereço de memoria de uma string de placa
+ * \param placa - Endereï¿½o de memoria de uma string de placa
  *
- * \return VEIC_BUSCA_INEXISTENTE - Veiculo buscado é inexistente
+ * \return VEIC_BUSCA_INEXISTENTE - Veiculo buscado ï¿½ inexistente
  * \return VEIC_ALTERAR_SUCESSO - Sucesso ao alterar o veiculo
  * \return VEIC_ALTERAR_ERRO - Erro ao alterar o veiculo
  * \return FECHA_ARQUIVO_ERRO - Erro ao fechar o arquivo
@@ -145,13 +145,13 @@ int alteraVeiculo(Veiculo vNovo, char *placa)
 /********************************************//**
  * \brief Excluir um veiculo no arquivo de veiculo
  *
- * \param placa - Endereço de memoria de uma string de placa
+ * \param placa - Endereï¿½o de memoria de uma string de placa
  *
- * \return VEIC_EXCLUIR_ERRO_MANUT - Erro ao excluir um veiculo da manutenção, pois ele ja esta cadastrado
- * \return ERRO_ARQUIVO_LER_MANUT - Erro ao ler uma manutenção no arquivo
+ * \return VEIC_EXCLUIR_ERRO_MANUT - Erro ao excluir um veiculo da manutenï¿½ï¿½o, pois ele ja esta cadastrado
+ * \return ERRO_ARQUIVO_LER_MANUT - Erro ao ler uma manutenï¿½ï¿½o no arquivo
  * \return FECHA_ARQUIVO_ERRO - Erro ao fechar o arquivo
  * \return ERRO_ABRIR_ARQUIVO - Erro ao abrir o arquivo
- * \return VEIC_BUSCA_INEXISTENTE - O veiculo buscado não existe
+ * \return VEIC_BUSCA_INEXISTENTE - O veiculo buscado nï¿½o existe
  * \return VEIC_EXCLUIR_SUCESSO - Sucesso ao excluir o veiculo
  * \return VEIC_EXCLUIR_ERRO - Erro ao excluir o veiculo
  * \return ALOC_ERRO - Erro ao alocar memoria
@@ -248,15 +248,15 @@ int excluiVeiculo(char *placa)
 /********************************************//**
  * \brief Validar uma placa no formato AAA-1234
  *
- * \param placa - Endereço de memoria de uma string de placa
+ * \param placa - Endereï¿½o de memoria de uma string de placa
  *
  * \return PLACA_VALIDA - Placa valida
- * \return PLACA_INVALIDA - Placa inválida
+ * \return PLACA_INVALIDA - Placa invï¿½lida
  ***********************************************/
 int validaPlaca(char *placa)
 {
 	int flag = PLACA_VALIDA;
-	if(isalpha(placa[0])==0 || isalpha(placa[1])==0 || isalpha(placa[2])==0 || isalpha(placa[4])!=0 || isalpha(placa[5])!=0 || isalpha(placa[6])!=0 || isalpha(placa[7])!=0){
+	if(isalpha(placa[0])==0 || isalpha(placa[1])==0 || isalpha(placa[2])==0 || isdigit(placa[4])==0 || isdigit(placa[5])==0 || isdigit(placa[6])==0 || isdigit(placa[7])==0){
 		flag = PLACA_INVALIDA;
 	}
 
@@ -267,14 +267,14 @@ int validaPlaca(char *placa)
 }
 
 /********************************************//**
- * \brief Verifica se um chassi é repetido
+ * \brief Verifica se um chassi ï¿½ repetido
  *
- * \param chassi - Endereço de memoria de uma string de um chassi
+ * \param chassi - Endereï¿½o de memoria de uma string de um chassi
  *
- * \return CHASSI_REPETIDO - O chassi informado é repetido
+ * \return CHASSI_REPETIDO - O chassi informado ï¿½ repetido
  * \return ERRO_ARQUIVO_LER_VEIC - Erro ao ler um veiculo no arquivo de veiculo
  * \return FECHA_ARQUIVO_ERRO - Erro ao fechar um arquivo
- * \return ERRO_ARQUIVO_INEXISTENTE - Arquivo não existe
+ * \return ERRO_ARQUIVO_INEXISTENTE - Arquivo nï¿½o existe
  * \return ALOC_ERRO - Erro ao alocar memoria
  ***********************************************/
 int verificaChassiRepetido(char *chassi)
@@ -318,8 +318,8 @@ int verificaChassiRepetido(char *chassi)
 /********************************************//**
  * \brief Pega um veiculo no arquivo de Veiculos
  *
- * \param placa - Endereço de memoria de uma string de placa
- * \param veiculo - Endereço de memoria de uma string de veiculo
+ * \param placa - Endereï¿½o de memoria de uma string de placa
+ * \param veiculo - Endereï¿½o de memoria de uma string de veiculo
  *
  * \return VEIC_PEGAVEIC_ERRO - Erro ao pegar um veiculo
  * \return VEIC_PEGAVEIC_SUCESSO - Sucesso ao pegar um veiculo
@@ -384,11 +384,11 @@ int obtemQuantVeicArquivo()
 
 
 /********************************************//**
- * \brief Carrega todos os veiculos de um arquivo de veículos
+ * \brief Carrega todos os veiculos de um arquivo de veï¿½culos
  *
  * \param void
  *
- * \return Endereço de um ponteiro do tipo Veiculo
+ * \return Endereï¿½o de um ponteiro do tipo Veiculo
  ***********************************************/
 Veiculo *carregaVeiculos()
 {
