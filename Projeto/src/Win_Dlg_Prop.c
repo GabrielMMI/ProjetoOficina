@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_Dlg_Prop.c
- * @brief Contem as funções de controle da tabPage Proprietario.
+ * @brief Contem as funï¿½ï¿½es de controle da tabPage Proprietario.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -8,6 +8,16 @@
  ***********************************************/
 
 #include "../include/Win_Dlg_Prop.h"
+
+/********************************************//**
+ * \brief Atualiza a lista de proprietarios em ordem alfabetica
+ * 
+ * \param a - Arvore com os proprietarios ordenados
+ * \param list - Manipulador de uma ListView Control
+ *
+ * \return void
+ *
+ ***********************************************/
 
 void atualizaListaArvProp(Arvore *a, HWND list)
 {
@@ -18,24 +28,24 @@ void atualizaListaArvProp(Arvore *a, HWND list)
 
 	    atualizaListaArvProp(a->direita, list);
 	    
-	    lvItem.mask=LVIF_TEXT;   // Text Style
+	    lvItem.mask=LVIF_TEXT;
         lvItem.cchTextMax = TAM_NOME;
-        lvItem.iItem=0;          // choose item
-        lvItem.iSubItem=0;       // Put in first coluom
-        lvItem.pszText= a->dado.nome; // Text to display (can be from a char variable) (Items)
+        lvItem.iItem=0;
+        lvItem.iSubItem=0;
+        lvItem.pszText= a->dado.nome;
 
         ListView_InsertItem(list, &lvItem);
 
-        lvItem.iSubItem = 1;       // Put in first coluom
-        lvItem.pszText = a->dado.cpf; // Text to display (can be from a char variable) (Items)
+        lvItem.iSubItem = 1;
+        lvItem.pszText = a->dado.cpf;
 
-        SendMessage(list,LVM_SETITEM,0,(LPARAM)&lvItem); // Send info to the Listview
+        SendMessage(list,LVM_SETITEM,0,(LPARAM)&lvItem);
 
-        lvItem.iSubItem = 2;       // Put in first coluom
+        lvItem.iSubItem = 2;
         sprintf(tel, "(%s) %s", a->dado.telefone.ddd, a->dado.telefone.telefone);
-        lvItem.pszText = tel; // Text to display (can be from a char variable) (Items)
+        lvItem.pszText = tel;
 
-        SendMessage(list,LVM_SETITEM,0,(LPARAM)&lvItem); // Send info to the Listview
+        SendMessage(list,LVM_SETITEM,0,(LPARAM)&lvItem);
         
 	    atualizaListaArvProp(a->esquerda, list);
 	    
@@ -47,8 +57,8 @@ void atualizaListaArvProp(Arvore *a, HWND list)
  * \brief Atualiza a lista de proprietarios de acordo
  *        com o cpf e o nome
  * \param hwndList 	- Manipulador de uma ListView Control
- * \param cpf		- Endereço de memória de uma string contendo um cpf
- * \param nome		- Endereço de memória de uma string contendo um nome
+ * \param cpf		- Endereï¿½o de memï¿½ria de uma string contendo um cpf
+ * \param nome		- Endereï¿½o de memï¿½ria de uma string contendo um nome
  *
  * \return void
  *
@@ -90,7 +100,7 @@ void atualizaListaProp(HWND hwndList, char *cpf, char *nome)
  * \brief Le os dados do formulario de proprietario
  *
  * \param hwnd 				- Manipulador da janela
- * \return Manutencao * 	- Endereço de memória do tipo Proprietario contendo os dados lidos de um formulario
+ * \return Manutencao * 	- Endereï¿½o de memï¿½ria do tipo Proprietario contendo os dados lidos de um formulario
  *
  ***********************************************/
 Proprietario *leDadosPropForm(HWND hwnd)
@@ -113,7 +123,7 @@ Proprietario *leDadosPropForm(HWND hwnd)
  * \brief Preenche um formulario de proprietario
  *
  * \param hwndForm	- Manipulador da janela
- * \param prop		- Endereço de memória de uma struct do tipo Proprietario
+ * \param prop		- Endereï¿½o de memï¿½ria de uma struct do tipo Proprietario
  *
  * \return void
  *
@@ -132,7 +142,7 @@ void preencheFormProp(HWND hwndForm, Proprietario *prop){
 }
 
 /********************************************//**
- * \brief Inicializa um formulário de Proprietario
+ * \brief Inicializa um formulï¿½rio de Proprietario
  *
  * \param hwnd - Manipulador de uma ListView Control
  * \return void
@@ -164,7 +174,7 @@ void inicializaFormProp(HWND hwnd)
 }
 
 /********************************************//**
- * \brief le valida e libera o botão de ação de proprietario
+ * \brief le valida e libera o botï¿½o de aï¿½ï¿½o de proprietario
  *
  * \param hwnd 				- Manipulador da janela
  * \return void
@@ -208,7 +218,7 @@ void validaLiberaFormProp(HWND hwnd)
 }
 
 /********************************************//**
- * \brief Função de controle do janela "Adicionar Proprietario"
+ * \brief Funï¿½ï¿½o de controle do janela "Adicionar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -252,7 +262,7 @@ BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Alterar Proprietario"
+ * \brief Funï¿½ï¿½o de controle do Dialogo "Alterar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -318,7 +328,7 @@ BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Excluir Proprietario"
+ * \brief Funï¿½ï¿½o de controle do Dialogo "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -399,7 +409,7 @@ void inicializaListProp(HWND hwndList)
 }
 
 /********************************************//**
- * \brief Função de controle da janela "Alterar Proprietario"
+ * \brief Funï¿½ï¿½o de controle da janela "Alterar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -477,7 +487,7 @@ BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle da janela "Excluir Proprietario"
+ * \brief Funï¿½ï¿½o de controle da janela "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -559,7 +569,7 @@ BOOL CALLBACK formExcluirProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \brief Atualiza uma lista de veiculos de um proprietario de
  *        acordo com uma placa
  * \param hwndList 	- Manipulador de uma ListView Control
- * \param placa  	- Placa que será utilizada como filtro na pesquisa
+ * \param placa  	- Placa que serï¿½ utilizada como filtro na pesquisa
  * \return void
  *
  ***********************************************/
@@ -577,23 +587,23 @@ void atualizaListaVeicProp(HWND hwndList, char *placa)
             if(arq != NULL){
                 while(fread(&aux, sizeof(Veiculo), 1, arq) == 1){
                     if(strnicmp(aux.placa, placa, strlen(placa)) == 0){
-                        lvItem.mask=LVIF_TEXT;   // Text Style
+                        lvItem.mask=LVIF_TEXT;
                         lvItem.cchTextMax = TAM_MODELO;
-                        lvItem.iItem=cont;          // choose item
-                        lvItem.iSubItem=0;       // Put in first coluom
-                        lvItem.pszText=aux.modelo; // Text to display (can be from a char variable) (Items)
+                        lvItem.iItem=cont;
+                        lvItem.iSubItem=0;
+                        lvItem.pszText=aux.modelo;
 
-                        SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                        SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem);
 
-                        lvItem.iSubItem = 1;       // Put in first coluom
-                        lvItem.pszText = aux.placa; // Text to display (can be from a char variable) (Items)
+                        lvItem.iSubItem = 1;
+                        lvItem.pszText = aux.placa;
 
-                        SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                        SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
-                        lvItem.iSubItem = 2;           // Put in first coluom
-                        lvItem.pszText = aux.chassi; // Text to display (can be from a char variable) (Items)
+                        lvItem.iSubItem = 2;
+                        lvItem.pszText = aux.chassi;
 
-                        SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem); // Send info to the Listview
+                        SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
                         cont++;
                     }
@@ -610,7 +620,7 @@ void atualizaListaVeicProp(HWND hwndList, char *placa)
 
 
 /********************************************//**
- * \brief Função de controle da janela "Alterar Proprietario"
+ * \brief Funï¿½ï¿½o de controle da janela "Mostra veiculos de um prorpietario que ja foi pra manutencao"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -703,7 +713,7 @@ BOOL CALLBACK formMostraVeicProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle do Dialogo "Pesquisar Proprietario"
+ * \brief Funï¿½ï¿½o de controle do Dialogo "Pesquisar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -745,7 +755,7 @@ BOOL CALLBACK formPesquisarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Função de controle da janela "Pesquisar Proprietario"
+ * \brief Funï¿½ï¿½o de controle da janela "Pesquisar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -829,7 +839,7 @@ BOOL CALLBACK formPesquisarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Função de controle da tabPage "Proprietario"
+ * \brief Funï¿½ï¿½o de controle da tabPage "Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario

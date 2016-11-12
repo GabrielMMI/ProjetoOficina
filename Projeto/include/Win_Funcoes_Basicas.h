@@ -1,6 +1,6 @@
 /********************************************//**
  * @file Win_Funcoes_Basicas.h
- * @brief Contem os cabeçalhos de todas as
+ * @brief Contem os cabeï¿½alhos de todas as
  *        funcoes basicas de leitura
  *        e de arquivos.
  * @bug Nao contem bugs conhecidos!
@@ -27,11 +27,10 @@
 
 int configuraAmbiente();
 
-int abreArquivo(char *nomeArq, char *tipoAbertura, FILE* arq);
 int existeArquivo(char *nomeArq);
 int fechaArquivo(FILE *arq);
 
-HWND *guardaPegaHandle(HWND *handle, int tipo);
+xHWND *guardaPegaHandle(HWND *handle, int tipo);
 
 void editTextFloat(HWND hDlg, int ctrlID);
 BOOL isFloat(char *str);

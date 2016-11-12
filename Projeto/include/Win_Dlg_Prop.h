@@ -1,7 +1,7 @@
 /********************************************//**
  * @file Win_Dlg_Prop.h
- * @brief Contem os cabeçalhos de todas as
- *        funcoes existentes na tab de Proprietários
+ * @brief Contem os cabeï¿½alhos de todas as
+ *        funcoes existentes na tab de Proprietï¿½rios
  * @bug Nao contem bugs conhecidos!
  *
  *@author Matheus Bispo
@@ -23,11 +23,14 @@ void inicializaListProp(HWND hwndList);
 void atualizaListaProp(HWND hwndList, char *cpf, char *nome);
 void atualizaListaVeicProp(HWND hwndList, char *placa);
 
+void atualizaListaArvProp(Arvore *a, HWND list);
+
 void validaLiberaFormProp(HWND hwnd);
 void inicializaFormProp(HWND hwnd);
 void preencheFormProp(HWND hwndForm, Proprietario *prop);
 
 BOOL CALLBACK formPesquisarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
+BOOL CALLBACK formPesquisarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);

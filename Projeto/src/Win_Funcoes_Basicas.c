@@ -9,6 +9,16 @@
 
 #include "../include/Win_Funcoes_Basicas.h"
 
+/********************************************//**
+ * @brief Cria todos os arquivos ao iniciar o programa
+ *
+ * @param void
+ *
+ * @return FECHA_ARQUIVO_SUCESSO - Sucesso ao fechar os arquivos
+ * @return FECHA_ARQUIVO_ERRO - Erro ao fechar os arquivos
+ *
+ ***********************************************/
+
 int configuraAmbiente(){
 	int flag = 0;
     FILE *dbprop, *dbveic, *dbmanut;
