@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="40" failures="0" disabled="0" errors="0" time="6.321" name="AllTests">
-  <testsuite name="Win_Funcoes_Basicas" tests="6" failures="0" disabled="0" errors="0" time="0.884">
-    <testcase name="configuraAmbiente" status="run" time="0.2" classname="Win_Funcoes_Basicas" />
-    <testcase name="existeArquivo" status="run" time="0.197" classname="Win_Funcoes_Basicas" />
+<testsuites tests="40" failures="0" disabled="0" errors="0" time="9.419" name="AllTests">
+  <testsuite name="Win_Funcoes_Basicas" tests="6" failures="0" disabled="0" errors="0" time="0.995">
+    <testcase name="configuraAmbiente" status="run" time="0.543" classname="Win_Funcoes_Basicas" />
+    <testcase name="existeArquivo" status="run" time="0.298" classname="Win_Funcoes_Basicas" />
     <testcase name="guardaPegaHandle" status="run" time="0" classname="Win_Funcoes_Basicas" />
-    <testcase name="fechaArquivo" status="run" time="0.484" classname="Win_Funcoes_Basicas" />
-    <testcase name="isFloat" status="run" time="0" classname="Win_Funcoes_Basicas" />
+    <testcase name="fechaArquivo" status="run" time="0.144" classname="Win_Funcoes_Basicas" />
+    <testcase name="isFloat" status="run" time="0.005" classname="Win_Funcoes_Basicas" />
     <testcase name="stristr" status="run" time="0" classname="Win_Funcoes_Basicas" />
   </testsuite>
-  <testsuite name="Proprietario" tests="10" failures="0" disabled="0" errors="0" time="1.489">
-    <testcase name="incluiProprietario" status="run" time="0.204" classname="Proprietario" />
-    <testcase name="buscaProprietario" status="run" time="0.192" classname="Proprietario" />
-    <testcase name="alteraProprietario" status="run" time="0.197" classname="Proprietario" />
-    <testcase name="excluiProprietario" status="run" time="0.212" classname="Proprietario" />
-    <testcase name="pegaProprietario" status="run" time="0.263" classname="Proprietario" />
+  <testsuite name="Proprietario" tests="10" failures="0" disabled="0" errors="0" time="2.547">
+    <testcase name="incluiProprietario" status="run" time="0.364" classname="Proprietario" />
+    <testcase name="buscaProprietario" status="run" time="0.306" classname="Proprietario" />
+    <testcase name="alteraProprietario" status="run" time="0.276" classname="Proprietario" />
+    <testcase name="excluiProprietario" status="run" time="0.291" classname="Proprietario" />
+    <testcase name="pegaProprietario" status="run" time="0.717" classname="Proprietario" />
     <testcase name="validaCPF" status="run" time="0" classname="Proprietario" />
     <testcase name="validaTelefone" status="run" time="0" classname="Proprietario" />
     <testcase name="validaDDD" status="run" time="0" classname="Proprietario" />
-    <testcase name="obtemQuantPropArquivo" status="run" time="0.214" classname="Proprietario" />
-    <testcase name="carregaProprietarios" status="run" time="0.194" classname="Proprietario" />
+    <testcase name="obtemQuantPropArquivo" status="run" time="0.31" classname="Proprietario" />
+    <testcase name="carregaProprietarios" status="run" time="0.278" classname="Proprietario" />
   </testsuite>
-  <testsuite name="Veiculo" tests="8" failures="0" disabled="0" errors="0" time="1.473">
-    <testcase name="incluiVeiculo" status="run" time="0.199" classname="Veiculo" />
-    <testcase name="buscaVeiculo" status="run" time="0.207" classname="Veiculo" />
-    <testcase name="alteraVeiculo" status="run" time="0.198" classname="Veiculo" />
-    <testcase name="excluiVeiculo" status="run" time="0.218" classname="Veiculo" />
-    <testcase name="pegaVeiculo" status="run" time="0.203" classname="Veiculo" />
+  <testsuite name="Veiculo" tests="8" failures="0" disabled="0" errors="0" time="2.357">
+    <testcase name="incluiVeiculo" status="run" time="0.293" classname="Veiculo" />
+    <testcase name="buscaVeiculo" status="run" time="0.299" classname="Veiculo" />
+    <testcase name="alteraVeiculo" status="run" time="0.273" classname="Veiculo" />
+    <testcase name="excluiVeiculo" status="run" time="0.324" classname="Veiculo" />
+    <testcase name="pegaVeiculo" status="run" time="0.484" classname="Veiculo" />
     <testcase name="validaPlaca" status="run" time="0" classname="Veiculo" />
-    <testcase name="obtemQuantVeicArquivo" status="run" time="0.202" classname="Veiculo" />
-    <testcase name="carregaVeiculos" status="run" time="0.239" classname="Veiculo" />
+    <testcase name="obtemQuantVeicArquivo" status="run" time="0.358" classname="Veiculo" />
+    <testcase name="carregaVeiculos" status="run" time="0.318" classname="Veiculo" />
   </testsuite>
-  <testsuite name="Manutencao" tests="16" failures="0" disabled="0" errors="0" time="2.47">
-    <testcase name="buscaManutencaoPlaca" status="run" time="0.206" classname="Manutencao" />
-    <testcase name="buscaManutencaoCPF" status="run" time="0.26" classname="Manutencao" />
+  <testsuite name="Manutencao" tests="16" failures="0" disabled="0" errors="0" time="3.515">
+    <testcase name="buscaManutencaoPlaca" status="run" time="0.284" classname="Manutencao" />
+    <testcase name="buscaManutencaoCPF" status="run" time="0.31" classname="Manutencao" />
     <testcase name="comparaData" status="run" time="0" classname="Manutencao" />
-    <testcase name="buscaManutencaoPlacDat" status="run" time="0.21" classname="Manutencao" />
-    <testcase name="pegaManutencaoPlacDat" status="run" time="0.249" classname="Manutencao" />
-    <testcase name="buscaManutencao" status="run" time="0.256" classname="Manutencao" />
-    <testcase name="incluiManutencao" status="run" time="0.226" classname="Manutencao" />
-    <testcase name="excluiManutencao" status="run" time="0.234" classname="Manutencao" />
-    <testcase name="pegaManutencao" status="run" time="0.203" classname="Manutencao" />
-    <testcase name="carregaManutencoesCPF" status="run" time="0.199" classname="Manutencao" />
+    <testcase name="buscaManutencaoPlacDat" status="run" time="0.282" classname="Manutencao" />
+    <testcase name="pegaManutencaoPlacDat" status="run" time="0.313" classname="Manutencao" />
+    <testcase name="buscaManutencao" status="run" time="0.281" classname="Manutencao" />
+    <testcase name="incluiManutencao" status="run" time="0.573" classname="Manutencao" />
+    <testcase name="excluiManutencao" status="run" time="0.292" classname="Manutencao" />
+    <testcase name="pegaManutencao" status="run" time="0.294" classname="Manutencao" />
+    <testcase name="carregaManutencoesCPF" status="run" time="0.282" classname="Manutencao" />
     <testcase name="convertTime" status="run" time="0" classname="Manutencao" />
     <testcase name="obtemDataAtual" status="run" time="0" classname="Manutencao" />
-    <testcase name="obtemQuantManutArquivo" status="run" time="0.204" classname="Manutencao" />
-    <testcase name="carregaManutencoes" status="run" time="0.205" classname="Manutencao" />
+    <testcase name="obtemQuantManutArquivo" status="run" time="0.303" classname="Manutencao" />
+    <testcase name="carregaManutencoes" status="run" time="0.278" classname="Manutencao" />
     <testcase name="converteDataString" status="run" time="0" classname="Manutencao" />
-    <testcase name="converteStringData" status="run" time="0" classname="Manutencao" />
+    <testcase name="converteStringData" status="run" time="0.001" classname="Manutencao" />
   </testsuite>
 </testsuites>

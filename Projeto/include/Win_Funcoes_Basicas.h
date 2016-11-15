@@ -30,7 +30,7 @@ int configuraAmbiente();
 int existeArquivo(char *nomeArq);
 int fechaArquivo(FILE *arq);
 
-xHWND *guardaPegaHandle(HWND *handle, int tipo);
+HWND *guardaPegaHandle(HWND *handle, int tipo);
 
 void editTextFloat(HWND hDlg, int ctrlID);
 BOOL isFloat(char *str);
