@@ -1,5 +1,5 @@
 # Project: Projeto
-# Makefile created by Dev-C++ 5.9.2
+# Makefile created by Dev-C++ 5.11
 
 CPP      = g++.exe
 CC       = gcc.exe
@@ -8,8 +8,8 @@ RES      = obj/Projeto_private.res
 OBJ      = obj/Erros.o obj/Manutencao.o obj/Proprietario.o obj/Veiculo.o obj/Win_Dlg_Inicial.o obj/Win_Dlg_Main.o obj/Win_Dlg_Manut.o obj/Win_Dlg_Prop.o obj/Win_Dlg_Veic.o obj/Win_Funcoes_Basicas.o obj/Main.o obj/Arvore_Prop.o $(RES)
 LINKOBJ  = obj/Erros.o obj/Manutencao.o obj/Proprietario.o obj/Veiculo.o obj/Win_Dlg_Inicial.o obj/Win_Dlg_Main.o obj/Win_Dlg_Manut.o obj/Win_Dlg_Prop.o obj/Win_Dlg_Veic.o obj/Win_Funcoes_Basicas.o obj/Main.o obj/Arvore_Prop.o $(RES)
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -mwindows -lgdi32  -luser32 -lkernel32  -lcomctl32  -mwindows
-INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include"
-CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include/c++"
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
 BIN      = Projeto.exe
 CXXFLAGS = $(CXXINCS) 
 CFLAGS   = $(INCS) 
@@ -62,5 +62,5 @@ obj/Arvore_Prop.o: src/Arvore_Prop.c
 	$(CC) -c src/Arvore_Prop.c -o obj/Arvore_Prop.o $(CFLAGS)
 
 obj/Projeto_private.res: Projeto_private.rc res/Resources.rc
-	$(WINDRES) -i Projeto_private.rc --input-format=rc -o obj/Projeto_private.res -O coff 
+	$(WINDRES) -i Projeto_private.rc --input-format=rc -o obj/Projeto_private.res -O coff  --include-dir 
 

@@ -44,7 +44,6 @@
 #define ID_MANUT_DATA_INICIO                    40000
 #define ID_MANUT_EXCLUIR_BUSCA_PLACA            40000
 #define ID_MOSTRA_DADOS_TREE_VIEW               40000
-#define ID_NUVEM_BOTAO                          40000
 #define ID_PROP_LIST                            40000
 #define ID_VEIC_LIST                            40000
 #define ID_VEIC_VER_PROP_BOTAO                  40000

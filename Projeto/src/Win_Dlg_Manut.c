@@ -75,8 +75,6 @@ void preencheComboBoxProp(HWND comboBox, char *filtroCPF){
     Proprietario prop;
     Arvore *arv;
     int cont, x;
-
-	ComboBox_DeleteString(comboBox, 0);	
 	
 	cont = ComboBox_GetCount(comboBox);
 	for(x = 0; x < cont; x++){
