@@ -137,3 +137,9 @@ O diagrama de esquema a seguir mostra todos os componentes utilizados nas struct
 ##**Implementação**
 
 Esse projeto está sendo desenvolvido por meio da Linguagem de Programação C, utilizando como base a biblioteca windows.h no segundo semestre de 2016. Seu código fonte está disponível com o nome físico  ** Main.c **
+
+## Funcionamento
+
+O ponto de entrada da aplicação é a função WinMain, onde se cria uma instância no sistema, apartir dessa instancia são criados duas caixas de dialogo, que interagem com o usuário através de eventos recebidos e lançados pelo sistema que são nomeados como "mensagens":
+
+![DiagramaWin32.png](https://bitbucket.org/repo/np4y89/images/2338345810-DiagramaWin32.png)
