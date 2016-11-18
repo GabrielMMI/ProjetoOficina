@@ -94,6 +94,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>Structs</li>
 <li>Diagrama de esquema</li>
 <li>Implementação</li>
+<li>Funcionamento</li>
 </ul>
 <h2>Especificação</h2>
 <p>Esse projeto tem o objetivo de administrar e controlar os dados gerados em uma oficina mecânica. O programa será criado em cima de 3 “pilares” ( <b><a class="el" href="db/d82/struct_proprietario.html" title="Guarda as informacoes de um proprietário. ">Proprietario</a>, <a class="el" href="d7/d1b/struct_veiculo.html" title="Contem as informacoes de um veiculo. ">Veiculo</a> e <a class="el" href="df/df5/struct_manutencao.html" title="Contem informacoes sobre uma manutencão. ">Manutencao</a></b> ), onde esses serão as structs principais do programa, tendo mais 4 structs ( <b><a class="el" href="d1/dde/struct_endereco.html" title="Guarda um endereco. ">Endereco</a>, <a class="el" href="da/dac/struct_telefone.html" title="Guarda um telefone. ">Telefone</a>, <a class="el" href="da/d48/struct_data.html" title="Contem informacoes sobre uma data. ">Data</a> e <a class="el" href="db/d0f/struct_oficina.html" title="Contem os dados da oficina. ">Oficina</a></b> ) “auxiliares”. O programa em questão será responsável por cadastrar, alterar e excluir um proprietário e/ou um veículo, onde a manutenção terá apenas a função cadastrar e excluir, respeitando as possíveis regras de alteração e exclusão. Tendo essas funcionalidades ativas, o programa terá algumas funcionalidades a mais, como, por exemplo, apresentação de todos os dados (proprietários, veículos e manutenções) e pesquisas filtradas, onde serão dadas, pelo usuário, as informações chaves de cada struct principal para suas respectivas pesquisas.</p>
@@ -154,8 +155,17 @@ $(document).ready(function(){initNavTree('index.html','');});
 <img src="https://bitbucket.org/repo/np4y89/images/955262409-Capturar.PNG" alt="Diagrama.jpg"/>
 </div>
 <h2>Implementação</h2>
-<p>Esse projeto está sendo desenvolvido por meio da Linguagem de Programação C, utilizando como base a biblioteca windows.h no segundo semestre de 2016. Seu código fonte está disponível com o nome físico <b><a class="el" href="d1/d1f/_main_8c.html" title="Inicializa a janela inicial e cria os diretórios necessários. ">Main.c</a></b> </p>
-</div></div><!-- contents -->
+<p>Esse projeto está sendo desenvolvido por meio da Linguagem de Programação C, utilizando como base a biblioteca windows.h no segundo semestre de 2016. Seu código fonte está disponível com o nome físico <b><a class="el" href="d1/d1f/_main_8c.html" title="Inicializa a janela inicial e cria os diretórios necessários. ">Main.c</a></b></p>
+<h2>Funcionamento</h2>
+<p>O ponto de entrada da aplicação é a função WinMain, onde se cria uma instância no sistema, apartir dessa instancia são criados duas caixas de dialogo, que interagem com o usuário através de eventos recebidos e lançados pelo sistema que são nomeados como "mensagens":</p>
+<div class="image">
+<img src="https://bitbucket.org/repo/np4y89/images/2338345810-DiagramaWin32.png" alt="DiagramaWin32.png"/>
+</div>
+<p>Por ser uma aplicação baseada no modelo "Dialog Based", trabalhamos com "Dialog Box", segue em anexo o fluxograma resumido do funcionamento geral da aplicação:</p>
+<div class="image">
+<img src="https://bitbucket.org/repo/np4y89/images/3184104725-15133836_1180134735384903_158230297_o.png" alt="15133836_1180134735384903_158230297_o.png"/>
+</div>
+ </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.12-->
 <!-- start footer part -->

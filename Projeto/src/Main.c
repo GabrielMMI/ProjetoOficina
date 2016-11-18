@@ -10,16 +10,6 @@
 #include <commctrl.h>
 #pragma comment(lib, "comctl32.lib")
 
-/********************************************//**
- * \brief Funcão principal
- *
- * \param hInstance -
- * \param hPrevInstance -
- * \param lpCmdLine -
- * \param nShowCmd -
- *
- * \return int
-  ***********************************************/
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd){
     InitCommonControls();
 

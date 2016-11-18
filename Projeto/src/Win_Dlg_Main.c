@@ -194,7 +194,7 @@ BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT message, WPARAM wParam, LP
 			tvinsert.hInsertAfter=TVI_ROOT;
 			tvinsert.item.mask=TVIF_TEXT|TVIF_IMAGE|TVIF_SELECTEDIMAGE;
 
-			tvinsert.item.pszText="Propriet�rios";
+			tvinsert.item.pszText="Proprietarios";
 			noProp=(HTREEITEM)SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
 
 			tvinsert.item.pszText="Veiculos";
