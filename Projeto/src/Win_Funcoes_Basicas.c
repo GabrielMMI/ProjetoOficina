@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_Funcoes_Basicas.c
- * @brief Contem as fun��es b�sicas utilizadas no programa.
+ * @brief Contem as funcoes basicas utilizadas no programa.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -12,8 +12,6 @@
 /********************************************//**
  * @brief Cria todos os arquivos ao iniciar o programa
  *
- * @param void
- *
  * @return FECHA_ARQUIVO_SUCESSO - Sucesso ao fechar os arquivos
  * @return FECHA_ARQUIVO_ERRO - Erro ao fechar os arquivos
  *
@@ -22,7 +20,7 @@
 int configuraAmbiente(){
 	int flag = 0;
     FILE *dbprop, *dbveic, *dbmanut;
-    
+
 	mkdir("database");
     dbprop = fopen(ARQUIVO_DADOS_PROPRIETARIO, "ab");
     dbveic = fopen(ARQUIVO_DADOS_VEICULO, "ab");
@@ -30,16 +28,16 @@ int configuraAmbiente(){
     if(dbprop != NULL) flag = fechaArquivo(dbprop);
     if(dbveic != NULL) flag = fechaArquivo(dbveic);
     if(dbmanut != NULL) flag = fechaArquivo(dbmanut);
-    
+
     return flag;
 }
 
 /********************************************//**
  * @brief Verificar se um arquivo existe
  *
- * @param nomeArq - Endere�o de mem�ria do nome do arquivo
+ * @param nomeArq - Endereco de memoria do nome do arquivo
  *
- * @return ERRO_ARQUIVO_INEXISTENTE - N�o existe
+ * @return ERRO_ARQUIVO_INEXISTENTE - nao existe
  * @return ARQUIVO_EXISTENTE - Existe
  *
  ***********************************************/
@@ -60,10 +58,10 @@ int existeArquivo(char *nomeArq)
 /********************************************//**
  * \brief Armazena ou recupera o ultimo handle armazenado
  *
- * \param handle - um endere�o de mem�ria de um handle
+ * \param handle - um Endereco de memoria de um handle
  * \param tipo   - 0 :: Caso queria guardar
  *				 - 1 :: Caso queira recuperar
- * \return HWND* - Endere�o de mem�ria de um handle
+ * \return HWND* - Endereco de memoria de um handle
  *
  ***********************************************/
 HWND *guardaPegaHandle(HWND *handle, int tipo)
@@ -219,10 +217,10 @@ void formataPlaca(HWND hwndEdit)
 /********************************************//**
  * \brief Verifica se uma string pode ser transformada em um float
  *
- * \param str 	- O endere�o de mem�ria de uma string
+ * \param str 	- O Endereco de memoria de uma string
  *
  * \return TRUE 	- Pode ser transformada em float
- * \return FALSE 	- N�o pode ser transformada em float
+ * \return FALSE 	- nao pode ser transformada em float
  *
  ***********************************************/
 BOOL isFloat(char *str)
@@ -269,8 +267,8 @@ void editTextFloat(HWND hDlg, int ctrlID)
 /********************************************//**
  * \brief Pesquisa a ocorr�ncia de uma substring em um string, sem case sensitive
  *
- * \param str 		- O endere�o de mem�ria de uma string
- * \param strSearch	- O endere�o de mem�ria de uma string
+ * \param str 		- O Endereco de memoria de uma string
+ * \param strSearch	- O Endereco de memoria de uma string
  *
  * \return void
  *

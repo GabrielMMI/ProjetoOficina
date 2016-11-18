@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_Dlg_Prop.c
- * @brief Contem as fun��es de controle da tabPage Proprietario.
+ * @brief Contem as funcoes de controle da tabPage Proprietario.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -11,7 +11,7 @@
 
 /********************************************//**
  * \brief Atualiza a lista de proprietarios em ordem alfabetica
- * 
+ *
  * \param a - Arvore com os proprietarios ordenados
  * \param list - Manipulador de uma ListView Control
  *
@@ -23,11 +23,11 @@ void atualizaListaArvProp(Arvore *a, HWND list)
 {
 	 LVITEM lvItem;
 	 char tel[TAM_TEL + TAM_DDD + 2];
-	 
+
 	 if (a != NULL) {
 
 	    atualizaListaArvProp(a->direita, list);
-	    
+
 	    lvItem.mask=LVIF_TEXT;
         lvItem.cchTextMax = TAM_NOME;
         lvItem.iItem=0;
@@ -46,10 +46,10 @@ void atualizaListaArvProp(Arvore *a, HWND list)
         lvItem.pszText = tel;
 
         SendMessage(list,LVM_SETITEM,0,(LPARAM)&lvItem);
-        
+
 	    atualizaListaArvProp(a->esquerda, list);
-	    
-	    
+
+
 	 }
 }
 
@@ -57,8 +57,8 @@ void atualizaListaArvProp(Arvore *a, HWND list)
  * \brief Atualiza a lista de proprietarios de acordo
  *        com o cpf e o nome
  * \param hwndList 	- Manipulador de uma ListView Control
- * \param cpf		- Endere�o de mem�ria de uma string contendo um cpf
- * \param nome		- Endere�o de mem�ria de uma string contendo um nome
+ * \param cpf		- Endereco de memoria de uma string contendo um cpf
+ * \param nome		- Endereco de memoria de uma string contendo um nome
  *
  * \return void
  *
@@ -68,9 +68,9 @@ void atualizaListaProp(HWND hwndList, char *cpf, char *nome)
     Proprietario aux;
     FILE *arq;
     Arvore *arv;
-    
+
     SendMessage(hwndList,LVM_DELETEALLITEMS,0,0);
-    
+
     arv = inicializaArvoreProp();
 
     if(strlen(cpf) != 0 || strlen(nome) != 0){
@@ -82,17 +82,17 @@ void atualizaListaProp(HWND hwndList, char *cpf, char *nome)
                     	arv = inserirNaArvoreProp(arv, aux);
                     }
                 }
-                
-                
+
+
                 if(win_trataErros(hwndList,fechaArquivo(arq)) != 0) return;
             }else{
                 if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) != 0) return;
             }
         }
     }
-    
+
     atualizaListaArvProp(arv, hwndList);
-    
+
     liberaArvoreProp(arv);
 }
 
@@ -100,7 +100,7 @@ void atualizaListaProp(HWND hwndList, char *cpf, char *nome)
  * \brief Le os dados do formulario de proprietario
  *
  * \param hwnd 				- Manipulador da janela
- * \return Manutencao * 	- Endere�o de mem�ria do tipo Proprietario contendo os dados lidos de um formulario
+ * \return Manutencao * 	- Endereco de memoria do tipo Proprietario contendo os dados lidos de um formulario
  *
  ***********************************************/
 Proprietario *leDadosPropForm(HWND hwnd)
@@ -123,7 +123,7 @@ Proprietario *leDadosPropForm(HWND hwnd)
  * \brief Preenche um formulario de proprietario
  *
  * \param hwndForm	- Manipulador da janela
- * \param prop		- Endere�o de mem�ria de uma struct do tipo Proprietario
+ * \param prop		- Endereco de memoria de uma struct do tipo Proprietario
  *
  * \return void
  *
@@ -142,7 +142,7 @@ void preencheFormProp(HWND hwndForm, Proprietario *prop){
 }
 
 /********************************************//**
- * \brief Inicializa um formul�rio de Proprietario
+ * \brief Inicializa um formulario de Proprietario
  *
  * \param hwnd - Manipulador de uma ListView Control
  * \return void
@@ -174,7 +174,7 @@ void inicializaFormProp(HWND hwnd)
 }
 
 /********************************************//**
- * \brief le valida e libera o bot�o de a��o de proprietario
+ * \brief le valida e libera o botao de acao de proprietario
  *
  * \param hwnd 				- Manipulador da janela
  * \return void
@@ -218,7 +218,7 @@ void validaLiberaFormProp(HWND hwnd)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do janela "Adicionar Proprietario"
+ * \brief Funcao de controle do janela "Adicionar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -229,12 +229,12 @@ void validaLiberaFormProp(HWND hwnd)
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formAddProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     Proprietario *aux;
     int erro;
 
-    switch(msg) {
+    switch(message) {
         case WM_INITDIALOG:
         inicializaFormProp(hwnd);
 
@@ -245,9 +245,9 @@ BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
             formataCPF(GetDlgItem(hwnd, ID_EDIT_CPF_PROP));
 
-            if(HIWORD(wp) == EN_CHANGE) validaLiberaFormProp(hwnd);
+            if(HIWORD(wParam) == EN_CHANGE) validaLiberaFormProp(hwnd);
 
-            switch(wp){
+            switch(wParam){
             case ID_BOTAO_ACAO_PROP:
                 aux = leDadosPropForm(hwnd);
                 erro = incluiProprietario(*aux);
@@ -262,7 +262,7 @@ BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do Dialogo "Alterar Proprietario"
+ * \brief Funcao de controle do Dialogo "Alterar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -273,7 +273,7 @@ BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     Proprietario *aux;
     static Proprietario *auxAntigo;
@@ -281,7 +281,7 @@ BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     char cpf[TAM_CPF], tel[TAM_TEL];
     PCOPYDATASTRUCT pcds;
 
-    switch(msg) {
+    switch(message) {
         case WM_INITDIALOG:
         inicializaFormProp(hwnd);
 
@@ -290,7 +290,7 @@ BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         break;
 
         case WM_COPYDATA:
-			pcds = (PCOPYDATASTRUCT)lp;
+			pcds = (PCOPYDATASTRUCT)lParam;
 			auxAntigo = (Proprietario *)(pcds->lpData);
 			switch(pcds->dwData){
 				case 0:
@@ -305,7 +305,7 @@ BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
             validaLiberaFormProp(hwnd);
 
-            switch(wp){
+            switch(wParam){
             case ID_BOTAO_ACAO_PROP:
 
                     aux = leDadosPropForm(hwnd);
@@ -328,7 +328,7 @@ BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do Dialogo "Excluir Proprietario"
+ * \brief Funcao de controle do Dialogo "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -339,15 +339,15 @@ BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static Proprietario *auxAntigo;
     int erro;
     PCOPYDATASTRUCT pcds;
 
-    switch(msg) {
+    switch(message) {
         case WM_COPYDATA:
-			pcds = (PCOPYDATASTRUCT)lp;
+			pcds = (PCOPYDATASTRUCT)lParam;
 			auxAntigo = (Proprietario *)(pcds->lpData);
 			switch(pcds->dwData){
 				case 0:
@@ -359,7 +359,7 @@ BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         break;
 
         case WM_COMMAND:
-            switch(wp){
+            switch(wParam){
             case ID_BOTAO_ACAO_PROP:
                     erro = excluiProprietario(auxAntigo->cpf);
                     win_trataErros(hwnd, erro);
@@ -409,7 +409,7 @@ void inicializaListProp(HWND hwndList)
 }
 
 /********************************************//**
- * \brief Fun��o de controle da janela "Alterar Proprietario"
+ * \brief Funcao de controle da janela "Alterar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -420,7 +420,7 @@ void inicializaListProp(HWND hwndList)
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formAlterarProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static Proprietario auxEnvio;
     static HINSTANCE g_inst;
@@ -431,7 +431,7 @@ BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     COPYDATASTRUCT CDS;
     HWND formAlterar;
 
-    switch(msg) {
+    switch(message) {
         case WM_INITDIALOG:
             hwndList = GetDlgItem(hwnd, ID_PROP_LIST);
             inicializaListProp(GetDlgItem(hwnd, ID_PROP_LIST));
@@ -447,14 +447,14 @@ BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
             formataCPF(GetDlgItem(hwnd, ID_PROP_BUSCA_CPF));
 
-            if(HIWORD(wp) == EN_CHANGE){
+            if(HIWORD(wParam) == EN_CHANGE){
 
                 GetDlgItemText(hwnd, ID_PROP_BUSCA_CPF, cpf, TAM_CPF);
                 GetDlgItemText(hwnd, ID_PROP_BUSCA_NOME, nome, TAM_NOME);
                 atualizaListaProp(hwndList, cpf, nome);
 
             }
-            switch(LOWORD(wp)){
+            switch(LOWORD(wParam)){
                 case ID_BOTAO_ACAO_PROP:
                     if(iSelect == -1){
                         MessageBox(hwnd,"Nenhum proprietario selecionado!",
@@ -487,7 +487,7 @@ BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle da janela "Excluir Proprietario"
+ * \brief Funcao de controle da janela "Excluir Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -498,7 +498,7 @@ BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formExcluirProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formExcluirProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static Proprietario auxEnvio;
     static HINSTANCE g_inst;
@@ -510,7 +510,7 @@ BOOL CALLBACK formExcluirProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     COPYDATASTRUCT CDS;
     HWND formExcluir;
 
-    switch(msg) {
+    switch(message) {
         case WM_INITDIALOG:
             hwndList = GetDlgItem(hwnd, ID_PROP_LIST);
 
@@ -527,12 +527,12 @@ BOOL CALLBACK formExcluirProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
             formataCPF(GetDlgItem(hwnd, ID_PROP_BUSCA_CPF));
 
-            if(HIWORD(wp) == EN_CHANGE){
+            if(HIWORD(wParam) == EN_CHANGE){
                 GetDlgItemText(hwnd, ID_PROP_BUSCA_CPF, cpf, TAM_CPF);
                 GetDlgItemText(hwnd, ID_PROP_BUSCA_NOME, nome, TAM_NOME);
                 atualizaListaProp(hwndList, cpf, nome);
             }
-            switch(LOWORD(wp)){
+            switch(LOWORD(wParam)){
                 case ID_BOTAO_ACAO_PROP:
                     if(iSelect == -1){
                         MessageBox(hwnd,"Nenhum proprietario selecionado!",
@@ -620,7 +620,7 @@ void atualizaListaVeicProp(HWND hwndList, char *placa)
 
 
 /********************************************//**
- * \brief Fun��o de controle da janela "Mostra veiculos de um prorpietario que ja foi pra manutencao"
+ * \brief Funcao de controle da janela "Mostra veiculos de um prorpietario que ja foi pra manutencao"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -631,7 +631,7 @@ void atualizaListaVeicProp(HWND hwndList, char *placa)
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formMostraVeicProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formMostraVeicProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static Veiculo *auxEnvio;
     static HINSTANCE g_inst;
@@ -643,7 +643,7 @@ BOOL CALLBACK formMostraVeicProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     COPYDATASTRUCT CDS;
     HWND formAlterar;
 
-    switch(msg) {
+    switch(message) {
         case WM_INITDIALOG:
         	SendMessage(GetDlgItem(hwnd, ID_PROP_BUSCA_CPF), EM_LIMITTEXT, TAM_CPF-1, 0);
             hwndList = GetDlgItem(hwnd, ID_VEIC_LIST);
@@ -658,7 +658,7 @@ BOOL CALLBACK formMostraVeicProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
             formataCPF(GetDlgItem(hwnd, ID_PROP_BUSCA_CPF));
 
-            if(HIWORD(wp) == EN_CHANGE){
+            if(HIWORD(wParam) == EN_CHANGE){
     			SendMessage(hwndList,LVM_DELETEALLITEMS,0,0);
     			atualizaListaVeicProp(GetDlgItem(hwnd, ID_VEIC_LIST), "");
 
@@ -680,7 +680,7 @@ BOOL CALLBACK formMostraVeicProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
             	}
 
             }
-            switch(LOWORD(wp)){
+            switch(LOWORD(wParam)){
                 case ID_BOTAO_ACAO_PROP:
                     if(iSelect == -1){
                         MessageBox(hwnd,"Nenhum veiculo selecionado!",
@@ -713,7 +713,7 @@ BOOL CALLBACK formMostraVeicProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do Dialogo "Pesquisar Proprietario"
+ * \brief Funcao de controle do Dialogo "Pesquisar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -724,14 +724,14 @@ BOOL CALLBACK formMostraVeicProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formPesquisarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formPesquisarPropBox(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static Proprietario *auxAntigo;
     int erro;
     PCOPYDATASTRUCT pcds;
-    switch(msg) {
+    switch(message) {
         case WM_COPYDATA:
-			pcds = (PCOPYDATASTRUCT)lp;
+			pcds = (PCOPYDATASTRUCT)lParam;
 			auxAntigo = (Proprietario *)(pcds->lpData);
 			switch(pcds->dwData){
 				case 0:
@@ -743,7 +743,7 @@ BOOL CALLBACK formPesquisarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         break;
 
         case WM_COMMAND:
-            switch(wp){
+            switch(wParam){
 	            case ID_BOTAO_CANCELAR_PROP:
 	                EndDialog(hwnd, 0);
 	            	break;
@@ -755,7 +755,7 @@ BOOL CALLBACK formPesquisarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle da janela "Pesquisar Proprietario"
+ * \brief Funcao de controle da janela "Pesquisar Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -766,7 +766,7 @@ BOOL CALLBACK formPesquisarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formPesquisarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formPesquisarProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static Proprietario auxEnvio;
     static HINSTANCE g_inst;
@@ -778,7 +778,7 @@ BOOL CALLBACK formPesquisarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     COPYDATASTRUCT CDS;
     HWND formPesquisar;
 
-    switch(msg) {
+    switch(message) {
         case WM_INITDIALOG:
 
             hwndList = GetDlgItem(hwnd, ID_PROP_LIST);
@@ -797,12 +797,12 @@ BOOL CALLBACK formPesquisarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
             formataCPF(GetDlgItem(hwnd, ID_PROP_BUSCA_CPF));
 
-            if(HIWORD(wp) == EN_CHANGE){
+            if(HIWORD(wParam) == EN_CHANGE){
                 GetDlgItemText(hwnd, ID_PROP_BUSCA_CPF, cpf, TAM_CPF);
                 GetDlgItemText(hwnd, ID_PROP_BUSCA_NOME, nome, TAM_NOME);
                 atualizaListaProp(hwndList, cpf, nome);
             }
-            switch(LOWORD(wp)){
+            switch(LOWORD(wParam)){
                 case ID_BOTAO_ACAO_PROP:
                     if(iSelect == -1){
 
@@ -839,7 +839,7 @@ BOOL CALLBACK formPesquisarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Fun��o de controle da tabPage "Proprietario"
+ * \brief Funcao de controle da tabPage "Proprietario"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -850,18 +850,18 @@ BOOL CALLBACK formPesquisarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK tabPropPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK tabPropPage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static HWND formPropDlg, *formAux;
     static HINSTANCE g_inst;
 
-    switch(msg) {
+    switch(message) {
     case WM_COMMAND:
 
         formAux = guardaPegaHandle(NULL, 1);
         if(formAux != NULL) EndDialog(*formAux, 0);
 
-        switch (wp) {
+        switch (wParam) {
         case ID_BOTAO_ADD_PROP:
             formPropDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_ADD_FORM), GetParent(hwnd), (DLGPROC)formAddProc);
             break;

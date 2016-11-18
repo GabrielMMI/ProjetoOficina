@@ -1,0 +1,124 @@
+<!-- HTML header for doxygen 1.8.12-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.12"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projeto Final: Código-Fonte de C:/Users/Programador/Desktop/UC16101760/Projeto/include/Veiculo.h</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../customdoxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../Material Icons_e869(0)_64.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Projeto Final</div>
+   <div id="projectbrief">Oficina Mecânica - Tema 2</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "../../search",false,'Busca');
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('../../',true,false,'search.php','Busca');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('d2/d1d/_veiculo_8h_source.html','../../');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Veiculo.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d2/d1d/_veiculo_8h.html">Vá para a documentação deste arquivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/********************************************/</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifndef VEICULO_H_SECURE</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define VEICULO_H_SECURE</span></div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../de/d08/_win___funcoes___basicas_8h.html">Win_Funcoes_Basicas.h</a>&quot;</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d4/d07/_manutencao_8h.html">Manutencao.h</a>&quot;</span></div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d8/de2/_defines_8h.html">Defines.h</a>&quot;</span></div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../dc/dbf/_erros_8h.html">Erros.h</a>&quot;</span></div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;ctype.h&gt;</span></div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">/********************************************/</span></div><div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="../../d7/d1b/struct_veiculo.html">   24</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="../../d7/d1b/struct_veiculo.html">Veiculo</a></div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div><div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="../../d7/d1b/struct_veiculo.html#a2ff240943a36e94492b73394a2c39fc0">   26</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="../../d7/d1b/struct_veiculo.html#a2ff240943a36e94492b73394a2c39fc0">placa</a>[<a class="code" href="../../d8/de2/_defines_8h.html#ab98fa1072986724029e24ddc49213d46">TAM_PLACA</a>];</div><div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="../../d7/d1b/struct_veiculo.html#a6438082994c0202d320e94ddf193b63c">   27</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="../../d7/d1b/struct_veiculo.html#a6438082994c0202d320e94ddf193b63c">modelo</a>[<a class="code" href="../../d8/de2/_defines_8h.html#a84bb0cc9b24583de19a37ca6ab049ffa">TAM_MODELO</a>];</div><div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="../../d7/d1b/struct_veiculo.html#ab5b7c892161021cf5675967c7cf2e77b">   28</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="../../d7/d1b/struct_veiculo.html#ab5b7c892161021cf5675967c7cf2e77b">fabricante</a>[<a class="code" href="../../d8/de2/_defines_8h.html#a0b731ddb290352878b8cc99f573964b6">TAM_FABRICANTE</a>];</div><div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="../../d7/d1b/struct_veiculo.html#a8d0674d6a18899e6e615b9a4ac6c55b8">   29</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="../../d7/d1b/struct_veiculo.html#a8d0674d6a18899e6e615b9a4ac6c55b8">chassi</a>[<a class="code" href="../../d8/de2/_defines_8h.html#a1ed386c0f1ecdb0e71accb26b009508a">TAM_CHASSI</a>];</div><div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="../../d7/d1b/struct_veiculo.html#a3001c05e9be5144ee6c6ab085d276228">   30</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="../../d7/d1b/struct_veiculo.html#a3001c05e9be5144ee6c6ab085d276228">ano</a>[<a class="code" href="../../d8/de2/_defines_8h.html#a5a3a0d8a726a7e263c37becb57d843f1">TAM_ANO</a>];</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <a class="code" href="../../d7/d1b/struct_veiculo.html">Veiculo</a>;</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">//----------------------------------------------------------------------//</span></div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">//Veiculo</span></div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d2/d1d/_veiculo_8h.html#a1ca9626ba9b4a52c0be0eaf9b0c5707d">incluiVeiculo</a>(<a class="code" href="../../d7/d1b/struct_veiculo.html">Veiculo</a> v);</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d2/d1d/_veiculo_8h.html#a7f92079fa29d052da7122679ac2976f1">alteraVeiculo</a>(<a class="code" href="../../d7/d1b/struct_veiculo.html">Veiculo</a> vNovo, <span class="keywordtype">char</span> *<a class="code" href="../../d7/d1b/struct_veiculo.html#a2ff240943a36e94492b73394a2c39fc0">placa</a>);</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d2/d1d/_veiculo_8h.html#a6a7e97567f03a5204a3572618e90fb65">excluiVeiculo</a>(<span class="keywordtype">char</span> *<a class="code" href="../../d7/d1b/struct_veiculo.html#a2ff240943a36e94492b73394a2c39fc0">placa</a>);</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d2/d1d/_veiculo_8h.html#aa3ae256fb2ebb87059f6f16504f6efec">validaPlaca</a>(<span class="keywordtype">char</span> *<a class="code" href="../../d7/d1b/struct_veiculo.html#a2ff240943a36e94492b73394a2c39fc0">placa</a>);</div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d2/d1d/_veiculo_8h.html#a404b35f0128a8cb2a81b22199fd4b493">verificaChassiRepetido</a>(<span class="keywordtype">char</span> *<a class="code" href="../../d7/d1b/struct_veiculo.html#a8d0674d6a18899e6e615b9a4ac6c55b8">chassi</a>);</div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d2/d1d/_veiculo_8h.html#a1ee82f670387906da710e296447282a4">buscaVeiculo</a>(<span class="keywordtype">char</span> *<a class="code" href="../../d7/d1b/struct_veiculo.html#a2ff240943a36e94492b73394a2c39fc0">placa</a>, <span class="keywordtype">int</span> *pos);</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d2/d1d/_veiculo_8h.html#ad6003568676f155323f2fe1decd7a63b">pegaVeiculo</a>(<span class="keywordtype">char</span> *<a class="code" href="../../d7/d1b/struct_veiculo.html#a2ff240943a36e94492b73394a2c39fc0">placa</a>,<a class="code" href="../../d7/d1b/struct_veiculo.html">Veiculo</a> *v);</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<a class="code" href="../../d7/d1b/struct_veiculo.html">Veiculo</a> *<a class="code" href="../../d2/d1d/_veiculo_8h.html#aa90da974669073296f232a55711f641f">carregaVeiculos</a>();</div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d2/d1d/_veiculo_8h.html#a1ec8d8cf99be33502c1e3fe8f3432bff">obtemQuantVeicArquivo</a>();</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">//----------------------------------------------------------------------//</span></div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="_veiculo_8h_html_aa90da974669073296f232a55711f641f"><div class="ttname"><a href="../../d2/d1d/_veiculo_8h.html#aa90da974669073296f232a55711f641f">carregaVeiculos</a></div><div class="ttdeci">Veiculo * carregaVeiculos()</div><div class="ttdoc">Carrega todos os veiculos de um arquivo de ve�culos. </div><div class="ttdef"><b>Definition:</b> <a href="../../de/df6/_veiculo_8c_source.html#l00389">Veiculo.c:389</a></div></div>
+<div class="ttc" id="_veiculo_8h_html_a404b35f0128a8cb2a81b22199fd4b493"><div class="ttname"><a href="../../d2/d1d/_veiculo_8h.html#a404b35f0128a8cb2a81b22199fd4b493">verificaChassiRepetido</a></div><div class="ttdeci">int verificaChassiRepetido(char *chassi)</div><div class="ttdoc">Verifica se um chassi eh repetido. </div><div class="ttdef"><b>Definition:</b> <a href="../../de/df6/_veiculo_8c_source.html#l00280">Veiculo.c:280</a></div></div>
+<div class="ttc" id="_defines_8h_html_a0b731ddb290352878b8cc99f573964b6"><div class="ttname"><a href="../../d8/de2/_defines_8h.html#a0b731ddb290352878b8cc99f573964b6">TAM_FABRICANTE</a></div><div class="ttdeci">#define TAM_FABRICANTE</div><div class="ttdef"><b>Definition:</b> <a href="../../d8/de2/_defines_8h_source.html#l00029">Defines.h:29</a></div></div>
+<div class="ttc" id="_veiculo_8h_html_a7f92079fa29d052da7122679ac2976f1"><div class="ttname"><a href="../../d2/d1d/_veiculo_8h.html#a7f92079fa29d052da7122679ac2976f1">alteraVeiculo</a></div><div class="ttdeci">int alteraVeiculo(Veiculo vNovo, char *placa)</div><div class="ttdoc">Altera um veiculo no arquivo de veiculo. </div><div class="ttdef"><b>Definition:</b> <a href="../../de/df6/_veiculo_8c_source.html#l00114">Veiculo.c:114</a></div></div>
+<div class="ttc" id="_defines_8h_html"><div class="ttname"><a href="../../d8/de2/_defines_8h.html">Defines.h</a></div><div class="ttdoc">Contem todos os defines utilizados no programa. </div></div>
+<div class="ttc" id="struct_veiculo_html_ab5b7c892161021cf5675967c7cf2e77b"><div class="ttname"><a href="../../d7/d1b/struct_veiculo.html#ab5b7c892161021cf5675967c7cf2e77b">Veiculo::fabricante</a></div><div class="ttdeci">char fabricante[TAM_FABRICANTE]</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d1d/_veiculo_8h_source.html#l00028">Veiculo.h:28</a></div></div>
+<div class="ttc" id="_veiculo_8h_html_aa3ae256fb2ebb87059f6f16504f6efec"><div class="ttname"><a href="../../d2/d1d/_veiculo_8h.html#aa3ae256fb2ebb87059f6f16504f6efec">validaPlaca</a></div><div class="ttdeci">int validaPlaca(char *placa)</div><div class="ttdoc">Validar uma placa no formato AAA-1234. </div><div class="ttdef"><b>Definition:</b> <a href="../../de/df6/_veiculo_8c_source.html#l00256">Veiculo.c:256</a></div></div>
+<div class="ttc" id="struct_veiculo_html_a6438082994c0202d320e94ddf193b63c"><div class="ttname"><a href="../../d7/d1b/struct_veiculo.html#a6438082994c0202d320e94ddf193b63c">Veiculo::modelo</a></div><div class="ttdeci">char modelo[TAM_MODELO]</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d1d/_veiculo_8h_source.html#l00027">Veiculo.h:27</a></div></div>
+<div class="ttc" id="_defines_8h_html_a1ed386c0f1ecdb0e71accb26b009508a"><div class="ttname"><a href="../../d8/de2/_defines_8h.html#a1ed386c0f1ecdb0e71accb26b009508a">TAM_CHASSI</a></div><div class="ttdeci">#define TAM_CHASSI</div><div class="ttdef"><b>Definition:</b> <a href="../../d8/de2/_defines_8h_source.html#l00025">Defines.h:25</a></div></div>
+<div class="ttc" id="_veiculo_8h_html_a6a7e97567f03a5204a3572618e90fb65"><div class="ttname"><a href="../../d2/d1d/_veiculo_8h.html#a6a7e97567f03a5204a3572618e90fb65">excluiVeiculo</a></div><div class="ttdeci">int excluiVeiculo(char *placa)</div><div class="ttdoc">Excluir um veiculo no arquivo de veiculo. </div><div class="ttdef"><b>Definition:</b> <a href="../../de/df6/_veiculo_8c_source.html#l00159">Veiculo.c:159</a></div></div>
+<div class="ttc" id="_veiculo_8h_html_a1ec8d8cf99be33502c1e3fe8f3432bff"><div class="ttname"><a href="../../d2/d1d/_veiculo_8h.html#a1ec8d8cf99be33502c1e3fe8f3432bff">obtemQuantVeicArquivo</a></div><div class="ttdeci">int obtemQuantVeicArquivo()</div><div class="ttdoc">Obtem a quantidade de veiculos no arquivo de veiculos. </div><div class="ttdef"><b>Definition:</b> <a href="../../de/df6/_veiculo_8c_source.html#l00368">Veiculo.c:368</a></div></div>
+<div class="ttc" id="_defines_8h_html_a5a3a0d8a726a7e263c37becb57d843f1"><div class="ttname"><a href="../../d8/de2/_defines_8h.html#a5a3a0d8a726a7e263c37becb57d843f1">TAM_ANO</a></div><div class="ttdeci">#define TAM_ANO</div><div class="ttdef"><b>Definition:</b> <a href="../../d8/de2/_defines_8h_source.html#l00030">Defines.h:30</a></div></div>
+<div class="ttc" id="_veiculo_8h_html_ad6003568676f155323f2fe1decd7a63b"><div class="ttname"><a href="../../d2/d1d/_veiculo_8h.html#ad6003568676f155323f2fe1decd7a63b">pegaVeiculo</a></div><div class="ttdeci">int pegaVeiculo(char *placa, Veiculo *v)</div><div class="ttdoc">Pega um veiculo no arquivo de Veiculos. </div><div class="ttdef"><b>Definition:</b> <a href="../../de/df6/_veiculo_8c_source.html#l00330">Veiculo.c:330</a></div></div>
+<div class="ttc" id="_erros_8h_html"><div class="ttname"><a href="../../dc/dbf/_erros_8h.html">Erros.h</a></div><div class="ttdoc">Contem o valor de todos os identificadores de erros utilizados pelo programa. </div></div>
+<div class="ttc" id="_defines_8h_html_a84bb0cc9b24583de19a37ca6ab049ffa"><div class="ttname"><a href="../../d8/de2/_defines_8h.html#a84bb0cc9b24583de19a37ca6ab049ffa">TAM_MODELO</a></div><div class="ttdeci">#define TAM_MODELO</div><div class="ttdef"><b>Definition:</b> <a href="../../d8/de2/_defines_8h_source.html#l00028">Defines.h:28</a></div></div>
+<div class="ttc" id="struct_veiculo_html_a8d0674d6a18899e6e615b9a4ac6c55b8"><div class="ttname"><a href="../../d7/d1b/struct_veiculo.html#a8d0674d6a18899e6e615b9a4ac6c55b8">Veiculo::chassi</a></div><div class="ttdeci">char chassi[TAM_CHASSI]</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d1d/_veiculo_8h_source.html#l00029">Veiculo.h:29</a></div></div>
+<div class="ttc" id="_veiculo_8h_html_a1ee82f670387906da710e296447282a4"><div class="ttname"><a href="../../d2/d1d/_veiculo_8h.html#a1ee82f670387906da710e296447282a4">buscaVeiculo</a></div><div class="ttdeci">int buscaVeiculo(char *placa, int *pos)</div><div class="ttdoc">Verifica se existe um veiculo. </div><div class="ttdef"><b>Definition:</b> <a href="../../de/df6/_veiculo_8c_source.html#l00023">Veiculo.c:23</a></div></div>
+<div class="ttc" id="struct_veiculo_html_a3001c05e9be5144ee6c6ab085d276228"><div class="ttname"><a href="../../d7/d1b/struct_veiculo.html#a3001c05e9be5144ee6c6ab085d276228">Veiculo::ano</a></div><div class="ttdeci">char ano[TAM_ANO]</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d1d/_veiculo_8h_source.html#l00030">Veiculo.h:30</a></div></div>
+<div class="ttc" id="struct_veiculo_html_a2ff240943a36e94492b73394a2c39fc0"><div class="ttname"><a href="../../d7/d1b/struct_veiculo.html#a2ff240943a36e94492b73394a2c39fc0">Veiculo::placa</a></div><div class="ttdeci">char placa[TAM_PLACA]</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d1d/_veiculo_8h_source.html#l00026">Veiculo.h:26</a></div></div>
+<div class="ttc" id="_manutencao_8h_html"><div class="ttname"><a href="../../d4/d07/_manutencao_8h.html">Manutencao.h</a></div><div class="ttdoc">Contem os cabecalhos de todas as funcoes de operacoes com Manutencao, e a estrutura do tipo Manutenca...</div></div>
+<div class="ttc" id="_defines_8h_html_ab98fa1072986724029e24ddc49213d46"><div class="ttname"><a href="../../d8/de2/_defines_8h.html#ab98fa1072986724029e24ddc49213d46">TAM_PLACA</a></div><div class="ttdeci">#define TAM_PLACA</div><div class="ttdef"><b>Definition:</b> <a href="../../d8/de2/_defines_8h_source.html#l00024">Defines.h:24</a></div></div>
+<div class="ttc" id="_win___funcoes___basicas_8h_html"><div class="ttname"><a href="../../de/d08/_win___funcoes___basicas_8h.html">Win_Funcoes_Basicas.h</a></div><div class="ttdoc">Contem os cabecalhos de todas as funcoes basicas de leitura e de arquivos. </div></div>
+<div class="ttc" id="_veiculo_8h_html_a1ca9626ba9b4a52c0be0eaf9b0c5707d"><div class="ttname"><a href="../../d2/d1d/_veiculo_8h.html#a1ca9626ba9b4a52c0be0eaf9b0c5707d">incluiVeiculo</a></div><div class="ttdeci">int incluiVeiculo(Veiculo v)</div><div class="ttdoc">Inclui um veiculo no arquivo de veiculos. </div><div class="ttdef"><b>Definition:</b> <a href="../../de/df6/_veiculo_8c_source.html#l00073">Veiculo.c:73</a></div></div>
+<div class="ttc" id="struct_veiculo_html"><div class="ttname"><a href="../../d7/d1b/struct_veiculo.html">Veiculo</a></div><div class="ttdoc">Contem as informacoes de um veiculo. </div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d1d/_veiculo_8h_source.html#l00024">Veiculo.h:24</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.12-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../d2/d1d/_veiculo_8h.html">Veiculo.h</a></li>
+    <!--<img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.12 </li>-->
+  </ul>
+</div>
+</body>
+</html>

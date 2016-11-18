@@ -2,10 +2,10 @@
 #define H_ARVORE_SECURE
 
 /********************************************//**
- * @file ListaEncadeada.h
- * @brief Contem os cabe�alhos de todas as
- *        funcoes de opera��es com Arvore dos proprietarios, e
- *        a estrutura do tipo ArvoreProp
+ * @file Arvore_Prop.h
+ * @brief Contem os cabecalhos de todas as
+ *        funcoes de operacoes com Arvore dos proprietários, e
+ *        a estrutura do tipo Arvore
  * @bug Nao contem bugs conhecidos!
  *
  *@author Matheus Bispo
@@ -13,7 +13,11 @@
  ***********************************************/
 
 #include "Proprietario.h"
-
+/********************************************//**
+ * \brief Contem as variáveis necessárias para
+ *        criar um no do tipo proprietário em uma
+ *        arvore binária.
+ ***********************************************/
  typedef struct Arvore{
      Proprietario dado;
      struct Arvore *esquerda;

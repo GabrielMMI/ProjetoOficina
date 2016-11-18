@@ -1,6 +1,6 @@
 /********************************************//**
  * @file Win_Funcoes_Basicas.h
- * @brief Contem os cabe�alhos de todas as
+ * @brief Contem os cabecalhos de todas as
  *        funcoes basicas de leitura
  *        e de arquivos.
  * @bug Nao contem bugs conhecidos!

@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Veiculo.c
- * @brief Implementa todas as fun��es de Veiculo.h
+ * @brief Implementa todas as funcoes de Veiculo.h
  *
  *
  * @bug Nenhum problema conhecido!
@@ -13,11 +13,11 @@
 /********************************************//**
  * \brief Verifica se existe um veiculo
  *
- * \param placa - Endere�o de memoria de uma string de placa
- * \param pos - Endere�o de memoria da variavel de posi��o
+ * \param placa - Endereco de memoria de uma string de placa
+ * \param pos - Endereco de memoria da variavel de posicao
  *
  * \return posicao - a posi��o no arquivo (se existir)
- * \return -1 - se n�o existir no arquivo
+ * \return -1 - se nao existir no arquivo
  * \return ALOC_ERRO - Erro ao alocar memoria
  ***********************************************/
 int buscaVeiculo(char *placa, int *pos)
@@ -26,7 +26,7 @@ int buscaVeiculo(char *placa, int *pos)
 	Veiculo *veiculo = NULL;
 	int posicao = 0, flag;
 	*pos = -1;
-	
+
 	veiculo=(Veiculo*)malloc(sizeof(Veiculo));
 	if(veiculo==NULL){
 		return ALOC_ERRO;
@@ -53,7 +53,7 @@ int buscaVeiculo(char *placa, int *pos)
 	}else{
         flag = ERRO_ABRIR_ARQUIVO;
 	}
-	
+
 	free(veiculo);
 	return flag;
 }
@@ -104,9 +104,9 @@ int incluiVeiculo(Veiculo veiculo)
  * \brief Altera um veiculo no arquivo de veiculo
  *
  * \param vNovo - Dados novos do veiculo
- * \param placa - Endere�o de memoria de uma string de placa
+ * \param placa - Endereco de memoria de uma string de placa
  *
- * \return VEIC_BUSCA_INEXISTENTE - Veiculo buscado � inexistente
+ * \return VEIC_BUSCA_INEXISTENTE - Veiculo buscado eh inexistente
  * \return VEIC_ALTERAR_SUCESSO - Sucesso ao alterar o veiculo
  * \return VEIC_ALTERAR_ERRO - Erro ao alterar o veiculo
  * \return FECHA_ARQUIVO_ERRO - Erro ao fechar o arquivo
@@ -145,13 +145,13 @@ int alteraVeiculo(Veiculo vNovo, char *placa)
 /********************************************//**
  * \brief Excluir um veiculo no arquivo de veiculo
  *
- * \param placa - Endere�o de memoria de uma string de placa
+ * \param placa - Endereco de memoria de uma string de placa
  *
- * \return VEIC_EXCLUIR_ERRO_MANUT - Erro ao excluir um veiculo da manuten��o, pois ele ja esta cadastrado
- * \return ERRO_ARQUIVO_LER_MANUT - Erro ao ler uma manuten��o no arquivo
+ * \return VEIC_EXCLUIR_ERRO_MANUT - Erro ao excluir um veiculo da manutencao, pois ele ja esta cadastrado
+ * \return ERRO_ARQUIVO_LER_MANUT - Erro ao ler uma manutencao no arquivo
  * \return FECHA_ARQUIVO_ERRO - Erro ao fechar o arquivo
  * \return ERRO_ABRIR_ARQUIVO - Erro ao abrir o arquivo
- * \return VEIC_BUSCA_INEXISTENTE - O veiculo buscado n�o existe
+ * \return VEIC_BUSCA_INEXISTENTE - O veiculo buscado nao existe
  * \return VEIC_EXCLUIR_SUCESSO - Sucesso ao excluir o veiculo
  * \return VEIC_EXCLUIR_ERRO - Erro ao excluir o veiculo
  * \return ALOC_ERRO - Erro ao alocar memoria
@@ -169,7 +169,7 @@ int excluiVeiculo(char *placa)
 
 	arq = fopen(ARQUIVO_DADOS_VEICULO,"rb");
 	arqSemExcluido = fopen("database/dbVeicAux.dat","wb");
-	
+
 	if(arq==NULL){
 		if(arqSemExcluido != NULL){
 			if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO){
@@ -179,7 +179,7 @@ int excluiVeiculo(char *placa)
         flag = ERRO_ABRIR_ARQUIVO;
 		return flag;
 	}
-	
+
 	if(arqSemExcluido==NULL){
         if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
             flag = FECHA_ARQUIVO_ERRO;
@@ -189,10 +189,10 @@ int excluiVeiculo(char *placa)
 
 	flag = buscaVeiculo(placa, &pos);
 	if(flag == VEIC_BUSCA_SUCESSO && pos == -1){
-		
+
 		if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO) flag = FECHA_ARQUIVO_ERRO;
     	if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO) flag = FECHA_ARQUIVO_ERRO;
-    	
+
 		return VEIC_EXCLUIR_ERRO;
 	}
 
@@ -216,7 +216,7 @@ int excluiVeiculo(char *placa)
 	}else{
 		flag = VEIC_EXCLUIR_ERRO_MANUT;
 	}
-    
+
     if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO){
         flag = FECHA_ARQUIVO_ERRO;
     }
@@ -248,7 +248,7 @@ int excluiVeiculo(char *placa)
 /********************************************//**
  * \brief Validar uma placa no formato AAA-1234
  *
- * \param placa - Endere�o de memoria de uma string de placa
+ * \param placa - Endereco de memoria de uma string de placa
  *
  * \return PLACA_VALIDA - Placa valida
  * \return PLACA_INVALIDA - Placa inv�lida
@@ -267,14 +267,14 @@ int validaPlaca(char *placa)
 }
 
 /********************************************//**
- * \brief Verifica se um chassi � repetido
+ * \brief Verifica se um chassi eh repetido
  *
- * \param chassi - Endere�o de memoria de uma string de um chassi
+ * \param chassi - Endereco de memoria de uma string de um chassi
  *
- * \return CHASSI_REPETIDO - O chassi informado � repetido
+ * \return CHASSI_REPETIDO - O chassi informado eh repetido
  * \return ERRO_ARQUIVO_LER_VEIC - Erro ao ler um veiculo no arquivo de veiculo
  * \return FECHA_ARQUIVO_ERRO - Erro ao fechar um arquivo
- * \return ERRO_ARQUIVO_INEXISTENTE - Arquivo n�o existe
+ * \return ERRO_ARQUIVO_INEXISTENTE - Arquivo nao existe
  * \return ALOC_ERRO - Erro ao alocar memoria
  ***********************************************/
 int verificaChassiRepetido(char *chassi)
@@ -310,7 +310,7 @@ int verificaChassiRepetido(char *chassi)
 	}else{
         flag = ERRO_ARQUIVO_INEXISTENTE;
 	}
-	
+
 	free(veiculo);
 	return flag;
 }
@@ -318,8 +318,8 @@ int verificaChassiRepetido(char *chassi)
 /********************************************//**
  * \brief Pega um veiculo no arquivo de Veiculos
  *
- * \param placa - Endere�o de memoria de uma string de placa
- * \param veiculo - Endere�o de memoria de uma string de veiculo
+ * \param placa - Endereco de memoria de uma string de placa
+ * \param veiculo - Endereco de memoria de uma string de veiculo
  *
  * \return VEIC_PEGAVEIC_ERRO - Erro ao pegar um veiculo
  * \return VEIC_PEGAVEIC_SUCESSO - Sucesso ao pegar um veiculo
@@ -363,8 +363,6 @@ int pegaVeiculo(char *placa,Veiculo *veiculo)
 /********************************************//**
  * \brief Obtem a quantidade de veiculos no arquivo de veiculos
  *
- * \param void
- *
  * \return A quantidade de veiculos
  ***********************************************/
 int obtemQuantVeicArquivo()
@@ -386,9 +384,7 @@ int obtemQuantVeicArquivo()
 /********************************************//**
  * \brief Carrega todos os veiculos de um arquivo de ve�culos
  *
- * \param void
- *
- * \return Endere�o de um ponteiro do tipo Veiculo
+ * \return Endereco de um ponteiro do tipo Veiculo
  ***********************************************/
 Veiculo *carregaVeiculos()
 {
@@ -397,9 +393,9 @@ Veiculo *carregaVeiculos()
 	Veiculo *veiculos = NULL;
 
 	qtVeic = obtemQuantVeicArquivo();
-	
+
 	if(qtVeic == -1 || qtVeic == 0) return veiculos;
-	
+
 	veiculos = (Veiculo *)malloc(qtVeic * sizeof(Veiculo));
 	if(veiculos != NULL){
 		dbVeic = fopen(ARQUIVO_DADOS_VEICULO, "rb");

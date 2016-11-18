@@ -1,6 +1,6 @@
 /********************************************//**
  * @file Manutencao.c
- * @brief Implementa todas as funções de Manutencao.h
+ * @brief Implementa todas as funcoes de Manutencao.h
  * @bug Nao contem bugs conhecidos!
  *
  *@author Matheus Bispo
@@ -10,13 +10,13 @@
 #include "../include/Manutencao.h"
 
 /********************************************//**
- * \brief Busca uma manutenção no arquivo de manutenções através de uma placa
+ * \brief Busca uma manutencão no arquivo de manutencoes através de uma placa
  *
- * \param placa - String contendo a placa cadastrada na manutenção a ser excluída
- * \param pos 	- Um ponteiro para inteiro onde será colocada a posição onde a manutenção foi encontrada
+ * \param placa - String contendo a placa cadastrada na manutencão a ser excluída
+ * \param pos 	- Um ponteiro para inteiro onde será colocada a posicão onde a manutencão foi encontrada
  *
  * \return ALOC_ERRO 				- Erro por falta de memória
- * \return MANUT_BUSCA_SUCESSO		- Busca de Manutenção executada com sucesso
+ * \return MANUT_BUSCA_SUCESSO		- Busca de Manutencão executada com sucesso
  * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
  * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
   ***********************************************/
@@ -59,13 +59,13 @@ int buscaManutencaoPlaca(char *placa, int *pos)
 }
 
 /********************************************//**
- * \brief Busca uma manutenção no arquivo de manutenções através de um cpf
+ * \brief Busca uma manutencão no arquivo de manutencoes através de um cpf
  *
- * \param cpf 	- String contendo o cpf cadastrado na manutenção a ser excluída
- * \param pos 	- Um ponteiro para inteiro onde será colocada a posição onde a manutenção foi encontrada
+ * \param cpf 	- String contendo o cpf cadastrado na manutencão a ser excluída
+ * \param pos 	- Um ponteiro para inteiro onde será colocada a posicão onde a manutencão foi encontrada
  *
  * \return ALOC_ERRO 				- Erro por falta de memória
- * \return MANUT_BUSCA_SUCESSO		- Busca de Manutenção executada com sucesso
+ * \return MANUT_BUSCA_SUCESSO		- Busca de Manutencão executada com sucesso
  * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
  * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
   ***********************************************/
@@ -136,14 +136,14 @@ int comparaData(Data data1, Data data2)
 }
 
 /********************************************//**
- * \brief Busca uma manutenção no arquivo de manutenções através da Data e de uma placa
+ * \brief Busca uma manutencão no arquivo de manutencoes através da data e de uma placa
  *
- * \param placa - String contendo a placa cadastrada na manutenção a ser excluída
- * \param Data 	- Uma struct do tipo Data
- * \param pos 	- Um ponteiro para inteiro onde será colocada a posição onde a manutenção foi encontrada
+ * \param placa - String contendo a placa cadastrada na manutencão a ser excluída
+ * \param data 	- Uma struct do tipo Data
+ * \param pos 	- Um ponteiro para inteiro onde será colocada a posicão onde a manutencão foi encontrada
  *
  * \return ALOC_ERRO 				- Erro por falta de memória
- * \return MANUT_BUSCA_SUCESSO		- Busca de Manutenção executada com sucesso
+ * \return MANUT_BUSCA_SUCESSO		- Busca de Manutencão executada com sucesso
  * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
  * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
   ***********************************************/
@@ -186,14 +186,14 @@ int buscaManutencaoPlacDat(char *placa,Data data, int *pos)
 
 
 /********************************************//**
- * \brief Recupera uma manutenção do arquivo de manutenções através da Data e de uma placa
+ * \brief Recupera uma manutencão do arquivo de manutencoes através da Data e de uma placa
  *
- * \param placa - String contendo a placa cadastrada na manutenção a ser excluída
- * \param Data 	- Uma struct do tipo Data
- * \param manut - Um ponteiro do tipo Manutenção
+ * \param placa - String contendo a placa cadastrada na manutencão a ser excluída
+ * \param data 	- Uma struct do tipo Data
+ * \param manut - Um ponteiro do tipo Manutencão
  *
- * \return MANUT_PEGAMANUT_ERRO 	- Erro ao recuperar manutenção
- * \return MANUT_PEGAMANUT_SUCESSO	- Manutenção recuperada com sucesso
+ * \return MANUT_PEGAMANUT_ERRO 	- Erro ao recuperar manutencão
+ * \return MANUT_PEGAMANUT_SUCESSO	- Manutencão recuperada com sucesso
  * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
  * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
   ***********************************************/
@@ -228,15 +228,15 @@ int pegaManutencaoPlacDat(char *placa, Data data, Manutencao *manut)
 
 
 /********************************************//**
- * \brief Busca uma manutenção no arquivo de manutenções através da Data, de um cpf e de uma placa
+ * \brief Busca uma manutencão no arquivo de manutencoes através da Data, de um cpf e de uma placa
  *
- * \param placa - String contendo a placa cadastrada na manutenção a ser excluída
- * \param cpf 	- String contendo o cpf cadastrado na manutenção a ser excluída
+ * \param placa - String contendo a placa cadastrada na manutencão a ser excluída
+ * \param cpf 	- String contendo o cpf cadastrado na manutencão a ser excluída
  * \param data 	- Uma struct do tipo Data
- * \param pos 	- Um ponteiro para inteiro onde será colocada a posição onde a manutenção foi encontrada
+ * \param pos 	- Um ponteiro para inteiro onde será colocada a posicão onde a manutencão foi encontrada
  *
  * \return ALOC_ERRO 				- Erro por falta de memória
- * \return MANUT_BUSCA_SUCESSO		- Busca de Manutenção executada com sucesso
+ * \return MANUT_BUSCA_SUCESSO		- Busca de Manutencão executada com sucesso
  * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
  * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
   ***********************************************/
@@ -280,18 +280,18 @@ int buscaManutencao(char *placa, char *cpf, Data data, int *pos)
 
 
 /********************************************//**
- * \brief Inclui uma manutenção no arquivo de manutenções
+ * \brief Inclui uma manutencão no arquivo de manutencoes
  *
  * \param manutencao - Struct do tipo Manutencao
  *
- * \return MANUT_INSERIR_ERRO_DIA 	- Erro ao cadastrar manutenção, já houve uma manutenção igual no mesmo dia
+ * \return MANUT_INSERIR_ERRO_DIA 	- Erro ao cadastrar manutencão, já houve uma manutencão igual no mesmo dia
  * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
  * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arqui
  * \return ALOC_ERRO 				- Erro por falta de memória
  * \return PROP_BUSCA_INEXISTENTE 	- Proprietario inexistente
  * \return VEIC_BUSCA_INEXISTENTE   - Veiculo inexistente
- * \return MANUT_INSERIR_SUCESSO    - Manutenção cadastrada com Sucesso
- * \return MANUT_INSERIR_ERRO		- Erro ao cadastrar Manutenção
+ * \return MANUT_INSERIR_SUCESSO    - Manutencão cadastrada com Sucesso
+ * \return MANUT_INSERIR_ERRO		- Erro ao cadastrar Manutencão
  ***********************************************/
 int incluiManutencao(Manutencao manutencao)
 {
@@ -312,7 +312,7 @@ int incluiManutencao(Manutencao manutencao)
 		while(!feof(arq)){
 			if(fread(mAux,sizeof(Manutencao),1,arq)==1){
 				if(stricmp(manutencao.placa,mAux->placa)==0){
-					if(comparaData(manutencao.data, mAux->data) == 0){				
+					if(comparaData(manutencao.data, mAux->data) == 0){
 						flag = MANUT_INSERIR_ERRO_DIA;
 						break;
 					}
@@ -333,13 +333,13 @@ int incluiManutencao(Manutencao manutencao)
 
     if(posP == -1){
 	 	flag = PROP_BUSCA_INEXISTENTE;
-		return flag; 
+		return flag;
 	}
 
     if(posV == -1){
 	 	flag = VEIC_BUSCA_INEXISTENTE;
-		return flag; 
-	} 
+		return flag;
+	}
 
 	if(flag == 0){
 		arq=fopen(ARQUIVO_DADOS_MANUTENCAO,"ab");
@@ -363,18 +363,18 @@ int incluiManutencao(Manutencao manutencao)
 }
 
 /********************************************//**
- * \brief Ler e excluir uma manutenção no arquivo de manutenção
+ * \brief Ler e excluir uma manutencão no arquivo de manutencão
  *
- * \param placa - String contendo a placa cadastrada na manutenção a ser excluída
- * \param cpf	- String contendo o cpf cadastrado na manutenção a ser excluída
+ * \param placa - String contendo a placa cadastrada na manutencão a ser excluída
+ * \param cpf	- String contendo o cpf cadastrado na manutencão a ser excluída
  * \param data 	- Uma struct do tipo Data
  *
- * \return MANUT_INSERIR_ERRO_DIA 	- Erro ao cadastrar manutenção, já houve uma manutenção igual no mesmo dia
+ * \return MANUT_INSERIR_ERRO_DIA 	- Erro ao cadastrar manutencão, já houve uma manutencão igual no mesmo dia
  * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
  * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arqui
  * \return ALOC_ERRO 				- Erro por falta de memória
- * \return MANUT_EXCLUIR_SUCESSO    - Manutenção excluída com Sucesso
- * \return MANUT_EXCLUIR_ERRO		- Erro ao excluir Manutenção
+ * \return MANUT_EXCLUIR_SUCESSO    - Manutencão excluída com Sucesso
+ * \return MANUT_EXCLUIR_ERRO		- Erro ao excluir Manutencão
  ***********************************************/
 int excluiManutencao(char *placa,char *cpf, Data data)
 {
@@ -458,15 +458,15 @@ int excluiManutencao(char *placa,char *cpf, Data data)
 }
 
 /********************************************//**
- * \brief Recupera uma manutenção do arquivo de manutenções
+ * \brief Recupera uma manutencão do arquivo de manutencoes
  *
- * \param placa - String contendo a placa cadastrada na manutenção a ser excluída
- * \param cpf 	- String contendo o cpf cadastrado na manutenção a ser excluída
+ * \param placa - String contendo a placa cadastrada na manutencão a ser excluída
+ * \param cpf 	- String contendo o cpf cadastrado na manutencão a ser excluída
  * \param data 	- Uma struct do tipo Data
- * \param manut - Um ponteiro do tipo Manutenção
+ * \param manut - Um ponteiro do tipo Manutencão
  *
- * \return MANUT_PEGAMANUT_ERRO 	- Erro ao recuperar manutenção
- * \return MANUT_PEGAMANUT_SUCESSO	- Manutenção recuperada com sucesso
+ * \return MANUT_PEGAMANUT_ERRO 	- Erro ao recuperar manutencão
+ * \return MANUT_PEGAMANUT_SUCESSO	- Manutencão recuperada com sucesso
  * \return FECHA_ARQUIVO_ERRO 		- Erro ao fechar o arquivo
  * \return ERRO_ABRIR_ARQUIVO 		- Erro ao abrir o arquivo
   ***********************************************/
@@ -500,12 +500,12 @@ int pegaManutencao(char *placa, char *cpf, Data data, Manutencao *manut)
 }
 
 /********************************************//**
- * \brief Carrega na memória todos as manutenções de um determinado CPF
+ * \brief Carrega na memória todos as manutencoes de um determinado CPF
  *
- * \param cpf 			- String contendo o cpf cadastrado na manutenção a ser excluída
+ * \param cpf 			- String contendo o cpf cadastrado na manutencão a ser excluída
  * \param qtManutCPF	- Um ponteiro para inteiro onde será colocada a quantidade de elementos carregados
  *
- * \return Manutencao *	- Um ponteiro do tipo Manutenção contendo os elementos encontrados, caso nenhum seja encontrado retorna NULL
+ * \return Manutencao *	- Um ponteiro do tipo Manutencão contendo os elementos encontrados, caso nenhum seja encontrado retorna NULL
   ***********************************************/
 Manutencao * carregaManutencoesCPF(char *cpf, int *qtManutCPF)
 {
@@ -581,11 +581,11 @@ void obtemDataAtual(Data *data)
 }
 
 /********************************************//**
- * \brief Obtem a quantidade de manutenções existentes em um arquivo
+ * \brief Obtem a quantidade de manutencoes existentes em um arquivo
  *
  *
- * \return n 	- número de manutenções existentes no arquivo
- * \return -1 	- Caso não seja verificar a quantidade de manutenções
+ * \return n 	- número de manutencoes existentes no arquivo
+ * \return -1 	- Caso não seja verificar a quantidade de manutencoes
  ***********************************************/
 int obtemQuantManutArquivo()
 {
@@ -604,11 +604,11 @@ int obtemQuantManutArquivo()
 
 
 /********************************************//**
- * \brief Carrega todas as manutenções de um arquivo de manutenções
+ * \brief Carrega todas as manutencoes de um arquivo de manutencoes
  *
  *
- * \return Manutencao - Um ponteiro para um array de manutenções alocado dinamicamente na memória
- * \return NULL 	  - Caso não seja possível carregar as manutenções
+ * \return Manutencao - Um ponteiro para um array de manutencoes alocado dinamicamente na memória
+ * \return NULL 	  - Caso não seja possível carregar as manutencoes
  ***********************************************/
 Manutencao *carregaManutencoes()
 {

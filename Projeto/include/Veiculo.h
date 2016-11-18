@@ -1,7 +1,8 @@
 /********************************************//**
  * @file Veiculo.h
- * @brief Contem os cabeçalhos de todas as
- *        funcoes de operações com Veiculo, e
+ *
+ * @brief Contem os cabecalhos de todas as
+ *        funcoes de operacoes com Veiculo, e
  *        a estrutura do tipo Veiculo.
  * @bug Nao contem bugs conhecidos!
  *
@@ -18,15 +19,16 @@
 #include <ctype.h>
 
 /********************************************//**
- * \brief Contem as informações de um veiculo
+ * \brief Contem as informacoes de um veiculo
  ***********************************************/
-typedef struct veiculo{
-	char placa[TAM_PLACA];
-	char modelo[TAM_MODELO];
-	char fabricante[TAM_FABRICANTE];
-	char chassi[TAM_CHASSI];
-	char ano[TAM_ANO];
-}Veiculo;
+typedef struct Veiculo
+{
+    char placa[TAM_PLACA];
+    char modelo[TAM_MODELO];
+    char fabricante[TAM_FABRICANTE];
+    char chassi[TAM_CHASSI];
+    char ano[TAM_ANO];
+} Veiculo;
 
 //----------------------------------------------------------------------//
 //Veiculo

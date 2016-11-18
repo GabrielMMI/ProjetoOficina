@@ -1,7 +1,7 @@
 /********************************************//**
  * @file Win_Dlg_Prop.h
- * @brief Contem os cabe�alhos de todas as
- *        funcoes existentes na tab de Propriet�rios
+ * @brief Contem os cabecalhos de todas as
+ *        funcoes existentes na tab de Proprietarios
  * @bug Nao contem bugs conhecidos!
  *
  *@author Matheus Bispo
@@ -29,14 +29,14 @@ void validaLiberaFormProp(HWND hwnd);
 void inicializaFormProp(HWND hwnd);
 void preencheFormProp(HWND hwndForm, Proprietario *prop);
 
-BOOL CALLBACK formPesquisarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK formPesquisarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK formAddProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK formAlterarProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK formExcluirProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK formMostraVeicProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK tabPropPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
+BOOL CALLBACK formPesquisarPropBox(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK formPesquisarProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK formAddProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK formAlterarProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK formAlterarPropBox(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK formExcluirProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK formExcluirPropBox(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK formMostraVeicProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK tabPropPage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 #endif // H_DLG_PROP_SECURE

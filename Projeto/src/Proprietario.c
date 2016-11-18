@@ -3,7 +3,7 @@
 
 /********************************************//**
  ** @file Proprietario.c
- * @brief Implementa todas as funções de Proprietario.h
+ * @brief Implementa todas as funcoes de Proprietario.h
  *
  *
  * @bug Nenhum problema conhecido!
@@ -42,7 +42,7 @@ int buscaProprietario(char *cpf, int *pos)
 	}else{
 		flag=ALOC_SUCESSO;
 	}
-	
+
 	*pos = ind;
 
 	if(existeArquivo(ARQUIVO_DADOS_PROPRIETARIO) == ERRO_ARQUIVO_INEXISTENTE) return ERRO_ARQUIVO_INEXISTENTE;
@@ -64,7 +64,7 @@ int buscaProprietario(char *cpf, int *pos)
     }else{
         flag = ERRO_ABRIR_ARQUIVO;
     }
-    
+
     free(pAux);
 
 	return flag;
@@ -80,7 +80,7 @@ int buscaProprietario(char *cpf, int *pos)
  * \return PROP_INSERIR_SUCESSO - Proprietario inserido com Sucesso
  * \return PROP_INSERIR_ERRO    - Erro ao inserir proprietario
  * \return PROP_BUSCA_EXISTENTE - Proprietario ja existente
- * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir\criar arquivo
+ * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir ou criar arquivo
  ***********************************************/
 int incluiProprietario(Proprietario prop)
 {
@@ -119,7 +119,7 @@ int incluiProprietario(Proprietario prop)
  * \return PROP_ALTERAR_SUCESSO - Proprietario alterado com Sucesso
  * \return PROP_ALTERAR_ERRO    - Erro ao alterar proprietario
  * \return BUSCA_PROP_INEXISTENTE - Proprietario inexistente
- * \nreturn FECHA_ARQUIVO_ERRO - Erro ao fechar o arquivo
+ * \return FECHA_ARQUIVO_ERRO - Erro ao fechar o arquivo
  * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir arquivo
  ***********************************************/
 int alteraProprietario(Proprietario novoP, char *cpf)
@@ -162,7 +162,7 @@ int alteraProprietario(Proprietario novoP, char *cpf)
  * \return PROP_EXCLUIR_ERRO    - Erro ao alterar proprietario
  * \return BUSCA_PROP_INEXISTENTE - Proprietario inexistente
  * \return ERRO_ABRIR_ARQUIVO   - Erro ao abrir arquivo
- * \return PROP_EXCLUIR_ERRO_MANUT_EXISTENTE - Erro ao excluir um proprietario pois ele esta com uma manutenção cadastrada
+ * \return PROP_EXCLUIR_ERRO_MANUT_EXISTENTE - Erro ao excluir um proprietario pois ele esta com uma manutencão cadastrada
  * \return FECHA_ARQUIVO_ERRO - Erro ao fechar arquivo
  * \return ALOC_ERRO - Erro ao alocar memoria
  ***********************************************/
@@ -179,7 +179,7 @@ int excluiProprietario(char *cpf)
 
 	arq = fopen(ARQUIVO_DADOS_PROPRIETARIO,"rb");
 	arqSemExcluido = fopen("database/dbPropAux.dat","wb");
-	
+
 	if(arq==NULL){
 		if(arqSemExcluido != NULL){
 			if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO){
@@ -189,23 +189,23 @@ int excluiProprietario(char *cpf)
         flag = ERRO_ABRIR_ARQUIVO;
 		return flag;
 	}
-	
+
 	if(arqSemExcluido==NULL){
         if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO){
             flag = FECHA_ARQUIVO_ERRO;
         }
 		return flag;
 	}
-	
+
 	flag = buscaProprietario(cpf, &pos);
 	if(flag == PROP_BUSCA_SUCESSO && pos == -1){
-		
+
 		if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO) flag = FECHA_ARQUIVO_ERRO;
     	if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO) flag = FECHA_ARQUIVO_ERRO;
-    	
+
 		return PROP_EXCLUIR_ERRO;
 	}
-	
+
 	flag = buscaManutencaoCPF(cpf, &pos);
 
 	if(pos == -1 && flag == MANUT_BUSCA_SUCESSO){
@@ -213,7 +213,7 @@ int excluiProprietario(char *cpf)
 	        if(fread(pAux,sizeof(Proprietario),1,arq)==1){
 	            if(stricmp(pAux->cpf,cpf) != 0){
 	                if(fwrite(pAux,sizeof(Proprietario),1,arqSemExcluido) == 1){
-					    flag = PROP_EXCLUIR_SUCESSO;    
+					    flag = PROP_EXCLUIR_SUCESSO;
 	                }else{
 	                    flag = PROP_EXCLUIR_ERRO;
 						break;
@@ -226,14 +226,14 @@ int excluiProprietario(char *cpf)
 
 	}else if(pos > -1){
 		flag = PROP_EXCLUIR_ERRO_MANUT_EXISTENTE;
-        if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO)flag = FECHA_ARQUIVO_ERRO; 
+        if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO)flag = FECHA_ARQUIVO_ERRO;
         if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO)flag = FECHA_ARQUIVO_ERRO;
         return flag;
 	}
-	
-	if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO)flag = FECHA_ARQUIVO_ERRO; 
+
+	if(fechaArquivo(arqSemExcluido) == FECHA_ARQUIVO_ERRO)flag = FECHA_ARQUIVO_ERRO;
 	if(fechaArquivo(arq) == FECHA_ARQUIVO_ERRO)flag = FECHA_ARQUIVO_ERRO;
-	
+
 	if(flag == PROP_EXCLUIR_SUCESSO){
 	    if(remove(ARQUIVO_DADOS_PROPRIETARIO)==0){
 	    	if(rename("database/dbPropAux.dat", ARQUIVO_DADOS_PROPRIETARIO)==0){
@@ -258,7 +258,7 @@ int excluiProprietario(char *cpf)
  * \brief Busca um proprietario em um arquivo de dados de proprietarios
  *
  * \param cpf - O endereco de memoria de um string contendo o CPF do proprietario desejado
- * \param pAux - O endereco de memoria de uma estrutura do tipo Proprietario
+ * \param proprietario - O endereco de memoria de uma estrutura do tipo Proprietario
  *
  * \return PROP_PEGAPROP_SUCESSO - Proprietario recuperado com Sucesso
  * \return PROP_PEGAPROP_ERRO    - Erro ao recuperar proprietario
@@ -269,7 +269,7 @@ int pegaProprietario(char *cpf, Proprietario *proprietario){
     int flag;
 	FILE *dbProp;
 	int pos;
-	
+
 	flag = buscaProprietario(cpf, &pos);
 	if(flag == PROP_BUSCA_SUCESSO){
         if(pos == -1){
@@ -292,7 +292,7 @@ int pegaProprietario(char *cpf, Proprietario *proprietario){
             }
         }
 	}
-	
+
 	return flag;
 }
 
@@ -404,7 +404,7 @@ int validaTelefone(char *tel)
 /********************************************//**
  * \brief Valida um DDD
  *
- * \param DDD - O endereco de memoria de um string contendo um DDD
+ * \param ddd - O endereco de memoria de um string contendo um DDD
  *
  * \return DDD_VALIDO - DDD valido
  * \return DDD_INVALIDO - DDD invalido
@@ -428,8 +428,6 @@ int validaDDD(char *ddd)
 /********************************************//**
  * \brief Obtem a quantidade de proprietarios no arquivo de proprietarios
  *
- * \param void
- *
  * \return A quantidade de proprietarios
  ***********************************************/
 int obtemQuantPropArquivo()
@@ -450,9 +448,8 @@ int obtemQuantPropArquivo()
 /********************************************//**
  * \brief Carrega os proprietario de um arquivo de dados de proprietarios
  *
- * \param void
  *
- * \return Endereço de um ponteiro do tipo Proprietario
+ * \return Endereco de um ponteiro do tipo Proprietario
  ***********************************************/
 Proprietario *carregaProprietarios()
 {
@@ -461,9 +458,9 @@ Proprietario *carregaProprietarios()
 	Proprietario *proprietario = NULL;
 
 	qtProp = obtemQuantPropArquivo();
-	
+
 	if(qtProp == -1 || qtProp == 0) return proprietario;
-	
+
 	proprietario = (Proprietario *)malloc(qtProp * sizeof(Proprietario));
 	if(proprietario != NULL){
 		dbProp = fopen(ARQUIVO_DADOS_PROPRIETARIO, "rb");

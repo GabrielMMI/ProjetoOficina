@@ -1,8 +1,8 @@
 /********************************************//**
  * @file Proprietario.h
- * @brief Contem os cabeçalhos de todas as
- *        funcoes de operações com Proprietario, e
- *        a estrutura do tipo Proprietario e do tipo Endereço.
+ * @brief Contem os cabecalhos de todas as
+ *        funcoes de operacoes com Proprietario, e
+ *        a estrutura do tipo Proprietario e do tipo Endereco.
  * @bug Nao contem bugs conhecidos!
  *
  *@author Matheus Bispo
@@ -20,32 +20,35 @@
 #include <stdlib.h>
 
 /********************************************//**
- * \brief Guarda um endereço
+ * \brief Guarda um endereco
  ***********************************************/
-typedef struct endereco{
-	char descricao[TAM_DESCRICAO];/**< A descrição do endereço*/
-	char cidade[TAM_CIDADE];/**< A cidade do endereço */
-	char estado[TAM_ESTADO];/**< O estado do endereço */
-}Endereco;
+typedef struct Endereco
+{
+    char descricao[TAM_DESCRICAO];/**< A descricÃ£o do endereco*/
+    char cidade[TAM_CIDADE];/**< A cidade do endereco */
+    char estado[TAM_ESTADO];/**< O estado do endereco */
+} Endereco;
 
 /********************************************//**
  * \brief Guarda um telefone
  ***********************************************/
-typedef struct telefone{
-	char ddd[TAM_DDD];/**< O DDD do telefone*/
-	char telefone[TAM_TEL];/**< O número do telefone */
-}Telefone;
+typedef struct Telefone
+{
+    char ddd[TAM_DDD];/**< O DDD do telefone*/
+    char telefone[TAM_TEL];/**< O nÃºmero do telefone */
+} Telefone;
 
 /********************************************//**
- * \brief Guarda as informações de
- *        um proprietário
+ * \brief Guarda as informacoes de
+ *        um proprietÃ¡rio
  ***********************************************/
-typedef struct proprietario{
-	char nome[TAM_NOME];/**< Nome do proprietario */
-	char cpf[TAM_CPF];/**< CPF do proprietario */
-	Endereco endereco;/**< Endereço do proprietario */
-	Telefone telefone;/**< Telefone do proprietario */
-}Proprietario;
+typedef struct Proprietario
+{
+    char nome[TAM_NOME];/**< Nome do proprietario */
+    char cpf[TAM_CPF];/**< CPF do proprietario */
+    Endereco endereco;/**< Endereco do proprietario */
+    Telefone telefone;/**< Telefone do proprietario */
+} Proprietario;
 
 
 //----------------------------------------------------------------------//

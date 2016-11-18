@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_Dlg_Inicial.c
- * @brief Implementa todas as funções de Win_Dlg_Inicial.h
+ * @brief Implementa todas as funcoes de Win_Dlg_Inicial.h
  *
  *
  * @bug Nenhum problema conhecido!
@@ -14,7 +14,7 @@
  * \brief Le os dados do formulario de oficina
  *
  * \param hwnd 				- Manipulador da janela
- * \return Manutencao * 	- Endereço de memória do tipo Proprietario contendo os dados lidos de um formulario
+ * \return Manutencao * 	- Endereco de memória do tipo Proprietario contendo os dados lidos de um formulario
  *
  ***********************************************/
 Oficina *leDadosOficForm(HWND hwnd)
@@ -31,7 +31,7 @@ Oficina *leDadosOficForm(HWND hwnd)
 }
 
 /********************************************//**
- * \brief le valida e libera o botão de ação de entrar
+ * \brief le valida e libera o botão de acão de entrar
  *
  * \param hwnd 				- Manipulador da janela
  * \return void
@@ -75,9 +75,9 @@ LRESULT CALLBACK DlgIniProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPar
         	Edit_LimitText(GetDlgItem(hwnd, ID_EDIT_NOME_OFIC), TAM_NOME-1);
         	Edit_LimitText(GetDlgItem(hwnd, ID_EDIT_CIDADE_OFIC), TAM_CIDADE-1);
         	Edit_LimitText(GetDlgItem(hwnd, ID_EDIT_DESCRICAO_OFIC), TAM_DESCRICAO-1);
-        	
+
         	hwndCombo = GetDlgItem(hwnd, ID_EDIT_ESTADO_OFIC);
-        	
+
         	ComboBox_AddString(hwndCombo, "AC"); ComboBox_AddString(hwndCombo, "AL"); ComboBox_AddString(hwndCombo, "AP");
 	        ComboBox_AddString(hwndCombo, "AM"); ComboBox_AddString(hwndCombo, "BA"); ComboBox_AddString(hwndCombo, "CE");
 	        ComboBox_AddString(hwndCombo, "DF"); ComboBox_AddString(hwndCombo, "ES"); ComboBox_AddString(hwndCombo, "GO");
@@ -89,10 +89,10 @@ LRESULT CALLBACK DlgIniProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPar
 	        ComboBox_AddString(hwndCombo, "SP"); ComboBox_AddString(hwndCombo, "SE"); ComboBox_AddString(hwndCombo, "TO");
 
         	ComboBox_SetCurSel(hwndCombo, 0);
-        	
+
 			return TRUE;
         break;
-        
+
         case WM_COMMAND:
 
 	        validaLiberaFormOfic(hwnd);
@@ -113,7 +113,7 @@ LRESULT CALLBACK DlgIniProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPar
 		            		MessageBox(hwnd, "Erro ao gerar dados de oficina!", "Erro!", MB_ICONERROR);
 		            		if(win_trataErros(hwnd, fechaArquivo(oficinaInfo)) == 0) PostQuitMessage(0);
 						}
-						
+
 		                if(win_trataErros(hwnd, fechaArquivo(oficinaInfo)) == 0) EndDialog(hwnd, 0);
 		            }else{
 		                win_trataErros(hwnd, ERRO_ABRIR_ARQUIVO);

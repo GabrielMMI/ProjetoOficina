@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_Dlg_Main.c
- * @brief Implementa todas as fun��es de Win_Dlg_Main.h
+ * @brief Implementa todas as funcoes de Win_Dlg_Main.h
  *
  *
  * @bug Nenhum problema conhecido!
@@ -11,21 +11,21 @@
 #include "../include/Win_Dlg_Main.h"
 
 /********************************************//**
- * \brief Fun��o de controle da janela "Cr�ditos"
+ * \brief Funcao de controle da janela "Creditos"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informa��es adicionais sobre o comando ou n�o
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK creditosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK creditosProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 
-    switch(msg) {
+    switch(message) {
         case WM_INITDIALOG:
             Animate_Open(GetDlgItem(hwnd, ID_GIF_CREDITOS), "res/matheus.avi");
             Animate_Play(GetDlgItem(hwnd, ID_GIF_CREDITOS), 0, -1, -1);
@@ -47,26 +47,26 @@ BOOL CALLBACK creditosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do formulario auto-completo de Proprietario
+ * \brief Funcao de controle do formulario auto-completo de Proprietario
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informa��es adicionais sobre o comando ou n�o
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK mostraDadosProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK mostraDadosProp(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	static Proprietario *auxAntigo;
     int erro;
     PCOPYDATASTRUCT pcds;
 
-    switch(msg) {
+    switch(message) {
         case WM_COPYDATA:
-			pcds = (PCOPYDATASTRUCT)lp;
+			pcds = (PCOPYDATASTRUCT)lParam;
 			auxAntigo = (Proprietario *)(pcds->lpData);
 			switch(pcds->dwData){
 				case 0:
@@ -81,26 +81,26 @@ BOOL CALLBACK mostraDadosProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do formulario auto-completo de Veiculo
+ * \brief Funcao de controle do formulario auto-completo de Veiculo
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informa��es adicionais sobre o comando ou n�o
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK mostraDadosVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK mostraDadosVeic(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	static Veiculo *auxAntigo;
     int erro;
     PCOPYDATASTRUCT pcds;
 
-    switch(msg) {
+    switch(message) {
         case WM_COPYDATA:
-			pcds = (PCOPYDATASTRUCT)lp;
+			pcds = (PCOPYDATASTRUCT)lParam;
 			if(pcds->dwData == 0){
 				auxAntigo = (Veiculo *)(pcds->lpData);
                 preencheFormVeic(hwnd, auxAntigo);
@@ -113,18 +113,18 @@ BOOL CALLBACK mostraDadosVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do formulario auto-completo de Manuten��o
+ * \brief Funcao de controle do formulario auto-completo de Manutencao
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informa��es adicionais sobre o comando ou n�o
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK mostraDadosManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK mostraDadosManut(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    	static Manutencao *auxAntigo;
     int erro;
@@ -132,9 +132,9 @@ BOOL CALLBACK mostraDadosManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     HWND hwndList, *hwndAux;
     char valor[10];
 
-    switch(msg) {
+    switch(message) {
         case WM_COPYDATA:
-			pcds = (PCOPYDATASTRUCT)lp;
+			pcds = (PCOPYDATASTRUCT)lParam;
 			auxAntigo = (Manutencao *)(pcds->lpData);
 			if(pcds->dwData == 0){
 				    auxAntigo = (Manutencao *)(pcds->lpData);
@@ -155,18 +155,18 @@ BOOL CALLBACK mostraDadosManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle da janela "Apresentar todos os dados"
+ * \brief Funcao de controle da janela "Apresentar todos os dados"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informa��es adicionais sobre o comando ou n�o
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	static HWND hwndTree, telaAux, *hwndAux;
 	HWND editControl;
@@ -186,10 +186,10 @@ BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 	Data dataAux;
 	COPYDATASTRUCT CDS;
 
-    switch(msg) {
+    switch(message) {
         case WM_INITDIALOG:
 			hwndTree = GetDlgItem(hwnd, ID_MOSTRA_DADOS_TREE_VIEW);
-			
+
 			tvinsert.hParent=NULL;
 			tvinsert.hInsertAfter=TVI_ROOT;
 			tvinsert.item.mask=TVIF_TEXT|TVIF_IMAGE|TVIF_SELECTEDIMAGE;
@@ -200,7 +200,7 @@ BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 			tvinsert.item.pszText="Veiculos";
 			noVeic=(HTREEITEM)SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
 
-			tvinsert.item.pszText="Manuten��es";
+			tvinsert.item.pszText="manutencoes";
 			noManut=(HTREEITEM)SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
 
 			proprietarios = carregaProprietarios();
@@ -262,97 +262,97 @@ BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 				free(manutencoes);
 			}
-			
+
             return TRUE;
         break;
 
         case WM_COMMAND:
-        	
+
         	return TRUE;
         break;
 
 		case WM_NOTIFY:
-		      switch(LOWORD(wp))
+		      switch(LOWORD(wParam))
 		      {
 		        case ID_MOSTRA_DADOS_TREE_VIEW:
-		          if(((LPNMHDR)lp)->code == NM_DBLCLK)
+		          if(((LPNMHDR)lParam)->code == NM_DBLCLK)
 		          {
-		          	
+
 				   	noSelected = TreeView_GetNextItem(hwndTree, noSelected, TVGN_CARET);
-				   	
+
 		        	if(noSelected != NULL){
-						
+
 						hwndAux = guardaPegaHandle(NULL, 1);
 	        			if(hwndAux != NULL) EndDialog(*hwndAux, 0);
-						
+
 						if(TreeView_GetParent(hwndTree, noSelected) == noProp){
 							telaAux = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TODOS_DADOS_PROP), hwnd, (DLGPROC)mostraDadosProp);
-							
+
 							tvitem.hItem = noSelected;
 							tvitem.mask = TVIF_TEXT;
 							tvitem.pszText = cpf;
 							tvitem.cchTextMax = TAM_CPF;
-							
+
 							TreeView_GetItem(hwndTree, &tvitem);
-							
+
 							pegaProprietario(cpf, &auxProp);
 
 	                        CDS.dwData = 0;
 	                        CDS.cbData = sizeof(Proprietario);
 	                        CDS.lpData = &auxProp;
-	
+
 	                        SendMessage(telaAux, WM_COPYDATA , (WPARAM)(HWND)hwnd, (LPARAM) (LPVOID) &CDS);
 						}
-						
+
 						if(TreeView_GetParent(hwndTree, noSelected) == noVeic){
 							telaAux = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TODOS_DADOS_VEIC), hwnd, (DLGPROC)mostraDadosVeic);
-							
+
 							tvitem.hItem = noSelected;
 							tvitem.mask = TVIF_TEXT;
 							tvitem.pszText = placa;
 							tvitem.cchTextMax = TAM_PLACA;
-							
+
 							TreeView_GetItem(hwndTree, &tvitem);
-							
+
 							pegaVeiculo(placa, &auxVeic);
 
 	                        CDS.dwData = 0;
 	                        CDS.cbData = sizeof(Veiculo);
 	                        CDS.lpData = &auxVeic;
-	
+
 	                        SendMessage(telaAux, WM_COPYDATA , (WPARAM)(HWND)hwnd, (LPARAM) (LPVOID) &CDS);
 						}
-						
+
 						if(TreeView_GetParent(hwndTree, TreeView_GetParent(hwndTree, noSelected)) == noManut){
 							telaAux = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TODOS_DADOS_MANUT), hwnd, (DLGPROC)mostraDadosManut);
-							
+
 							noAux = TreeView_GetParent(hwndTree, noSelected);
 							tvitem.hItem = noAux;
 							tvitem.mask = TVIF_TEXT;
 							tvitem.pszText = data;
 							tvitem.cchTextMax = TAM_DATA;
-							
+
 							TreeView_GetItem(hwndTree, &tvitem);
 							tvitem.hItem = noSelected;
 							tvitem.mask = TVIF_TEXT;
 							tvitem.pszText = placa;
 							tvitem.cchTextMax = TAM_PLACA;
-							
+
 							TreeView_GetItem(hwndTree, &tvitem);
-							
+
 							converteStringData(data, &dataAux);
-							
+
 							pegaManutencaoPlacDat(placa, dataAux, &auxManut);
 
 	                        CDS.dwData = 0;
 	                        CDS.cbData = sizeof(Manutencao);
 	                        CDS.lpData = &auxManut;
-	
+
 	                        SendMessage(telaAux, WM_COPYDATA , (WPARAM)(HWND)hwnd, (LPARAM) (LPVOID) &CDS);
 						}
-						
+
 						guardaPegaHandle(&telaAux, 0);
-						
+
 		            }
 		          }
 		      }
@@ -366,14 +366,14 @@ BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle da janela Principal
+ * \brief Funcao de controle da janela Principal
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou n�o
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
  * \return Padrao Windows para janelas
  *
  ***********************************************/
@@ -392,7 +392,7 @@ LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
     switch (message){
 
         case WM_INITDIALOG:
-			
+
             tabProp = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TABPROP), hwnd, (DLGPROC)tabPropPage);
             tabManut = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TABMANUN), hwnd, (DLGPROC)tabManutPage);
             tabVeic = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_TABVEIC), hwnd, (DLGPROC)tabVeicPage);
@@ -410,18 +410,18 @@ LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
                 if(oficinaInfo != NULL){
                     if(fread(&ofic, sizeof(Oficina), 1, oficinaInfo)!=1){
 		            	MessageBox(hwnd, "Erro ao gerar dados de oficina!", "Erro!", MB_ICONERROR);
-		            	if(win_trataErros(hwnd, fechaArquivo(oficinaInfo)) == 0) PostQuitMessage(0);	
+		            	if(win_trataErros(hwnd, fechaArquivo(oficinaInfo)) == 0) PostQuitMessage(0);
 					}
 
 					sprintf(endereco, "%s, %s - %.30s", ofic.endereco.cidade, ofic.endereco.estado, ofic.endereco.descricao);
-					
+
 					Button_SetText(GetDlgItem(hwnd, ID_DADOS_OFICINA), ofic.nome);
 					Button_SetText(GetDlgItem(hwnd, ID_DADOS_OFICINA_ENDER), endereco);
-					
+
                     if (win_trataErros(hwnd, fechaArquivo(oficinaInfo)) != 0) return FALSE;
 
                     if(remove(ARQUIVO_DADOS_OFICINA) == EOF) return FALSE;
-                    
+
                 }else{
                     if(win_trataErros(hwnd, ERRO_ABRIR_ARQUIVO) != 0) return FALSE;
                 }

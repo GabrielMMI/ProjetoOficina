@@ -1,6 +1,6 @@
 /********************************************//**
- ** @file Main.c
- * @brief Inicializa a janela inicial e cria os diretórios necessários.
+ ** @file Arvore_Prop.c
+ * @brief Contém as operacoes de uma arvore binária de proprietários!
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -10,9 +10,8 @@
  #include "../include/Arvore_Prop.h"
 
 /********************************************//**
- * \brief Inicializa uma arvore com um nó nulo
+ * \brief Inicializa uma arvore com um n鉶 nulo
  *
- * \param void
  *
  * \return NULL
  *
@@ -23,19 +22,19 @@ Arvore* inicializaArvoreProp(){
 }
 
 /********************************************//**
- * \brief Criar um nó de uma arvore
+ * \brief Criar um n贸 de uma arvore
  *
  * \param dado - Os dados de um proprietario
  *
- * \return lista - Endereço de memoria da arvore criada
+ * \return lista - Endere莽o de memoria da arvore criada
  *
  ***********************************************/
 
 Arvore* criaNoProp(Proprietario dado){
     Arvore *arvore;
-    
+
     arvore=(Arvore*)malloc(sizeof(Arvore));
-    
+
     if(arvore!=NULL){
         arvore->dado = dado;
         arvore->esquerda=NULL;
@@ -45,12 +44,12 @@ Arvore* criaNoProp(Proprietario dado){
 }
 
 /********************************************//**
- * \brief Insere um nó em uma arvore
+ * \brief Insere um n贸 em uma arvore
  *
- * \param arvore - Arvore na qual o nó será inserido
+ * \param arvore - Arvore na qual o n贸 ser谩 inserido
  * \param dado - Os dados de um proprietario
  *
- * \return arvore - Endere�o de mem�ria da nova arvore
+ * \return arvore - Endere鏾 de mem髍ia da nova arvore
  *
  ***********************************************/
 
@@ -68,9 +67,9 @@ Arvore* inserirNaArvoreProp(Arvore *arvore,Proprietario dado){
 }
 
 /********************************************//**
- * \brief Libera a memória alocada de todos os elementos da arvore
+ * \brief Libera a mem贸ria alocada de todos os elementos da arvore
  *
- * \param arvore - A arvore que será liberada da memória
+ * \param arvore - A arvore que ser谩 liberada da mem贸ria
  *
  * \return void
  *

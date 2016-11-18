@@ -1,6 +1,6 @@
 /********************************************//**
  * @file Win_Dlg_Veic.h
- * @brief Contem os cabe�alhos de todas as
+ * @brief Contem os cabecalhos de todas as
  *        funcoes existentes na tab de Veiculos
  * @bug Nao contem bugs conhecidos!
  *
@@ -25,13 +25,13 @@ void inicializaFormVeic(HWND hwnd);
 void validaLiberaFormVeic(HWND hwnd);
 void preencheFormVeic(HWND hwndForm, Veiculo *veic);
 
-BOOL CALLBACK formDadosVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK formAddVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK formExcluirVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK formMostrarPropManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK tabVeicPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
+BOOL CALLBACK formDadosVeicBox(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK formAddVeic(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK formExcluirVeicBox(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK formMostrarPropManut(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK tabVeicPage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 #endif // H_DLG_VEIC_SECURE

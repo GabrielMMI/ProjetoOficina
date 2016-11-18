@@ -1,6 +1,6 @@
 /********************************************//**
  * @file Win_Dlg_Inicial.h
- * @brief Contem os cabeçalhos de todas as
+ * @brief Contem os cabecalhos de todas as
  *        funcoes existentes no Dialog inicial
  * @bug Nao contem bugs conhecidos!
  *

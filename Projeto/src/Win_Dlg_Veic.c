@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_Dlg_Veic.c
- * @brief Contem as fun��es de controle da tabPage Veiculo.
+ * @brief Contem as funcoes de controle da tabPage Veiculo.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -15,7 +15,7 @@
  * \brief Le os dados do formulario de veiculo
  *
  * \param hwnd 				- Manipulador da janela
- * \return Manutencao * 	- Endere�o de mem�ria do tipo Veiculo contendo os dados lidos de um formulario
+ * \return Manutencao * 	- Endereco de memoria do tipo Veiculo contendo os dados lidos de um formulario
  *
  ***********************************************/
 Veiculo *leDadosVeicForm(HWND hwnd)
@@ -33,11 +33,11 @@ Veiculo *leDadosVeicForm(HWND hwnd)
 }
 
 /********************************************//**
- * \brief Atualiza a lista de manuten��es de acordo
+ * \brief Atualiza a lista de manutencoes de acordo
  *        com a placa
  *
- * \param hwnd 				- Manipulador da janela
- * \param placa - A placa de um veiculo que esta na manuten��o
+ * \param hwndList - Manipulador do ListControl
+ * \param placa - A placa de um veiculo que esta na manutencao
  *
  * \return void
  *
@@ -70,13 +70,13 @@ void atualizaListaManutVeic(HWND hwndList, char *placa)
                     lvItem.iSubItem = 2;
                     sprintf(data, "%02d/%02d/%d", aux.data.dia, aux.data.mes, aux.data.ano);
                     lvItem.pszText = data;
-					 
+
                     SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
                     cont++;
                 }
             }
-			
+
             if(win_trataErros(hwndList,fechaArquivo(arq)) != 0) return;
         }else{
             if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) != 0) return;
@@ -88,8 +88,8 @@ void atualizaListaManutVeic(HWND hwndList, char *placa)
  * \brief Atualiza a lista de proprietarios de acordo
  *        com a placa
  *
- * \param hwnd 				- Manipulador da janela
- * \param placa - A placa de um veiculo que esta na manuten��o
+ * \param hwndList - Manipulador do ListControl
+ * \param placa - A placa de um veiculo que esta na manutencao
  *
  * \return void
  *
@@ -105,17 +105,17 @@ void atualizaListaPropVeic(HWND hwndList, char *placa)
     LVFINDINFO info;
 
     SendMessage(hwndList,LVM_DELETEALLITEMS,0,0);
-    
+
     if(existeArquivo(ARQUIVO_DADOS_MANUTENCAO) && strlen(placa) > 0){
         arq = fopen(ARQUIVO_DADOS_MANUTENCAO, "rb");
         if(arq != NULL){
             while(fread(&aux, sizeof(Manutencao), 1, arq) == 1){
                 if(strnicmp(aux.placa,placa,strlen(placa))==0){
                 	pegaProprietario(aux.cpf, &propAux);
-					
-					info.flags = LVFI_STRING;	            
+
+					info.flags = LVFI_STRING;
 		            info.psz = propAux.nome;
-		            
+
                 	if(ListView_FindItem(hwndList, -1, &info) == -1){
 
 		                lvItem.mask=LVIF_TEXT;
@@ -123,23 +123,23 @@ void atualizaListaPropVeic(HWND hwndList, char *placa)
 		                lvItem.iItem=cont;
 		                lvItem.iSubItem=0;
 		                lvItem.pszText=propAux.nome;
-		
+
 		                SendMessage(hwndList,LVM_INSERTITEM,cont,(LPARAM)&lvItem);
 		                lvItem.iSubItem = 1;
 		                lvItem.pszText = propAux.cpf;
-		
+
 		                SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 		                lvItem.iSubItem = 2;
 		                sprintf(telefone, "(%s)%s", propAux.telefone.ddd, propAux.telefone.telefone);
 		                lvItem.pszText = telefone;
-							 
+
 		                SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
-		
+
 		                cont++;
 	            	}
                 }
             }
-			
+
             if(win_trataErros(hwndList,fechaArquivo(arq)) != 0) return;
         }else{
             if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) != 0) return;
@@ -218,7 +218,7 @@ void inicializaFormVeic(HWND hwnd){
 }
 
 /********************************************//**
- * \brief le valida e libera o bot�o de a��o de um veiculo
+ * \brief le valida e libera o botao de acao de um veiculo
  *
  * \param hwnd 				- Manipulador da janela
  * \return void
@@ -251,8 +251,8 @@ void validaLiberaFormVeic(HWND hwnd){
 /********************************************//**
  * \brief Preenche um formulario de Veiculo
  *
- * \param hwndForm	- Manipulador da janela
- * \param veic		- Endere�o de mem�ria de uma struct do tipo Veiculo
+ * \param hwnd	- Manipulador da janela
+ * \param veic		- Endereco de memoria de uma struct do tipo Veiculo
  *
  * \return void
  *
@@ -266,7 +266,7 @@ void preencheFormVeic(HWND hwnd, Veiculo *veic){
 }
 
 /********************************************//**
- * \brief Fun��o de controle do janela "Pesquisar Veiculos"
+ * \brief Funcao de controle do janela "Pesquisar Veiculos"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -277,14 +277,14 @@ void preencheFormVeic(HWND hwnd, Veiculo *veic){
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formDadosVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp){
+BOOL CALLBACK formDadosVeicBox(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam){
     static Veiculo *auxAntigo;
     int erro;
     PCOPYDATASTRUCT pcds;
 
-    switch(msg) {
+    switch(message) {
         case WM_COPYDATA:
-			pcds = (PCOPYDATASTRUCT)lp;
+			pcds = (PCOPYDATASTRUCT)lParam;
 			if(pcds->dwData == 0){
 				auxAntigo = (Veiculo *)(pcds->lpData);
                 preencheFormVeic(hwnd, auxAntigo);
@@ -302,7 +302,7 @@ BOOL CALLBACK formDadosVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp){
 }
 
 /********************************************//**
- * \brief Fun��o de controle do janela "Adicionar Veiculo"
+ * \brief Funcao de controle do janela "Adicionar Veiculo"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -313,12 +313,12 @@ BOOL CALLBACK formDadosVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp){
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formAddVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formAddVeic(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     int erro;
     static Veiculo *veic;
 
-    switch(msg) {
+    switch(message) {
         case WM_INITDIALOG:
             inicializaFormVeic(hwnd);
         return TRUE;
@@ -328,7 +328,7 @@ BOOL CALLBACK formAddVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
             validaLiberaFormVeic(hwnd);
 
-            switch(wp){
+            switch(wParam){
             case ID_BOTAO_ACAO_VEIC:
                     veic = leDadosVeicForm(hwnd);
 
@@ -378,10 +378,10 @@ void inicializaListVeic(HWND hwndList)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do Dialogo "Alterar Veiculo"
+ * \brief Funcao de controle do Dialogo "Alterar Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
@@ -389,19 +389,19 @@ void inicializaListVeic(HWND hwndList)
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static Veiculo *auxAntigo;
     int erro;
     PCOPYDATASTRUCT pcds;
 
-    switch(msg) {
+    switch(message) {
         case WM_INITDIALOG:
             inicializaFormVeic(hwnd);
         break;
 
         case WM_COPYDATA:
-			pcds = (PCOPYDATASTRUCT)lp;
+			pcds = (PCOPYDATASTRUCT)lParam;
 			if(pcds->dwData == 0){
 				    auxAntigo = (Veiculo *)(pcds->lpData);
 
@@ -412,7 +412,7 @@ BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
         case WM_COMMAND:
 
-            switch(wp){
+            switch(wParam){
             case ID_BOTAO_ACAO_VEIC:
                     auxAntigo = leDadosVeicForm(hwnd);
                     erro = alteraVeiculo(*auxAntigo, auxAntigo->placa);
@@ -434,10 +434,10 @@ BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Fun��o de controle do janela "Alterar Veiculo"
+ * \brief Funcao de controle do janela "Alterar Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
@@ -445,7 +445,7 @@ BOOL CALLBACK formAlterarVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     char placa[TAM_PLACA];
     static HWND hwndList;
@@ -455,7 +455,7 @@ BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     static Veiculo *auxEnvio;
     COPYDATASTRUCT CDS;
 
-    switch(msg) {
+    switch(message) {
         case WM_INITDIALOG:
         hwndList = GetDlgItem(hwnd, ID_VEIC_LIST);
         Edit_LimitText(GetDlgItem(hwnd, ID_VEIC_EDIT_BUSCA_PLACA), TAM_PLACA-1);
@@ -469,30 +469,30 @@ BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
                 iSelect = ListView_GetNextItem(hwndList, -1,LVNI_SELECTED | LVNI_FOCUSED);
 
-                if(HIWORD(wp) == EN_CHANGE){
+                if(HIWORD(wParam) == EN_CHANGE){
 
                     GetDlgItemText(hwnd, ID_VEIC_EDIT_BUSCA_PLACA, placa, TAM_PLACA);
                     atualizaListaVeic(hwndList, placa);
 
                 }
 
-                switch(LOWORD(wp)){
+                switch(LOWORD(wParam)){
                     case ID_BOTAO_ALTERAR_VEIC:
 						if(iSelect == -1){
 							MessageBox(hwnd, "Nenhum veiculo foi selecionado!", "Erro", MB_OK|MB_ICONINFORMATION);
 						}else{
-							
+
 	                        formAlterar = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_VEIC_ALTERAR_FORM), hwnd, (DLGPROC)formAlterarVeicBox);
-	
+
 	                        ListView_GetItemText(hwndList, iSelect, 1, placa, TAM_PLACA);
-	
+
 	                        auxEnvio = (Veiculo *)malloc(sizeof(Veiculo));
 	                        pegaVeiculo(placa, auxEnvio);
-	
+
 	                        CDS.dwData = 0;
 	                        CDS.cbData = sizeof(Veiculo);
 	                        CDS.lpData = auxEnvio;
-	
+
 	                        SendMessage(formAlterar, WM_COPYDATA , (WPARAM)(HWND)hwnd, (LPARAM) (LPVOID) &CDS);
 	                        SetDlgItemText(hwnd, ID_VEIC_EDIT_BUSCA_PLACA, "");
                    		}
@@ -505,10 +505,10 @@ BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do Dialogo "Excluir Veiculo"
+ * \brief Funcao de controle do Dialogo "Excluir Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
@@ -516,15 +516,15 @@ BOOL CALLBACK formAlterarVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formExcluirVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formExcluirVeicBox(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static Veiculo *auxAntigo;
     int erro;
     PCOPYDATASTRUCT pcds;
 
-    switch(msg) {
+    switch(message) {
         case WM_COPYDATA:
-			pcds = (PCOPYDATASTRUCT)lp;
+			pcds = (PCOPYDATASTRUCT)lParam;
 			if(pcds->dwData == 0){
 				auxAntigo = (Veiculo *)(pcds->lpData);
                 preencheFormVeic(hwnd, auxAntigo);
@@ -534,7 +534,7 @@ BOOL CALLBACK formExcluirVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
         case WM_COMMAND:
 
-            switch(wp){
+            switch(wParam){
             case ID_BOTAO_ACAO_VEIC:
                     erro = excluiVeiculo(auxAntigo->placa);
                     free(auxAntigo);
@@ -555,18 +555,18 @@ BOOL CALLBACK formExcluirVeicBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Fun��o de controle do janela "Excluir Veiculo"
+ * \brief Funcao de controle do janela "Excluir Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param msg Indica qual comando foi acionado pelo usu�rio
- * \param wp Uma WORD que se divide em duas partes:
+ * \param message Indica qual comando foi acionado pelo usuario
+ * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lp Pode carregar informacoes adicionais sobre o comando ou nao
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     char placa[TAM_PLACA];
     static HWND hwndList;
@@ -576,7 +576,7 @@ BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     Veiculo *auxEnvio;
     COPYDATASTRUCT CDS;
 
-    switch(msg) {
+    switch(message) {
         case WM_INITDIALOG:
         hwndList = GetDlgItem(hwnd, ID_VEIC_LIST);
         SendMessage(GetDlgItem(hwnd, ID_VEIC_EDIT_BUSCA_PLACA), EM_LIMITTEXT, TAM_PLACA-1, 0);
@@ -590,14 +590,14 @@ BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
                 iSelect = ListView_GetNextItem(hwndList, -1,LVNI_SELECTED | LVNI_FOCUSED);
 
-                if(HIWORD(wp) == EN_CHANGE){
+                if(HIWORD(wParam) == EN_CHANGE){
 
                     GetDlgItemText(hwnd, ID_VEIC_EDIT_BUSCA_PLACA, placa, TAM_PLACA);
                     atualizaListaVeic(hwndList, placa);
 
                 }
 
-                switch(LOWORD(wp)){
+                switch(LOWORD(wParam)){
                     case ID_VEIC_EXCLUIR_BOTAO:
                 	if(iSelect == -1){
                     	MessageBox(hwnd, "Nenhum veiculo foi selecionado!", "Erro", MB_OK|MB_ICONINFORMATION);
@@ -625,18 +625,18 @@ BOOL CALLBACK formExcluirVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do janela "Propriet�rios e Manuten��es de um Veiculo"
+ * \brief Funcao de controle do janela "Propriet�rios e manutencoes de um Veiculo"
  *
  * \param hwnd Manipulador da janela
- * \param msg Indica qual comando foi acionado pelo usu�rio
- * \param wp Uma WORD que se divide em duas partes:
+ * \param message Indica qual comando foi acionado pelo usuario
+ * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lp Pode carregar informacoes adicionais sobre o comando ou nao
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formMostrarPropManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formMostrarPropManut(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     char placa[TAM_PLACA],dataAux[10],cpf[TAM_CPF];
     Data data;
@@ -647,8 +647,8 @@ BOOL CALLBACK formMostrarPropManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     Manutencao *manutAux;
     Proprietario *propAux;
     COPYDATASTRUCT CDS;
-    
-    switch(msg) {
+
+    switch(message) {
         case WM_INITDIALOG:
         hwndListProp = GetDlgItem(hwnd, ID_VEIC_PROP_LIST);
         hwndListManut = GetDlgItem(hwnd, ID_VEIC_MANUT_LIST);
@@ -662,8 +662,8 @@ BOOL CALLBACK formMostrarPropManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
                 iSelectProp = ListView_GetNextItem(hwndListProp, -1,LVNI_SELECTED | LVNI_FOCUSED);
                 iSelectManut = ListView_GetNextItem(hwndListManut, -1,LVNI_SELECTED | LVNI_FOCUSED);
-                
-                if(HIWORD(wp) == EN_CHANGE){
+
+                if(HIWORD(wParam) == EN_CHANGE){
 
                 	formataPlaca(GetDlgItem(hwnd, ID_VEIC_EDIT_BUSCA_PLACA));
                     GetDlgItemText(hwnd, ID_VEIC_EDIT_BUSCA_PLACA, placa, TAM_PLACA);
@@ -671,18 +671,18 @@ BOOL CALLBACK formMostrarPropManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
                     atualizaListaPropVeic(hwndListProp,placa);
                 }
 
-                switch(LOWORD(wp)){
+                switch(LOWORD(wParam)){
                     case ID_VEIC_VER_PROP_BOTAO:
                 		if(iSelectProp == -1){
                     		MessageBox(hwnd, "Nenhum proprietario foi selecionado!", "Erro", MB_OK|MB_ICONINFORMATION);
                 		}else{
 	                        formAlterarProp = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_PROP_PESQUISAR_FORM), hwnd, (DLGPROC)formPesquisarPropBox);
-	                        
+
 	                        propAux = (Proprietario *)malloc(sizeof(Proprietario));
-	                        
+
 	                        ListView_GetItemText(hwndListProp, iSelectProp, 1, cpf, TAM_CPF);
 	                        pegaProprietario(cpf,propAux);
-	
+
 	                        CDS.dwData = 0;
 	                        CDS.cbData = sizeof(Proprietario);
 	                        CDS.lpData = propAux;
@@ -690,31 +690,31 @@ BOOL CALLBACK formMostrarPropManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 	                        iSelectProp = -1;
                     	}
                     break;
-                    
+
                     case ID_VEIC_VER_MANUT_BOTAO:
                     	if(iSelectManut == -1){
-                    		MessageBox(hwnd, "Nenhuma manuten��o foi selecionada!", "Erro", MB_OK|MB_ICONINFORMATION);
+                    		MessageBox(hwnd, "Nenhuma manutencao foi selecionada!", "Erro", MB_OK|MB_ICONINFORMATION);
                 		}else{
 	                        formAlterarManut = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_MANUT_DADOS_FORM), hwnd, (DLGPROC)formDadosManutBox);
-	
+
 	                        manutAux = (Manutencao *)malloc(sizeof(Manutencao));
-	                        
+
 	                        ListView_GetItemText(hwndListManut, iSelectManut, 0, placa, TAM_PLACA);
 	                        ListView_GetItemText(hwndListManut, iSelectManut, 1, cpf, TAM_CPF);
 	                        ListView_GetItemText(hwndListManut, iSelectManut, 2, dataAux, TAM_DATA);
-	                        
+
 	                        converteStringData(dataAux,&data);
-	                        
+
 	                        pegaManutencao(placa,cpf,data,manutAux);
 	                        CDS.dwData = 0;
 	                        CDS.cbData = sizeof(Manutencao);
 	                        CDS.lpData = manutAux;
-	
+
 	                        SendMessage(formAlterarManut, WM_COPYDATA , (WPARAM)(HWND)hwnd, (LPARAM) (LPVOID) &CDS);
 	                        iSelectManut = -1;
                     	}
                         break;
-                        
+
                     case ID_VEIC_LIMPAR_BOTAO:
                     	SetDlgItemText(hwnd, ID_VEIC_EDIT_BUSCA_PLACA, "");
                     	break;
@@ -726,30 +726,30 @@ BOOL CALLBACK formMostrarPropManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle da tabPage "Ve�culo"
+ * \brief Funcao de controle da tabPage "Ve�culo"
  *
  * \param hwnd Manipulador da janela
- * \param msg Indica qual comando foi acionado pelo usu�rio
- * \param wp Uma WORD que se divide em duas partes:
+ * \param message Indica qual comando foi acionado pelo usuario
+ * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lp Pode carregar informacoes adicionais sobre o comando ou nao
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK tabVeicPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK tabVeicPage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static HWND formVeicDlg, *formAux;
     static HINSTANCE g_inst;
 
-    switch(msg) {
+    switch(message) {
 
     case WM_COMMAND:
 
         formAux = guardaPegaHandle(NULL, 1);
         if(formAux != NULL) EndDialog(*formAux, 0);
 
-        switch (wp) {
+        switch (wParam) {
         case ID_BOTAO_ADD_VEIC:
             formVeicDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_VEIC_ADD_FORM), GetParent(hwnd), (DLGPROC)formAddVeic);
             break;
@@ -761,7 +761,7 @@ BOOL CALLBACK tabVeicPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         case ID_BOTAO_EXCLUIR_VEIC:
             formVeicDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_VEIC_EXCLUIR), GetParent(hwnd), (DLGPROC)formExcluirVeic);
             break;
-            
+
         case ID_BOTAO_PROP_MANUT_VEIC:
         	formVeicDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_VEIC_APRESENTA_MANUT_PROP), GetParent(hwnd), (DLGPROC)formMostrarPropManut);
         	break;

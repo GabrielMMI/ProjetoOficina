@@ -1,8 +1,8 @@
 /********************************************//**
  * @file Manutencao.h
- * @brief Contem os cabe�alhos de todas as
- *        funcoes de opera��es com Manuten��o, e
- *        a estrutura do tipo Manuten��o e do tipo Data.
+ * @brief Contem os cabecalhos de todas as
+ *        funcoes de operacoes com Manutencao, e
+ *        a estrutura do tipo Manutencao e do tipo Data.
  * @bug Nao contem bugs conhecidos!
  *
  *@author Matheus Bispo
@@ -19,16 +19,16 @@
 #include <time.h>
 
 /********************************************//**
- * \brief Contem informa��es sobre uma data
+ * \brief Contem informacoes sobre uma data
  ***********************************************/
-typedef struct data{
+typedef struct Data{
 	int dia, mes, ano;
 }Data;
 
 /********************************************//**
- * \brief Contem informa��es sobre uma manuten��o
+ * \brief Contem informacoes sobre uma manutencão
  ***********************************************/
-typedef struct manutencao{
+typedef struct Manutencao{
 	char placa[TAM_PLACA];
 	char cpf[TAM_CPF];
 	char descricao[TAM_DESCRICAO];

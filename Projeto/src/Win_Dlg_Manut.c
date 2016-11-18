@@ -1,6 +1,6 @@
 /********************************************//**
  ** @file Win_Dlg_Manut.c
- * @brief Contem as fun��es de controle da tabPage Manuten��o.
+ * @brief Contem as funcoes de controle da tabPage manutencao.
  * @bug Nao contem bugs conhecidos!
  *
  * @author Matheus Bispo
@@ -9,10 +9,10 @@
 #include "../include/Win_Dlg_Manut.h"
 
 /********************************************//**
- * \brief Le os dados do formulario de manuten��o
+ * \brief Le os dados do formulario de manutencao
  *
  * \param hwnd 				- Manipulador da janela
- * \return Manutencao * 	- Endere�o de mem�ria do tipo Manuten��o contendo os dados lidos de um formulario
+ * \return Manutencao * 	- Endereco de memoria do tipo manutencao contendo os dados lidos de um formulario
  *
  ***********************************************/
 Manutencao *leDadosManutForm(HWND hwnd)
@@ -44,7 +44,7 @@ Manutencao *leDadosManutForm(HWND hwnd)
  *
  * \param a - Arvore de proprietarios
  * \param comboBox - hwnd da combo box de cpf e nome
- * 
+ *
  * \return void
  *
  ***********************************************/
@@ -64,8 +64,8 @@ void atualizaComboBoxProp(Arvore *a, HWND comboBox)
  * \brief Preenche a combo box com os cpfs filtrados
  *
  * \param comboBox - Hwnd da combo box de cpf e nome
- * \param filtroCPF - Pedaço de um cpf dado pelo usuario
- * 
+ * \param filtroCPF - Pedaco de um cpf dado pelo usuario
+ *
  * \return void
  *
  ***********************************************/
@@ -75,12 +75,12 @@ void preencheComboBoxProp(HWND comboBox, char *filtroCPF){
     Proprietario prop;
     Arvore *arv;
     int cont, x;
-	
+
 	cont = ComboBox_GetCount(comboBox);
 	for(x = 0; x < cont; x++){
-		ComboBox_DeleteString(comboBox, 0);	
+		ComboBox_DeleteString(comboBox, 0);
 	}
-	
+
     arv = inicializaArvoreProp();
 
     if(existeArquivo(ARQUIVO_DADOS_PROPRIETARIO) == ERRO_ARQUIVO_INEXISTENTE) return;
@@ -94,19 +94,19 @@ void preencheComboBoxProp(HWND comboBox, char *filtroCPF){
 	            }
 	        }
     	}
-        
+
         win_trataErros(comboBox, fechaArquivo(arqProp));
     }
 
     atualizaComboBoxProp(arv, comboBox);
 
     liberaArvoreProp(arv);
-	
+
 	ComboBox_ShowDropdown(comboBox, TRUE);
 }
 
 /********************************************//**
- * \brief Atualiza a lista de manuten��es de acordo
+ * \brief Atualiza a lista de manutencoes de acordo
  *        com a data inicial e a data final
  * \param hwndList 	- Manipulador de uma ListView Control
  * \param dataI 	- Uma struct do tipo Data contendo uma data inicial
@@ -147,14 +147,14 @@ void atualizaListaManut(HWND hwndList, Data dataI, Data dataF)
                     lvItem.iSubItem = 2;
                     sprintf(data, "%02d/%02d/%d", aux.data.dia, aux.data.mes, aux.data.ano);
                     lvItem.pszText = data;
-					 
+
                     SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
                     cont++;
                 }
             }
-            
-			
+
+
             if(win_trataErros(hwndList,fechaArquivo(arq)) != 0) return;
         }else{
             if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) != 0) return;
@@ -164,7 +164,7 @@ void atualizaListaManut(HWND hwndList, Data dataI, Data dataF)
 }
 
 /********************************************//**
- * \brief Atualiza a lista de manuten��es de acordo
+ * \brief Atualiza a lista de manutencoes de acordo
  *        com a data inicial e a data final
  * \param hwnd 		- Manipulador de uma janela
  * \param dataI 	- Uma struct do tipo Data contendo uma data inicial
@@ -184,11 +184,11 @@ void atualizaListaManutBusca(HWND hwnd, Data dataI, Data dataF)
     float totalPecas = 0, totalObra = 0;
     char pontoFlutuante[10];
     HWND pecas, maoObra, hwndList;
-    
+
     hwndList = GetDlgItem(hwnd, ID_MANUT_LIST);
 
     SendMessage(hwndList,LVM_DELETEALLITEMS,0,0);
-    
+
 	pecas = GetDlgItem(hwnd, ID_MANUT_TOTAL_PECAS);
 	maoObra = GetDlgItem(hwnd, ID_MANUT_TOTAL_OBRA);
 
@@ -216,7 +216,7 @@ void atualizaListaManutBusca(HWND hwnd, Data dataI, Data dataF)
 
 					totalPecas += aux.valorPecas;
 					totalObra  += aux.valorObra;
-					 
+
                     SendMessage(hwndList,LVM_SETITEM,cont,(LPARAM)&lvItem);
 
                     cont++;
@@ -228,7 +228,7 @@ void atualizaListaManutBusca(HWND hwnd, Data dataI, Data dataF)
 				sprintf(pontoFlutuante, "%.2f R$", totalObra);
 				Edit_SetText(maoObra, pontoFlutuante);
 			}
-			
+
             if(win_trataErros(hwndList,fechaArquivo(arq)) != 0) return;
         }else{
             if(win_trataErros(hwndList, ERRO_ABRIR_ARQUIVO) != 0) return;
@@ -238,11 +238,11 @@ void atualizaListaManutBusca(HWND hwnd, Data dataI, Data dataF)
 }
 
 /********************************************//**
- * \brief Atualiza a lista de escluir manuten��es de acordo
+ * \brief Atualiza a lista de escluir manutencoes de acordo
  *        com a data inicial e a data final
  * \param hwndList 	- Manipulador de uma ListView Control
- * \param cpf		- Endere�o de mem�ria de uma string contendo um cpf
- * \param placa		- Endere�o de mem�ria de uma string contendo uma placa
+ * \param cpf		- Endereco de memoria de uma string contendo um cpf
+ * \param placa		- Endereco de memoria de uma string contendo uma placa
  * \param dataI 	- Uma struct do tipo Data contendo uma data inicial
  *
  * \return void
@@ -293,7 +293,7 @@ void atualizaListaManutExcluir(HWND hwndList, char *cpf,char *placa,Data dataI)
 }
 
 /********************************************//**
- * \brief Nomeia as colunas da lista de Manuten��es
+ * \brief Nomeia as colunas da lista de manutencoes
  *
  * \param hwndList - Manipulador de uma ListView Control
  * \return void
@@ -324,29 +324,29 @@ void inicializaListManut(HWND hwndList)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do Dialogo "Ver dados"
+ * \brief Funcao de controle do Dialogo "Ver dados"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou n�o
- * \return Padr�o Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
+ * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formDadosManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formDadosManutBox(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static Manutencao *auxAntigo;
     int erro;
     PCOPYDATASTRUCT pcds;
     char valor[10];
 
-    switch(msg) {
+    switch(message) {
         break;
 
         case WM_COPYDATA:
-			pcds = (PCOPYDATASTRUCT)lp;
+			pcds = (PCOPYDATASTRUCT)lParam;
 			if(pcds->dwData == 0){
 				    auxAntigo = (Manutencao *)(pcds->lpData);
                     SetDlgItemText(hwnd, ID_EDIT_PLACA_MANUT, auxAntigo->placa);
@@ -362,7 +362,7 @@ BOOL CALLBACK formDadosManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
         case WM_COMMAND:
 
-            switch(wp){
+            switch(wParam){
             case ID_BOTAO_SAIR_MANUT:
                 EndDialog(hwnd, 0);
             break;
@@ -376,18 +376,18 @@ BOOL CALLBACK formDadosManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Fun��o de controle da janela "Pesquisa Manuten��o"
+ * \brief Funcao de controle da janela "Pesquisa manutencao"
  *
  * \param hwnd Manipulador da janela
- * \param message Indica qual comando foi acionado pelo usu�rio
+ * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou n�o
- * \return Padr�o Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
+ * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     int iSelect;
     static Data dataI, dataF;
@@ -399,7 +399,7 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     LVITEM lvItem;
     COPYDATASTRUCT CDS;
 
-    switch(msg) {
+    switch(message) {
         case WM_INITDIALOG:
             hwndList = GetDlgItem(hwnd, ID_MANUT_LIST);
             inicializaListManut(hwndList);
@@ -417,7 +417,7 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
         case WM_NOTIFY:
 
-            switch(((LPNMHDR)lp)->code){
+            switch(((LPNMHDR)lParam)->code){
 
                 case DTN_DATETIMECHANGE:{
                     DateTime_GetSystemtime(GetDlgItem(hwnd, ID_MANUT_DATA_INICIO), &dateT);
@@ -437,7 +437,7 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
             iSelect = ListView_GetNextItem(hwndList, -1,LVNI_SELECTED | LVNI_FOCUSED);
 
-            switch(LOWORD(wp)){
+            switch(LOWORD(wParam)){
                 case 3:
                     atualizaListaManutBusca(hwnd, dataI, dataF);
                 break;
@@ -474,14 +474,14 @@ BOOL CALLBACK formPesquisarManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Inicializa um formul�rio de manuten��o
+ * \brief Inicializa um formul�rio de manutencao
  *
  * \param hwnd - Manipulador da janela
  * \return void
  *
  ***********************************************/
 void inicializaFormManut(HWND hwnd){
-	
+
     SendMessage(GetDlgItem(hwnd, ID_EDIT_PLACA_MANUT), EM_LIMITTEXT, TAM_PLACA-1, 0);
    	ComboBox_LimitText(GetDlgItem(hwnd, ID_EDIT_CPF_MANUT), TAM_CPF-1);
     SendMessage(GetDlgItem(hwnd, ID_EDIT_DESCRICAO_MANUT), EM_LIMITTEXT, TAM_DESCRICAO-1, 0);
@@ -490,7 +490,7 @@ void inicializaFormManut(HWND hwnd){
 }
 
 /********************************************//**
- * \brief le valida e libera o bot�o de a��o de manuten��o
+ * \brief le valida e libera o botao de acao de manutencao
  *
  * \param hwnd 				- Manipulador da janela
  * \return void
@@ -519,45 +519,45 @@ void validaLiberaFormManut(HWND hwnd){
 }
 
 /********************************************//**
- * \brief Fun��o de controle do janela "Adicionar Manuten��o"
+ * \brief Funcao de controle do janela "Adicionar manutencao"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou n�o
- * \return Padr�o Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
+ * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formAddManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formAddManut(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     Manutencao *aux;
     int erro;
     SYSTEMTIME data;
     char cpf[TAM_CPF];
 
-    switch(msg) {
+    switch(message) {
         case WM_INITDIALOG:
             inicializaFormManut(hwnd);
         break;
 
         case WM_COMMAND:
-			if(HIWORD(wp) == CBN_EDITUPDATE){
+			if(HIWORD(wParam) == CBN_EDITUPDATE){
 			    ComboBox_GetText(GetDlgItem(hwnd, ID_EDIT_CPF_MANUT), cpf, ComboBox_GetTextLength(GetDlgItem(hwnd, ID_EDIT_CPF_MANUT)));
     			preencheComboBoxProp(GetDlgItem(hwnd, ID_EDIT_CPF_MANUT), cpf);
     		}
 
-            if(HIWORD(wp)==EN_CHANGE){
+            if(HIWORD(wParam)==EN_CHANGE){
                 formataPlaca(GetDlgItem(hwnd, ID_EDIT_PLACA_MANUT));
                 editTextFloat(hwnd, ID_EDIT_PECAS_MANUT);
                 editTextFloat(hwnd, ID_EDIT_OBRA_MANUT);
-                
+
             }
 
             validaLiberaFormManut(hwnd);
 
-            switch(wp){
+            switch(wParam){
             case ID_BOTAO_ACAO_MANUT:
                 aux = leDadosManutForm(hwnd);
 
@@ -577,7 +577,7 @@ BOOL CALLBACK formAddManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle do Dialogo "Excluir Manutencao"
+ * \brief Funcao de controle do Dialogo "Excluir Manutencao"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -588,7 +588,7 @@ BOOL CALLBACK formAddManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formExcluirManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formExcluirManutBox(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static Manutencao *auxAntigo;
     int erro;
@@ -596,9 +596,9 @@ BOOL CALLBACK formExcluirManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     HWND hwndList, *hwndAux;
     char valor[10];
 
-    switch(msg) {
+    switch(message) {
         case WM_COPYDATA:
-			pcds = (PCOPYDATASTRUCT)lp;
+			pcds = (PCOPYDATASTRUCT)lParam;
 			auxAntigo = (Manutencao *)(pcds->lpData);
 			if(pcds->dwData == 0){
 				    auxAntigo = (Manutencao *)(pcds->lpData);
@@ -614,7 +614,7 @@ BOOL CALLBACK formExcluirManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
         break;
 
         case WM_COMMAND:
-            switch(wp){
+            switch(wParam){
             case ID_BOTAO_ACAO_MANUT:
                     erro = excluiManutencao(auxAntigo->placa,auxAntigo->cpf, auxAntigo->data);
 
@@ -638,18 +638,18 @@ BOOL CALLBACK formExcluirManutBox(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 
 /********************************************//**
- * \brief Fun��o de controle do janela "Exclui Manuten��o"
+ * \brief Funcao de controle do janela "Exclui manutencao"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
  * \param wParam Uma WORD que se divide em duas partes:
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
- * \param lParam Pode carregar informacoes adicionais sobre o comando ou n�o
- * \return Padr�o Windows para janelas
+ * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
+ * \return Padrao Windows para janelas
  *
  ***********************************************/
-BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK formExcluirManut(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     Manutencao *auxEnvio=NULL;
     int erro;
@@ -662,10 +662,10 @@ BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
     SYSTEMTIME dateT;
     COPYDATASTRUCT CDS;
 
-    switch(msg) {
+    switch(message) {
     	case WM_INITDIALOG:
     		hwndList = GetDlgItem(hwnd, ID_MANUT_EXCLUIR_LIST);
-    		
+
     		SendMessage(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_CPF), EM_LIMITTEXT, TAM_CPF-1, 0);
     		SendMessage(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_PLACA), EM_LIMITTEXT, TAM_PLACA-1, 0);
 
@@ -688,7 +688,7 @@ BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 			DateTime_GetSystemtime(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_DATA), &dateT);
 		    dataI = convertTime(dateT);
 
-            if(HIWORD(wp) == EN_CHANGE){
+            if(HIWORD(wParam) == EN_CHANGE){
 
 					formataCPF(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_CPF));
 		    		formataPlaca(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_PLACA));
@@ -698,7 +698,7 @@ BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
            			atualizaListaManutExcluir(hwndList,cpf,placa,dataI);
             }
-            switch(LOWORD (wp)){
+            switch(LOWORD (wParam)){
             	case ID_MANUT_EXCLUIR_BOTAO:
             		if(iSelect == -1){
                             MessageBox(hwnd,"Nenhum veiculo selecionado!",
@@ -734,7 +734,7 @@ BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 			return TRUE;
 			break;
 		case WM_NOTIFY:
-			switch (((LPNMHDR)lp)->code){
+			switch (((LPNMHDR)lParam)->code){
 				case DTN_DATETIMECHANGE:
 					DateTime_GetSystemtime(GetDlgItem(hwnd, ID_MANUT_EXCLUIR_BUSCA_DATA), &dateT);
 		  			dataI = convertTime(dateT);
@@ -747,7 +747,7 @@ BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 /********************************************//**
- * \brief Fun��o de controle da tabPage "Manuten��o"
+ * \brief Funcao de controle da tabPage "manutencao"
  *
  * \param hwnd Manipulador da janela
  * \param message Indica qual comando foi acionado pelo usuario
@@ -755,23 +755,23 @@ BOOL CALLBACK formExcluirManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
  *               (HIWORD) - 16 bits, informa uma submensagem dos comandos
  *               (LOWORD) - 16 bits, informa o id do controle que o acionou
  * \param lParam Pode carregar informacoes adicionais sobre o comando ou nao
- * \return Padr�o Windows para janelas
+ * \return Padrao Windows para janelas
  *
  ***********************************************/
 
-BOOL CALLBACK tabManutPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+BOOL CALLBACK tabManutPage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static HWND formManutDlg, *formAux;
     static HINSTANCE g_inst;
 
-    switch(msg) {
+    switch(message) {
 
     case WM_COMMAND:
 
         formAux = guardaPegaHandle(NULL, 1);
         if(formAux != NULL) EndDialog(*formAux, 0);
 
-        switch (wp) {
+        switch (wParam) {
         case ID_BOTAO_ADD_MANUT:
             formManutDlg = CreateDialog(g_inst, MAKEINTRESOURCE(IDD_MANUT_ADD_FORM), GetParent(hwnd), (DLGPROC)formAddManut);
             break;

@@ -1,6 +1,6 @@
 /********************************************//**
  * @file Erros.c
- * @brief Contem as funções de tratamento de erros
+ * @brief Contem as funcoes de tratamento de erros
  * @bug Nao contem bugs conhecidos!
  *
  *@author Matheus Bispo
@@ -16,7 +16,7 @@
  * \param hwnd - O handle da janela
  * \param erro - O número do erro que aconteceu
  * \return 0 - Caso não haja erros
- *         1 - Caso aconteça algum erro
+ *         1 - Caso aconteca algum erro
  *
  ***********************************************/
 int win_trataErros(HWND hwnd, int erro)
@@ -77,7 +77,7 @@ int win_trataErros(HWND hwnd, int erro)
             break;
 
         case PROP_EXCLUIR_ERRO_MANUT_EXISTENTE:
-            MessageBox(hwnd, "Erro ao excluir proprietário, o mesmo possui manutenção cadastrada!", "", MB_OK | MB_ICONERROR);
+            MessageBox(hwnd, "Erro ao excluir proprietário, o mesmo possui manutencão cadastrada!", "", MB_OK | MB_ICONERROR);
             qtErros++;
             break;
 
@@ -137,7 +137,7 @@ int win_trataErros(HWND hwnd, int erro)
             break;
 
         case VEIC_EXCLUIR_ERRO_MANUT:
-            MessageBox(hwnd, "Erro ao excluir veículo! Veiculo com manutenção registrada!", "", MB_OK | MB_ICONERROR);
+            MessageBox(hwnd, "Erro ao excluir veículo! Veiculo com manutencão registrada!", "", MB_OK | MB_ICONERROR);
             qtErros++;
             break;
 
@@ -173,35 +173,35 @@ int win_trataErros(HWND hwnd, int erro)
             break;
 //---------- MANUTENCAO
         case MANUT_INSERIR_SUCESSO:
-            MessageBox(hwnd, "Manutenção adicionada com sucesso!", "", MB_OK | MB_ICONINFORMATION);
+            MessageBox(hwnd, "Manutencão adicionada com sucesso!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case MANUT_INSERIR_ERRO:
-            MessageBox(hwnd, "Erro ao adicionar manutenção!", "", MB_OK | MB_ICONERROR);
+            MessageBox(hwnd, "Erro ao adicionar manutencão!", "", MB_OK | MB_ICONERROR);
             qtErros++;
             break;
 
         case MANUT_INSERIR_ERRO_DIA:
-            MessageBox(hwnd, "Erro ao adicionar manutenção! Vc já cadastrou este veículo na manutenção hoje!", "", MB_OK | MB_ICONERROR);
+            MessageBox(hwnd, "Erro ao adicionar manutencão! Vc já cadastrou este veículo na manutencão hoje!", "", MB_OK | MB_ICONERROR);
             qtErros++;
             break;
 
         case MANUT_EXCLUIR_SUCESSO:
-            MessageBox(hwnd, "Manutenção excluída com sucesso!", "", MB_OK | MB_ICONINFORMATION);
+            MessageBox(hwnd, "Manutencão excluída com sucesso!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case MANUT_EXCLUIR_ERRO:
-            MessageBox(hwnd, "Erro ao excluir manutenção!", "", MB_OK | MB_ICONERROR);
+            MessageBox(hwnd, "Erro ao excluir manutencão!", "", MB_OK | MB_ICONERROR);
             qtErros++;
             break;
 
         case MANUT_EXCLUIR_ERRO_MANUT_INEXISTENTE:
-            MessageBox(hwnd, "Erro ao excluir manutenção! Manutenção inexistente!", "", MB_OK | MB_ICONERROR);
+            MessageBox(hwnd, "Erro ao excluir manutencão! Manutencão inexistente!", "", MB_OK | MB_ICONERROR);
             qtErros++;
             break;
 
         case MANUT_BUSCA_SUCESSO:
-            //MessageBox(hwnd, "Manutenção encontrada com sucesso!", "", MB_OK | MB_ICONINFORMATION);
+            //MessageBox(hwnd, "Manutencão encontrada com sucesso!", "", MB_OK | MB_ICONINFORMATION);
             break;
 
         case DATA_ATUAL_ERRO:
@@ -255,13 +255,13 @@ int win_trataErros(HWND hwnd, int erro)
             MessageBox(hwnd, "Erro ao fechar arquivo!", "", MB_OK | MB_ICONERROR);
             qtErros++;
             break;
-            
+
 //--------- ALOCAÇÃO
         case ALOC_ERRO:
             MessageBox(hwnd, "Erro! Falta de memória!", "", MB_OK | MB_ICONERROR);
             qtErros++;
             break;
-        
+
         case ALOC_SUCESSO:
             //MessageBox(hwnd, "Memória reservada com sucesso!", "", MB_OK | MB_ICONINFORMATION);
             break;

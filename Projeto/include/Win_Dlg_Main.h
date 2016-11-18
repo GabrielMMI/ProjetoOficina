@@ -1,6 +1,6 @@
 /********************************************//**
  * @file Win_Dlg_Main.h
- * @brief Contem todas as funções relacionadas ao
+ * @brief Contem todas as funcoes relacionadas ao
  *		  Dialog inicial
  *
  * @bug Nao contem bugs conhecidos!
@@ -20,9 +20,9 @@
 /********************************************//**
  * \brief Contem os dados da oficina
  ***********************************************/
-typedef struct oficina{
+typedef struct Oficina{
 	char nome[TAM_NOME];/**< Nome da oficina */
-	Endereco endereco;/**< Endereço da oficina */
+	Endereco endereco;/**< Endereco da oficina */
 }Oficina;
 
 
@@ -30,12 +30,12 @@ typedef struct oficina{
 //Dialog Principal
 LRESULT CALLBACK DlgMainProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-BOOL CALLBACK mostraDadosProp(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK mostraDadosVeic(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK mostraDadosManut(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
+BOOL CALLBACK mostraDadosProp(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK mostraDadosVeic(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK mostraDadosManut(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-BOOL CALLBACK tabPropPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK tabVeicPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
-BOOL CALLBACK tabManutPage(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
+BOOL CALLBACK tabPropPage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK tabVeicPage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK tabManutPage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 #endif

@@ -1,0 +1,168 @@
+<!-- HTML header for doxygen 1.8.12-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.12"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projeto Final: PROJETO FINAL: OFICINA MECÂNICA (TEMA 2)</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Material Icons_e869(0)_64.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Projeto Final</div>
+   <div id="projectbrief">Oficina Mecânica - Tema 2</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Busca');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('index.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">PROJETO FINAL: OFICINA MECÂNICA (TEMA 2) </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><h4>Matheus Filipe de Melo Bispo – UC16101760</h4>
+<h4>Gabriel Messias de Moura Ilha – UC16101214</h4>
+<h2>Índice</h2>
+<ul>
+<li>Especificação</li>
+<li>Structs</li>
+<li>Diagrama de esquema</li>
+<li>Implementação</li>
+</ul>
+<h2>Especificação</h2>
+<p>Esse projeto tem o objetivo de administrar e controlar os dados gerados em uma oficina mecânica. O programa será criado em cima de 3 “pilares” ( <b><a class="el" href="db/d82/struct_proprietario.html" title="Guarda as informacoes de um proprietário. ">Proprietario</a>, <a class="el" href="d7/d1b/struct_veiculo.html" title="Contem as informacoes de um veiculo. ">Veiculo</a> e <a class="el" href="df/df5/struct_manutencao.html" title="Contem informacoes sobre uma manutencão. ">Manutencao</a></b> ), onde esses serão as structs principais do programa, tendo mais 4 structs ( <b><a class="el" href="d1/dde/struct_endereco.html" title="Guarda um endereco. ">Endereco</a>, <a class="el" href="da/dac/struct_telefone.html" title="Guarda um telefone. ">Telefone</a>, <a class="el" href="da/d48/struct_data.html" title="Contem informacoes sobre uma data. ">Data</a> e <a class="el" href="db/d0f/struct_oficina.html" title="Contem os dados da oficina. ">Oficina</a></b> ) “auxiliares”. O programa em questão será responsável por cadastrar, alterar e excluir um proprietário e/ou um veículo, onde a manutenção terá apenas a função cadastrar e excluir, respeitando as possíveis regras de alteração e exclusão. Tendo essas funcionalidades ativas, o programa terá algumas funcionalidades a mais, como, por exemplo, apresentação de todos os dados (proprietários, veículos e manutenções) e pesquisas filtradas, onde serão dadas, pelo usuário, as informações chaves de cada struct principal para suas respectivas pesquisas.</p>
+<h2>Structs</h2>
+<ul>
+<li><b><a class="el" href="db/d82/struct_proprietario.html" title="Guarda as informacoes de um proprietário. ">Proprietario</a>:</b> <div class="fragment"><div class="line">typedef struct{</div><div class="line">             char nome[TAM_NOME]; // Nome do proprietário </div><div class="line">             char cpf[TAM_CPF];   // CPF do proprietário ##(chave)##</div><div class="line">             Endereco endereco;   // Endereço do proprietário</div><div class="line">             Telefone telefone;   // Telefone do proprietário</div><div class="line">}Proprietario;</div></div><!-- fragment --></li>
+</ul>
+<blockquote class="doxtable">
+<p>A struct do tipo <a class="el" href="db/d82/struct_proprietario.html" title="Guarda as informacoes de um proprietário. ">Proprietario</a> é responsável por manipular o arquivo binário “ <b>dbProp.dat</b> ”, onde será salvo os dados lido por essa struct, para futuros cadastros, alterações, exclusões ou pesquisas. </p>
+</blockquote>
+<ul>
+<li><b><a class="el" href="d7/d1b/struct_veiculo.html" title="Contem as informacoes de um veiculo. ">Veiculo</a>:</b> <div class="fragment"><div class="line">typedef struct{</div><div class="line">                char placa[TAM_PLACA];     // A placa do veículo ##(chave)##</div><div class="line">                char modelo[TAM_MODELO];   // O modelo do veiculo</div><div class="line">                char fabricante[TAM_FABRICANTE]; // O fabricante do veiculo</div><div class="line">                char chassi[TAM_CHASSI];   // O chassi do veiculo</div><div class="line">                char ano[TAM_ANO];         // O ano de fabricação do veiculo</div><div class="line">}Veiculo;</div></div><!-- fragment --></li>
+</ul>
+<blockquote class="doxtable">
+<p>A struct do tipo <a class="el" href="d7/d1b/struct_veiculo.html" title="Contem as informacoes de um veiculo. ">Veiculo</a> é responsável por manipular o arquivo binário “ <b>dbVeic.dat</b> ”, onde será salvo os dados lido por essa struct, para futuros cadastros, alterações, exclusões ou pesquisas. </p>
+</blockquote>
+<ul>
+<li><b>Manutenção:</b> <div class="fragment"><div class="line">typedef struct{</div><div class="line">                char placa[TAM_PLACA];  // A placa do veículo ##(chave)##</div><div class="line">                char cpf[TAM_CPF];      // O cpf do proprietário ##(chave)##</div><div class="line">                char descricao[TAM_DESCRICAO]; // A descrição da manutenção</div><div class="line">                float valorPecas;       // O valor das peças da manutenção</div><div class="line">                float valorObra         //  O valor da mão-de-obra da manut.</div><div class="line">                Data data;              //  A data da manutenção ##(chave)##</div><div class="line">}Manutencao;</div></div><!-- fragment --></li>
+</ul>
+<blockquote class="doxtable">
+<p>A struct do tipo <a class="el" href="df/df5/struct_manutencao.html" title="Contem informacoes sobre uma manutencão. ">Manutencao</a> é responsável por manipular o arquivo binário “ <b>dbManut.dat</b> ”, onde será salvo os dados lido por essa struct, para futuros cadastros, exclusões ou pesquisas. </p>
+</blockquote>
+<ul>
+<li><b>Endereço:</b> <div class="fragment"><div class="line"> typedef struct endereco{</div><div class="line">                char descricao[TAM_DESCRICAO]; // A descrição do endereço</div><div class="line">                char cidade[TAM_CIDADE];       // A cidade do endereço</div><div class="line">                char estado[TAM_ESTADO];       // O estado do endereço</div><div class="line">}Endereco;</div></div><!-- fragment --></li>
+</ul>
+<blockquote class="doxtable">
+<p>A struct do tipo <a class="el" href="d1/dde/struct_endereco.html" title="Guarda um endereco. ">Endereco</a> é responsável por manipular o endereço ultilizado na struct <b><a class="el" href="db/d82/struct_proprietario.html" title="Guarda as informacoes de um proprietário. ">Proprietario</a>.</b> </p>
+</blockquote>
+<ul>
+<li><b><a class="el" href="da/dac/struct_telefone.html" title="Guarda um telefone. ">Telefone</a>:</b> <div class="fragment"><div class="line">typedef struct telefone{</div><div class="line">                char ddd[TAM_DDD];     // O DDD do telefone</div><div class="line">                char telefone[TAM_TEL];// O telefone</div><div class="line">}Telefone;</div></div><!-- fragment --></li>
+</ul>
+<blockquote class="doxtable">
+<p>A struct do tipo <a class="el" href="da/dac/struct_telefone.html" title="Guarda um telefone. ">Telefone</a> é responsável por manipular o telefone que será utilizado na </p>
+</blockquote>
+<p>struct de <b><a class="el" href="db/d82/struct_proprietario.html" title="Guarda as informacoes de um proprietário. ">Proprietario</a></b> .</p>
+<ul>
+<li><b><a class="el" href="da/d48/struct_data.html" title="Contem informacoes sobre uma data. ">Data</a>:</b> <div class="fragment"><div class="line">typedef struct data{</div><div class="line">              int dia, mes, ano; </div><div class="line">//Informações acerca da data</div><div class="line">}Data;</div></div><!-- fragment --></li>
+</ul>
+<blockquote class="doxtable">
+<p>A struct <a class="el" href="da/d48/struct_data.html" title="Contem informacoes sobre uma data. ">Data</a> é responsável por manipular a data que será utilizada na struct de </p>
+</blockquote>
+<p>Manutenção</p>
+<ul>
+<li><b><a class="el" href="db/d0f/struct_oficina.html" title="Contem os dados da oficina. ">Oficina</a>:</b> <div class="fragment"><div class="line">typedef struct oficina{</div><div class="line">        char nome[TAM_NOME];                      // Nome da oficina</div><div class="line">        char endereco[TAM_NOME];                // Endereço da oficina</div><div class="line">}Oficina;</div></div><!-- fragment --></li>
+</ul>
+<blockquote class="doxtable">
+<p>A struct <a class="el" href="db/d0f/struct_oficina.html" title="Contem os dados da oficina. ">Oficina</a> é responsável por receber os dados da oficina ao inicializar o programa, apresentando o nome e o endereço da oficina durante a execução do programa. </p>
+</blockquote>
+<ul>
+<li><b><a class="el" href="da/dff/struct_arvore.html" title="Contem as variáveis necessárias para criar um no do tipo proprietário em uma arvore binária...">Arvore</a>:</b> <div class="fragment"><div class="line">typedef struct Arvore{</div><div class="line">     Proprietario dado;                         // Dados de um proprietario</div><div class="line">     struct Arvore *esquerda;                   // Proprietario à esquerda (menor nome alfabeticamente)</div><div class="line">     struct Arvore *direita;                    // Proprietario à direita(maior nome alfabeticamente)</div><div class="line"> }Arvore;</div></div><!-- fragment --></li>
+</ul>
+<blockquote class="doxtable">
+<p>A struct <a class="el" href="da/dff/struct_arvore.html" title="Contem as variáveis necessárias para criar um no do tipo proprietário em uma arvore binária...">Arvore</a> é responsável por carregar os dados de um proprietario na memoria em ordem alfabetica do nome dos proprietarios. </p>
+</blockquote>
+<h2>Diagrama de Esquema</h2>
+<p>O diagrama de esquema a seguir mostra todos os componentes utilizados nas structs desse projeto, além das informações chaves em destaque</p>
+<div class="image">
+<img src="https://bitbucket.org/repo/np4y89/images/955262409-Capturar.PNG" alt="Diagrama.jpg"/>
+</div>
+<h2>Implementação</h2>
+<p>Esse projeto está sendo desenvolvido por meio da Linguagem de Programação C, utilizando como base a biblioteca windows.h no segundo semestre de 2016. Seu código fonte está disponível com o nome físico <b><a class="el" href="d1/d1f/_main_8c.html" title="Inicializa a janela inicial e cria os diretórios necessários. ">Main.c</a></b> </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.12-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <!--<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.12 </li>-->
+  </ul>
+</div>
+</body>
+</html>
