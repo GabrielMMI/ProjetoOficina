@@ -200,7 +200,7 @@ BOOL CALLBACK apresentaTodosDadosProc(HWND hwnd, UINT message, WPARAM wParam, LP
 			tvinsert.item.pszText="Veiculos";
 			noVeic=(HTREEITEM)SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
 
-			tvinsert.item.pszText="manutencoes";
+			tvinsert.item.pszText="Manutencoes";
 			noManut=(HTREEITEM)SendDlgItemMessage(hwnd, ID_MOSTRA_DADOS_TREE_VIEW,TVM_INSERTITEM,0,(LPARAM)&tvinsert);
 
 			proprietarios = carregaProprietarios();
