@@ -1,9 +1,9 @@
-#**PROJETO FINAL: OFICINA MECÂNICA (TEMA 2)**
+# PROJETO FINAL UCB: OFICINA MECÂNICA
 
-###Matheus Filipe de Melo Bispo – UC16101760 
-###Gabriel Messias de Moura Ilha – UC16101214
+### Matheus Filipe de Melo Bispo – UC16101760 
+### Gabriel Messias de Moura Ilha – UC16101214
 
-##Índice 
+## Índice 
 
 - Especificação
 - Structs
@@ -12,15 +12,15 @@
 - Funcionamento
 
 
-##**Especificação**
+## Especificação
 
 Esse projeto tem o objetivo de administrar e controlar os dados gerados em uma oficina mecânica. O programa será criado em cima de 3 “pilares” ( ** Proprietario, Veiculo e Manutencao ** ), onde esses serão as structs principais do programa, tendo mais 4 structs ( ** Endereço, Telefone, Data e Oficina ** ) “auxiliares”. 
 O programa em questão será responsável por cadastrar, alterar e excluir um proprietário e/ou um veículo, onde a manutenção terá apenas a função cadastrar e excluir, respeitando as possíveis regras de alteração e exclusão.
 Tendo essas funcionalidades ativas, o programa terá algumas funcionalidades a mais, como, por exemplo, apresentação de todos os dados (proprietários, veículos e manutenções) e pesquisas filtradas, onde serão dadas, pelo usuário, as informações chaves de cada struct principal para suas respectivas pesquisas.
 
-##**Structs **
+## Structs 
 
--  ** Proprietario  : **  
+- Proprietario  :  
 
 ````
 typedef struct{
@@ -34,7 +34,7 @@ typedef struct{
 > A struct do tipo Proprietario é responsável por manipular o arquivo binário “ ** dbProp.dat ** ”, onde será salvo os dados lido por essa struct, para futuros cadastros, alterações, exclusões ou pesquisas.
 
 
--	  ** Veiculo:  ** 
+- Veiculo:
 ```
 typedef struct{
 	        char placa[TAM_PLACA];     // A placa do veículo ##(chave)##
@@ -49,7 +49,7 @@ typedef struct{
 
 
 
--  ** Manutenção: **
+-  Manutenção: 
 ```
 typedef struct{
 	        char placa[TAM_PLACA];  // A placa do veículo ##(chave)##
@@ -64,7 +64,7 @@ typedef struct{
 
 > A struct do tipo Manutenção é responsável por manipular o arquivo binário “ ** dbManut.dat ** ”, onde será salvo os dados lido por essa struct, para futuros cadastros, exclusões ou pesquisas.
 
-- 	 ** Endereço: ** 
+- Endereço: 
 
 ```
  typedef struct endereco{
@@ -77,7 +77,7 @@ typedef struct{
 >	A struct do tipo Endereço é responsável por manipular o endereço ultilizado na  struct **  Proprietario.
  ** 
 
--  ** 	Telefone: ** 
+-  Telefone:
 ```
 typedef struct telefone{
 	        char ddd[TAM_DDD];     // O DDD do telefone
@@ -89,7 +89,7 @@ typedef struct telefone{
 >A struct do tipo Telefone é responsável por manipular o telefone que será utilizado na 
 struct de  ** Proprietario ** .
 
--  ** 	Data: ** 
+-  Data: 
 
 ```
 typedef struct data{
@@ -104,7 +104,7 @@ Manutenção
 
 
 
-- 	 ** Oficina: ** 
+- Oficina: 
 
 ```
 typedef struct oficina{
@@ -117,7 +117,7 @@ typedef struct oficina{
 
 
 
-- 	 ** Arvore: ** 
+- Arvore:
 
 ```
 typedef struct Arvore{
@@ -129,17 +129,17 @@ typedef struct Arvore{
 
 >A struct Arvore é responsável por carregar os dados de um proprietario na memoria em ordem alfabetica do nome dos proprietarios.
 
-## **Diagrama de Esquema**
+## Diagrama de Esquema
 
 O diagrama de esquema a seguir mostra todos os componentes utilizados nas structs desse projeto, além das informações chaves em destaque
 
 ![Diagrama.jpg](https://bitbucket.org/repo/np4y89/images/955262409-Capturar.PNG)
 
-##**Implementação**
+## Implementação
 
 Esse projeto está sendo desenvolvido por meio da Linguagem de Programação C, utilizando como base a biblioteca windows.h no segundo semestre de 2016. Seu código fonte está disponível com o nome físico  ** Main.c **
 
-## **Funcionamento**
+## Funcionamento
 
 O ponto de entrada da aplicação é a função WinMain, onde se cria uma instância no sistema, apartir dessa instancia são criados duas caixas de dialogo, que interagem com o usuário através de eventos recebidos e lançados pelo sistema que são nomeados como "mensagens":
 
